@@ -12,7 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 @RequestMapping("/api")
-public class HomeController {
+public class I18nController {
 	
 	@Autowired
 	private i18nConfig i18n;
