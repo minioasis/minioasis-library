@@ -114,27 +114,26 @@
 
 	<div class="container">
 		<div class="notification is-white">
-			<div class="box has-background-white-bis">
+					
+			<article class="media box has-background-white-ter">
+			  <figure class="media-left">
 			    <span class="has-text-link">
-					<i class="fas fa-lg fa-book-reader" style="vertical-align:baseline;"></i>
-					<span class="title is-4" th:text="#{library.management.system}">Library Management System</span>
+			    	<i class="fas fa-lg fa-book-reader"></i>
 				</span>
-				<p class="subtitle is-6">
-  					<span class="fas fa-calendar-alt has-text-success"></span>
-	  				<span th:text="${#calendars.format(now,'dd MMM yyyy')}">01 Sep 2015</span>
-	  				...
-	  				<span class="far fa-clock has-text-success"></span>
-	    			<span th:text="${#calendars.format(now,'hh:mm:ss a')}">08:28:54</span>
-				</p>
-			</div>
-			<div class="columns">
-				<div class="column">
-				First column
-				</div>
-				<div class="column">
-				Second column
-				</div>
-			</div>
+			  </figure>
+			  <div class="media-content">
+			    <div class="content">
+			    	<p class="title is-4 has-text-link" th:text="#{library.management.system}">Library Management System</p>
+					<p class="subtitle is-6">
+			  			<span class="fas fa-calendar-alt has-text-success"></span>
+				  		<span th:text="${#calendars.format(now,'dd MMM yyyy')}">01 Sep 2015</span>
+				  		<span class="far fa-clock has-text-success"></span>
+				    	<span th:text="${#calendars.format(now,'hh:mm:ss a')}">08:28:54</span>
+					</p>
+			    </div>
+			  </div>
+			</article>
+			
 		</div>
 	</div>
 </body>
