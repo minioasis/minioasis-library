@@ -13,8 +13,7 @@
 </head>
 <body>
 
-	<nav class="navbar has-shadow" role="navigation"
-		aria-label="main navigation">
+	<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
 			<a class="navbar-item" href="/"> <img
 				src="/images/logo.png" width="45" height="35">
@@ -51,8 +50,9 @@
 					<a class="navbar-link" th:text="#{nav.more}"> More </a>
 
 					<div class="navbar-dropdown">
-						<a class="navbar-item"> About </a> <a class="navbar-item">
-							Jobs </a> <a class="navbar-item"> Contact </a>
+						<a class="navbar-item"> About </a>
+						<a class="navbar-item">	Jobs </a>
+						<a class="navbar-item"> Contact </a>
 						<hr class="navbar-divider">
 						<a class="navbar-item"> Report an issue </a>
 					</div>
@@ -105,7 +105,7 @@
 		        el.classList.toggle('is-active');
 		        $target.classList.toggle('is-active');
 
-		      });
+		});
 		    });
 		  }
 
@@ -113,15 +113,20 @@
     </script>
 
 	<div class="container">
-		<div class="notification">
-			<section class="section">
-				<div class="container">
-					<h1 class="title" th:text="#{minioasis.library}"></h1>
-					<p class="subtitle">
-						My first website with <strong>Bulma</strong>!
-					</p>
-				</div>
-			</section>
+		<div class="notification is-white">
+			<div class="box has-background-white-bis">
+			    <span class="has-text-link">
+					<i class="fas fa-lg fa-book-reader" style="vertical-align:baseline;"></i>
+					<span class="title is-4" th:text="#{library.management.system}">Library Management System</span>
+				</span>
+				<p class="subtitle is-6">
+  					<span class="fas fa-calendar-alt has-text-success"></span>
+	  				<span th:text="${#calendars.format(now,'dd MMM yyyy')}">01 Sep 2015</span>
+	  				...
+	  				<span class="far fa-clock has-text-success"></span>
+	    			<span th:text="${#calendars.format(now,'hh:mm:ss a')}">08:28:54</span>
+				</p>
+			</div>
 			<div class="columns">
 				<div class="column">
 				First column
