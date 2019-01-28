@@ -17,8 +17,8 @@ public class I18nController {
 	@Autowired
 	private i18nConfig i18n;
 
-	@GetMapping()
+/*	@GetMapping()
 	public String getSource(@RequestHeader("Accept-Language") String locale) {
 		return i18n.messageSource().getMessage("hello", null, new Locale(locale));
-	}
+	}*/
 }

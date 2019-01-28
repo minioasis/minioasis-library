@@ -1,23 +1,118 @@
 <!DOCTYPE html>
-<html>
+
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Minioasis Library</title>
-<link rel="stylesheet"
-	href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.0/css/bulma.min.css">
-<script defer
-	src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
-<!-- <link rel="stylesheet" href="styles/debug.css"> -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Minioasis Library</title>
+	<link rel="stylesheet"
+		href="https://cdnjs.cloudflare.com/ajax/libs/bulma/0.7.2/css/bulma.min.css">
+	<script defer
+		src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
+	<!-- <link rel="stylesheet" href="css/debug.css"> -->
 </head>
 <body>
-	<section class="section">
-		<div class="container">
-			<h1 class="title">Hello Minioasis Library</h1>
-			<p class="subtitle">
-				My first website with <strong>Bulma</strong>!
-			</p>
+
+	<nav class="navbar has-shadow" role="navigation"
+		aria-label="main navigation">
+		<div class="navbar-brand">
+			<a class="navbar-item" href="https://minioasis.my"> <img
+				src="/images/minioasis-logo.png" width="45" height="35">
+			</a> <a role="button" class="navbar-burger burger" aria-label="menu"
+				aria-expanded="false" data-target="navbarBasicExample"> <span
+				aria-hidden="true"></span> <span aria-hidden="true"></span> <span
+				aria-hidden="true"></span>
+			</a>
 		</div>
-	</section>
+
+		<div id="navbarBasicExample" class="navbar-menu">
+			<div class="navbar-start">
+				<a class="navbar-item" th:text="#{nav.home}"> Home </a> 
+				<a class="navbar-item" th:text="#{nav.documentation}">	Documentation </a>
+
+				<div class="navbar-item has-dropdown is-hoverable">
+					<a class="navbar-link" th:text="#{nav.more}"> More </a>
+
+					<div class="navbar-dropdown">
+						<a class="navbar-item"> About </a> <a class="navbar-item">
+							Jobs </a> <a class="navbar-item"> Contact </a>
+						<hr class="navbar-divider">
+						<a class="navbar-item"> Report an issue </a>
+					</div>
+				</div>
+			</div>
+
+			<div class="navbar-end">
+
+				<div class="navbar-item has-dropdown is-hoverable">
+					<a class="navbar-link" th:text="#{nav.lang}"> Lang </a>
+
+					<div class="navbar-dropdown">
+						<a class="navbar-item" href="#" th:href="@{/(lang=en)}" th:text="#{nav.en}"> English </a>
+						<a class="navbar-item" href="#" th:href="@{/(lang=cn)}" th:text="#{nav.cn}"> Chinese </a>
+					</div>
+				</div>
+				<div class="navbar-item">
+					
+				</div>
+				
+				<div class="navbar-item">
+					<div class="buttons">
+						<a class="button is-primary"> <strong>Sign up</strong>
+						</a> <a class="button is-light"> Log in </a>
+					</div>
+				</div>
+			</div>
+		</div>
+	</nav>
+
+	<script type="text/javascript">
+	document.addEventListener('DOMContentLoaded', () => {
+
+		  // Get all "navbar-burger" elements
+		  const $navbarBurgers = Array.prototype.slice.call(document.querySelectorAll('.navbar-burger'), 0);
+
+		  // Check if there are any navbar burgers
+		  if ($navbarBurgers.length > 0) {
+
+		    // Add a click event on each of them
+		    $navbarBurgers.forEach( el => {
+		      el.addEventListener('click', () => {
+
+		        // Get the target from the "data-target" attribute
+		        const target = el.dataset.target;
+		        const $target = document.getElementById(target);
+
+		        // Toggle the "is-active" class on both the "navbar-burger" and the "navbar-menu"
+		        el.classList.toggle('is-active');
+		        $target.classList.toggle('is-active');
+
+		      });
+		    });
+		  }
+
+		});
+    </script>
+
+	<div class="container">
+		<div class="notification">
+			<section class="section">
+				<div class="container">
+					<h1 class="title" th:text="#{minioasis.library}"></h1>
+					<p class="subtitle">
+						My first website with <strong>Bulma</strong>!
+					</p>
+				</div>
+			</section>
+			<div class="columns">
+				<div class="column">
+				First column
+				</div>
+				<div class="column">
+				Second column
+				</div>
+			</div>
+		</div>
+	</div>
 </body>
 </html>

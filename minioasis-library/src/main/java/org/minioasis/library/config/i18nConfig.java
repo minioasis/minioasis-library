@@ -4,14 +4,14 @@ import java.util.Locale;
 
 import org.springframework.web.servlet.LocaleResolver;
 import org.springframework.web.servlet.config.annotation.InterceptorRegistry;
+import org.springframework.web.servlet.config.annotation.WebMvcConfigurer;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.context.support.ResourceBundleMessageSource;
 import org.springframework.web.servlet.i18n.LocaleChangeInterceptor;
 import org.springframework.web.servlet.i18n.SessionLocaleResolver;
 
 @Configuration
-public class i18nConfig {
+public class i18nConfig implements WebMvcConfigurer {
 
 	@Bean
 	public LocaleResolver localeResolver() {
@@ -29,16 +29,6 @@ public class i18nConfig {
 
 	public void addInterceptors(InterceptorRegistry registry) {
 		registry.addInterceptor(localeChangeInterceptor());
-	}
-	
-	@Bean
-	public ResourceBundleMessageSource messageSource() {
-		ResourceBundleMessageSource rs = new ResourceBundleMessageSource();
-		rs.setBasename("messages");
-		rs.setUseCodeAsDefaultMessage(true);
-		return rs;
-	}
-	
-	
+	}	
 	
 }
