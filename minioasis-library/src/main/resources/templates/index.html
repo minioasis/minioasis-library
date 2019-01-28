@@ -16,8 +16,8 @@
 	<nav class="navbar has-shadow" role="navigation"
 		aria-label="main navigation">
 		<div class="navbar-brand">
-			<a class="navbar-item" href="https://minioasis.my"> <img
-				src="/images/minioasis-logo.png" width="45" height="35">
+			<a class="navbar-item" href="/"> <img
+				src="/images/logo.png" width="45" height="35">
 			</a> <a role="button" class="navbar-burger burger" aria-label="menu"
 				aria-expanded="false" data-target="navbarBasicExample"> <span
 				aria-hidden="true"></span> <span aria-hidden="true"></span> <span
@@ -27,8 +27,25 @@
 
 		<div id="navbarBasicExample" class="navbar-menu">
 			<div class="navbar-start">
-				<a class="navbar-item" th:text="#{nav.home}"> Home </a> 
-				<a class="navbar-item" th:text="#{nav.documentation}">	Documentation </a>
+				<a class="navbar-item" href="/">
+					<span class="icon has-text-link">
+			          <i class="fas fa-home"></i>
+			        </span>
+			        <span th:text="#{nav.home}">
+			          Home
+			        </span>
+				</a> 
+				<a class="navbar-item">
+					<span class="icon has-text-primary">
+			          <i class="fas fa-book"></i>
+			        </span>
+			        <span class="is-hidden-touch is-hidden-widescreen" th:text="#{nav.doc}">
+			          Docs
+			        </span>
+			        <span class="is-hidden-desktop-only" th:text="#{nav.documentation}">
+			          Documentation
+			        </span>
+				</a>
 
 				<div class="navbar-item has-dropdown is-hoverable">
 					<a class="navbar-link" th:text="#{nav.more}"> More </a>
@@ -45,15 +62,16 @@
 			<div class="navbar-end">
 
 				<div class="navbar-item has-dropdown is-hoverable">
-					<a class="navbar-link" th:text="#{nav.lang}"> Lang </a>
+					<a class="navbar-item">
+						<span class="icon has-text-link">
+			          		<i class="fas fa-language fa-2x"></i>
+			        	</span>
+					</a>
 
 					<div class="navbar-dropdown">
 						<a class="navbar-item" href="#" th:href="@{/(lang=en)}" th:text="#{nav.en}"> English </a>
 						<a class="navbar-item" href="#" th:href="@{/(lang=cn)}" th:text="#{nav.cn}"> Chinese </a>
 					</div>
-				</div>
-				<div class="navbar-item">
-					
 				</div>
 				
 				<div class="navbar-item">
