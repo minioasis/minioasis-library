@@ -10,14 +10,21 @@
 	<script defer
 		src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
 	<!-- <link rel="stylesheet" href="css/debug.css"> -->
+	
+	<style>
+		.bd-lead {
+		    margin-left: -2rem;
+		    padding: 1rem;
+		}
+	</style>
+
 </head>
 <body>
 
 	<nav class="navbar has-shadow" role="navigation" aria-label="main navigation">
 		<div class="navbar-brand">
-			<a class="navbar-item" href="/"> <img
-				src="/images/logo.png" width="45" height="35">
-			</a> <a role="button" class="navbar-burger burger" aria-label="menu"
+			<a class="navbar-item" href="/"> <img src="/images/logo.png" width="45" height="35"></a>
+			<a role="button" class="navbar-burger burger" aria-label="menu"
 				aria-expanded="false" data-target="navbarBasicExample"> <span
 				aria-hidden="true"></span> <span aria-hidden="true"></span> <span
 				aria-hidden="true"></span>
@@ -27,7 +34,7 @@
 		<div id="navbarBasicExample" class="navbar-menu">
 			<div class="navbar-start">
 				<a class="navbar-item" href="/">
-					<span class="icon has-text-link">
+					<span class="icon has-text-danger">
 			          <i class="fas fa-home"></i>
 			        </span>
 			        <span th:text="#{nav.home}">
@@ -113,28 +120,282 @@
     </script>
 
 	<div class="container">
-		<div class="notification is-white">
-					
-			<article class="media box has-background-white-ter">
-			  <figure class="media-left">
-			    <span class="has-text-link">
-			    	<i class="fas fa-lg fa-book-reader"></i>
-				</span>
-			  </figure>
-			  <div class="media-content">
-			    <div class="content">
-			    	<p class="title is-4 has-text-link" th:text="#{library.management.system}">Library Management System</p>
-					<p class="subtitle is-6">
-			  			<span class="fas fa-calendar-alt has-text-success"></span>
-				  		<span th:text="${#calendars.format(now,'dd MMM yyyy')}">01 Sep 2015</span>
-				  		<span class="far fa-clock has-text-success"></span>
-				    	<span th:text="${#calendars.format(now,'hh:mm:ss a')}">08:28:54</span>
-					</p>
+	
+		<div class="tile is-ancestor bd-lead">
+			<div class="tile is-parent">
+			    <div class="tile is-child box has-background-light is-hidden-mobile">
+					<article class="media">
+					  <figure class="media-left">
+					    <span class="has-text-link">
+					    	<i class="fas fa-lg fa-book-reader"></i>
+						</span>
+					  </figure>
+					  <div class="media-content">
+					    <div class="content">
+					    	<p class="title is-5 has-text-link" th:text="#{library.management.system}">Library Management System</p>
+					    	<p></p>
+							<p class="subtitle is-6">
+					  			<span class="fas fa-calendar-alt has-text-link"></span>
+						  		<span th:text="${#calendars.format(now,'dd MMM yyyy')}">01 Sep 2015</span>
+						  		<span class="far fa-clock has-text-link"></span>
+						    	<span th:text="${#calendars.format(now,'hh:mm:ss a')}">08:28:54</span>
+							</p>
+					    </div>
+					  </div>
+					</article>			      
 			    </div>
-			  </div>
-			</article>
-			
+		  	</div>					
 		</div>
+	</div>
+	
+	<div class="container">
+	
+		<div class="tile is-ancestor bd-lead">
+		  <div class="tile is-parent">
+		    <div class="tile is-child box">
+		    
+		      <article class="media">
+			    <div class="media-left">
+			      <figure>
+			        <span class="has-text-primary">
+					    <i class="fas fa-lg fa-user"></i>
+					</span>
+			      </figure>
+			    </div>
+			    <div class="media-content">
+			      <div class="content">
+			      	<h4 class="title is-4">Patron</h4>
+			      </div>
+			    </div>
+			  </article>
+			  
+			  <div class="content">
+				Patron <br>
+				<a class="button">
+					<span class="has-text-link">
+						<i class="fas fa-user-plus"></i>
+					</span>
+				</a>
+				<a class="button">
+					<span class="has-text-link">
+					    <i class="fas fa-search"></i>
+					</span>
+				</a>
+				<p><p/>
+				Change Group 
+				<br>
+				<a class="button">
+					<span class="has-text-link">
+						<i class="fas fa-random"></i>
+					</span>
+				</a>
+				<p><p/>
+				Ban Patron
+				<br>
+				<a class="button">
+					<span class="has-text-link">
+						<i class="fas fa-user-lock"></i>
+					</span>
+				</a>
+		  
+			  </div>
+			  <hr>
+		      <article class="media">
+			    <div class="media-left">
+			      <figure>
+			        <span class="has-text-warning">
+					    <i class="fas fa-lg fa-sitemap"></i>
+					</span>
+			      </figure>
+			    </div>
+			    <div class="media-content">
+			      <div class="content">
+			      	<h4 class="title is-4">Cataloging</h4>	      	
+			      </div>
+			    </div>
+			  </article>
+			  <div class="content">
+					Print Shelfmarks
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-barcode"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Stock Check / Reset
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-search"></i>
+						</span>
+			      	</a>
+			      	<a class="button is-danger">
+			      		<span>
+					    	<i class="fas fa-clipboard-check"></i>
+						</span>
+			      	</a>			  
+			  </div>
+		    </div>
+		  </div>
+		  <div class="tile is-parent">
+		    <div class="tile is-child box">
+		    
+		      <article class="media">
+			    <div class="media-left">
+			      <figure>
+			        <span class="has-text-warning">
+					    <i class="fas fa-lg fa-sitemap"></i>
+					</span>
+			      </figure>
+			    </div>
+			    <div class="media-content">
+			      <div class="content">
+			      	<h4 class="title is-4">Cataloging</h4>	      	
+			      </div>
+			    </div>
+			  </article>
+			  	<div class="content">
+				    Reference OPACs <br/>
+			      	<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-university"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Scraper 
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-spider"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Bibliography
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-book"></i>
+						</span>
+			      	</a>
+			      	<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-search"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Uncompleted Biblio.
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-search"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Biblio. Related
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-book"></i>
+						</span>
+			      	</a>
+			      	<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-search"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Item
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-search"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Attachment
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-search"></i>
+						</span>
+			      	</a>				      	
+			      </div>
+		    </div>
+		  </div>
+		  <div class="tile is-parent">
+		    <div class="tile is-child box">
+
+		      <article class="media">
+			    <div class="media-left">
+			      <figure>
+			        <span class="has-text-success">
+					    <i class="fas fa-lg fa-sync-alt"></i>
+					</span>
+			      </figure>
+			    </div>
+			    <div class="media-content">
+			      <div class="content">
+			      	<h4 class="title is-4">Circulation</h4>	      	
+			      </div>
+			    </div>
+			  </article>
+			  	<div class="content">
+				    Check Out <br/>
+			      	<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-shopping-cart"></i>
+						</span>
+			      	</a>
+			      	<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-search"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Attachment Check Out 
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-paperclip"></i>
+					    	<i class="fas fa-shopping-cart"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Check In
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-arrow-down"></i>
+						</span>
+			      	</a>
+			      	<p><p/>
+					Reservation Notification
+					<br>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-mobile-alt"></i>
+						</span>
+			      	</a>
+					<a class="button">
+			      		<span class="has-text-link">
+					    	<i class="fas fa-search"></i>
+						</span>
+			      	</a>
+			      </div>
+			      
+		    </div>
+		  </div>
+		  <div class="tile is-vertical is-parent">
+		    <div class="tile is-child box">
+		      <p class="title">One</p>
+		    </div>
+		    <div class="tile is-child box">
+		      <p class="title">Two</p>
+		    </div>
+		  </div>
+		</div>
+	
 	</div>
 </body>
 </html>
