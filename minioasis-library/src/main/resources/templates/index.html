@@ -10,20 +10,20 @@
 
 	<div class="container">
 	
-	<div th:replace="fragments/header :: header"></div>
+		<div th:replace="fragments/header :: header"></div>
+		
 		<div class="row">
-		    <div class="col-sm">
+		    <div class="col">	    	
+				<!----------------- Patron ---------------------->
 				<h5>
 					<span class="text-info">
 						<i class="fas fa-user"></i>
 					</span>
-					Patron
+					<span th:text="#{patron}">Patron</span>
 				</h5>
-
-				<!----------------- Patron ---------------------->
 				
 				<p><p/>
-				Patron
+				<span th:text="#{patron}">Patron</span>
 				<br>
 				<a class="btn btn-outline-info text-info">
 					<span><i class="fas fa-user-plus"></i></span>
@@ -33,7 +33,7 @@
 				</a>
 				<p><p/>
 				
-				Change Group 
+				<span th:text="#{patron.change.group}">Change Group</span>
 				<br>
 				<a class="btn btn-outline-info text-info">
 					<span class="has-text-link">
@@ -42,293 +42,189 @@
 				</a>
 				<p><p/>
 				
-				Ban Patron
+				<span th:text="#{patron.ban}">Ban Patron</span>
 				<br>
 				<a class="btn btn-outline-info text-info">
 					<span class="has-text-link">
-						<i class="fas fa-user-lock"></i>
+						<i class="fas fa-lock"></i>
 					</span>
 				</a>
-				<hr>
-				<!----------------- Cataloging ---------------------->
-				
-				Print Shelfmarks
-					<br>
-					<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-barcode"></i>
-						</span>
-			      	</a>
-			      	<p><p/>
-					Stock Check / Reset
-					<br>
-					<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-search"></i>
-						</span>
-			      	</a>
-			      	<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-clipboard-check"></i>
-						</span>
-			      	</a>
+
 		    </div>
 		    
-		    <div class="col-sm">
+		    <div class="col">
+				<!----------------- Cataloging ---------------------->
 				<h5>
 					<span class="text-danger">
 						<i class="fas fa-sitemap"></i>
 					</span>
-			      	Cataloging
+			      	<span th:text="#{cataloging}">Cataloging</span>
 				</h5>
 
-				<!----------------- Cataloging ---------------------->
-				
 				<p><p/>
-				Reference OPACs <br/>
-			      	<a class="btn btn-outline-danger text-danger">
-			      		<span>
-			      			<i class="fas fa-university"></i>
-			      		</span>
-			      	</a>
-			      	<p><p/>
-					Scraper 
-					<br>
-					<a class="btn btn-outline-danger text-danger">
-			      		<span>
-			      			<i class="fas fa-spider"></i>
-			      		</span>
-			      	</a>
-			      	<p><p/>
-					Bibliography
-					<br>
-					<a class="btn btn-outline-danger text-danger">
-			      		<span>
-			      			<i class="fas fa-book"></i>
-						</span>
-			      	</a>
-			      	<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-search"></i>
-						</span>
-			      	</a>
-			      	<p><p/>
-					Uncompleted Biblio.
-					<br>
-					<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-search"></i>
-						</span>
-			      	</a>
-			      	<p><p/>
-					Biblio. Related
-					<br>
-					<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-book"></i>
-						</span>
-			      	</a>
-			      	<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-search"></i>
-						</span>
-			      	</a>
-			      	<p><p/>
-					Item
-					<br>
-					<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-search"></i>
-						</span>
-			      	</a>
-			      	<p><p/>
-					Attachment
-					<br>
-					<a class="btn btn-outline-danger text-danger">
-			      		<span>
-					    	<i class="fas fa-search"></i>
-						</span>
-			      	</a>
+				<span th:text="#{opac}">OPACs</span>
+				<br/>
+				<a class="btn btn-outline-danger text-danger">
+			      	<span>
+			      		<i class="fas fa-university"></i>
+			      	</span>
+				</a>
+		      	<p><p/>
+				<span th:text="#{web.scraping}">Web Scraping</span> 
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<span>
+		      			<i class="fas fa-spider"></i>
+		      		</span>
+		      	</a>
+		      	<p><p/>
+				<span th:text="#{biblio}">Bibliography</span> 
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<span>
+		      			<i class="fas fa-book"></i>
+					</span>
+		      	</a>
+		      	<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-search"></i>
+					</span>
+		      	</a>
+		      	<p><p/>
+				<span th:text="#{item}">Item</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-search"></i>
+					</span>
+		      	</a>
+		      	<p><p/>
+				<span th:text="#{attachment}">Attachment</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-search"></i>
+					</span>
+		      	</a>
 			      	
 		    </div>
-		    <div class="col-sm">
+				    
+		    <div class="col">
+		    	<!----------------- Cataloging ---------------------->	
 				<h5>
-		      		<span class="text-warning">
+					<span class="text-danger">
+						<i class="fas fa-sitemap"></i>
+					</span>
+					...
+				</h5>
+
+		      	<p><p/>
+				<span th:text="#{biblio.related}">Biblio. Related</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-book"></i>
+					</span>
+		      	</a>
+		      	<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-search"></i>
+					</span>
+		      	</a>
+		      	<p><p/>
+				<span th:text="#{uncompleted.biblio}">Uncompleted Biblio.</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-search"></i>
+					</span>
+		      	</a>
+				<p><p/>				
+				<span th:text="#{print.shelfmark}">Print Shelfmarks</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-barcode"></i>
+					</span>
+		      	</a>
+		      	<p><p/>
+				<span th:text="#{stock.check.reset}">Stock Check / Reset</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-search"></i>
+					</span>
+		      	</a>
+		      	<a class="btn btn-outline-danger text-danger">
+		      		<span>
+				    	<i class="fas fa-clipboard-check"></i>
+					</span>
+		      	</a>
+		    </div>
+	    	    
+		    <div class="col">
+		    	<!----------------- Circulation ---------------------->	
+				<h5>
+		      		<span class="text-success">
 						<i class="fas fa-sync-alt"></i>
 					</span>
-		      		Circulation
+					<span th:text="#{circulation}">Circulation</span>
 				</h5>
-				
-				<!----------------- Circulation ---------------------->
 		      
 				<p></p>
-				Check Out 
+				<span th:text="#{checkout}">Check Out </span>
 				<br/>
-				<a class="btn btn-outline-warning text-warning">
+				<a class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-shopping-cart"></i>
 					</span>
 				</a>
-				<a class="btn btn-outline-warning text-warning">
+				<a class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-search"></i>
 					</span>
 				</a>
 				<p><p/>
-				Attachment Check Out 
+				<span th:text="#{attachment.checkout}">Attachment Check Out </span>
 				<br>
-				<a class="btn btn-outline-warning text-warning">
+				<a class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-paperclip"></i>
 						<i class="fas fa-shopping-cart"></i>
 					</span>
 				</a>
 				<p><p/>
-				Check In
+				<span th:text="#{checkin}">Check In</span>
 				<br>
-				<a class="btn btn-outline-warning text-warning">
+				<a class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-arrow-down"></i>
 					</span>
 				</a>
 				<p><p/>
-				Reservation Notification
+				<span th:text="#{reservation.notification}">Reservation Notification</span>
+				
 				<br>
-				<a class="btn btn-outline-warning text-warning">
+				<a class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-mobile-alt"></i>
 					</span>
 				</a>
-				<a class="btn btn-outline-warning text-warning">
+				<a class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-search"></i>
 					</span>
 				</a>
 			      	
 		    </div>
-		    <div class="col-sm">
-		      	<h5>
-		      		<span class="text-success">
-						<i class="fas fa-cogs"></i>
-					</span>
-		      		Configuration
-				</h5>
 
-				<!----------------- Configuration ---------------------->
-		      
-				<p></p>
-				Patron Type 
-				<br/>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-user-secret"></i>
-					</span>
-				</a>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-search"></i>
-					</span>
-				</a>
-				<p><p/>
-				Group
-				<br>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-user-friends"></i>
-					</span>
-				</a>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-search"></i>
-					</span>
-				</a>
-				<p><p/>
-				Holiday
-				<br>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-umbrella-beach"></i>
-					</span>
-				</a>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-search"></i>
-					</span>
-				</a>
-				<p><p/>
-				Item Attributes
-				<br>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-map-marker-alt"></i>
-						<i class="far fa-clock"></i>
-						<i class="fas fa-thermometer-half"></i>
-					</span>
-				</a>
-				<p><p/>
-				Publication Type
-				<br>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-atlas"></i>
-					</span>
-				</a>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-search"></i>
-					</span>
-				</a>
-				
-		    </div>
-		    <div class="col-sm">
-				<h5>
-		      		<span class="text-primary">
-						<i class="fas fa-chart-line"></i>
-					</span>
-		      		Reports
-				</h5>
-	
-				<!----------------- Reports ---------------------->
-		      
-				<p></p>
-				Check-Out Report 
-				<br/>
-				<a class="btn btn-outline-primary text-primary">
-					<span>
-						<i class="fas fa-chart-pie"></i>
-					</span>
-				</a>
-				<p><p/>
-				Fines
-				<br>
-				<a class="btn btn-outline-primary text-primary">
-					<span>
-						<i class="far fa-money-bill-alt"></i>
-					</span>
-				</a>
-				<p><p/>
-				Patron Type Report
-				<br>
-				<a class="btn btn-outline-primary text-primary">
-					<span>
-						<i class="far fa-chart-bar"></i>
-					</span>
-				</a>
-				
-		    </div>
 		  </div> <!-- row -->
+		  
+		  <div th:replace="fragments/script :: script"></div>
 		  
 		  <div th:replace="fragments/footer :: footer"></div>
   
 	</div>
-	   
-    <!-- Optional JavaScript -->
-    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
-    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
-    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
-
-
 	
 </body>
 </html>

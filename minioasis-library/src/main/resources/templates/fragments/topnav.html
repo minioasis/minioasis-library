@@ -18,7 +18,7 @@
 		
 		<nav class="navbar navbar-expand-lg navbar-light"
 			style="background-color: #e3f2fd;">
-			<a class="navbar-brand" href="#"> <img
+			<a class="navbar-brand" href="#" th:href="@{/}"> <img
 				src="https://img.icons8.com/ios/50/000000/elephant.png" width="45"
 				height="35">
 			</a>
@@ -32,7 +32,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">	
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="#" th:href="@{/}">
 							<span class="text-success">
 								<i class="fas fa-home"></i>
 							</span>
@@ -52,21 +52,21 @@
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="#" th:href="@{/config}">
 							<span class="text-danger">
 								<i class="fas fa-cogs"></i>
 							</span>
-							<span  th:text="#{nav.config}">
+							<span  th:text="#{config}">
 								Configuration
 							</span>						
 						</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link" href="#">
+						<a class="nav-link" href="#" th:href="@{/reports}">
 							<span class="text-primary">
 								<i class="fas fa-chart-line"></i>
 							</span>
-							<span  th:text="#{nav.reports}">
+							<span  th:text="#{reports}">
 								Reports
 							</span>						
 						</a>
@@ -99,7 +99,7 @@
 				</ul>
 				<form class="form-inline my-2 my-lg-0">
 					<input class="form-control mr-sm-2" type="search"
-						placeholder="Search" aria-label="Search">
+						th:placeholder="#{nav.search}" aria-label="Search">
 					<button class="btn btn-outline-success my-2 my-sm-0"
 						th:text="#{nav.search}" type="submit">Search</button>
 				</form>

@@ -1,0 +1,124 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container">
+	
+		<div th:replace="fragments/header :: header"></div>
+		
+		<div class="row"> <!-- row 1 -->
+			<div class="col">
+				<h5>
+		      		<span class="text-success">
+						<i class="fas fa-cogs"></i>
+					</span>
+		      		<span th:text="#{config}">Configuration</span>
+				</h5>
+			</div>
+		</div> <!-- row 1 -->
+		
+		<div class="row"> <!-- row 2 -->
+		    <div class="col-sm-3">	    	
+		      
+				<span th:text="#{patron.type}">Patron Type</span> 
+				<br/>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-user-secret"></i>
+					</span>
+				</a>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-search"></i>
+					</span>
+				</a>
+				
+			</div>
+			
+		    <div class="col-sm-3">	    	
+
+				<span th:text="#{group}">Group</span>
+				<br>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-user-friends"></i>
+					</span>
+				</a>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-search"></i>
+					</span>
+				</a>
+		
+			</div>
+			
+		    <div class="col-sm-3">	    	
+
+				<span th:text="#{holiday}">Holiday</span>
+				<br>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-umbrella-beach"></i>
+					</span>
+				</a>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-search"></i>
+					</span>
+				</a>
+	
+			</div>
+			
+		    <div class="col-sm-3">	    	
+
+				<span th:text="#{item.attributes}">Item Attributes</span>
+				<br>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-map-marker-alt"></i>
+						<i class="far fa-clock"></i>
+						<i class="fas fa-thermometer-half"></i>
+					</span>
+				</a>
+				
+			</div>
+			
+		  </div> <!-- row 2 -->
+		  
+		  <br>
+
+		<div class="row"> <!-- row 3 -->
+		
+		    <div class="col-sm-3">	    	
+
+				<span th:text="#{publication.type}">Publication Type</span>
+				<br>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-atlas"></i>
+					</span>
+				</a>
+				<a class="btn btn-outline-success text-success">
+					<span>
+						<i class="fas fa-search"></i>
+					</span>
+				</a>
+				
+			</div>
+			
+		  </div> <!-- row 3 -->
+		  		  
+		  <div th:replace="fragments/script :: script"></div>
+		  
+		  <div th:replace="fragments/footer :: footer"></div>
+  
+	</div>
+	
+</body>
+</html>

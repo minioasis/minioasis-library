@@ -1,0 +1,75 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container">
+	
+		<div th:replace="fragments/header :: header"></div>
+		
+		<div class="row"> <!-- row 1 -->
+			<div class="col">
+				<!----------------- Reports ---------------------->
+				<h5>
+		      		<span class="text-primary">
+						<i class="fas fa-chart-line"></i>
+					</span>
+		      		<span th:text="#{reports}">Reports</span>
+				</h5>
+			</div>
+		</div> <!-- row 1 -->
+		
+		<div class="row">
+		    <div class="col-md">	    	
+
+				<span th:text="#{checkout}">Check-Out Report</span> 
+				<br/>
+				<a class="btn btn-outline-primary text-primary">
+					<span>
+						<i class="fas fa-chart-pie"></i>
+					</span>
+				</a>
+				
+			</div>
+			
+		    <div class="col-md">
+		    
+				<span th:text="#{fines}">Fines</span> 
+				<br>
+				<a class="btn btn-outline-primary text-primary">
+					<span>
+						<i class="far fa-money-bill-alt"></i>
+					</span>
+				</a>
+
+			</div>
+			
+		    <div class="col-md">	    	
+				<span th:text="#{patron.type}">Patron Type Report</span>
+				<br>
+				<a class="btn btn-outline-primary text-primary">
+					<span>
+						<i class="far fa-chart-bar"></i>
+					</span>
+				</a>				
+			</div>
+
+		    <div class="col-md">	    	
+		
+			</div>
+						
+		  </div> <!-- row -->
+		  
+		  <div th:replace="fragments/script :: script"></div>
+		  
+		  <div th:replace="fragments/footer :: footer"></div>
+  
+	</div>
+	   
+</body>
+</html>
