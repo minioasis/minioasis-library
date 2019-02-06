@@ -15,4 +15,16 @@ public class HomeController {
         return "index";
     }
 	
+	@GetMapping("/config")
+    public String getConfigPage(Model model) {
+		model.addAttribute("now", new Date());
+        return "config";
+    }
+	
+	@GetMapping("/reports")
+    public String getReportPage(Model model) {
+		model.addAttribute("now", new Date());
+        return "reports";
+    }
+	
 }

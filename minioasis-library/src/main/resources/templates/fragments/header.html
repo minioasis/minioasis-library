@@ -1,0 +1,25 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+	<div th:fragment="header">
+		<hr>
+		<div class="row">
+			<div class="col-sm text-center">
+				<h3 class="text-success" th:text="#{library.management.system}">Library
+					Management System</h3>
+	
+				<span class="far fa-calendar-alt"></span> <span
+					th:text="${#calendars.format(now,'dd MMM yyyy')}">01 Sep 2015</span>
+				<span class="far fa-clock"></span> <span
+					th:text="${#calendars.format(now,'hh:mm:ss a')}">08:28:54</span>
+			</div>
+		</div>
+		<hr>
+	</div>
+
+</body>
+</html>
