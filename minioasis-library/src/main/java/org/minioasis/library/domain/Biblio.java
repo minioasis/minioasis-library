@@ -134,7 +134,7 @@ public class Biblio implements Serializable {
 	private String note;
 
 	@OneToMany(mappedBy="biblio" , fetch = FetchType.LAZY)
-	private Set<Item> items = new HashSet<Item>();
+	private List<Item> items = new ArrayList<Item>();
     
     @OneToMany(mappedBy="biblio")
     @OrderBy("reservationDate ASC")
@@ -333,11 +333,11 @@ public class Biblio implements Serializable {
 		this.note = note;
 	}
 
-	public Set<Item> getItems() {
+	public List<Item> getItems() {
 		return items;
 	}
 
-	public void setItems(Set<Item> items) {
+	public void setItems(List<Item> items) {
 		this.items = items;
 	}
 

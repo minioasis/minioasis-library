@@ -589,7 +589,7 @@ public class LibraryServiceImpl implements LibraryService {
 		Checkout c = checkouts.get(0);
 		Long id = c.getId();
 		
-		Set<AttachmentCheckout> acs = this.attachmentCheckoutRepository.findByCheckoutId(id, AttachmentCheckoutState.CHECKOUT);
+		List<AttachmentCheckout> acs = this.attachmentCheckoutRepository.findByCheckoutId(id, AttachmentCheckoutState.CHECKOUT);
 		c.setAttachmentCheckouts(acs);
 
 		item.setCheckouts(checkouts);
@@ -775,7 +775,7 @@ public class LibraryServiceImpl implements LibraryService {
 		Set<Block> blocks = this.blockRepository.findByCardKeyAndFilterByStates(cardKey, given, BlockState.getActives());
 		patron.setBlocks(blocks);
 		
-		Set<AttachmentCheckout> attachmentCheckouts = this.attachmentCheckoutRepository.findByCardKeyAndFilterByStates(cardKey, AttachmentCheckoutState.CHECKOUT);
+		List<AttachmentCheckout> attachmentCheckouts = this.attachmentCheckoutRepository.findByCardKeyAndFilterByStates(cardKey, AttachmentCheckoutState.CHECKOUT);
 		patron.setAttachmentCheckouts(attachmentCheckouts);
 		
 		patron.calculateAllStates(given,holidayStrategy);

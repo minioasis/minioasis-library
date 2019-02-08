@@ -20,10 +20,10 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -130,13 +130,13 @@ public class PatronType implements Serializable {
 	private BigDecimal deposit;
 	
     @OneToMany(mappedBy="patronType")
-	private Set<Patron> patrons = new HashSet<Patron>(0);
+	private List<Patron> patrons = new ArrayList<Patron>(0);
     
     @OneToMany(mappedBy="patronType")
-	private Set<Checkout> checkouts = new HashSet<Checkout>(0);
+	private List<Checkout> checkouts = new ArrayList<Checkout>(0);
     
     @OneToMany(mappedBy="patronType")
-	private Set<Reservation> reservations = new HashSet<Reservation>(0);
+	private List<Reservation> reservations = new ArrayList<Reservation>(0);
 
 	public PatronType() {
 	}
@@ -338,27 +338,27 @@ public class PatronType implements Serializable {
 		this.deposit = deposit;
 	}
 
-	public Set<Patron> getPatrons() {
+	public List<Patron> getPatrons() {
 		return patrons;
 	}
 
-	public void setPatrons(Set<Patron> patrons) {
+	public void setPatrons(List<Patron> patrons) {
 		this.patrons = patrons;
 	}
 
-	public Set<Checkout> getCheckouts() {
+	public List<Checkout> getCheckouts() {
 		return this.checkouts;
 	}
 
-	public void setCheckouts(Set<Checkout> checkouts) {
+	public void setCheckouts(List<Checkout> checkouts) {
 		this.checkouts = checkouts;
 	}
 
-	public Set<Reservation> getReservations() {
+	public List<Reservation> getReservations() {
 		return this.reservations;
 	}
 
-	public void setReservations(Set<Reservation> reservations) {
+	public void setReservations(List<Reservation> reservations) {
 		this.reservations = reservations;
 	}
 	

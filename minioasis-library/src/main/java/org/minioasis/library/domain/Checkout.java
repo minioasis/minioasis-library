@@ -20,9 +20,9 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.util.ArrayList;
 import java.util.Date;
-import java.util.HashSet;
-import java.util.Set;
+import java.util.List;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -119,7 +119,7 @@ public class Checkout implements Serializable {
 	
     @OneToMany(mappedBy = "checkout" , cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Filter(name = "attachmentCheckoutStateFilter")
-	private Set<AttachmentCheckout> attachmentCheckouts = new HashSet<AttachmentCheckout>(0);
+	private List<AttachmentCheckout> attachmentCheckouts = new ArrayList<AttachmentCheckout>(0);
 	
 	@Transient private boolean overDue = false;
 	@Transient private boolean fine = false;
@@ -307,13 +307,13 @@ public class Checkout implements Serializable {
 		this.item = item;
 	}
 	
-	public Set<AttachmentCheckout> getAttachmentCheckouts() {
+	public List<AttachmentCheckout> getAttachmentCheckouts() {
 		return attachmentCheckouts;
 	}
 
-	public void setAttachmentCheckouts(Set<AttachmentCheckout> attachmentCheckouts) {
+	public void setAttachmentCheckouts(List<AttachmentCheckout> attachmentCheckouts) {
 		this.attachmentCheckouts = attachmentCheckouts;
-	}	
+	}
 	
 	// *********************************  Domain Logic  **************************************
 

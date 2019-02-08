@@ -13,10 +13,10 @@ import org.springframework.stereotype.Repository;
 public interface AttachmentCheckoutRepository extends JpaRepository<AttachmentCheckout, Long>  {
 
 	@Query("SELECT ac FROM AttachmentCheckout ac WHERE ac.checkout.id = ?1 AND ac.state = ?2")
-	Set<AttachmentCheckout> findByCheckoutId(Long id,AttachmentCheckoutState state);
+	List<AttachmentCheckout> findByCheckoutId(Long id,AttachmentCheckoutState state);
 	
 	@Query("SELECT ac FROM AttachmentCheckout ac WHERE ac.patron.cardKey = ?1 AND ac.state = ?2")
-	Set<AttachmentCheckout> findByCardKeyAndFilterByStates(String cardKey, AttachmentCheckoutState state);
+	List<AttachmentCheckout> findByCardKeyAndFilterByStates(String cardKey, AttachmentCheckoutState state);
 
 	@Query("SELECT ac FROM AttachmentCheckout ac"
 			+ " LEFT JOIN FETCH ac.attachment a"

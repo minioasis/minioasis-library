@@ -133,7 +133,7 @@ public class Patron implements Serializable {
 
 	@OneToMany(mappedBy = "patron", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@Filter(name = "attachmentCheckoutStateFilter")
-	private Set<AttachmentCheckout> attachmentCheckouts = new HashSet<AttachmentCheckout>(0);
+	private List<AttachmentCheckout> attachmentCheckouts = new ArrayList<AttachmentCheckout>(0);
 
 	// global variable
 	@Transient
@@ -324,11 +324,11 @@ public class Patron implements Serializable {
 		this.reservations = reservations;
 	}
 
-	public Set<AttachmentCheckout> getAttachmentCheckouts() {
+	public List<AttachmentCheckout> getAttachmentCheckouts() {
 		return attachmentCheckouts;
 	}
 
-	public void setAttachmentCheckouts(Set<AttachmentCheckout> attachmentCheckouts) {
+	public void setAttachmentCheckouts(List<AttachmentCheckout> attachmentCheckouts) {
 		this.attachmentCheckouts = attachmentCheckouts;
 	}
 
@@ -1281,7 +1281,7 @@ public class Patron implements Serializable {
 		if (payAmount.longValue() < 0)
 			throw new LibraryException(CirculationCode.INVALID_PAIDAMOUNT);
 
-		Set<Checkout> fineCheckouts = new HashSet<Checkout>();
+		List<Checkout> fineCheckouts = new ArrayList<Checkout>();
 
 		for (int i = 0; i < ids.length; i++) {
 

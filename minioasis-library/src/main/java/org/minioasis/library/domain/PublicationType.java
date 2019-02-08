@@ -1,9 +1,9 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
-import java.util.HashSet;
+import java.util.ArrayList;
+import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -34,7 +34,7 @@ public class PublicationType implements Serializable {
 	private String name;
 	
     @OneToMany(mappedBy="publicationType" , fetch = FetchType.LAZY)
-	private Set<Biblio> biblios = new HashSet<Biblio>(0);
+	private List<Biblio> biblios = new ArrayList<Biblio>(0);
 
 	public PublicationType() {
 	}
@@ -43,7 +43,7 @@ public class PublicationType implements Serializable {
 		this.name = name;
 	}
 
-	public PublicationType(String name, Set<Biblio> biblios) {
+	public PublicationType(String name, List<Biblio> biblios) {
 		this.name = name;
 		this.biblios = biblios;
 	}
@@ -64,11 +64,11 @@ public class PublicationType implements Serializable {
 		this.name = name;
 	}
 
-	public Set<Biblio> getBiblios() {
+	public List<Biblio> getBiblios() {
 		return biblios;
 	}
 
-	public void setBiblios(Set<Biblio> biblios) {
+	public void setBiblios(List<Biblio> biblios) {
 		this.biblios = biblios;
 	}
 
