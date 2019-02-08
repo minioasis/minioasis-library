@@ -2,6 +2,7 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -80,17 +81,23 @@ public class Group implements Serializable {
 		this.patron = patron;
 	}
 	
+    @Override	
 	public boolean equals(Object other) {
 
-		if (this == other) return true;
-		if ( !(other instanceof Group) ) return false;
-		final Group that = (Group) other;
-		return this.id.equals(that.getId());
+		if(this == other)
+			return true;
+		if(other == null)
+            return false;
+		if(!(other instanceof Group))
+			return false;
+		final Group that = (Group)other;
+		return Objects.equals(code, that.getCode());
 
 	}
-
+    
+    @Override
 	public int hashCode() {
-		return id == null ? System.identityHashCode(this) : id.hashCode();
+		return Objects.hashCode(code);
 	}
 	
 

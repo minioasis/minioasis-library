@@ -20,6 +20,7 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.util.Date;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -109,17 +110,23 @@ public class Holiday implements Serializable {
 		this.fine = fine;
 	}
 
+    @Override
 	public boolean equals(Object other) {
 
-		if (this == other) return true;
-		if ( !(other instanceof Holiday) ) return false;
+		if(this == other)
+			return true;
+		if(other == null)
+			return false;
+		if (!(other instanceof Holiday))
+			return false;
 		final Holiday that = (Holiday) other;
-		return this.id.equals(that.getId());
+		return Objects.equals(name, that.getName());
 
 	}
 
+    @Override
 	public int hashCode() {
-		return id == null ? System.identityHashCode(this) : id.hashCode();
+		return Objects.hashCode(name);
 	}
 
 }

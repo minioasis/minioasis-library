@@ -1,6 +1,7 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -51,20 +52,23 @@ public class Series implements Serializable {
 		this.name = name;
 	}
 	
+    @Override
 	public boolean equals(Object other) {
 		
-		if (this == other) return true;
-		if (id == null)	return false;
-		if (!(other instanceof Series))	return false;
-		final Series that = (Series) other;
-
-		return this.id.equals(that.getId());
+		if(this == other)
+			return true;
+		if(other == null)
+			return false;
+		if(!(other instanceof Series))
+			return false;
+		final Series that = (Series)other;
+		return Objects.equals(name, that.getName());
 		
 	}
 
+    @Override
 	public int hashCode() {
-
-		return id == null ? System.identityHashCode(this) : id.hashCode();
+    	return Objects.hashCode(name);
 	}
 
 }

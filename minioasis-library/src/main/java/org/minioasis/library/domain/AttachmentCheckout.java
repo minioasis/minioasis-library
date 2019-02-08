@@ -135,20 +135,23 @@ public class AttachmentCheckout implements Serializable {
 		this.checkout = checkout;
 	}
 
+    @Override
 	public boolean equals(Object other) {
 		
-		if (this == other) return true;
-		if (id == null)	return false;
-		if (!(other instanceof AttachmentCheckout))	return false;
+		if(this == other)
+			return true;
+		if(other == null)
+			return false;
+		if(!(other instanceof AttachmentCheckout))
+			return false;
 		final AttachmentCheckout that = (AttachmentCheckout) other;
-
-		return this.id.equals(that.getId());
+		return id != null && id.equals(that.getId());
 		
 	}
 
-	public int hashCode() {
-
-		return id == null ? System.identityHashCode(this) : id.hashCode();
-	}
+    @Override
+    public int hashCode() {
+        return 37;
+    }
 	
 }

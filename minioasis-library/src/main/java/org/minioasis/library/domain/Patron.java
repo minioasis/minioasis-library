@@ -6,6 +6,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.CascadeType;
@@ -1465,6 +1466,7 @@ public class Patron implements Serializable {
 		return new BigDecimal(totalFine);
 	}
 
+    @Override
 	public boolean equals(Object other) {
 
 		if (this == other)
@@ -1472,12 +1474,13 @@ public class Patron implements Serializable {
 		if (!(other instanceof Patron))
 			return false;
 		final Patron that = (Patron) other;
-		return this.id.equals(that.getId());
+		return Objects.equals(cardKey, that.getCardKey());
 
 	}
 
+    @Override
 	public int hashCode() {
-		return id == null ? System.identityHashCode(this) : id.hashCode();
+		return Objects.hashCode(cardKey);
 	}
 
 }

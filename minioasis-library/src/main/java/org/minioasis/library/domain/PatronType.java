@@ -22,6 +22,7 @@ import java.io.Serializable;
 import java.math.BigDecimal;
 import java.util.Date;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -361,17 +362,21 @@ public class PatronType implements Serializable {
 		this.reservations = reservations;
 	}
 	
+	@Override
 	public boolean equals(Object other) {
 
-		if (this == other) return true;
-		if ( !(other instanceof PatronType) ) return false;
-		final PatronType that = (PatronType) other;
-		return this.id.equals(that.getId());
+		if (this == other)
+			return true;
+		if (!(other instanceof PatronType))
+			return false;
+		final PatronType that = (PatronType)other;
+		return Objects.equals(name, that.getName());
 
 	}
 
+	@Override
 	public int hashCode() {
-		return id == null ? System.identityHashCode(this) : id.hashCode();
+		return Objects.hashCode(name);
 	}
 
 }

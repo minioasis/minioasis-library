@@ -6,7 +6,6 @@ import javax.persistence.Embeddable;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.validator.constraints.Email;
 import org.hibernate.validator.constraints.Length;
 
 @Embeddable
@@ -22,7 +21,6 @@ public class Contact implements Serializable {
 	private String mobile;
 	
 	@Length(max = 64)
-	//@Email
 	private String email;
 
 	@Valid

@@ -2,6 +2,7 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.util.HashSet;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -70,19 +71,24 @@ public class PublicationType implements Serializable {
 	public void setBiblios(Set<Biblio> biblios) {
 		this.biblios = biblios;
 	}
-	
+
+    @Override
 	public boolean equals(Object other) {
 		
-		if (this == other) return true;
-		if ( !(other instanceof PublicationType) ) return false;
-		final PublicationType that = (PublicationType) other;
-		
-		return this.id.equals(that.getId());
+		if(this == other)
+			return true;
+		if(other == null)
+			return false;
+		if(!(other instanceof PublicationType))
+			return false;
+		final PublicationType that = (PublicationType)other;
+		return Objects.equals(name, that.getName());
 		
 	}
 
+    @Override
 	public int hashCode() {
-		return id == null ? System.identityHashCode(this) : id.hashCode();
+    	return Objects.hashCode(name);
 	}
 
 }

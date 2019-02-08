@@ -24,6 +24,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
+import java.util.Objects;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -429,17 +430,23 @@ public class Item implements Serializable {
     	return this.getItemStatus().getBorrowable();
     }
  
+    @Override
 	public boolean equals(Object other) {
 
-		if (this == other) return true;
-		if ( !(other instanceof Item) ) return false;
+		if(this == other)
+			return true;
+		if(other == null)
+			return false;
+		if (!(other instanceof Item))
+			return false;
 		final Item that = (Item) other;
-		return this.id.equals(that.getId());
+		return Objects.equals(barcode, that.getBarcode());
 
 	}
 
+    @Override
 	public int hashCode() {
-		return id == null ? System.identityHashCode(this) : id.hashCode();
+    	return Objects.hashCode(barcode);
 	}
 
 }

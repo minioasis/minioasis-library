@@ -251,19 +251,22 @@ public class Reservation implements Serializable {
 		}
 	}
 	
+    @Override
 	public boolean equals(Object other) {
 		
-		if (this == other) return true;
-		if (id == null)	return false;
-		if (!(other instanceof Reservation)) return false;
-		final Reservation that = (Reservation) other;
-
-		return this.id.equals(that.getId());
+		if(this == other)
+			return true;
+		if(other == null)
+			return false;
+		if(!(other instanceof Reservation))
+			return false;
+		final Reservation that = (Reservation)other;
+		return id != null && id.equals(that.getId());
 		
 	}
-
-	public int hashCode() {
-		return id == null ? System.identityHashCode(this) : id.hashCode();
-	}
-
+    
+    @Override
+    public int hashCode() {
+        return 39;
+    }
 }

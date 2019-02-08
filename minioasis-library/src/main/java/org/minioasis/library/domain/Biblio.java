@@ -479,20 +479,23 @@ public class Biblio implements Serializable {
 		return count;
 	}
 
+    @Override
 	public boolean equals(Object other) {
 		
-		if (this == other) return true;
-		if (id == null)	return false;
-		if (!(other instanceof Biblio))	return false;
+		if(this == other) 
+			return true;
+		if(other == null)	
+			return false;
+		if(!(other instanceof Biblio))	
+			return false;
 		final Biblio that = (Biblio) other;
-
-		return this.id.equals(that.getId());
+		return id != null && id.equals(that.getId());
 		
 	}
 
-	public int hashCode() {
-
-		return id == null ? System.identityHashCode(this) : id.hashCode();
-	}	
+    @Override
+    public int hashCode() {
+        return 33;
+    }	
 
 }

@@ -3,6 +3,7 @@ package org.minioasis.library.domain;
 import java.util.Collection;
 import java.util.HashMap;
 import java.util.Map;
+import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -93,21 +94,23 @@ public class ItemState implements java.io.Serializable {
 		return INSTANCES.values();
 	}
 
-	// **************************************************************************
-	
+    @Override	
 	public boolean equals(Object other) {
 		
-		if (this == other) return true;
-		if (this.state == null)	return false;
-		if (!(other instanceof ItemState)) return false;
+		if(this == other)
+			return true;
+		if(this.state == null)
+			return false;
+		if(!(other instanceof ItemState))
+			return false;
 		final ItemState that = (ItemState) other;
-
-		return this.state.equals(that.getState());
+		return Objects.equals(state, that.getState());
 		
 	}
-	
+
+    @Override
 	public int hashCode() {
-		return this.state == null ? System.identityHashCode(this) : this.state.hashCode();
+		return Objects.hashCode(state);
 	}
 
 }
