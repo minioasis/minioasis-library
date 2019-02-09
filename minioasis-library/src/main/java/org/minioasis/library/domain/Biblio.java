@@ -115,11 +115,11 @@ public class Biblio implements Serializable {
 	
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name="publisher_id", foreignKey = @ForeignKey(name = "fk_biblio_publisher"))
-	private Publisher publisher = new Publisher();
+	private Publisher publisher;
 
 	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
     @JoinColumn(name="series_id", foreignKey = @ForeignKey(name = "fk_biblio_series"))
-	private Series series = new Series();
+	private Series series;
  
     @ManyToMany
     @JoinTable(name = "biblio_tag", 
@@ -142,11 +142,6 @@ public class Biblio implements Serializable {
 	private List<Reservation> reservations = new ArrayList<Reservation>(); 
     
 	public Biblio() {
-	}
-	
-	public Biblio(Publisher publisher, Series series) {
-		this.publisher = publisher;
-		this.series = series;
 	}
 
 	public Long getId() {
