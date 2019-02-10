@@ -1,0 +1,147 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container">
+
+		<h4 class="text-info pt-3 pb-3"><span th:text="#{patron}">Patron</span> <i class="fas fa-user-plus"></i></h4>
+ 
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" th:text="#{general}">General</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" th:text="#{contact}">Contact</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" th:text="#{note}">Note</a>
+			</li>
+		</ul>
+		
+		<form th:object="${patron}" method="post">
+				
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+
+			  <div class="form-group row pt-3 pb-3">
+			    <label class="col-sm-2 col-form-label">Active</label>
+			    <div class="col-sm-10">
+					<select class="custom-select" th:field="*{active}">
+						<option value="Y">YES</option>
+						<option value="N">NO</option>
+					</select>
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></span>		        
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Name</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" th:field="*{name}" autofocus="autofocus" placeholder="English" />
+			    </div>
+			    <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Name2</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" th:field="*{name2}" placeholder="Chinese" />
+			    </div>
+			    <span class="invalid-feedback" th:if="${#fields.hasErrors('name2')}" th:errors="*{name2}"></span>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label"></label>
+			    <div class="col-sm-5">
+			      	<label>Start Date</label>
+			      	<input type="text" class="form-control" th:field="*{startDate}" placeholder="yyyy-MM-dd"/>
+			      	<p class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+			      </div>
+			      <div class="col-sm-5">
+			      	<label>End Date</label>
+			      	<input type="text" class="form-control" th:field="*{endDate}" placeholder="yyyy-MM-dd"/>
+			      	<p class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+			      </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Card Key</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" th:field="*{cardKey}" placeholder="Card Key" />
+			    </div>
+			    <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Entangled</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" th:field="*{entangled}" placeholder="Entangled" />
+			    </div>
+			    <span class="invalid-feedback" th:if="${#fields.hasErrors('entangled')}" th:errors="*{entangled}"></span>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Patron Type</label>
+			    <div class="col-sm-10">
+			    	<select	class="custom-select" th:field="*{patronType}">
+						<option th:each="pt : ${patronTypes}" th:value="${pt.id}" th:text="${pt.name}" />
+						<option th:remove="all" value="333333">Normal User</option>
+						<option th:remove="all" value="555555">Member</option>
+					</select>
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('patronType')}" th:errors="*{patronType}"></span>		        
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Group</label>
+			    <div class="col-sm-10">
+			      	<select	class="custom-select" th:field="*{group}">
+						<option th:each="g : ${groups}" th:value="${g.id}" th:text="${g.name}" />
+						<option th:remove="all" value="123456">S1S1 - Senior Middle 1 Science 1</option>
+						<option th:remove="all" value="123444">J1A - Junior 1(A)</option>
+					</select>
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('group')}" th:errors="*{group}"></span>       
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">Gender</label>
+			    <div class="col-sm-10">
+			      	<select	class="custom-select" th:field="*{gender}">
+						<option value="M">MALE</option>
+						<option value="F">FEMALE</option>
+						<option value="O">OTHERS</option>
+					</select>
+					<span class="invalid-feedback" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>       
+			    </div>
+			  </div>
+			  <div class="form-group row">
+			    <label class="col-sm-2 col-form-label">IC</label>
+			    <div class="col-sm-10">
+			      <input type="text" class="form-control" th:field="*{ic}" placeholder="IC" />
+			    </div>
+			    <span class="invalid-feedback" th:if="${#fields.hasErrors('ic')}" th:errors="*{ic}"></span>
+			  </div>
+			  <div class="form-group row">
+			    <div class="col-sm-10">
+			      <button type="submit" class="btn btn-primary">Sign in</button>
+			    </div>
+			  </div>
+			  			
+			</div>
+			<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+			  			
+			</div>
+			<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
+			
+			</div>
+		</div>
+		
+ 		</form>
+
+  		<div th:replace="fragments/script :: script"></div>	
+  		<script src="js/main.js"></script> 
+		<div th:replace="fragments/footer :: footer"></div>
+		</div>
+	
+</body>
+</html>
