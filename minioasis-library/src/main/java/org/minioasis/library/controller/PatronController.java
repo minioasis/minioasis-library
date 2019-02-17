@@ -53,11 +53,12 @@ public class PatronController {
 			
 	}
 	
-	@RequestMapping(value = { "/add.patron" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/patron.form" }, method = RequestMethod.POST)
 	public String create(@Valid Patron patron, BindingResult result) {
 
-		if(result.hasErrors()){	
-			return "library/patron.form";			
+		if(result.hasErrors()){
+			System.out.println("***********************************" + result.getErrorCount() + "---" + result.toString());
+			return "patron.form";			
 		} else {
 			
 			try{
@@ -66,10 +67,10 @@ public class PatronController {
 			catch (DataIntegrityViolationException eive)
 			{
 				result.rejectValue("cardKey","","cardkey or entangled not unique");	
-				return "library/patron.form";
+				return "patron.form";
 			}
 			
-			return "redirect:/library/patron/upload?id=" + patron.getId();
+			return "redirect:/patron/upload?id=" + patron.getId();
 			
 		}			
 	}
@@ -85,7 +86,7 @@ public class PatronController {
 		}
 		
 		model.addAttribute("patron", p);
-		return "library/patron.form";
+		return "patron.form";
 		
 	}
 	
@@ -103,10 +104,10 @@ public class PatronController {
 			catch (DataIntegrityViolationException eive)
 			{
 				result.rejectValue("cardKey","","cardkey or entangled not unique");				
-				return "library/patron.form";
+				return "patron.form";
 			}
 			
-			return "redirect:/library/patron/upload?id=" + patron.getId();
+			return "redirect:/patron/upload?id=" + patron.getId();
 			
 		}
 		
@@ -118,7 +119,7 @@ public class PatronController {
 		Patron patron = this.service.getPatron(id);
 		model.addAttribute("patron", patron);
 		
-		return "library/patron.image.upload.form";
+		return "patron.image.upload.form";
 	}
 	
 	@RequestMapping(value = { "/upload" }, method = RequestMethod.POST)
@@ -127,14 +128,14 @@ public class PatronController {
 		patron.setId(id);
 		this.service.upload(patron);
 
-		return "redirect:/library/patron/" + patron.getId();
+		return "redirect:/patron/" + patron.getId();
 	}
 	
 	@RequestMapping(value = { "/{id}" }, method = RequestMethod.GET)
 	public String view(@PathVariable("id") long id, Model model) {
 
 		model.addAttribute("patron", this.service.getPatron(id));
-		return "library/patron";
+		return "patron";
 
 	}
 	

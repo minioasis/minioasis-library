@@ -11,23 +11,23 @@
 
 	<div class="container pt-3 pb-3">
 
-		<h4 class="text-info"><span th:text="#{patron}">Create Patron</span></h4>
+		<h4><span th:text="#{patron}">Create Patron</span></h4>
 		
-		<div class="card text-white bg-info" style="max-width: 40rem;">
+		<div class="card bg-hb" style="max-width: 40rem;">
 		  <div class="card-header">
 			<i class="fas fa-user-plus"></i>
 		  </div>
-		  <div class="card-body">
+		  <div class="card-body bg-lb">
 		
 				<ul class="nav nav-tabs" id="myTab" role="tablist">
 					<li class="nav-item">
-						<a class="nav-link active text-white bg-info" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" th:text="#{general}">General</a>
+						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" th:text="#{general}">General</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-white bg-info" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" th:text="#{contact}">Contact</a>
+						<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" th:text="#{contact}">Contact</a>
 					</li>
 					<li class="nav-item">
-						<a class="nav-link text-white bg-info" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" th:text="#{note}">Note</a>
+						<a class="nav-link" id="contact-tab" data-toggle="tab" href="#contact" role="tab" aria-controls="contact" aria-selected="false" th:text="#{note}">Note</a>
 					</li>
 				</ul>
 				
@@ -37,8 +37,8 @@
 					<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 		
 					  <div class="form-group row pt-3 pb-3">
-					    <label class="col-sm-2 col-form-label"  th:text="#{active}">Active</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label"  th:text="#{active}">Active</label>
+					    <div class="col-sm-9">
 							<select class="custom-select" th:field="*{active}">
 								<option value="Y">YES</option>
 								<option value="N">NO</option>
@@ -47,49 +47,49 @@
 					    </div>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{name}">Name</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{name}">Name</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{name}" autofocus="autofocus" th:placeholder="#{name.en}" />
+							<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{name2}">Name2</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{name2}">Name2</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{name2}" th:placeholder="#{name.cn}" />
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('name2')}" th:errors="*{name2}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label"></label>
-					    <div class="col-sm-5">
+					    <label class="col-sm-3 col-form-label"></label>
+					    <div class="col-sm-4">
 					      	<label th:text="#{start.date}">Start Date</label>
 					      	<input type="text" class="form-control" th:field="*{startDate}" placeholder="yyyy-MM-dd"/>
 					      	<p class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
 					      </div>
-					      <div class="col-sm-5">
+					      <div class="col-sm-4">
 					      	<label th:text="#{end.date}">End Date</label>
 					      	<input type="text" class="form-control" th:field="*{endDate}" placeholder="yyyy-MM-dd"/>
 					      	<p class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
 					      </div>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label"  th:text="#{card.key}">Card Key</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label"  th:text="#{card.key}">Card Key</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{cardKey}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{entangled}">Entangled</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{entangled}">Entangled</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{entangled}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('entangled')}" th:errors="*{entangled}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{patron.type}">Patron Type</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{patron.type}">Patron Type</label>
+					    <div class="col-sm-9">
 					    	<select	class="custom-select" th:field="*{patronType}">
 								<option th:each="pt : ${patronTypes}" th:value="${pt.id}" th:text="${pt.name}" />
 								<option th:remove="all" value="333333">Normal User</option>
@@ -99,8 +99,8 @@
 					    </div>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{group}">Group</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{group}">Group</label>
+					    <div class="col-sm-9">
 					      	<select	class="custom-select" th:field="*{group}">
 								<option th:each="g : ${groups}" th:value="${g.id}" th:text="${g.name}" />
 								<option th:remove="all" value="123456">S1S1 - Senior Middle 1 Science 1</option>
@@ -110,8 +110,8 @@
 					    </div>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{gender}">Gender</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{gender}">Gender</label>
+					    <div class="col-sm-9">
 					      	<select	class="custom-select" th:field="*{gender}">
 								<option value="M">MALE</option>
 								<option value="F">FEMALE</option>
@@ -121,8 +121,8 @@
 					    </div>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{ic}">IC</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{ic}">IC</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{ic}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('ic')}" th:errors="*{ic}"></span>
@@ -133,71 +133,71 @@
 					<div class="tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
 					
 					  <div class="form-group row pt-3 pb-3">
-					    <label class="col-sm-2 col-form-label" th:text="#{tel}">Tel</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{tel}">Tel</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.tel}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.tel')}" th:errors="*{contact.tel}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{mobile}">Mobile</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{mobile}">Mobile</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.mobile}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.mobile')}" th:errors="*{contact.mobile}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{email}">Email</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{email}">Email</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.email}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.email')}" th:errors="*{contact.email}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label" th:text="#{address}">Address</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{address}">Address</label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.address1}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.address1')}" th:errors="*{contact.address.address1}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label"></label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label"></label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.address2}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.address2')}" th:errors="*{contact.address.address2}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label"></label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label"></label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.address3}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.address3')}" th:errors="*{contact.address.address3}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label"></label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label"></label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.city}" th:placeholder="#{city}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.city')}" th:errors="*{contact.address.city}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label"></label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label"></label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.state}" th:placeholder="#{state}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.state')}" th:errors="*{contact.address.state}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label"></label>
+					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-4">
 					      <input type="text" class="form-control" th:field="*{contact.address.postcode}" th:placeholder="#{postcode}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.postcode')}" th:errors="*{contact.address.postcode}"></span>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-2 col-form-label"></label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label"></label>
+					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.country}" th:placeholder="#{country}"/>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.country')}" th:errors="*{contact.address.country}"></span>
@@ -207,8 +207,8 @@
 					<div class="tab-pane fade" id="contact" role="tabpanel" aria-labelledby="contact-tab">
 		
 					  <div class="form-group row pt-3 pb-3">
-					    <label class="col-sm-2 col-form-label" th:text="#{note}">Note</label>
-					    <div class="col-sm-10">
+					    <label class="col-sm-3 col-form-label" th:text="#{note}">Note</label>
+					    <div class="col-sm-9">
 					      <textarea class="form-control" rows="7" cols="45" th:field="*{note}" placeholder="Note"></textarea>
 					    </div>
 					    <span class="invalid-feedback" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
@@ -218,7 +218,7 @@
 					
 					<div class="form-group row">
 					  <div class="col">
-					    <button type="submit" class="btn bg-light float-right"  th:text="#{submit}">Submit</button>
+					    <button type="submit" class="btn bg-info text-white float-right"  th:text="#{submit}">Submit</button>
 					  </div>
 					</div>
 					
