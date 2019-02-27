@@ -43,7 +43,7 @@
 								<option value="Y">YES</option>
 								<option value="N">NO</option>
 							</select>
-							<span class="invalid-feedback" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></span>		        
+							<span class="text-danger" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></span>		        
 					    </div>
 					  </div>
 					  <div class="form-group row">
@@ -57,35 +57,35 @@
 					    <label class="col-sm-3 col-form-label" th:text="#{name2}">Name2</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{name2}" th:placeholder="#{name.cn}" />
+					      <span class="text-danger" th:if="${#fields.hasErrors('name2')}" th:errors="*{name2}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('name2')}" th:errors="*{name2}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-4">
 					      	<label th:text="#{start.date}">Start Date</label>
 					      	<input type="text" class="form-control" th:field="*{startDate}" placeholder="yyyy-MM-dd"/>
-					      	<p class="invalid-feedback" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+					      	<span class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></span>
 					      </div>
 					      <div class="col-sm-4">
 					      	<label th:text="#{end.date}">End Date</label>
 					      	<input type="text" class="form-control" th:field="*{endDate}" placeholder="yyyy-MM-dd"/>
-					      	<p class="invalid-feedback" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+					      	<span class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></span>
 					      </div>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"  th:text="#{card.key}">Card Key</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{cardKey}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label" th:text="#{entangled}">Entangled</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{entangled}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('entangled')}" th:errors="*{entangled}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('entangled')}" th:errors="*{entangled}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label" th:text="#{patron.type}">Patron Type</label>
@@ -95,7 +95,7 @@
 								<option th:remove="all" value="333333">Normal User</option>
 								<option th:remove="all" value="555555">Member</option>
 							</select>
-							<span class="invalid-feedback" th:if="${#fields.hasErrors('patronType')}" th:errors="*{patronType}"></span>		        
+							<span class="text-danger" th:if="${#fields.hasErrors('patronType')}" th:errors="*{patronType}"></span>		        
 					    </div>
 					  </div>
 					  <div class="form-group row">
@@ -106,7 +106,7 @@
 								<option th:remove="all" value="123456">S1S1 - Senior Middle 1 Science 1</option>
 								<option th:remove="all" value="123444">J1A - Junior 1(A)</option>
 							</select>
-							<span class="invalid-feedback" th:if="${#fields.hasErrors('group')}" th:errors="*{group}"></span>       
+							<span class="text-danger" th:if="${#fields.hasErrors('group')}" th:errors="*{group}"></span>       
 					    </div>
 					  </div>
 					  <div class="form-group row">
@@ -117,15 +117,15 @@
 								<option value="F">FEMALE</option>
 								<option value="O">OTHERS</option>
 							</select>
-							<span class="invalid-feedback" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>       
+							<span class="text-danger" th:if="${#fields.hasErrors('gender')}" th:errors="*{gender}"></span>       
 					    </div>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label" th:text="#{ic}">IC</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{ic}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('ic')}" th:errors="*{ic}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('ic')}" th:errors="*{ic}"></span>
 					  </div>
 					  			
 					</div>
@@ -136,71 +136,71 @@
 					    <label class="col-sm-3 col-form-label" th:text="#{tel}">Tel</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.tel}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.tel')}" th:errors="*{contact.tel}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.tel')}" th:errors="*{contact.tel}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label" th:text="#{mobile}">Mobile</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.mobile}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.mobile')}" th:errors="*{contact.mobile}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.mobile')}" th:errors="*{contact.mobile}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label" th:text="#{email}">Email</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.email}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.email')}" th:errors="*{contact.email}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.email')}" th:errors="*{contact.email}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label" th:text="#{address}">Address</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.address1}"/>
+						  <span class="text-danger" th:if="${#fields.hasErrors('contact.address.address1')}" th:errors="*{contact.address.address1}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.address1')}" th:errors="*{contact.address.address1}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.address2}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.address.address2')}" th:errors="*{contact.address.address2}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.address2')}" th:errors="*{contact.address.address2}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.address3}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.address.address3')}" th:errors="*{contact.address.address3}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.address3')}" th:errors="*{contact.address.address3}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.city}" th:placeholder="#{city}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.address.city')}" th:errors="*{contact.address.city}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.city')}" th:errors="*{contact.address.city}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.state}" th:placeholder="#{state}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.address.state')}" th:errors="*{contact.address.state}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.state')}" th:errors="*{contact.address.state}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-4">
 					      <input type="text" class="form-control" th:field="*{contact.address.postcode}" th:placeholder="#{postcode}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.address.postcode')}" th:errors="*{contact.address.postcode}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.postcode')}" th:errors="*{contact.address.postcode}"></span>
 					  </div>
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{contact.address.country}" th:placeholder="#{country}"/>
+					      <span class="text-danger" th:if="${#fields.hasErrors('contact.address.country')}" th:errors="*{contact.address.country}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('contact.address.country')}" th:errors="*{contact.address.country}"></span>
 					  </div>			  		  			  			
 					</div>
 					
@@ -210,8 +210,8 @@
 					    <label class="col-sm-3 col-form-label" th:text="#{note}">Note</label>
 					    <div class="col-sm-9">
 					      <textarea class="form-control" rows="7" cols="45" th:field="*{note}" placeholder="Note"></textarea>
+					      <span class="text-danger" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
 					    </div>
-					    <span class="invalid-feedback" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
 					  </div>
 					  			
 					</div>

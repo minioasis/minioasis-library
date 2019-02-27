@@ -16,7 +16,7 @@ public class Contact implements Serializable {
 	@Length(max = 20)
 	private String tel;
 	
-	@NotNull
+	@NotNull(message = "{notnull}")
 	@Length(max = 20)
 	private String mobile;
 	

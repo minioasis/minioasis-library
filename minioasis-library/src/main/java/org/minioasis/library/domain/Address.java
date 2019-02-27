@@ -9,7 +9,7 @@ import org.hibernate.validator.constraints.Length;
 public class Address {
 
 	@Length(max = 64)
-	@NotNull
+	@NotNull(message = "{notnull}")
 	private String address1;
 	@Length(max = 64)
 	private String address2;

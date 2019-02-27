@@ -48,34 +48,34 @@ public class Patron implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
-	@NotNull
+	@NotNull(message = "{notnull}")
 	@Column(name = "active", nullable = false, columnDefinition = "CHAR(1) default 'Y' ")
 	@Enumerated(EnumType.STRING)
 	private YesNo active;
 
-	@NotNull
+	@NotNull(message = "{notnull}")
 	@Length(max = 64)
 	private String name;
 
 	@Length(max = 64)
 	private String name2;
 
-	@NotNull
+	@NotNull(message = "{notnull}")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date", nullable = false)
 	private Date startDate;
 
-	@NotNull
+	@NotNull(message = "{notnull}")
 	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date", nullable = false)
 	private Date endDate;
 
-	@NotNull
+	@NotNull(message = "{notnull}")
 	@Length(max = 16)
 	@Column(name = "card_key", unique = true, nullable = false, columnDefinition = "CHAR(16)")
 	private String cardKey;
 
-	@NotNull
+	@NotNull(message = "{notnull}")
 	@Length(max = 16)
 	@Column(name = "entangled", unique = true, nullable = false, columnDefinition = "CHAR(16)")
 	private String entangled;
@@ -90,7 +90,7 @@ public class Patron implements Serializable {
 	@JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "fk_patron_group") )
 	private Group group;
 
-	@NotNull
+	@NotNull(message = "{notnull}")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "patrontype_id", nullable = false, foreignKey = @ForeignKey(name = "fk_patron_patrontype") )
 	private PatronType patronType;
