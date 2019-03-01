@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4><span th:text="#{patron}">Patron</span></h4>
+		
+		<div class="card bg-hb" style="max-width: 42rem;">
+		  <div class="card-header">
+			<i class="fas fa-user-plus"></i>
+		  </div>
+		  <div class="card-body bg-white">
+			<div class="row">
+				<div class="col-md-4">
+					<img src="@{/images/smiley.png}" th:src="@{/library/patron/photo/{id}(id=${patron.id})}" 
+						class="thumbnail" style="min-height:200px;height:215px;width:175px;"/>
+				</div>
+				<div class="col-md-8">
+				
+					<div class="table-responsive">
+						<table class="table table-sm">
+							<tbody>
+								<tr>
+									<td><i class="far fa-check-circle text-label"></i> <span th:text="#{active}"></span></td>
+									<td class="text-info" th:text="${patron.active}">Y</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-user text-label"></i> <span th:text="#{name}"></span></td>
+									<td class="text-info" th:text="${patron.name}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-angellist text-label"></i> <span th:text="#{name2}"></span></td>
+									<td class="text-info" th:text="${patron.name2}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-toggle-on text-label"></i> <span th:text="#{start.date}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(patron.startDate,'yyyy-MM-dd')}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-toggle-off text-label"></i> <span th:text="#{end.date}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(patron.endDate,'yyyy-MM-dd')}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-id-card-alt text-label"></i> <span th:text="#{card.key}"></span></td>
+									<td class="text-info" th:text="${patron.cardKey}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-link text-label"></i> <span th:text="#{entangled}"></span></td>
+									<td class="text-info" th:text="${patron.entangled}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-user-friends text-label"></i> <span th:text="#{patron.type}"></span></td>
+									<td class="text-info" th:text="${patron.patronType.name}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-users text-label"></i> <span th:text="#{group}"></span></td>
+									<td class="text-info" th:text="${patron.group.name}">4S1S</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-restroom text-label"></i> <span th:text="#{gender}"></span></td>
+									<td class="text-info" th:text="${patron.gender}">M</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-id-card text-label"></i> <span th:text="#{ic}"></span></td>
+									<td class="text-info" th:text="${patron.ic}">1674584</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-phone text-label"></i> <span th:text="#{tel}"></span></td>
+									<td class="text-info" th:text="${patron.contact.tel}">0362784565</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-mobile-alt text-label"></i> <span th:text="#{mobile}"></span></td>
+									<td class="text-info" th:text="${patron.contact.mobile}">0123111030</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-at text-label"></i> <span th:text="#{email}"></span></td>
+									<td class="text-info" th:text="${patron.contact.email}">yfmoan@yahoo.com</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-map-marker-alt text-label"></i> <span th:text="#{address}"></span></td>
+									<td class="text-info" th:text="${patron.contact.address.address1}">231, Jalan Jambu Air Laut,</td>
+								</tr>
+								<tr>
+									<td>.</td>
+									<td class="text-info" th:text="${patron.contact.address.address2}">Jinjang Selatan,</td>
+								</tr>
+								<tr>
+									<td>.</td>
+									<td class="text-info" th:text="${patron.contact.address.address3}"></td>
+								</tr>
+								<tr>
+									<td><span th:text="#{city}"></span></td>
+									<td class="text-info" th:text="${patron.contact.address.city}">KL</td>
+								</tr>
+								<tr>
+									<td><span th:text="#{state}"></span></td>
+									<td class="text-info" th:text="${patron.contact.address.state}">WP</td>
+								</tr>
+								<tr>
+									<td><span th:text="#{postcode}"></span></td>
+									<td class="text-info" th:text="${patron.contact.address.postcode}">52000</td>
+								</tr>
+								<tr>
+									<td><span th:text="#{country}"></span></td>
+									<td class="text-info" th:text="${patron.contact.address.country}">Malaysia</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-sticky-note text-label"></i> <span th:text="#{note}"></span></td>
+									<td class="text-info"><textarea rows="7" cols="35" name="note" th:text="${patron.note}"></textarea></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>		
+ 		
+		  </div>
+		</div>
+
+  		<div th:replace="fragments/script :: script"></div>	
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+	
+</body>
+</html>

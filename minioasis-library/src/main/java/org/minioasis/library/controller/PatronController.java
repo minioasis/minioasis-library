@@ -131,7 +131,7 @@ public class PatronController {
 		return "redirect:/patron/" + patron.getId();
 	}
 	
-	@RequestMapping(value = { "/{id}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/patron/{id}" }, method = RequestMethod.GET)
 	public String view(@PathVariable("id") long id, Model model) {
 
 		model.addAttribute("patron", this.service.getPatron(id));

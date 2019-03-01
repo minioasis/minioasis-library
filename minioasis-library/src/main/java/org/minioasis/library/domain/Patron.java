@@ -110,7 +110,6 @@ public class Patron implements Serializable {
 	@Column(name = "updated")
 	private Date updated = new Date();
 
-	@NotNull
 	@Column(name = "uncollected_no", nullable = false)
 	private Short unCollectedNo = 0;
 
