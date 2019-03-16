@@ -25,10 +25,10 @@
 				<p><p/>
 				<span th:text="#{patron}">Patron</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron.form}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/patron.form}">
 					<span><i class="fas fa-user-plus"></i></span>
 				</a>
-				<a class="btn btn-outline-info text-info">
+				<a class="btn btn-outline-info text-info"  href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
 					<span><i class="fas fa-search"></i></span>
 				</a>
 				<p><p/>
@@ -220,8 +220,7 @@
 
 		  </div> <!-- row -->
 		  
-		  <div th:replace="fragments/script :: script"></div>
-		  
+		  <div th:replace="fragments/script :: script"></div>	  
 		  <div th:replace="fragments/footer :: footer"></div>
   
 	</div>

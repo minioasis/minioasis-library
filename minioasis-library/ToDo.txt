@@ -1,5 +1,9 @@
 TODO list
 ----------------------------------
+Java Model Status [Cannot nest 'xxx' inside 'src/main/java'. To enable the nesting exclude 'com/' from 'living_webapi/src/main/java']
+=======================================================
+Project Properties --> Java Build Path --> Uncheck "Allow Output folder for Source Folder"
+
 
 Road Map
 ===========
@@ -120,5 +124,7 @@ Technology stack for microservices
 ******************************************************
 publisher,series table 'name' make change to 128 
 
+Project Properties --> Java Build Path --> Uncheck "Allow Output folder for Source Folder"
+=======================================================
 	
 	

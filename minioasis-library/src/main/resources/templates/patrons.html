@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(Minioasis)">
+<title>Minioasis Library</title>
+</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container  pt-3 pb-3">
+
+		<h4>Search Patron
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron.form}">
+				<span><i class="fas fa-user-plus"></i></span>
+			</a>
+			<a class="btn btn-success" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
+				<i class="fas fa-redo-alt"></i>
+			</a>	
+		</h4>
+					
+
+			<form class="form-row" action="#" th:action="@{/patron/search}" th:object="${criteria}" method="get">
+				<input type="hidden" id="page" name="page" value="0" />
+				<input type="hidden" id="size" name="size" value="10" />
+				<input type="hidden" id="sort" name="sort" value="cardKey,desc" />
+
+					<div class="form-group col-sm-3">
+						<label>Card Key, Name, IC, Mobile</label> <input type="text" class="form-control"	th:field="*{cardKey}" autofocus="autofocus" placeholder="CardKey" />
+						<p class="error" th:if="${#fields.hasErrors('cardKey')}" th:errors="cardKey"></p>
+						
+						<p></p>
+						
+						<input type="text" class="form-control" th:field="*{keyword}" placeholder="Name,Name2,IC,Mobile" />
+						<p class="error" th:if="${#fields.hasErrors('keyword')}" th:errors="keyword"></p>				
+					</div>
+
+					<div class="form-group col-sm-3">
+						<label>Note</label> <input type="text" class="form-control"	th:field="*{note}" placeholder="Note" />
+						<p class="error" th:if="${#fields.hasErrors('note')}" th:errors="note"></p>
+
+						<p></p>
+												
+						<a th:href="@{/library/patron/search(page=0,size=20,sort='cardKey,desc',note='isNotEmpty()')}" id="next">
+							<button type="button" class="btn btn-outline-success float-right">Notes</button>
+						</a>
+					</div>
+															
+					<div class="form-group col-sm-2">
+						<label>Start Date <span class="glyphicon glyphicon-calendar"> </span></label>
+						<input type="text" class="form-control"	th:field="*{startDateFrom}" placeholder="yyyy-MM-dd" />
+						<p class="error" th:if="${#fields.hasErrors('startDateFrom')}" th:errors="*{startDateFrom}"></p>
+							
+						<p></p>
+							
+						<input type="text" class="form-control"	th:field="*{startDateTo}" placeholder="To" />
+						<p class="error" th:if="${#fields.hasErrors('startDateTo')}" th:errors="*{startDate}"></p>
+					</div>
+					
+					<div class="form-group col-sm-2">
+						<label>End Date <span class="glyphicon glyphicon-calendar"></span></label>
+						<input type="text" class="form-control"	th:field="*{endDateFrom}" placeholder="From" />
+						<p class="error" th:if="${#fields.hasErrors('endDateFrom')}" th:errors="*{endDateFrom}"></p>
+							
+						<p></p>	
+							
+						<input type="text" class="form-control"	th:field="*{endDateTo}" placeholder="To" />
+						<p class="error" th:if="${#fields.hasErrors('endDateTo')}" th:errors="*{endDateTo}"></p>
+					</div>
+					
+					<div class="form-group col-sm-2">
+						<label>Group</label>
+						<select	class="form-control" th:field="*{groups}" multiple="multiple">						
+							<option th:each="g : ${groupz}" th:value="${g.id}" th:text="${g.name}" />
+							<option th:remove="all" value="24121">SM1</option>
+							<option th:remove="all" value="12123">SM2</option>
+						</select>
+						<p class="error" th:if="${#fields.hasErrors('groups')}" th:errors="*{groups}"></p>					
+					</div>
+					
+					<input hidden="hidden" type="submit" name="search" value="Submit"/>				
+			
+			</form>
+
+
+		<hr/>
+
+
+		<div class="float-right">
+			<div th:if="${pagingType eq 'list'}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/patron/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}" id="previous">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="@{/patron/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}" id="next">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>
+					
+			<div th:if="${pagingType eq 'search'}">
+				<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>		
+		</div>
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive">					
+			<table class="table table-sm">
+				<thead>
+					<tr class="table-primary">
+						<th>#</th>
+						<th>Photo</th>
+						<th>Name (Gender) / IC</th>
+						<th>P.Type</th>
+						<th>C.Key</th>
+						<th>Group</th>
+						<th>Start / End</th>
+						<th>Note</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td>
+							<img src="@{/images/smiley.png}" 
+								 th:src="@{/library/patron/photo/{id}(id=${e.id})}" 
+								 class="thumbnail" 
+								 style="min-height:75px;height:95px;width:80px;"/>
+						</td>
+						<td>
+							<a href="#" th:href="@{/patron/{id}(id=${e.id})}" th:text="|${e.name} , ${e.name2}|">Moan Wai Meng</a>
+							<p>[[${'( ' + e.gender + ' )'}]]</p>
+    						<p>[[${e.ic}]]</p>
+						</td>
+						<td th:text="${e.patronType.name}">Student</td>
+						<td>
+							<a href="#" th:href="@{/patron/checkout/entry?cardKey={cardKey}(cardKey=${e.cardKey})}" th:text="${e.cardKey}">cardKey</a>
+						</td>
+						<td th:text="${e.group.code}">SM1</td>
+						<td th:inline="text">[[|${#calendars.format(e.startDate,'yyyy-MM-dd')} @ ${#calendars.format(e.endDate,'yyyy-MM-dd')}|]]</td>
+						<td><textarea rows="4" cols="30" name="note" th:text="${e.note}"></textarea></td>
+						<td>
+							  <a href="#" th:href="@{/patron/{id}/upload(id=${e.id})}"><i class="far fa-image"></i></a>
+							| <a href="#" th:href="@{/patron/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/patron/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+					</tr>
+					<tr th:remove="all">
+						<td>2</td>
+						<td>Photo</td>
+						<td>Name</td>
+						<td>CardKey</td>
+						<td>patron Type</td>
+						<td>Note</td>
+						<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>
