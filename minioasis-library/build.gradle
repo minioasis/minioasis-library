@@ -1,14 +1,21 @@
 buildscript {
 	ext {
+		h2Version = '1.4.197'
+		jooqVersion = '3.10.8'
 		springBootVersion = '2.0.8.RELEASE'
 	}
 	repositories {
 		mavenCentral()
+		maven {
+	      url 'https://plugins.gradle.org/m2/'
+	    }
 	}
 	dependencies {
 		classpath("org.springframework.boot:spring-boot-gradle-plugin:${springBootVersion}")
-		classpath("org.jooq:jooq-codegen:3.10.8")
-		classpath("com.h2database:h2:1.4.197")
+		classpath("org.jooq:jooq-codegen:${jooqVersion}")
+		classpath("org.jooq:jooq-meta-extensions:${jooqVersion}")
+		classpath("com.h2database:h2:${h2Version}")
+		classpath("nu.studer:gradle-jooq-plugin:2.0.11")
 	}
 }
 
@@ -16,6 +23,7 @@ apply plugin: 'java'
 apply plugin: 'eclipse'
 apply plugin: 'org.springframework.boot'
 apply plugin: 'io.spring.dependency-management'
+apply plugin: 'nu.studer.jooq'
 
 group = 'org.minioasis'
 version = '0.0.1-SNAPSHOT'
@@ -24,7 +32,7 @@ sourceCompatibility = '1.8'
 repositories {
 	mavenCentral()
 }
-
+	
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
@@ -39,43 +47,62 @@ dependencies {
 	
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'
-	implementation('org.jooq:jooq-codegen:3.10.8')
+    implementation 'org.jooq:jooq:${jooqVersion}'
+	implementation 'org.jooq:jooq-codegen:${jooqVersion}'
+	implementation 'org.jooq:jooq-meta-extensions:${jooqVersion}'
 	
 	runtimeOnly 'org.springframework.boot:spring-boot-devtools'
 	runtimeOnly 'com.h2database:h2'
+	
+	jooqRuntime 'com.h2database:h2:1.4.197'
+	jooqRuntime 'org.jooq:jooq:${jooqVersion}'
+	jooqRuntime 'org.jooq:jooq-meta-extensions:${jooqVersion}'
+	jooqRuntime(files(sourceSets.main.output.classesDirs))
+	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 }
 
-// Use your favourite XML builder to construct the code generation configuration file
-// ----------------------------------------------------------------------------------
-def writer = new StringWriter()
-def xml = new groovy.xml.MarkupBuilder(writer).configuration('xmlns': 'http://www.jooq.org/xsd/jooq-codegen-3.10.0.xsd') {
-	jdbc() {
-		driver('org.h2.Driver')
-		url('jdbc:h2:~/testdb')
-		user('sa')
-		password('')
-	}
-	generator() {
-		database() {
-		}
-		// Watch out for this caveat when using MarkupBuilder with "reserved names"
-		// - https://github.com/jOOQ/jOOQ/issues/4797
-		// - http://stackoverflow.com/a/11389034/521799
-		// - https://groups.google.com/forum/#!topic/jooq-user/wi4S9rRxk4A
-		generate([:]) {
-			pojos true
-			daos true
-		}
-		target() {
-			packageName('org.minioasis.library.jooq')
-			directory('src/main/java')
-		}
-	}
+jooq {
+
+	version = jooqVersion
+	edition = 'OSS'
+    
+	project(sourceSets.main) {
+       //jdbc {
+       //    driver = 'org.h2.Driver'
+       //    url = 'jdbc:h2:~/testdb'
+       //    user = 'sa'
+       //    password = ''
+       //}
+       generator {
+           name = 'org.jooq.util.DefaultGenerator'
+           strategy {
+               name = 'org.jooq.util.DefaultGeneratorStrategy'
+           }
+           database {
+               name = 'org.jooq.util.jpa.JPADatabase'
+               properties {
+					property {
+						key = 'packages'
+						value = 'org.minioasis.library.domain'
+					}
+					property {
+						key = 'use-attribute-converters'
+						value = 'true'
+					}		
+               }
+           }
+           generate {
+                deprecated = false
+                records = true
+                pojos = true
+           }
+           target {
+               packageName = 'org.minioasis.library.jooq'
+               directory = 'src/generated/java'
+           }
+       }
+   }
 }
 
-// Run the code generator
-// ----------------------
-org.jooq.util.GenerationTool.generate(
-	javax.xml.bind.JAXB.unmarshal(new StringReader(writer.toString()), org.jooq.util.jaxb.Configuration.class)
-)
+project.tasks.getByName('compileJava').dependsOn -= 'generateProjectJooqSchemaSource'

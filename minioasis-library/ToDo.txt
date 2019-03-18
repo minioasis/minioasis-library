@@ -1,6 +1,6 @@
 TODO list
 ----------------------------------
-Java Model Status [Cannot nest 'xxx' inside 'src/main/java'. To enable the nesting exclude 'com/' from 'living_webapi/src/main/java']
+Java Model Status [Cannot nest 'xxx' inside 'src/main/java'. To enable the nesting exclude 'com/' from 'src/main/java']
 =======================================================
 Project Properties --> Java Build Path --> Uncheck "Allow Output folder for Source Folder"
 

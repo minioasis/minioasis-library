@@ -8,7 +8,6 @@ import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 
 import org.hibernate.CacheMode;
-import org.hibernate.Query;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
@@ -27,16 +26,17 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
 		Session session = em.unwrap(Session.class);
 
-		Query query = session
+		List<Reservation> result = session
 				.createQuery("from Reservation r " 
 							+ "left join fetch r.biblio b "
 							+ "left join fetch b.reservations rs " 
 							+ "where b is not null " 
 							+ "and r.state = :state "
 							+ "and rs.state in ('RESERVE','AVAILABLE','NOTIFIED')")
-				.setParameter("state", ReservationState.NOTIFIED);
+				.setParameter("state", ReservationState.NOTIFIED).getResultList();
 
-		return query.list();
+		session.close();
+		return result;
 
 	}
 	
