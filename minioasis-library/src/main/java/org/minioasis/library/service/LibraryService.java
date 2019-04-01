@@ -26,6 +26,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -213,6 +214,7 @@ public interface LibraryService {
 	List<Patron> findByIdIn(Collection<Long> ids);
 	List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, Date updated);
 	Page<Patron> findAllPatrons(Pageable pageable);
+	Page<Patron> findByCriteria(PatronCriteria criteria, Pageable pageable);
 	
 	Patron getPatronByCardKeyForCirculation(String cardKey,Date given);
 	

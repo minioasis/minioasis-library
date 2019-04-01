@@ -8,10 +8,11 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container  pt-3 pb-3">
+	<div class="container pt-3 pb-3">
 
-		<h4>Search Patron
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron.form}">
+		<h4>
+			<span th:text="#{search.patron}">Search Patron</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/patron.form}">
 				<span><i class="fas fa-user-plus"></i></span>
 			</a>
 			<a class="btn btn-success" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
@@ -19,79 +20,132 @@
 			</a>	
 		</h4>
 					
+		<ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{general}">General</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="date-tab" data-toggle="tab" href="#date" role="tab" aria-controls="date" aria-selected="false">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{date}">Date</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="type-tab" data-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{type}">Type</span>
+				</a>
+			</li>
+		</ul>
 
-			<form class="form-row" action="#" th:action="@{/patron/search}" th:object="${criteria}" method="get">
-				<input type="hidden" id="page" name="page" value="0" />
-				<input type="hidden" id="size" name="size" value="10" />
-				<input type="hidden" id="sort" name="sort" value="cardKey,desc" />
+		<form  action="#" th:action="@{/patron/search}" th:object="${criteria}" method="get">
 
-					<div class="form-group col-sm-3">
-						<label>Card Key, Name, IC, Mobile</label> <input type="text" class="form-control"	th:field="*{cardKey}" autofocus="autofocus" placeholder="CardKey" />
-						<p class="error" th:if="${#fields.hasErrors('cardKey')}" th:errors="cardKey"></p>
+			<input type="hidden" id="page" name="page" value="0" />
+			<input type="hidden" id="size" name="size" value="10" />
+			<input type="hidden" id="sort" name="sort" value="cardKey,desc" />
 						
-						<p></p>
-						
-						<input type="text" class="form-control" th:field="*{keyword}" placeholder="Name,Name2,IC,Mobile" />
-						<p class="error" th:if="${#fields.hasErrors('keyword')}" th:errors="keyword"></p>				
-					</div>
-
-					<div class="form-group col-sm-3">
-						<label>Note</label> <input type="text" class="form-control"	th:field="*{note}" placeholder="Note" />
-						<p class="error" th:if="${#fields.hasErrors('note')}" th:errors="note"></p>
-
-						<p></p>
-												
-						<a th:href="@{/library/patron/search(page=0,size=20,sort='cardKey,desc',note='isNotEmpty()')}" id="next">
-							<button type="button" class="btn btn-outline-success float-right">Notes</button>
-						</a>
-					</div>
-															
-					<div class="form-group col-sm-2">
-						<label>Start Date <span class="glyphicon glyphicon-calendar"> </span></label>
-						<input type="text" class="form-control"	th:field="*{startDateFrom}" placeholder="yyyy-MM-dd" />
-						<p class="error" th:if="${#fields.hasErrors('startDateFrom')}" th:errors="*{startDateFrom}"></p>
-							
-						<p></p>
-							
-						<input type="text" class="form-control"	th:field="*{startDateTo}" placeholder="To" />
-						<p class="error" th:if="${#fields.hasErrors('startDateTo')}" th:errors="*{startDate}"></p>
-					</div>
-					
-					<div class="form-group col-sm-2">
-						<label>End Date <span class="glyphicon glyphicon-calendar"></span></label>
-						<input type="text" class="form-control"	th:field="*{endDateFrom}" placeholder="From" />
-						<p class="error" th:if="${#fields.hasErrors('endDateFrom')}" th:errors="*{endDateFrom}"></p>
-							
-						<p></p>	
-							
-						<input type="text" class="form-control"	th:field="*{endDateTo}" placeholder="To" />
-						<p class="error" th:if="${#fields.hasErrors('endDateTo')}" th:errors="*{endDateTo}"></p>
-					</div>
-					
-					<div class="form-group col-sm-2">
-						<label>Group</label>
-						<select	class="form-control" th:field="*{groups}" multiple="multiple">						
-							<option th:each="g : ${groupz}" th:value="${g.id}" th:text="${g.name}" />
-							<option th:remove="all" value="24121">SM1</option>
-							<option th:remove="all" value="12123">SM2</option>
-						</select>
-						<p class="error" th:if="${#fields.hasErrors('groups')}" th:errors="*{groups}"></p>					
-					</div>
-					
-					<input hidden="hidden" type="submit" name="search" value="Submit"/>				
+			<div class="tab-content" id="myTabContent">
 			
-			</form>
+				<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">			
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label>Name</label>
+					      <input type="text" class="form-control" th:field="*{keyword}" autofocus="autofocus" placeholder="Name,Name2,IC,Mobile" />
+					    </div>
+					    <div class="form-group col-md-3">
+							<label>Card Key</label>
+					      	<input type="text" class="form-control"	th:field="*{cardKey}" placeholder="CardKey" />
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label>Note</label>
+					      	<input type="text" class="form-control"	th:field="*{note}" placeholder="Note" />
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label>Notes</label>
+							<a th:href="@{/patron/search(page=0,size=20,sort='cardKey,desc',note='isNotEmpty()')}" id="next">
+								<button type="button" class="form-control btn btn-outline-success">Notes</button>
+							</a>
+					    </div>
+					</div>								
+				</div>
+				
+				<div class="tab-pane fade" id="date" role="tabpanel" aria-labelledby="date-tab">	
+					<div class="form-row pt-3">
+						<div class="form-group col-md-2">
+					      <label>Start Date</label>
+					      <input type="text" class="form-control"	th:field="*{startDateFrom}" placeholder="yyyy-MM-dd" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label>.</label>
+					      <input type="text" class="form-control"	th:field="*{startDateTo}" placeholder="To" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label>End Date</label>
+					      <input type="text" class="form-control"	th:field="*{endDateFrom}" placeholder="From" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label>.</label>
+					      <input type="text" class="form-control"	th:field="*{endDateTo}" placeholder="To" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label>Created</label>
+					      <input type="text" class="form-control"	th:field="*{createdFrom}" placeholder="From" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label>.</label>
+					      <input type="text" class="form-control"	th:field="*{createdTo}" placeholder="To" />
+					    </div>
+					</div>
+				</div>
+				
+				<div class="tab-pane fade" id="type" role="tabpanel"	aria-labelledby="type-tab">
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label>Patron Type</label>
+							<select	class="form-control" th:field="*{patronTypes}" multiple="multiple">						
+								<option th:each="pt : ${pts}" th:value="${pt.id}" th:text="${pt.name}" />
+								<option th:remove="all" value="24121">SM1</option>
+								<option th:remove="all" value="12123">SM2</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label>Group</label>
+							<select	class="form-control" th:field="*{groups}" multiple="multiple">						
+								<option th:each="g : ${gps}" th:value="${g.id}" th:text="${g.code}" />
+								<option th:remove="all" value="24121">SM1</option>
+								<option th:remove="all" value="12123">SM2</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label>Active</label>
+							<select	class="form-control" th:field="*{actives}" multiple="multiple">
+								<option th:each="a : ${ats}" th:value="${a}" th:text="${a}" />						
+								<option th:remove="all" value="Y" th:text="${yes}">SM1</option>
+								<option th:remove="all" value="N" th:text="${no}">SM2</option>
+							</select>
+					    </div>
 
-
+					</div>			
+				</div>
+				
+			</div>
+			
+			<input hidden="hidden" type="submit" name="search" value="Submit"/>	
+			
+		</form>			
+			
 		<hr/>
 
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/patron/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}" id="previous">
+				<a th:if="${page.hasPrevious()}" th:href="@{/patron/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/patron/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}" id="next">
+				<a th:if="${page.hasNext()}" th:href="@{/patron/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -115,6 +169,7 @@
 						<th>#</th>
 						<th>Photo</th>
 						<th>Name (Gender) / IC</th>
+						<th>Active</th>
 						<th>P.Type</th>
 						<th>C.Key</th>
 						<th>Group</th>
@@ -138,12 +193,17 @@
 							<p>[[${'( ' + e.gender + ' )'}]]</p>
     						<p>[[${e.ic}]]</p>
 						</td>
+						<td th:text="${e.active}">Student</td>
 						<td th:text="${e.patronType.name}">Student</td>
 						<td>
 							<a href="#" th:href="@{/patron/checkout/entry?cardKey={cardKey}(cardKey=${e.cardKey})}" th:text="${e.cardKey}">cardKey</a>
 						</td>
 						<td th:text="${e.group.code}">SM1</td>
-						<td th:inline="text">[[|${#calendars.format(e.startDate,'yyyy-MM-dd')} @ ${#calendars.format(e.endDate,'yyyy-MM-dd')}|]]</td>
+						<td th:inline="text">
+							[[${#calendars.format(e.startDate,'yyyy-MM-dd')}]]
+							<br>
+							[[${#calendars.format(e.endDate,'yyyy-MM-dd')}]]
+						</td>
 						<td><textarea rows="4" cols="30" name="note" th:text="${e.note}"></textarea></td>
 						<td>
 							  <a href="#" th:href="@{/patron/{id}/upload(id=${e.id})}"><i class="far fa-image"></i></a>

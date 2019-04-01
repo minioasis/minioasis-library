@@ -96,6 +96,7 @@ jooq {
                 deprecated = false
                 records = true
                 pojos = true
+                daos = true
            }
            target {
                packageName = 'org.minioasis.library.jooq'

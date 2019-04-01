@@ -33,6 +33,7 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.AttachmentCheckoutRepository;
 import org.minioasis.library.repository.AttachmentRepository;
@@ -759,6 +760,9 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<Patron> findAllPatrons(Pageable pageable){
 		return this.patronRepository.findAll(pageable);
+	}
+	public Page<Patron> findByCriteria(PatronCriteria criteria, Pageable pageable){
+		return this.patronRepository.findByCriteria(criteria, pageable);
 	}
 	
 	public Patron getPatronByCardKeyForCirculation(String cardKey, Date given){

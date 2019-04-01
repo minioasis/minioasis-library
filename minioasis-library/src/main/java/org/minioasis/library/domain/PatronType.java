@@ -122,7 +122,7 @@ public class PatronType implements Serializable {
 	private BigDecimal fineRate;
 
 	@NotNull
-	@Column(name = "memberFee" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
+	@Column(name = "member_fee" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
 	private BigDecimal memberFee;
 
 	@NotNull

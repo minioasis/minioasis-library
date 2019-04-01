@@ -133,6 +133,29 @@ public class BootstrapData implements CommandLineRunner {
 		pt1.setMaxLostPaymentDuration(5);
 		pt1.setFineRate(new BigDecimal(0.50));	
 		patronTypeRepository.save(pt1);
+
+		PatronType pt2 = new PatronType();
+		pt2.setName("Teacher");
+		pt2.setStartDate(date("2015-01-02"));
+		pt2.setExpiryDate(date("2016-12-12"));
+		pt2.setMemberFee(new BigDecimal(100.00));
+		pt2.setDeposit(new BigDecimal(200.00));
+		pt2.setBiblioLimit(5);
+		pt2.setDuration(6);
+		pt2.setMaxOverduePeriodPerBiblio(7);
+		pt2.setMaxNoOfOverdueBiblios(8);
+		pt2.setMaxArrearage(new BigDecimal(10.00));
+		pt2.setMaxOwingFinePeriodPerBiblio(3);
+		pt2.setMaxNoOfReservations(3);
+		pt2.setMaxCollectablePeriod(7);
+		pt2.setMaxUncollectedNo(3);
+		pt2.setMaxCantReservePeriod(14);
+		pt2.setMaxNoOfRenew(2);
+		pt2.setMinRenewablePeriod(4);
+		pt2.setResumeBorrowablePeriod(7);
+		pt2.setMaxLostPaymentDuration(5);
+		pt2.setFineRate(new BigDecimal(0.50));	
+		patronTypeRepository.save(pt2);
 		
 		// Group
 		Group g1 = new Group();
@@ -218,7 +241,7 @@ public class BootstrapData implements CommandLineRunner {
 		patronRepository.save(p2);
 		
 		Patron p3 = new Patron();
-		p3.setActive(YesNo.Y);
+		p3.setActive(YesNo.N);
 		p3.setName("R.P. Feynman");
 		p3.setName2("Prof Feynman");
 		p3.setStartDate(date("2015-01-15"));

@@ -6,8 +6,6 @@ import java.util.Set;
 
 import javax.validation.constraints.NotNull;
 
-import org.minioasis.library.domain.Group;
-import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.YesNo;
 
 public class PatronCriteria {
@@ -22,8 +20,8 @@ public class PatronCriteria {
 	private Date endDateFrom;
 	private Date endDateTo;
 	private Set<YesNo> actives = new HashSet<YesNo>();
-	private Set<PatronType> patronTypes = new HashSet<PatronType>();
-	private Set<Group> groups = new HashSet<Group>();
+	private Set<Long> patronTypes = new HashSet<Long>();
+	private Set<Long> groups = new HashSet<Long>();
 	@NotNull
 	private Long[] ids = null;
 	@NotNull
@@ -89,16 +87,16 @@ public class PatronCriteria {
 	public void setActives(Set<YesNo> actives) {
 		this.actives = actives;
 	}
-	public Set<PatronType> getPatronTypes() {
+	public Set<Long> getPatronTypes() {
 		return patronTypes;
 	}
-	public void setPatronTypes(Set<PatronType> patronTypes) {
+	public void setPatronTypes(Set<Long> patronTypes) {
 		this.patronTypes = patronTypes;
 	}
-	public Set<Group> getGroups() {
+	public Set<Long> getGroups() {
 		return groups;
 	}
-	public void setGroups(Set<Group> groups) {
+	public void setGroups(Set<Long> groups) {
 		this.groups = groups;
 	}
 	public Long[] getIds() {
