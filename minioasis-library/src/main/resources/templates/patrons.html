@@ -15,8 +15,8 @@
 			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/patron.form}">
 				<span><i class="fas fa-user-plus"></i></span>
 			</a>
-			<a class="btn btn-success" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
-				<i class="fas fa-redo-alt"></i>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
+				<i class="fas fa-search"></i>
 			</a>	
 		</h4>
 					
@@ -52,21 +52,26 @@
 				<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">			
 					<div class="form-row pt-3">
 					    <div class="form-group col-md-3">
-					    	<label>Name</label>
-					      <input type="text" class="form-control" th:field="*{keyword}" autofocus="autofocus" placeholder="Name,Name2,IC,Mobile" />
+					    	<label>
+					    		<span th:text="#{name}">Name</span>.
+					    		<span th:text="#{name2}">Name2</span>.
+					    		<span th:text="#{ic}">IC</span>.
+					    		<span th:text="#{mobile}">Mobile</span>.
+					    	</label>
+					      <input type="text" class="form-control" th:field="*{keyword}" autofocus="autofocus"/>
 					    </div>
 					    <div class="form-group col-md-3">
-							<label>Card Key</label>
-					      	<input type="text" class="form-control"	th:field="*{cardKey}" placeholder="CardKey" />
+							<label th:text="#{card.key}">Card Key</label>
+					      	<input type="text" class="form-control"	th:field="*{cardKey}"/>
 					    </div>
 					    <div class="form-group col-md-3">
-					    	<label>Note</label>
-					      	<input type="text" class="form-control"	th:field="*{note}" placeholder="Note" />
+					    	<label th:text="#{note}">Note</label>
+					      	<input type="text" class="form-control"	th:field="*{note}"/>
 					    </div>
 					    <div class="form-group col-md-2">
-					    	<label>Notes</label>
+					    	<label th:text="#{notes}">Notes</label>
 							<a th:href="@{/patron/search(page=0,size=20,sort='cardKey,desc',note='isNotEmpty()')}" id="next">
-								<button type="button" class="form-control btn btn-outline-success">Notes</button>
+								<button type="button" class="form-control btn btn-outline-success"><i class="far fa-sticky-note"></i></button>
 							</a>
 					    </div>
 					</div>								
@@ -75,28 +80,37 @@
 				<div class="tab-pane fade" id="date" role="tabpanel" aria-labelledby="date-tab">	
 					<div class="form-row pt-3">
 						<div class="form-group col-md-2">
-					      <label>Start Date</label>
-					      <input type="text" class="form-control"	th:field="*{startDateFrom}" placeholder="yyyy-MM-dd" />
+					      <label>
+					      	<i class="far fa-calendar-plus"></i>
+					      	<span th:text="#{start.date}">Start Date</span>
+					      </label>
+					      <input type="text" class="form-control" th:field="*{startDateFrom}" placeholder="yyyy-MM-dd" />
 					    </div>
 					    <div class="form-group col-md-2">
-					      <label>.</label>
-					      <input type="text" class="form-control"	th:field="*{startDateTo}" placeholder="To" />
+					      <label><i class="far fa-calendar-minus"></i></label>
+					      <input type="text" class="form-control" th:field="*{startDateTo}" placeholder="To" />
 					    </div>
 					    <div class="form-group col-md-2">
-					      <label>End Date</label>
-					      <input type="text" class="form-control"	th:field="*{endDateFrom}" placeholder="From" />
+					      	<label>
+						      	<i class="far fa-calendar-plus"></i>
+						      	<span th:text="#{end.date}">End Date</span>
+					      	</label>
+					      <input type="text" class="form-control" th:field="*{endDateFrom}" placeholder="From" />
 					    </div>
 					    <div class="form-group col-md-2">
-					      <label>.</label>
-					      <input type="text" class="form-control"	th:field="*{endDateTo}" placeholder="To" />
+					      <label><i class="far fa-calendar-minus"></i></label>
+					      <input type="text" class="form-control" th:field="*{endDateTo}" placeholder="To" />
 					    </div>
 					    <div class="form-group col-md-2">
-					      <label>Created</label>
-					      <input type="text" class="form-control"	th:field="*{createdFrom}" placeholder="From" />
+					    	<label>
+						      	<i class="far fa-calendar-plus"></i>
+						      	<span th:text="#{created}">Created</span>
+					      	</label>
+					      <input type="text" class="form-control" th:field="*{createdFrom}" placeholder="From" />
 					    </div>
 					    <div class="form-group col-md-2">
-					      <label>.</label>
-					      <input type="text" class="form-control"	th:field="*{createdTo}" placeholder="To" />
+					      <label><i class="far fa-calendar-minus"></i></label>
+					      <input type="text" class="form-control" th:field="*{createdTo}" placeholder="To" />
 					    </div>
 					</div>
 				</div>
@@ -104,7 +118,7 @@
 				<div class="tab-pane fade" id="type" role="tabpanel"	aria-labelledby="type-tab">
 					<div class="form-row pt-3">
 					    <div class="form-group col-md-3">
-					    	<label>Patron Type</label>
+					    	<label th:text="#{patron.type}">Patron Type</label>
 							<select	class="form-control" th:field="*{patronTypes}" multiple="multiple">						
 								<option th:each="pt : ${pts}" th:value="${pt.id}" th:text="${pt.name}" />
 								<option th:remove="all" value="24121">SM1</option>
@@ -112,7 +126,7 @@
 							</select>
 					    </div>
 					    <div class="form-group col-md-3">
-					    	<label>Group</label>
+					    	<label th:text="#{group}">Group</label>
 							<select	class="form-control" th:field="*{groups}" multiple="multiple">						
 								<option th:each="g : ${gps}" th:value="${g.id}" th:text="${g.code}" />
 								<option th:remove="all" value="24121">SM1</option>
@@ -120,7 +134,7 @@
 							</select>
 					    </div>
 					    <div class="form-group col-md-3">
-					    	<label>Active</label>
+					    	<label th:text="#{active}">Active</label>
 							<select	class="form-control" th:field="*{actives}" multiple="multiple">
 								<option th:each="a : ${ats}" th:value="${a}" th:text="${a}" />						
 								<option th:remove="all" value="Y" th:text="${yes}">SM1</option>
@@ -162,8 +176,8 @@
 		
 		Total : <span th:text="${page.totalElements}">105</span>
 
-		<div class="table-responsive">					
-			<table class="table table-sm">
+		<div class="table-responsive-sm">					
+			<table class="table table-sm table-striped">
 				<thead>
 					<tr class="table-primary">
 						<th>#</th>

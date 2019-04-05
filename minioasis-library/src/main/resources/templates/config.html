@@ -24,21 +24,15 @@
 		</div> <!-- row 1 -->
 		
 		<div class="row"> <!-- row 2 -->
-		    <div class="col-sm-3">	    	
-		      
-				<span th:text="#{patron.type}">Patron Type</span> 
+		    <div class="col-sm-3">	    			      
+				<span th:text="#{patron.type}">Patron Type</span>
 				<br/>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-user-friends"></i>
-					</span>
+				<a href="#" th:href="@{/patrontype/new}"  class="btn btn-outline-success text-success">
+					<span><i class="fas fa-user-friends"></i></span>
 				</a>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-search"></i>
-					</span>
-				</a>
-				
+				<a href="#" th:href="@{/patrontype/list}" class="btn btn-outline-success text-success">
+					<span><i class="fas fa-search"></i></span>
+				</a>				
 			</div>
 			
 		    <div class="col-sm-3">	    	

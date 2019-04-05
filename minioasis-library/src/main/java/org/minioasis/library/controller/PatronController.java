@@ -1,8 +1,6 @@
 package org.minioasis.library.controller;
 
 import java.io.IOException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.Enumeration;
 import java.util.Iterator;
 import java.util.List;
@@ -17,8 +15,6 @@ import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.Photo;
 import org.minioasis.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomDateEditor;
-import org.springframework.beans.propertyeditors.StringTrimmerEditor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
@@ -65,7 +61,6 @@ public class PatronController {
 	public String create(@Valid Patron patron, BindingResult result) {
 
 		if(result.hasErrors()){
-			//System.out.println("********************" + result.getErrorCount() + "---" + result.toString());
 			return "patron.form";			
 		} else {
 			
@@ -179,14 +174,7 @@ public class PatronController {
 	
 	@InitBinder
 	public void initBinder(WebDataBinder binder, WebRequest request) {
-
-		//Locale locale = request.getLocale();
-		StringTrimmerEditor emptyTrimmer = new StringTrimmerEditor(true);
-		SimpleDateFormat dateFormat = new SimpleDateFormat("yyyy-MM-dd");
-		dateFormat.setLenient(false);
 		
-		binder.registerCustomEditor(Date.class, null, new CustomDateEditor(dateFormat, true));		
-		binder.registerCustomEditor(String.class, null, emptyTrimmer);
 		binder.registerCustomEditor(Group.class, new GroupEditor(service));
 		binder.registerCustomEditor(byte[].class,new ByteArrayMultipartFileEditor());
 /*		binder.registerCustomEditor(Set.class,"patronTypes", new CustomCollectionEditor(Set.class) {

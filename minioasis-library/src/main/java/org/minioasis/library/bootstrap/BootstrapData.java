@@ -248,7 +248,7 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setEndDate(date("2016-12-12"));
 		p3.setCardKey("33333");
 		p3.setEntangled("entangled3");
-		p3.setPatronType(pt1);
+		p3.setPatronType(pt2);
 		p3.setGroup(g3);
 		p3.setGender("F");
 		p3.setIc("44415-10-7777");

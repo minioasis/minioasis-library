@@ -11,11 +11,24 @@
 
 	<div class="container pt-3 pb-3">
 
-		<h4><span th:text="#{patron}">Patron</span></h4>
-		
+		<h4>
+			<span th:text="#{patron}">Patron</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/patron.form}">
+				<span><i class="fas fa-user-plus"></i></span>
+			</a>
+			<a class="btn btn-outline-info text-info"  href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
+				<span><i class="fas fa-search"></i></span>
+			</a>
+		</h4>
+						
 		<div class="card bg-hb" style="max-width: 42rem;">
 		  <div class="card-header">
 			<i class="fas fa-user-plus"></i>
+			<div class="float-right">
+				<a class="text-white" href="#" th:href="@{/patron/{id}/upload(id=${id})}"><i class="far fa-image"></i></a>
+				| <a class="text-white" href="#" th:href="@{/patron/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
+				| <a class="text-white" href="#" th:href="@{/patron/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
+			</div>
 		  </div>
 		  <div class="card-body bg-white">
 			<div class="row">
