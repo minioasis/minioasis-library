@@ -70,9 +70,11 @@ public class PatronListSearch {
 	public String patrons(Model model, Pageable pageable) {
 
 		Page<Patron> page = this.service.findAllPatrons(pageable);
+		
 		model.addAttribute("criteria", new PatronCriteria());
 		model.addAttribute("page", page);
 		model.addAttribute("pagingType", "list");
+		
 		return "patrons";
 		
 	}
@@ -85,10 +87,10 @@ public class PatronListSearch {
 		
 		String next = buildUri(request, page.getNumber() + 1);
 		String previous = buildUri(request, page.getNumber() - 1);
-		
-		model.addAttribute("page", page);
+
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
+		model.addAttribute("page", page);
 		model.addAttribute("pagingType", "search");
 		
 		return "patrons";

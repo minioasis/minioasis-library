@@ -70,22 +70,6 @@ public class PatronType implements Serializable {
 	private Integer duration;
 	
 	@NotNull
-	@Column(name = "max_overdue_period_per_biblio", nullable = false)
-	private Integer maxOverduePeriodPerBiblio;
-	
-	@NotNull
-	@Column(name = "max_no_of_overdue_biblios", nullable = false)
-	private Integer maxNoOfOverdueBiblios;
-	
-	@NotNull
-	@Column(name = "max_arrearage" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
-	private BigDecimal maxArrearage;
-	
-	@NotNull
-	@Column(name = "max_owing_fine_period_per_biblio", nullable = false)
-	private Integer maxOwingFinePeriodPerBiblio;
-	
-	@NotNull
 	@Column(name = "max_no_of_reservations", nullable = false)
 	private Integer maxNoOfReservations;
 	
@@ -114,10 +98,6 @@ public class PatronType implements Serializable {
 	private Integer resumeBorrowablePeriod;
 	
 	@NotNull
-	@Column(name = "max_lost_payment_duration", nullable = false)
-	private Integer maxLostPaymentDuration;
-	
-	@NotNull
 	@Column(name = "fine_rate" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
 	private BigDecimal fineRate;
 
@@ -142,20 +122,15 @@ public class PatronType implements Serializable {
 	}
 
 	public PatronType(String name, Date startDate, Date expiryDate, Integer biblioLimit, Integer duration,
-			Integer maxOverduePeriodPerBiblio, Integer maxNoOfOverdueBiblios, BigDecimal maxArrearage,
-			Integer maxOwingFinePeriodPerBiblio, Integer maxNoOfReservations, Integer maxCollectablePeriod,
+			Integer maxNoOfReservations, Integer maxCollectablePeriod,
 			Integer maxUncollectedNo, Integer maxCantReservePeriod, Integer maxNoOfRenew, Integer minRenewablePeriod,
-			Integer resumeBorrowablePeriod, Integer maxLostPaymentDuration, BigDecimal fineRate, BigDecimal memberFee,
+			Integer resumeBorrowablePeriod, BigDecimal fineRate, BigDecimal memberFee,
 			BigDecimal deposit) {
 		this.name = name;
 		this.startDate = startDate;
 		this.expiryDate = expiryDate;
 		this.biblioLimit = biblioLimit;
 		this.duration = duration;
-		this.maxOverduePeriodPerBiblio = maxOverduePeriodPerBiblio;
-		this.maxNoOfOverdueBiblios = maxNoOfOverdueBiblios;
-		this.maxArrearage = maxArrearage;
-		this.maxOwingFinePeriodPerBiblio = maxOwingFinePeriodPerBiblio;
 		this.maxNoOfReservations = maxNoOfReservations;
 		this.maxCollectablePeriod = maxCollectablePeriod;
 		this.maxUncollectedNo = maxUncollectedNo;
@@ -163,7 +138,6 @@ public class PatronType implements Serializable {
 		this.maxNoOfRenew = maxNoOfRenew;
 		this.minRenewablePeriod = minRenewablePeriod;
 		this.resumeBorrowablePeriod = resumeBorrowablePeriod;
-		this.maxLostPaymentDuration = maxLostPaymentDuration;
 		this.fineRate = fineRate;
 		this.memberFee = memberFee;
 		this.deposit = deposit;
@@ -215,39 +189,6 @@ public class PatronType implements Serializable {
 
 	public void setDuration(Integer duration) {
 		this.duration = duration;
-	}
-
-	public Integer getMaxOverduePeriodPerBiblio() {
-		return this.maxOverduePeriodPerBiblio;
-	}
-
-	public void setMaxOverduePeriodPerBiblio(Integer maxOverduePeriodPerBiblio) {
-		this.maxOverduePeriodPerBiblio = maxOverduePeriodPerBiblio;
-	}
-
-	public Integer getMaxNoOfOverdueBiblios() {
-		return maxNoOfOverdueBiblios;
-	}
-
-	public void setMaxNoOfOverdueBiblios(Integer maxNoOfOverdueBiblios) {
-		this.maxNoOfOverdueBiblios = maxNoOfOverdueBiblios;
-	}
-
-	public BigDecimal getMaxArrearage() {
-		return this.maxArrearage;
-	}
-
-	public void setMaxArrearage(BigDecimal maxArrearage) {
-		this.maxArrearage = maxArrearage;
-	}
-
-	public Integer getMaxOwingFinePeriodPerBiblio() {
-		return this.maxOwingFinePeriodPerBiblio;
-	}
-
-	public void setMaxOwingFinePeriodPerBiblio(
-			Integer maxOwingFinePeriodPerBiblio) {
-		this.maxOwingFinePeriodPerBiblio = maxOwingFinePeriodPerBiblio;
 	}
 
 	public Integer getMaxNoOfReservations() {
@@ -304,14 +245,6 @@ public class PatronType implements Serializable {
 
 	public void setResumeBorrowablePeriod(Integer resumeBorrowablePeriod) {
 		this.resumeBorrowablePeriod = resumeBorrowablePeriod;
-	}
-
-	public Integer getMaxLostPaymentDuration() {
-		return this.maxLostPaymentDuration;
-	}
-
-	public void setMaxLostPaymentDuration(Integer maxLostPaymentDuration) {
-		this.maxLostPaymentDuration = maxLostPaymentDuration;
 	}
 
 	public BigDecimal getFineRate() {

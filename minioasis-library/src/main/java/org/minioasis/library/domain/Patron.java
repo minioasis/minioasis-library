@@ -648,20 +648,6 @@ public class Patron implements Serializable {
 		if (isBiblioLimitOver(patronType))
 			notifications.addError(CirculationCode.REACHED_BOOKLIMIT);
 
-		if (noOfOverdueBiblios > patronType.getMaxNoOfOverdueBiblios().intValue())
-			notifications.addError(CirculationCode.REACHED_MAX_NO_OF_OVERDUE_BIBLIOS);
-
-		if (totalAmountOfFines.doubleValue() >= patronType.getMaxArrearage().doubleValue())
-			notifications.addError(CirculationCode.REACHED_MAX_ARREARAGE);
-
-		// A.4.2
-		if (reachMaxOverduePeriodForOneBiblio(given,strategy))
-			notifications.addError(CirculationCode.REACHED_MAX_OVERDUE_PERIOD_FOR_ONE_BIBLIO);
-
-		// A.4.3
-		if (reachMaxOwingFinesPeriodForOneBiblio(given))
-			notifications.addError(CirculationCode.REACHED_MAX_OVERDUE_PERIOD_FOR_ONE_BIBLIO);
-
 	}
 
 	// A.4.1
@@ -672,39 +658,6 @@ public class Patron implements Serializable {
 
 		// we use >= here because we have to count the current checkout !
 		return (noOfBiblioLend >= biblioLimit);
-	}
-
-	// A.4.2
-	private boolean reachMaxOverduePeriodForOneBiblio(Date given, HolidayCalculationStrategy strategy) {
-
-		for (Checkout c : checkouts) {
-
-			if (c.calculateDaysOfOverDue(given,strategy) > patronType.getMaxOverduePeriodPerBiblio().intValue()) {
-
-				return true;
-			}
-
-		}
-
-		return false;
-	}
-
-	// A.4.3
-	private boolean reachMaxOwingFinesPeriodForOneBiblio(Date given) {
-
-		for (Checkout c : checkouts) {
-
-			if (c.isOverDue(given)
-					&& c.calDaysOfUnpaidFine(given) > patronType.getMaxOwingFinePeriodPerBiblio().intValue()) {
-
-				return true;
-
-			}
-
-		}
-
-		return false;
-
 	}
 
 	// ******************** checkout attachment **********************

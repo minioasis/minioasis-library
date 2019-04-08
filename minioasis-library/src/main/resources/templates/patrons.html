@@ -12,7 +12,7 @@
 
 		<h4>
 			<span th:text="#{search.patron}">Search Patron</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/patron.form}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/save}">
 				<span><i class="fas fa-user-plus"></i></span>
 			</a>
 			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
@@ -181,15 +181,15 @@
 				<thead>
 					<tr class="table-primary">
 						<th>#</th>
-						<th>Photo</th>
-						<th>Name (Gender) / IC</th>
-						<th>Active</th>
-						<th>P.Type</th>
-						<th>C.Key</th>
-						<th>Group</th>
-						<th>Start / End</th>
-						<th>Note</th>
-						<th>Action</th>
+						<th th:text="#{photo}">Photo</th>
+						<th th:text="#{name} + '(Gender) / IC'">Name (Gender) / IC</th>
+						<th th:text="#{active}">Active</th>
+						<th th:text="#{patron.type}">P.Type</th>
+						<th th:text="#{card.key}">C.Key</th>
+						<th th:text="#{group}">Group</th>
+						<th th:text="#{start.end}">Start / End</th>
+						<th th:text="#{note}">Note</th>
+						<th th:text="#{actions}">Actions</th>
 					</tr>
 				</thead>
 	

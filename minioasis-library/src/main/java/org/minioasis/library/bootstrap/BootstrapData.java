@@ -119,10 +119,6 @@ public class BootstrapData implements CommandLineRunner {
 		pt1.setDeposit(new BigDecimal(200.00));
 		pt1.setBiblioLimit(5);
 		pt1.setDuration(6);
-		pt1.setMaxOverduePeriodPerBiblio(7);
-		pt1.setMaxNoOfOverdueBiblios(8);
-		pt1.setMaxArrearage(new BigDecimal(10.00));
-		pt1.setMaxOwingFinePeriodPerBiblio(3);
 		pt1.setMaxNoOfReservations(3);
 		pt1.setMaxCollectablePeriod(7);
 		pt1.setMaxUncollectedNo(3);
@@ -130,7 +126,6 @@ public class BootstrapData implements CommandLineRunner {
 		pt1.setMaxNoOfRenew(2);
 		pt1.setMinRenewablePeriod(4);
 		pt1.setResumeBorrowablePeriod(7);
-		pt1.setMaxLostPaymentDuration(5);
 		pt1.setFineRate(new BigDecimal(0.50));	
 		patronTypeRepository.save(pt1);
 
@@ -142,10 +137,6 @@ public class BootstrapData implements CommandLineRunner {
 		pt2.setDeposit(new BigDecimal(200.00));
 		pt2.setBiblioLimit(5);
 		pt2.setDuration(6);
-		pt2.setMaxOverduePeriodPerBiblio(7);
-		pt2.setMaxNoOfOverdueBiblios(8);
-		pt2.setMaxArrearage(new BigDecimal(10.00));
-		pt2.setMaxOwingFinePeriodPerBiblio(3);
 		pt2.setMaxNoOfReservations(3);
 		pt2.setMaxCollectablePeriod(7);
 		pt2.setMaxUncollectedNo(3);
@@ -153,7 +144,6 @@ public class BootstrapData implements CommandLineRunner {
 		pt2.setMaxNoOfRenew(2);
 		pt2.setMinRenewablePeriod(4);
 		pt2.setResumeBorrowablePeriod(7);
-		pt2.setMaxLostPaymentDuration(5);
 		pt2.setFineRate(new BigDecimal(0.50));	
 		patronTypeRepository.save(pt2);
 		

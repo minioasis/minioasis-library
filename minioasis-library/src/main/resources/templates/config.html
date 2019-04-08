@@ -27,7 +27,7 @@
 		    <div class="col-sm-3">	    			      
 				<span th:text="#{patron.type}">Patron Type</span>
 				<br/>
-				<a href="#" th:href="@{/patrontype/new}"  class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/patrontype/save}" class="btn btn-outline-success text-success">
 					<span><i class="fas fa-user-friends"></i></span>
 				</a>
 				<a href="#" th:href="@{/patrontype/list}" class="btn btn-outline-success text-success">
@@ -39,12 +39,12 @@
 
 				<span th:text="#{group}">Group</span>
 				<br>
-				<a class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/group/save}" class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-users"></i>
 					</span>
 				</a>
-				<a class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/group/list(page=0,size=10,sort=code)}" class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-search"></i>
 					</span>

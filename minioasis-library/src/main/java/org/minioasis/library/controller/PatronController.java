@@ -49,15 +49,13 @@ public class PatronController {
 		return this.service.findAllPatronTypes(new Sort(Sort.Direction.ASC, "name"));	
 	}
 	
-	@RequestMapping(value = { "/patron.form" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/save" }, method = RequestMethod.GET)
 	public String create(Model model) {
-
 		model.addAttribute("patron", new Patron());
-		return "patron.form";
-			
+		return "patron.form";		
 	}
 	
-	@RequestMapping(value = { "/patron.form" }, method = RequestMethod.POST)
+	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
 	public String create(@Valid Patron patron, BindingResult result) {
 
 		if(result.hasErrors()){

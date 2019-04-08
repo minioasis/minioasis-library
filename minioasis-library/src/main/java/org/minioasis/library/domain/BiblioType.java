@@ -2,7 +2,7 @@ package org.minioasis.library.domain;
 
 public enum BiblioType {
 
-	BOOK("Book"), JOURNAL("Journal"), EBOOK("Ebook"), ART_MEDIA("Art Media"), VIDEO("Video"), AUDIO("Audio");
+	BOOK("Book"), JOURNAL("Journal"), EBOOK("Ebook"), ART_MEDIA("Art Media"), VIDEO("Video"), AUDIO("Audio"), OTHER("Other");
 
 	private final String value;
 
