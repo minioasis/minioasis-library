@@ -33,6 +33,7 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.AttachmentCheckoutRepository;
@@ -512,6 +513,9 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public List<Holiday> findAllHolidaysByGivenDate(Date given){
 		return this.holidayRepository.findAllHolidaysByGivenDate(given);
+	}
+	public Page<Holiday> findByCriteria(HolidayCriteria criteria, Pageable pageable){
+		return this.holidayRepository.findByCriteria(criteria, pageable);
 	}
 
 	/****************************************  Item  ********************************************/

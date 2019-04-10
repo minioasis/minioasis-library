@@ -120,13 +120,13 @@ public class Holiday implements Serializable {
 		if (!(other instanceof Holiday))
 			return false;
 		final Holiday that = (Holiday) other;
-		return Objects.equals(name, that.getName());
+		return id != null && id.equals(that.getId());
 
 	}
 
     @Override
-	public int hashCode() {
-		return Objects.hashCode(name);
-	}
+    public int hashCode() {
+        return 55;
+    }
 
 }

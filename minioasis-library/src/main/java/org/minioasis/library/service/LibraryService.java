@@ -26,6 +26,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.springframework.data.domain.Page;
@@ -146,6 +147,7 @@ public interface LibraryService {
 	List<Holiday> findAllHolidays(Sort sort);
 	List<Holiday> findAllHolidaysByGivenDate(Date given);
 	Page<Holiday> findAllHolidays(Pageable pageable);
+	Page<Holiday> findByCriteria(HolidayCriteria criteria, Pageable pageable);
 	
 	// Item	
 	void save(Item entity);

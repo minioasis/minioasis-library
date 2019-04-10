@@ -17,7 +17,6 @@ import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Patron;
-import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.springframework.beans.factory.annotation.Autowired;

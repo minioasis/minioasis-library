@@ -11,7 +11,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface HolidayRepository extends JpaRepository<Holiday, Long> {
+public interface HolidayRepository extends JpaRepository<Holiday, Long>, HolidayRepositoryCustom {
 
 	@Query("SELECT h FROM Holiday h WHERE h.startDate <= ?1 AND ?1 <= h.endDate")
 	Holiday getHolidayByDueDate(Date dueDate);
