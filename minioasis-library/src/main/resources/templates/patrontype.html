@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{patron.type}">Patron Type</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patrontype/save}">
+				<span><i class="fas fa-user-friends"></i></span>
+			</a>
+			<a class="btn btn-outline-info text-info"  href="#" th:href="@{/patrontype/list}">
+				<span><i class="fas fa-search"></i></span>
+			</a>
+		</h4>
+						
+		<div class="card bg-hb" style="max-width: 42rem;">
+		  <div class="card-header">
+			<i class="fas fa-user-plus"></i>
+			<div class="float-right">
+				<a class="text-white" href="#" th:href="@{/patrontype/edit/{id}(id=${id})}"><i class="far fa-edit"></i></a>
+				| <a class="text-white" href="#" th:href="@{/patrontype/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
+			</div>
+		  </div>
+		  <div class="card-body bg-white">
+			<div class="row">
+				<div class="col">
+				
+					<div class="table-responsive">
+						<table class="table table-sm">
+							<tbody>
+								<tr class="bg-light">
+									<td><i class="fas fa-align-justify text-danger"></i> <span class="font-weight-bold" th:text="#{general}"></span></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td><i class="far fa-address-book text-label"></i> <span th:text="#{name}"></span></td>
+									<td class="text-info" th:text="${patronType.name}">Feynman</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-toggle-on text-label"></i> <span th:text="#{start.date}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(patronType.startDate,'yyyy-MM-dd')}">2019-01-01</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-toggle-off text-label"></i> <span th:text="#{expiry.date}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(patronType.expiryDate,'yyyy-MM-dd')}">2019-12-31</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-dollar-sign text-label"></i> <span th:text="#{member.fee}"></span></td>
+									<td class="text-info" th:text="${patronType.memberFee}">130.00</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-hand-holding-usd text-label"></i> <span th:text="#{deposit}"></span></td>
+									<td class="text-info" th:text="${patronType.deposit}">50.00</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-sort-numeric-up text-label"></i> <span th:text="#{biblio.limit}"></span></td>
+									<td class="text-info" th:text="${patronType.biblioLimit}">3</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{duration}"></span></td>
+									<td class="text-info" th:text="${patronType.duration}">14</td>
+								</tr>
+								<tr class="bg-light">
+									<td><i class="fas fa-retweet text-success"></i> <span class="font-weight-bold" th:text="#{renew}"></span></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td> * <span th:text="#{max.no.of.renew}"></span></td>
+									<td class="text-info" th:text="${patronType.maxNoOfRenew}">0.40</td>
+								</tr>
+								<tr>
+									<td> * <span th:text="#{min.renewable.period}"></span></td>
+									<td class="text-info" th:text="${patronType.minRenewablePeriod}">6</td>
+								</tr>
+								<tr>
+									<td> * <span th:text="#{resume.borrowable.period}"></span></td>
+									<td class="text-info" th:text="${patronType.resumeBorrowablePeriod}">14</td>
+								</tr>
+								<tr class="bg-light">
+									<td><i class="fas fa-bookmark text-primary"></i> <span class="font-weight-bold" th:text="#{reservation}"></span></td>
+									<td></td>
+								</tr>
+								<tr>
+									<td> * <span th:text="#{max.no.of.reservations}"></span></td>
+									<td class="text-info" th:text="${patronType.maxNoOfReservations}">14</td>
+								</tr>
+								<tr>
+									<td> * <span th:text="#{max.uncollected.no}"></span></td>
+									<td class="text-info" th:text="${patronType.maxUncollectedNo}">14</td>
+								</tr>
+								<tr>
+									<td> * <span th:text="#{max.collectable.period}"></span></td>
+									<td class="text-info" th:text="${patronType.maxCollectablePeriod}">14</td>
+								</tr>
+								<tr>
+									<td> * <span th:text="#{max.cant.reserve.period}"></span></td>
+									<td class="text-info" th:text="${patronType.maxCantReservePeriod}">14</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>		
+ 		
+		  </div>
+		</div>
+
+  		<div th:replace="fragments/script :: script"></div>	
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+	
+</body>
+</html>

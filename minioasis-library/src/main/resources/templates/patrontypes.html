@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(Minioasis)">
+<title>Minioasis Library</title>
+</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{patrontypes}">Patron Types</span>
+			<a href="#" th:href="@{/patrontype/save}"  class="btn btn-outline-success text-success">
+				<span><i class="fas fa-user-friends"></i></span>
+			</a>
+		</h4>
+
+		<div class="table-responsive">				
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th th:text="#{name}">Name</th>
+						<th th:text="#{start.date}">Start Date</th>
+						<th th:text="#{expiry.date}">Expiry Date</th>
+						<th th:text="#{member.fee}">M. Fee</th>
+						<th th:text="#{deposit}">Deposit</th>
+						<th th:text="#{biblio.limit}">Book Limit</th>
+						<th th:text="#{duration}">Duration</th>
+						<th th:text="#{fine.rate}">Fine</th>
+						<th class="text-success">N1</th>
+						<th class="text-success">N2</th>
+						<th class="text-success">N3</th>
+						<th class="text-primary">R1</th>
+						<th class="text-primary">R2</th>
+						<th class="text-primary">R3</th>
+						<th class="text-primary">R4</th>
+						<th>Action</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${patronTypes}">
+						<td th:text="${iterator.index + 1}">1</td>
+						<td>
+							<a href="#" th:href="@{/patrontype/{id}(id=${e.id})}" th:text="${e.name}">Student</a>
+						</td>
+						<td th:text="${#calendars.format(e.startDate,'yyyy-MM-dd')}">2015-01-01</td>
+						<td th:text="${#calendars.format(e.expiryDate,'yyyy-MM-dd')}">2015-12-31</td>
+						<td th:text="${e.memberFee}">150</td>
+						<td th:text="${e.deposit}">300</td>
+						<td th:text="${e.biblioLimit}">5</td>
+						<td th:text="${e.duration}">5</td>
+						<td th:text="${e.fineRate}">0.30</td>
+						<td th:text="${e.maxNoOfRenew}">5</td>
+						<td th:text="${e.resumeBorrowablePeriod}">5</td>
+						<td th:text="${e.minRenewablePeriod}">5</td>
+						<td th:text="${e.maxNoOfReservations}">5</td>
+						<td th:text="${e.maxUncollectedNo}">5</td>
+						<td th:text="${e.maxCollectablePeriod}">5</td>
+						<td th:text="${e.maxCantReservePeriod}">5</td>
+						<td>
+							<a href="#" th:href="@{/patrontype/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/patrontype/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+						</td>
+					</tr>
+					<tr th:remove="all">
+						<td>2</td>
+						<td>Teacher</td>
+						<td>2015-01-01</td>
+						<td>2015-12-31</td>
+						<td>100</td>
+						<td>200</td>
+						<td>5</td>
+						<td>10</td>
+						<td>0.50</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+		
+		</div>
+	
+		<div class="table-responsive">	
+			<table class="table table-striped table-sm">
+				<thead>
+					<tr>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+						<th>&nbsp;</th>
+					</tr>
+				</thead>
+				<tbody>
+				  <tr>
+				  	<td th:text="#{renew}" class="font-weight-bold text-success">Renew</td>
+				  	<th>:</th>
+				    <td class="text-success">N1 - <span th:text="#{max.no.of.renew}">Max No. Of Renew</span></td>
+				    <td class="text-success">N2 - <span th:text="#{resume.borrowable.period}">Resume Borrowable Period</span></td>
+				    <td class="text-success">N3 - <span  th:text="#{min.renewable.period}">Min Renewable Period</span></td>
+					<td>&nbsp;</td>
+				  </tr>
+				  <tr>
+				  	<td th:text="#{reservation}" class="font-weight-bold text-primary">Reservation</td>
+				  	<th>:</th>
+				    <td class="text-primary">R1 - <span th:text="#{max.no.of.reservations}">Max No. Of Reservation</span></td>
+				    <td class="text-primary">R2 - <span th:text="#{max.uncollected.no}">Max Uncollected No.</span></td>
+				    <td class="text-primary">R3 - <span th:text="#{max.collectable.period}">Max Collectable Period</span></td>				    				    
+				    <td class="text-primary">R4 - <span th:text="#{max.cant.reserve.period}">Max Cant Reserve Period</span></td>
+				  </tr>
+				</tbody>
+			</table>
+		
+		</div>
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

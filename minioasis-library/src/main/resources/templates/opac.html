@@ -1,0 +1,217 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(Minioasis)">
+<title>Minioasis Library</title>
+</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container">
+
+		<div class="col-md-8">
+		
+			<h3 class="pt-3" th:text="#{opac}">Online Cataloging Websites :</h3>
+		
+			<ul class="nav nav-tabs pt-3">
+				<li class="nav-item"><a class="nav-link active" href="#us" data-toggle="tab">US</a></li>
+				<li class="nav-item"><a class="nav-link" href="#cn" data-toggle="tab">China</a></li>
+				<li class="nav-item"><a class="nav-link" href="#hk" data-toggle="tab">Hong Kong</a></li>
+				<li class="nav-item"><a class="nav-link" href="#tw" data-toggle="tab">Taiwan</a></li>
+				<li class="nav-item"><a class="nav-link" href="#scraper" data-toggle="tab">Scrapers</a></li>
+				<li class="nav-item"><a class="nav-link" href="#web" data-toggle="tab">Websites</a></li>
+			</ul>
+						
+			<div class="tab-content">
+				<div class="tab-pane active" id="us">			
+					<br/>				
+					<div class="table-responsive">
+						<table class="table table-condensed">
+							<tbody>
+								<tr>
+									<td><strong>Name</strong></td>
+									<td><strong>Link</strong></td>
+								</tr>
+								<tr>
+									<td><strong>1. Library of Congress (美国国会图书馆)</strong></td>
+									<td><a href="https://catalog.loc.gov/" target="_blank">Library of Congress Online Catalog</a></td>
+								</tr>
+								<tr>
+									<td><strong>2. OCLC Worldcat (联机计算机图书馆中心)</strong></td>
+									<td><a href="https://www.worldcat.org/" target="_blank">Worldcat</a></td>
+								</tr>
+								<tr>
+									<td><strong>3. Oclc Dewey</strong></td>
+									<td><a href="http://classify.oclc.org/classify2/" target="_blank">Oclc Dewey</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane" id="cn">
+					<br/>				
+					<div class="table-responsive">
+						<table class="table table-condensed">
+							<tbody>
+								<tr>
+									<td><strong>Name</strong></td>
+									<td><strong>Link</strong></td>
+								</tr>
+								<tr>
+									<td><strong>1. 亚马逊（中国）</strong></td>
+									<td><a href="http://www.amazon.cn/" target="_blank">亚马逊</a></td>
+								</tr>
+								<tr>
+									<td><strong>2. Dangdang 当当</strong></td>
+									<td><a href="http://www.dangdang.com/" target="_blank">当当</a></td>
+								</tr>
+								<tr>
+									<td><strong>3. CALIS 联合目录公共检索系统</strong></td>
+									<td><a href="http://opac.calis.edu.cn/opac/simpleSearch.do" target="_blank">CALIS</a></td>
+								</tr>
+								<tr>
+									<td><strong>4. UNICAT 联合目录集成服务系统</strong></td>
+									<td><a href="http://union.csdl.ac.cn/Reader/query_new.jsp" target="_blank">UNICAT</a></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+
+				<div class="tab-pane" id="hk">
+					<br/>				
+					<div class="table-responsive">
+						<table class="table table-condensed">
+							<tbody>
+								<tr>
+									<td><strong>Name</strong></td>
+									<td><strong>Link</strong></td>
+								</tr>
+								<tr>
+									<td><strong>1. 香港教育大學圖書館</strong></td>
+									<td><a href="http://www.lib.ied.edu.hk/catalogue/index_c.html" target="_blank">EdUHK Library</a></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+				<div class="tab-pane" id="tw">
+					<br/>				
+					<div class="table-responsive">
+						<table class="table table-condensed">
+							<tbody>
+								<tr>
+									<td><strong>Name</strong></td>
+									<td><strong>Link</strong></td>
+								</tr>
+								<tr>
+									<td><strong>1. OCLC Worldcat</strong></td>
+									<td><a href="https://www.worldcat.org/" target="_blank">Worldcat</a></td>
+								</tr>
+								<tr>
+									<td><strong>2. National Bibliographic Information Network (NBINet)</strong></td>
+									<td><a href="http://nbinet3.ncl.edu.tw/screens/opacmenu_cht.html" target="_blank">全國圖書書目資訊網</a></td>
+								</tr>
+								<tr>
+									<td><strong>3. Synergy of Metadata Resources in Taiwan (SMRT)</strong></td>
+									<td><a href="http://metadata.ncl.edu.tw/blstkmc/blstkmeng#tudorkmtop" target="_blank">台灣書目整合查詢系統</a></td>
+								</tr>
+								<tr>
+									<td><strong>4. 臺大MetaCat</strong></td>
+									<td><a href="http://metacat.ntu.edu.tw/metacat2/app" target="_blank">MetaCat</a></td>
+								</tr>
+								<tr>
+									<td><strong>5. 博客來 www.books.com.tw</strong></td>
+									<td><a href="http://www.books.com.tw/" target="_blank">博客來</a></td>
+								</tr>
+								<tr>
+									<td><strong>6. 中文主題編目規範系統 http://catbase.ncl.edu.tw/App3/</strong></td>
+									<td><a href="http://catbase.ncl.edu.tw/App3/" target="_blank">中文主題編目規範系統</a></td>
+								</tr>							
+								<tr>
+									<td><strong>7. 國家圖書館編目園地 http://catweb.ncl.edu.tw/</strong></td>
+									<td><a href="http://catweb.ncl.edu.tw/" target="_blank">國家圖書館編目園地</a></td>
+								</tr>	
+								<tr>
+									<td><strong>8. 中文編目規範標準∕《中文圖書分類法 》（2007年版）</strong></td>
+									<td><a href="http://catweb.ncl.edu.tw/class2007/96-1-1.htm" target="_blank">中文圖書分類法</a></td>
+								</tr>
+								<tr>
+									<td><strong>9. 國家圖書館</strong></td>
+									<td><a href="http://aleweb.ncl.edu.tw/" target="_blank">國家圖書館</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane" id="scraper">
+					<br/>				
+					<div class="table-responsive">
+						<table class="table table-condensed">
+							<tbody>
+								<tr>
+									<td><strong>Name</strong></td>
+									<td><strong>Link</strong></td>
+								</tr>
+								<tr>
+									<td><strong>1. OCLC Worldcat</strong></td>
+									<td><a href="#" th:href="@{/library/biblio/worldcat}" target="_blank">Worldcat</a></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+				<div class="tab-pane" id="web">
+					<br/>				
+					<div class="table-responsive">
+						<table class="table table-condensed">
+							<tbody>
+								<tr>
+									<td><strong>Name</strong></td>
+									<td><strong>Link</strong></td>
+								</tr>
+								<tr>
+									<td><strong>1. NBINet Union Catalog</strong></td>
+									<td><a href="http://nbinet.ncl.edu.tw/en/" target="_blank">全國圖書書目資訊網</a></td>
+								</tr>
+								<tr>
+									<td><strong>2. Library of Congress</strong></td>
+									<td><a href="http://www.loc.gov/" target="_blank">Library of Congress</a></td>
+								</tr>
+								<tr>
+									<td><strong>3. 编目精灵</strong></td>
+									<td><a href="http://catwizard.net/" target="_blank">编目精灵III</a></td>
+								</tr>
+								<tr>
+									<td><strong>4. 中文圖書分類法</strong></td>
+									<td><a href="http://catwizard.net/" target="_blank">國家圖書館編目園地</a></td>
+								</tr>
+								<tr>
+									<td><strong>5. 國立臺灣大學圖書館</strong></td>
+									<td><a href="http://www.lib.ntu.edu.tw/union_catalog" target="_blank">國立臺灣大學圖書館</a></td>
+								</tr>								
+								<tr>
+									<td><strong>5. What is a MARC Record, and why is it important?</strong></td>
+									<td><a href="https://www.loc.gov/marc/uma/pt1-7.html" target="_blank">Marc Record</a></td>
+								</tr>
+								
+							</tbody>
+						</table>
+					</div>
+				</div>
+				
+			</div>
+	
+		</div>
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

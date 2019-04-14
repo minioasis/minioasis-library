@@ -1,0 +1,161 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{create.patrontype}">Create Patron Type</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patrontype/list}">
+				<i class="fas fa-search"></i>
+			</a>
+		</h4>
+		
+		<div class="card bg-hb" style="max-width: 40rem;">
+		  <div class="card-header">
+			<i class="fas fa-user-friends"></i>
+		  </div>
+		  <div class="card-body bg-lb">
+		
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="home" aria-selected="true" th:text="#{general}">General</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="renew-tab" data-toggle="tab" href="#renew" role="tab" aria-controls="renew" aria-selected="false" th:text="#{renew}">Renew</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="reservation-tab" data-toggle="tab" href="#reservation" role="tab" aria-controls="reservation" aria-selected="false" th:text="#{reservation}">Reservation</a>
+					</li>
+				</ul>
+				
+				<form th:object="${patronType}" method="post">
+						
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
+						<div class="form-row pt-3">
+							<div class="form-group col-sm-8">
+								<label th:text="#{name}">Name</label>
+								<input type="text" class="form-control" th:field="*{name}" autofocus="autofocus" id="inputName" placeholder="Unique Name" />
+								<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+							</div>
+						</div>
+						<div class="form-row">    							
+							<div class="form-group col-sm-4">
+			      				<label th:text="#{start.date}">Start Date</label>
+			      				<input type="text" class="form-control" th:field="*{startDate}" placeholder="yyyy-MM-dd"/>
+			      				<p class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+				      		</div>
+				      		<div class="form-group col-sm-4">
+			      				<label th:text="#{expiry.date}">Expiry Date</label>
+			      				<input type="text" class="form-control" th:field="*{expiryDate}" placeholder="yyyy-MM-dd"/>
+			      				<p class="text-danger" th:if="${#fields.hasErrors('expiryDate')}" th:errors="*{expiryDate}"></p>
+							</div>
+						</div>
+						<div class="form-row">
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{member.fee}">Member Fee</label>
+						      	<input type="text" class="form-control" th:field="*{memberFee}" placeholder="0.00"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('memberFee')}" th:errors="*{memberFee}"></p>
+							</div>
+							<div class="form-group col-sm-4">
+						      	<label th:text="#{deposit}">Deposit</label>
+						      	<input type="text" class="form-control" th:field="*{deposit}" placeholder="0.00"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('deposit')}" th:errors="*{deposit}"></p>
+						    </div>
+						</div>
+						<div class="form-row">
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{biblio.limit}">Book limit</label>
+						      	<input type="text" class="form-control" th:field="*{biblioLimit}" placeholder="int"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('biblioLimit')}" th:errors="*{biblioLimit}"></p>
+							</div>
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{duration}">Duration</label>
+						      	<input type="text" class="form-control" th:field="*{duration}" placeholder="int"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('duration')}" th:errors="*{duration}"></p>
+							</div>
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{fine.rate}">Fine Rate</label>
+						      	<input type="text" class="form-control" th:field="*{fineRate}" placeholder="0.00"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('fineRate')}" th:errors="*{fineRate}"></p>
+							</div>			
+						</div>
+					</div>
+					
+					<div class="tab-pane fade" id="renew" role="tabpanel" aria-labelledby="renew-tab">	
+						<div class="form-row pt-3">	  
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{max.no.of.renew}">Max No. of Renew</label>
+						      	<input type="text" class="form-control" th:field="*{maxNoOfRenew}" placeholder="int"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('maxNoOfRenew')}" th:errors="*{maxNoOfRenew}"></p>
+						    </div>
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{min.renewable.period}">Min Renewable Period</label>
+						      	<input type="text" class="form-control" th:field="*{minRenewablePeriod}" placeholder="int"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('minRenewablePeriod')}" th:errors="*{minRenewablePeriod}"></p>
+						    </div>
+						</div>
+						<div class="form-row pt-3">
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{resume.borrowable.period}">Resume Borrowable Period</label>
+						      	<input type="text" class="form-control" th:field="*{resumeBorrowablePeriod}" placeholder="int"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('resumeBorrowablePeriod')}" th:errors="*{resumeBorrowablePeriod}"></p>
+						    </div>
+						</div>	 			
+					</div>
+					
+					<div class="tab-pane fade" id="reservation" role="tabpanel" aria-labelledby="reservation-tab">
+						<div class="form-row pt-3">
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{max.no.of.reservations}">Max No. of Reservations</label>
+						      	<input type="text" class="form-control" th:field="*{maxNoOfReservations}" placeholder="int"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('maxNoOfReservations')}" th:errors="*{maxNoOfReservations}"></p>
+						    </div>
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{max.uncollected.no}">Max Uncollected No.</label>
+						      	<input type="text" class="form-control" th:field="*{maxUncollectedNo}" placeholder="int"/>
+						      	<p class="text-danger" th:if="${#fields.hasErrors('maxUncollectedNo')}" th:errors="*{maxUncollectedNo}"></p>
+						    </div>
+					    </div>
+						<div class="form-row">
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{max.collectable.period}">Max Collectable Period</label>
+						      	<input type="text" class="form-control" th:field="*{maxCollectablePeriod}" placeholder="int"/>
+					      	<p class="text-danger" th:if="${#fields.hasErrors('maxCollectablePeriod')}" th:errors="*{maxCollectablePeriod}"></p>
+						    </div>
+						    <div class="form-group col-sm-4">
+						      	<label th:text="#{max.cant.reserve.period}">Max Cannot Reserve Period</label>
+					      	<input type="text" class="form-control" th:field="*{maxCantReservePeriod}" placeholder="int"/>
+					      	<p class="text-danger" th:if="${#fields.hasErrors('maxCantReservePeriod')}" th:errors="*{maxCantReservePeriod}"></p>
+						    </div>
+					    </div>		
+					</div>
+					
+					<div class="form-group row">
+						<div class="col">
+					    	<button type="submit" class="btn bg-info text-white float-right"  th:text="#{submit}">Submit</button>
+						</div>
+					</div>
+					
+				</div>
+				
+		 		</form>
+		 		
+		  </div>
+		</div>
+
+  		<div th:replace="fragments/script :: script"></div>	
+		<script	src="/js/main.js" th:src="@{/js/main.js}"></script>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+	
+</body>
+</html>

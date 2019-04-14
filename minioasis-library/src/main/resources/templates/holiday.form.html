@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{create.holiday}">Create Holiday</span>
+			<a  class="btn btn-outline-info text-info" href="#" th:href="@{/holiday/list(page=0,size=10,sort='startDate,desc')}">
+				<i class="fas fa-search"></i>
+			</a>
+		</h4>
+		
+		<div class="card bg-hb" style="max-width: 40rem;">
+		
+			<div class="card-header">
+				<i class="fas fa-user-friends"></i>
+			</div>
+			<div class="card-body bg-lb">
+				
+				<form th:object="${holiday}" method="post">			
+					<input type="text" hidden="hidden" th:field="*{id}" />
+
+					<div class="form-row">
+						<div class="form-group col-sm-9">
+							<label th:text="#{name}">Name</label>
+							<input type="text" class="form-control" th:field="*{name}" placeholder="Name" />
+							<p class="text-danger" th:if="${#fields.hasErrors('name')}"	th:errors="*{name}"></p>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm-3">
+							<label th:text="#{start.date}">Start Date</label>
+							<input type="text" class="form-control" th:field="*{startDate}" placeholder="yyyy-MM-dd" />
+						</div>
+						<div class="form-group col-sm-3">
+							<label th:text="#{end.date}">End Date</label>
+							<input type="text" class="form-control" th:field="*{endDate}" placeholder="yyyy-MM-dd" />
+							<p class="text-danger" th:if="${#fields.hasErrors('endDate')}" th:errors="*{endDate}"></p>
+						</div>
+						<div class="form-group col-sm-3">
+							<label th:text="#{fine}">Fine</label>
+							<select	class="form-control" th:field="*{fine}">
+								<option th:each="f : ${finez}" th:value="${f}" th:text="${f}"/>
+								<option th:remove="all" value="true">true</option>
+								<option th:remove="all" value="false">false</option>
+							</select>
+							<p class="text-danger" th:if="${#fields.hasErrors('fine')}" th:errors="*{fine}"></p>
+						</div>
+						<div class="form-group col-sm-2">
+					    	<label>&nbsp;</label>
+						    <button type="submit" class="form-control btn bg-info text-white"  th:text="#{submit}">Submit</button>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm-6">
+							<p class="text-danger" th:if="${#fields.hasErrors('startDate')}" th:errors="*{startDate}"></p>
+						</div>
+					</div>
+							
+		 		</form>
+		 		
+			</div>
+		</div>
+		
+		<br>
+
+		<table class="table table-bordered" th:if="${done != null}" style="max-width: 40rem;">
+		  <thead>
+		    <tr>
+		      <th scope="col" th:text="#{name}">Code</th>
+		      <th scope="col" th:text="#{start.date}">2019-01-01</th>
+		      <th scope="col" th:text="#{end.date}">2019-01-01</th>
+		      <th scope="col" th:text="#{fine}">true</th>
+		      <th scope="col" th:text="#{actions}">Action</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td th:text="${done.name}">Name</td>
+		      <td th:text="${#calendars.format(done.startDate,'yyyy-MM-dd')}">2019-01-01</td>
+		      <td th:text="${#calendars.format(done.endDate,'yyyy-MM-dd')}">2019-12-31</td>
+		      <td th:text="${done.fine}">true</td>
+		      <td>
+				<a href="#" th:href="@{/holiday/edit?id={id}(id=${done.id})}"><i class="far fa-edit"></i></a>
+				| <a href="#" th:href="@{/holiday/delete/{id}(id=${done.id})}"><i class="far fa-trash-alt"></i></a>		      
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+
+		<div th:replace="fragments/script :: script"></div> 
+		<div th:replace="fragments/footer :: footer"></div>
+  
+	</div>
+	
+</body>
+</html>

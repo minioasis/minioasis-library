@@ -53,116 +53,6 @@
 		    </div>
 		    
 		    <div class="col-6 col-md-3">
-				<!----------------- Cataloging ---------------------->
-				<h5>
-					<span class="text-danger">
-						<i class="fas fa-sitemap"></i>
-					</span>
-			      	<span th:text="#{cataloging}">Cataloging</span>
-				</h5>
-
-				<p><p/>
-				<span th:text="#{opac}">OPACs</span>
-				<br/>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/opac}">
-			      	<span>
-			      		<i class="fas fa-university"></i>
-			      	</span>
-				</a>
-		      	<p><p/>
-				<span th:text="#{web.scraping}">Web Scraping</span> 
-				<br>
-				<a class="btn btn-outline-danger text-danger">
-		      		<span>
-		      			<i class="fas fa-spider"></i>
-		      		</span>
-		      	</a>
-		      	<p><p/>
-				<span th:text="#{biblio}">Bibliography</span> 
-				<br>
-				<a class="btn btn-outline-danger text-danger">
-		      		<span>
-		      			<i class="fas fa-book"></i>
-					</span>
-		      	</a>
-		      	<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-search"></i>
-					</span>
-		      	</a>
-		      	<p><p/>
-				<span th:text="#{item}">Item</span>
-				<br>
-				<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-search"></i>
-					</span>
-		      	</a>
-		      	<p><p/>
-				<span th:text="#{attachment}">Attachment</span>
-				<br>
-				<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-search"></i>
-					</span>
-		      	</a>
-			      	
-		    </div>
-				    
-		    <div class="col-6 col-md-3">
-		    	<!----------------- Cataloging ---------------------->	
-				<h5>
-					<span class="text-danger">
-						<i class="fas fa-sitemap"></i>
-					</span>
-					...
-				</h5>
-
-		      	<p><p/>
-				<span th:text="#{biblio.related}">Biblio. Related</span>
-				<br>
-				<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-book"></i>
-					</span>
-		      	</a>
-		      	<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-search"></i>
-					</span>
-		      	</a>
-		      	<p><p/>
-				<span th:text="#{uncompleted.biblio}">Uncompleted Biblio.</span>
-				<br>
-				<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-search"></i>
-					</span>
-		      	</a>
-				<p><p/>				
-				<span th:text="#{print.shelfmark}">Print Shelfmarks</span>
-				<br>
-				<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-barcode"></i>
-					</span>
-		      	</a>
-		      	<p><p/>
-				<span th:text="#{stock.check.reset}">Stock Check / Reset</span>
-				<br>
-				<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-search"></i>
-					</span>
-		      	</a>
-		      	<a class="btn btn-outline-danger text-danger">
-		      		<span>
-				    	<i class="fas fa-clipboard-check"></i>
-					</span>
-		      	</a>
-		    </div>
-	    	    
-		    <div class="col-6 col-md-3">
 		    	<!----------------- Circulation ---------------------->	
 				<h5>
 		      		<span class="text-success">
@@ -216,6 +106,106 @@
 					</span>
 				</a>
 			      	
+		    </div>
+		    
+		    <div class="col-6 col-md-3">
+				<!----------------- Cataloging ---------------------->
+				<h5>
+					<span class="text-danger">
+						<i class="fas fa-sitemap"></i>
+					</span>
+			      	<span th:text="#{cataloging}">Cataloging</span>
+				</h5>
+
+				<p><p/>
+				
+				<span th:text="#{opac}">OPACs</span> / <span th:text="#{web.scraping}">Web Scraping</span>
+				<br/>
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/opac}">
+			      	<span>
+			      		<i class="fas fa-university"></i>
+			      	</span>
+				</a>
+				/
+				<a class="btn btn-outline-danger text-danger">
+		      		<i class="fas fa-spider"></i>
+		      	</a>
+
+		      	<p><p/>
+		      	
+				<span th:text="#{biblio}">Bibliography</span> / <span th:text="#{uncompleted}"> Uncompleted</span> 
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+		      		<i class="fas fa-book"></i>
+		      	</a>
+		      	<a class="btn btn-outline-danger text-danger">
+				    <i class="fas fa-search"></i>
+		      	</a>
+		      	/
+				<a>
+				    <i class="fas fa-star-half-alt text-danger"></i>
+		      	</a>
+		      	
+		      	<p><p/>
+		      	
+				<span th:text="#{item}">Item</span> / <span th:text="#{attachment}">Attachment</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+				    <i class="fas fa-list-ol"></i>
+		      	</a>
+		      	/
+				<a class="btn btn-outline-danger text-danger">
+				    <i class="fas fa-paperclip"></i>
+		      	</a>
+		      	
+		      	<p><p/>
+		      	
+				<span th:text="#{publisher}">Publisher</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+	      			<i class="far fa-newspaper"></i>
+		      	</a>
+				<a class="btn btn-outline-danger text-danger">
+			    	<i class="fas fa-search"></i>
+		      	</a>
+
+		      	<p><p/>
+
+				<span th:text="#{series}">Series</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+	      			<i class="fas fa-signal"></i>
+		      	</a>
+				<a class="btn btn-outline-danger text-danger">
+			    	<i class="fas fa-search"></i>
+		      	</a>
+			      	
+		    </div>
+				    
+		    <div class="col-6 col-md-3">
+		    	<!----------------- Cataloging ---------------------->	
+				<h5>
+					<span class="text-danger">
+						<i class="fas fa-sitemap"></i>
+					</span>
+					...
+				</h5>
+
+				<p><p/>				
+				<span th:text="#{print.shelfmark}">Print Shelfmarks</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+				    <i class="fas fa-barcode"></i>
+		      	</a>
+		      	<p><p/>
+				<span th:text="#{stock.check.reset}">Stock Check / Reset</span>
+				<br>
+				<a class="btn btn-outline-danger text-danger">
+				    <i class="fas fa-search"></i>
+		      	</a>
+		      	<a class="btn btn-outline-danger text-danger">
+				    <i class="fas fa-clipboard-check"></i>
+		      	</a>
 		    </div>
 
 		  </div> <!-- row -->

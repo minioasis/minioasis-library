@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{search.holiday}">Search Holiday</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/holiday/save}">
+				<span><i class="fas fa-umbrella-beach"></i></span>
+			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/holiday/list(page=0,size=10,sort='startDate,desc')}">
+				<i class="fas fa-search"></i>
+			</a>	
+		</h4>
+
+		<form  action="#" th:action="@{/holiday/search}" th:object="${criteria}" method="get">
+
+			<input type="hidden" id="page" name="page" value="0" />
+			<input type="hidden" id="size" name="size" value="10" />
+			<input type="hidden" id="sort" name="sort" value="startDate,desc" />
+
+			<div class="form-row pt-3">
+				<div class="form-group col-md-4">
+			      <label>
+			      	<i class="fas fa-umbrella-beach"></i>
+			      	<span th:text="#{name}">Name</span>
+			      </label>
+			      <input type="text" class="form-control" th:field="*{name}" placeholder="Name" />
+			    </div>
+				<div class="form-group col-md-2">
+			      <label>
+			      	<i class="far fa-calendar-plus"></i>
+			      	<span th:text="#{start.date}">Start Date</span>
+			      </label>
+			      <input type="text" class="form-control" th:field="*{startDateFrom}" placeholder="yyyy-MM-dd" />
+			    </div>
+			    <div class="form-group col-md-2">
+			      <label>
+			      	<i class="far fa-calendar-minus"></i>
+			      	<span th:text="#{end.date}">End Date</span>
+			      </label>
+			      <input type="text" class="form-control" th:field="*{endDateTo}" placeholder="To" />
+			    </div>
+				<div class="form-group col-md-2">
+			    	<label th:text="#{fine}">Fine</label>
+					<select	class="form-control" th:field="*{fines}" multiple="multiple">
+						<option th:each="f : ${finez}" th:value="${f}" th:text="${f}" />
+						<option th:remove="all" value="true">true</option>
+						<option th:remove="all" value="false">false</option>
+					</select>
+			    </div>
+			</div>
+				
+			<input hidden="hidden" type="submit" name="search" value="Submit"/>	
+			
+		</form>			
+			
+		<hr/>
+
+
+		<div class="float-right">
+			<div th:if="${pagingType eq 'list'}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/holiday/list(page=${page.number - 1},size=${page.size},sort='name,asc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="@{/holiday/list(page=${page.number + 1},size=${page.size},sort='name,asc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>
+					
+			<div th:if="${pagingType eq 'search'}">
+				<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>		
+		</div>
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive-sm">					
+			<table class="table table-sm table-striped">
+				<thead>
+					<tr class="table-primary">
+						<th>#</th>
+						<th th:text="#{name}">Name</th>
+						<th th:text="#{start.date}">Start</th>
+						<th th:text="#{end.date}">End</th>
+						<th th:text="#{fine}">Fine</th>
+						<th th:text="#{actions}">Actions</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td th:text="${e.name}">Student</td>
+						<td th:inline="text">
+							[[${#calendars.format(e.startDate,'yyyy-MM-dd')}]]
+						</td>
+						<td th:inline="text">
+							[[${#calendars.format(e.endDate,'yyyy-MM-dd')}]]
+						</td>
+						<td th:text="${e.fine}">true</td>
+						<td>
+							<a href="#" th:href="@{/holiday/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/holiday/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+					</tr>
+					<tr th:remove="all">
+						<td>2</td>
+						<td>Name</td>
+						<td>2019-01-01</td>
+						<td>2012-31</td>
+						<td>true</td>
+						<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+	
+</body>
+</html>

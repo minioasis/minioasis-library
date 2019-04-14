@@ -1,0 +1,240 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container">
+
+		<div class="row pt-3">
+			<div class="col-sm">
+				<h5>
+					<span th:text="#{item.attributes}">Item Attributes</span>
+				</h5>
+			</div>
+		</div>
+		
+		<hr>
+
+		<div class="row">
+			<div class="col-sm">
+				<div class="card bg-hb" style="max-width: 40rem;">
+				
+					<div class="card-header">
+						<i class="fas fa-map-marker-alt"></i> <span th:text="#{location}">Location</span>
+					</div>
+					<div class="card-body bg-lb">
+						
+						<form class="form" action="#" th:action="@{/location/save}" th:object="${attributes}" method="POST">			
+							<input type="text" hidden="hidden" th:field="*{location.id}" />
+							<input type="hidden" name="which" value="location" />
+		
+							<div class="form-row">
+								<div class="form-group col-9">
+							      	<input type="text" class="form-control" th:field="*{location.name}" th:placeholder="#{name}"/>
+							      	<p class="text-danger" th:if="${#fields.hasErrors('location.name')}" th:errors="*{location.name}"></p>
+							    </div>
+							    <div class="form-group col-3">
+								    <button type="submit" class="form-control btn bg-info text-white"  th:text="#{submit}">Submit</button>
+								</div>
+							</div>
+									
+				 		</form>
+				 		
+					</div>
+				</div>
+			</div>
+			<div class="col-sm">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th scope="col">#</th>
+							<th scope="col">Name</th>
+							<th scope="col">Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="e,iterator : ${locations}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.name}">Main Library</td>
+							<td><a href="#"
+								th:href="@{/location/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></a> |
+								<a href="#"
+								th:href="@{/location/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+						</tr>
+						<tr th:remove="all">
+							<td>2</td>
+							<td>Physics Department</td>
+							<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<hr>
+
+		<div class="row">
+			<div class="col-sm">
+				<div class="card bg-hb" style="max-width: 40rem;">
+				
+					<div class="card-header">
+						<i class="far fa-clock"></i> <span th:text="#{item.duration}">Item Duration</span>
+					</div>
+					<div class="card-body bg-lb">
+						
+						<form class="form" action="#" th:action="@{/item.duration/save}" th:object="${attributes}" method="POST">			
+							<input type="text" hidden="hidden" th:field="*{itemDuration.id}" />
+							<input type="hidden" name="which" value="itemduration" />
+		
+							<div class="form-row">
+								<div class="form-group col-6">
+							      	<input type="text" class="form-control" th:field="*{itemDuration.name}" th:placeholder="#{name}"/>
+							      	<p class="text-danger" th:if="${#fields.hasErrors('itemDuration.name')}" th:errors="*{itemDuration.name}"></p>
+							    </div>
+							    <div class="form-group col-3">
+							      	<input type="text" class="form-control" th:field="*{itemDuration.value}" th:placeholder="#{value}"/>
+							      	<p class="text-danger" th:if="${#fields.hasErrors('itemDuration.value')}" th:errors="*{itemDuration.value}"></p>
+							    </div>
+							    <div class="form-group col-3">
+								    <button type="submit" class="form-control btn bg-info text-white"  th:text="#{submit}">Submit</button>
+								</div>
+							</div>
+									
+				 		</form>
+				 		
+					</div>
+				</div>
+			</div>
+			<div class="col-sm">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th>Name</th>
+							<th>Value</th>
+							<th>Active</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="e,iterator : ${itemDurations}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.name}">Name1</td>
+							<td th:text="${e.value}">12</td>
+							<td><a href="#"
+								th:href="@{/item.duration/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+								| <a href="#"
+								th:href="@{/item.duration/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+						</tr>
+						<tr th:remove="all">
+							<td>2</td>
+							<td>Name2</td>
+							<td>8</td>
+							<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<hr>
+
+		<div class="row">
+			<div class="col-sm">
+				<div class="card bg-hb" style="max-width: 40rem;">
+				
+					<div class="card-header">
+						<i class="fas fa-thermometer-half"></i> <span th:text="#{item.status}">Item Status</span>
+					</div>
+					<div class="card-body bg-lb">
+						
+						<form class="form" action="#" th:action="@{/item.status/save}" th:object="${attributes}" method="POST">			
+							<input type="text" hidden="hidden" th:field="*{location.id}" />
+							<input type="hidden" name="which" value="itemstatus" />
+		
+							<div class="form-row">
+								<div class="form-group col-9">
+							      	<input type="text" class="form-control" th:field="*{itemStatus.name}" th:placeholder="#{name}"/>
+							      	<p class="text-danger" th:if="${#fields.hasErrors('itemStatus.name')}" th:errors="*{itemStatus.name}"></p>
+							    </div>
+							    <div class="form-group col-3">
+								    <button type="submit" class="form-control btn bg-info text-white"  th:text="#{submit}">Submit</button>
+								</div>
+							</div>
+							<div class="form-row">
+								<div class="form-group col-4">
+							      	<label th:text="#{borrowable}">Borrowable</label>
+									<select	class="form-control" th:field="*{itemStatus.borrowable}">
+										<option th:each="b : ${borrowables}" th:value="${b}" th:text="${b}"/>
+										<option th:remove="all" value="true">true</option>
+										<option th:remove="all" value="false">false</option>
+									</select>
+									<p class="text-danger"
+										th:if="${#fields.hasErrors('itemStatus.borrowable')}"
+										th:errors="*{itemStatus.borrowable}"></p>
+							    </div>
+							    <div class="form-group col-4">
+							    	<label th:text="#{reservable}">Reservable</label>
+									<select	class="form-control" th:field="*{itemStatus.reservable}">
+										<option th:each="r : ${reservables}" th:value="${r}" th:text="${r}" />
+										<option th:remove="all" value="true">true</option>
+										<option th:remove="all" value="false">false</option>
+									</select>
+									<p class="text-danger"
+										th:if="${#fields.hasErrors('itemStatus.reservable')}"
+										th:errors="*{itemStatus.reservable}"></p>
+								</div>
+							</div>
+									
+				 		</form>
+				 		
+					</div>
+				</div>
+			</div>
+			<div class="col-sm">
+				<table class="table table-striped table-bordered">
+					<thead>
+						<tr class="info">
+							<th>#</th>
+							<th>Name</th>
+							<th>B</th>
+							<th>R</th>
+							<th>Action</th>
+						</tr>
+					</thead>
+
+					<tbody>
+						<tr th:each="e,iterator : ${itemStatuz}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.name}">Name1</td>
+							<td th:text="${e.borrowable}">true</td>
+							<td th:text="${e.reservable}">true</td>
+							<td><a href="#"
+								th:href="@{/item.status/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></span></a>
+								| <a href="#"
+								th:href="@{/item.status/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+						</tr>
+						<tr th:remove="all">
+							<td>2</td>
+							<td>Name2</td>
+							<td>true</td>
+							<td>False</td>
+							<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</div>
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
