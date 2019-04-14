@@ -27,7 +27,6 @@ import org.minioasis.library.repository.ItemStatusRepository;
 import org.minioasis.library.repository.LocationRepository;
 import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.library.repository.PatronTypeRepository;
-import org.minioasis.library.repository.PublicationTypeRepository;
 import org.minioasis.library.repository.PublisherRepository;
 import org.minioasis.library.repository.SeriesRepository;
 import org.minioasis.library.service.LibraryService;
@@ -64,8 +63,6 @@ public class BootstrapData implements CommandLineRunner {
 	private PatronRepository patronRepository;
 	@Autowired
 	private PatronTypeRepository patronTypeRepository;
-	@Autowired
-	private PublicationTypeRepository publicationTypeRepository;
 	@Autowired
 	private PublisherRepository publisherRepository;
 	@Autowired

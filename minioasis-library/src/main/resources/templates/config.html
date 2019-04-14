@@ -70,10 +70,9 @@
 			</div>
 			
 		    <div class="col-sm-3">	    	
-
 				<span th:text="#{item.attributes}">Item Attributes</span>
 				<br>
-				<a class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/item.attributes}" class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-map-marker-alt"></i>
 						<i class="far fa-clock"></i>
@@ -84,29 +83,6 @@
 			</div>
 			
 		  </div> <!-- row 2 -->
-		  
-		  <br>
-
-		<div class="row"> <!-- row 3 -->
-		
-		    <div class="col-sm-3">	    	
-
-				<span th:text="#{publication.type}">Publication Type</span>
-				<br>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-atlas"></i>
-					</span>
-				</a>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-search"></i>
-					</span>
-				</a>
-				
-			</div>
-			
-		</div> <!-- row 3 -->
 		  		  
 		<div th:replace="fragments/script :: script"></div>
 		  

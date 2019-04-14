@@ -11,7 +11,6 @@ import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.AttachmentCheckout;
 import org.minioasis.library.domain.AttachmentCheckoutState;
 import org.minioasis.library.domain.Biblio;
-import org.minioasis.library.domain.PublicationType;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutResult;
 import org.minioasis.library.domain.CheckoutState;
@@ -39,7 +38,6 @@ import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.AttachmentCheckoutRepository;
 import org.minioasis.library.repository.AttachmentRepository;
 import org.minioasis.library.repository.BiblioRepository;
-import org.minioasis.library.repository.PublicationTypeRepository;
 import org.minioasis.library.repository.CheckoutRepository;
 import org.minioasis.library.repository.GroupRepository;
 import org.minioasis.library.repository.HolidayRepository;
@@ -91,8 +89,6 @@ public class LibraryServiceImpl implements LibraryService {
 	private PatronRepository patronRepository;
 	@Autowired
 	private PatronTypeRepository patronTypeRepository;
-	@Autowired
-	private PublicationTypeRepository publicationTypeRepository;
 	@Autowired
 	private PublisherRepository publisherRepository;
 	@Autowired
@@ -814,30 +810,6 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public List<PatronType> findByNameContaining(String name){
 		return this.patronTypeRepository.findByNameContaining(name);
-	}
-
-	/****************************************  PublicationType  **************************************/
-	
-	public void save(PublicationType entity){
-		this.publicationTypeRepository.save(entity);
-	}
-	public void delete(PublicationType entity){
-		this.publicationTypeRepository.delete(entity);
-	}
-	public void deletePublicationType(long id){
-		this.publicationTypeRepository.deleteById(id);
-	}
-	public PublicationType getPublicationType(long id){
-		return this.publicationTypeRepository.getOne(id);
-	}
-	public Page<PublicationType> findAllPublicationTypes(Pageable pageable){
-		return this.publicationTypeRepository.findAll(pageable);
-	}
-	public List<PublicationType> findAllPublicationTypes(Sort sort){
-		return this.publicationTypeRepository.findAll(sort);
-	}
-	public Page<PublicationType> findAllPublicationTypesByNameContaining(String type, Pageable pageable){
-		return this.publicationTypeRepository.findAllByNameContaining(type, pageable);
 	}
 	
 	/****************************************  Publisher  ***************************************/ 

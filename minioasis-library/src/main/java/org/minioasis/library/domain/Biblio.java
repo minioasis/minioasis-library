@@ -62,10 +62,6 @@ public class Biblio implements Serializable {
 	@JoinColumn(name = "image_id")
 	private Image image;
 
-    @ManyToOne
-    @JoinColumn(name="publication_type_id" , nullable = true, foreignKey = @ForeignKey(name = "fk_biblio_publicationtype"))
-	private PublicationType publicationType;
-
 	@Length(max = 16)
 	private String isbn;
 	
@@ -174,14 +170,6 @@ public class Biblio implements Serializable {
 
 	public void setImage(Image image) {
 		this.image = image;
-	}
-
-	public PublicationType getPublicationType() {
-		return publicationType;
-	}
-
-	public void setPublicationType(PublicationType publicationType) {
-		this.publicationType = publicationType;
 	}
 
 	public String getIsbn() {

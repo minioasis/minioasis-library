@@ -9,7 +9,6 @@ import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.AttachmentCheckout;
 import org.minioasis.library.domain.AttachmentCheckoutState;
 import org.minioasis.library.domain.Biblio;
-import org.minioasis.library.domain.PublicationType;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutResult;
 import org.minioasis.library.domain.CheckoutState;
@@ -227,15 +226,6 @@ public interface LibraryService {
 	PatronType getPatronType(long id);
 	List<PatronType> findAllPatronTypes(Sort sort);
 	List<PatronType> findByNameContaining(String name);
-
-	// PublicationType
-	void save(PublicationType entity);
-	void delete(PublicationType entity);
-	void deletePublicationType(long id);
-	PublicationType getPublicationType(long id);
-	List<PublicationType> findAllPublicationTypes(Sort sort);
-	Page<PublicationType> findAllPublicationTypes(Pageable pageable);
-	Page<PublicationType> findAllPublicationTypesByNameContaining(String name, Pageable pageable);
 	
 	// Publisher
 	void save(Publisher entity);
