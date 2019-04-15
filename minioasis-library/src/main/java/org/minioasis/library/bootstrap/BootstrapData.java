@@ -14,6 +14,8 @@ import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Language;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
+import org.minioasis.library.domain.Publisher;
+import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.repository.AttachmentRepository;
 import org.minioasis.library.repository.BiblioRepository;
@@ -241,6 +243,32 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setIc("44415-10-7777");
 		p3.setContact(c3);
 		patronRepository.save(p3);
+		
+		// publisher
+		Publisher pb1 = new Publisher();
+		pb1.setName("Pearson Education");
+		publisherRepository.save(pb1);
+		
+		Publisher pb2 = new Publisher();
+		pb2.setName("Oxford University Press");
+		publisherRepository.save(pb2);
+
+		Publisher pb3 = new Publisher();
+		pb3.setName("John Wiley & Sons");
+		publisherRepository.save(pb3);
+		
+		// series
+		Series s1 = new Series();
+		s1.setName("Happy Boy Series");
+		seriesRepository.save(s1);
+		
+		Series s2 = new Series();
+		s2.setName("Harry Potter Series");
+		seriesRepository.save(s2);
+		
+		Series s3 = new Series();
+		s3.setName("Bad Ass Series");
+		seriesRepository.save(s3);
 		
 	}
 	

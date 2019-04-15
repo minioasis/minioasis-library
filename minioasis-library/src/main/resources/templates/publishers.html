@@ -1,0 +1,104 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+	
+		<h4>
+			<span th:text="#{search.publisher}">Search Publisher</span>
+			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/publisher/save}">
+      			<i class="far fa-newspaper"></i>
+	      	</a>
+			<a class="btn btn-outline-info text-danger" href="#" th:href="@{/publisher/list(page=0,size=10,sort='name,asc')}">
+				<i class="fas fa-search"></i>
+			</a>
+		</h4>
+		
+		<div class="row pt-3">
+			<div class="col-sm-8">
+				<form action="#" th:action="@{/publisher/search}" method="get">
+					<input type="hidden" id="page" name="page" value="0" />
+					<input type="hidden" id="size" name="size" value="10" />
+					<input type="hidden" id="sort" name="sort" value="name,asc" />
+				
+					<div class="form-group">
+						<input name="keyword" class="form-control" autofocus="autofocus" placeholder="Name"/>
+					</div>
+				
+				</form>
+			</div>
+		</div>
+
+		<hr/>
+
+		<div class="row">
+		
+			<div class="col-sm-8">	
+				<div class="float-right">
+					<div th:if="${pagingType eq 'list'}">
+						<a th:if="${page.hasPrevious()}" th:href="@{/publisher/list(page=${page.number - 1},size=${page.size},sort='name,asc')}">
+							<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+						</a>
+						<a th:if="${page.hasNext()}" th:href="@{/publisher/list(page=${page.number + 1},size=${page.size},sort='name,asc')}">
+							<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+						</a>	
+					</div>
+							
+					<div th:if="${pagingType eq 'search'}">
+						<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+							<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+						</a>
+						<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+							<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+						</a>	
+					</div>		
+				</div>
+				
+				Total : <span th:text="${page.totalElements}">105</span>
+			
+		
+				<div class="table-responsive">					
+					<table class="table table-sm table-striped">
+						<thead>
+							<tr class="table-primary">
+								<th>#</th>
+								<th th:text="#{name}">Name</th>
+								<th th:text="#{actions}">Actions</th>
+							</tr>
+						</thead>
+			
+						<tbody>
+							<tr th:each="e,iterator : ${page.content}">
+								<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+								<td th:text="${e.name}">class S1S1</td>
+								<td>
+									<a href="#" th:href="@{/publisher/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+									| <a href="#" th:href="@{/publisher/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+								</td>
+							</tr>
+							<tr th:remove="all">
+								<td>2</td>
+								<td>SiS2 - class s1s2</td>
+								<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+							</tr>
+						</tbody>
+					</table>
+				
+				</div>
+			</div>
+
+		</div>
+		  
+		<div th:replace="fragments/script :: script"></div>	  
+		<div th:replace="fragments/footer :: footer"></div>
+  
+	</div>
+	
+</body>
+</html>

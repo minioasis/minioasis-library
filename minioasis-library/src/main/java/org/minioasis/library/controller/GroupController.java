@@ -37,7 +37,7 @@ public class GroupController {
 	}	
 	
 	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
-	public String save(@Valid Group group , BindingResult result) {
+	public String save(@Valid Group group, BindingResult result, Model model) {
 
 		if(result.hasErrors()){	
 			return "group.form";			
@@ -52,7 +52,10 @@ public class GroupController {
 				return "group.form";				
 			}
 			
-			return "redirect:/group/save/" + group.getId();
+			model.addAttribute("group", new Group());
+			model.addAttribute("done", group);
+			
+			return "group.form";
 			
 		}			
 	}
@@ -81,7 +84,7 @@ public class GroupController {
 			catch (DataIntegrityViolationException eive)
 			{
 				result.rejectValue("code","error.not.unique");				
-				return "library/group.form";				
+				return "group.form";				
 			}
 			
 			return "redirect:/group/save/" + group.getId();
@@ -118,7 +121,7 @@ public class GroupController {
 			catch (DataIntegrityViolationException eive)
 			{
 				result.rejectValue("code","error.not.unique");		
-				return "library/group.form";
+				return "group.form";
 			}
 			
 			return "redirect:/group/save/" + group.getId();

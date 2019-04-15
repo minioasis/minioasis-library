@@ -20,7 +20,7 @@ public class Tag implements Serializable {
 	private static final long serialVersionUID = -6983848150509773714L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

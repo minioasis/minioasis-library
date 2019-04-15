@@ -30,7 +30,7 @@
 					<div class="form-row">
 					    <div class="form-group col-sm-4">
 					      	<label th:text="#{code}">Code</label>
-					      	<input type="text" class="form-control" th:field="*{code}" placeholder="Code"/>
+					      	<input type="text" class="form-control" th:field="*{code}" autofocus="autofocus" placeholder="Code"/>
 					      	<p class="text-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></p>
 						</div>
 						<div class="form-group col-sm-6">

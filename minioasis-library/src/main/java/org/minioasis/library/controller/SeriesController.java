@@ -131,7 +131,7 @@ public class SeriesController {
 		model.addAttribute("keyword", keyword);
 		model.addAttribute("pagingType", "search");
 		
-		return "library/seriez";
+		return "seriez";
 
 	}
 	
@@ -139,9 +139,11 @@ public class SeriesController {
 	public String seriez(Model model, Pageable pageable) {
 
 		Page<Series> page = this.service.findAllSeries(pageable);
-		model.addAttribute("page", page);
-		return "seriez";
 		
+		model.addAttribute("page", page);
+		model.addAttribute("pagingType", "list");
+		
+		return "seriez";		
 	}
 	
 	@RequestMapping(value = "/phase", method = RequestMethod.GET)

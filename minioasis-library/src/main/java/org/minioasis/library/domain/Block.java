@@ -28,7 +28,7 @@ public class Block implements Serializable {
 
 	private static final long serialVersionUID = 6909064930996625896L;
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

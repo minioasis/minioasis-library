@@ -33,7 +33,28 @@ public class PublisherController {
 	@RequestMapping("/save")
 	public String newPublisher(Model model) {
 		model.addAttribute("publisher", new Publisher());
-		return "library/publisher.form";
+		return "publisher.form";
+	}
+
+	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
+	public String save(@Valid Publisher publisher , BindingResult result, ModelMap model) {
+
+		if(result.hasErrors()){	
+			return "publisher.form";			
+		} else {		
+			
+			try{
+				this.service.save(publisher);
+			} 
+			catch (DataIntegrityViolationException eive)
+			{
+				result.rejectValue("name","error.not.unique");			
+				return "publisher.form";				
+			}
+			
+			return "redirect:/publisher/save/" + publisher.getId();
+			
+		}			
 	}
 	
 	@RequestMapping("/save/{id}")
@@ -43,12 +64,12 @@ public class PublisherController {
 		
 		model.addAttribute("publisher", new Publisher());
 		model.addAttribute("done", done);
-		return "library/publisher.form";
-	}	
+		
+		return "publisher.form";
+	}
 	
-	
-	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
-	public String save(@Valid Publisher publisher , BindingResult result, ModelMap model) {
+	@RequestMapping(value = { "/save/{id}" }, method = RequestMethod.POST)
+	public String save(@PathVariable long id, @Valid Publisher publisher , BindingResult result, ModelMap model) {
 
 		if(result.hasErrors()){	
 			return "publisher.form";			
@@ -96,7 +117,7 @@ public class PublisherController {
 			}
 			catch (DataIntegrityViolationException eive)
 			{
-				result.rejectValue("name","","not unique");		
+				result.rejectValue("name","error.not.unique");		
 				return "publisher.form";
 			}
 			
@@ -139,7 +160,10 @@ public class PublisherController {
 	public String publishers(Model model, Pageable pageable) {
 
 		Page<Publisher> page = this.service.findAllPublishers(pageable);
+		
 		model.addAttribute("page", page);
+		model.addAttribute("pagingType", "list");
+		
 		return "publishers";
 		
 	}
