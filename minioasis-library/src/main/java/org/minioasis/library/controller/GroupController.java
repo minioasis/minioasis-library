@@ -16,6 +16,7 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
@@ -59,56 +60,24 @@ public class GroupController {
 			
 		}			
 	}
-
-	@RequestMapping("/save/{id}")
-	public String create(@PathVariable long id, Model model) {
-		
-		Group done = service.getGroup(id);
-	
-		model.addAttribute("group", new Group());
-		model.addAttribute("done", done);
-		
-		return "group.form";
-	}	
-	
-	@RequestMapping(value = { "/save/{id}" }, method = RequestMethod.POST)
-	public String save(@PathVariable long id, @Valid Group group , BindingResult result) {
-
-		if(result.hasErrors()){	
-			return "group.form";			
-		} else {		
-			
-			try{
-				this.service.save(group);
-			} 
-			catch (DataIntegrityViolationException eive)
-			{
-				result.rejectValue("code","error.not.unique");				
-				return "group.form";				
-			}
-			
-			return "redirect:/group/save/" + group.getId();
-			
-		}			
-	}
 	
 	@RequestMapping(value = { "/edit" }, method = RequestMethod.GET)
 	public String edit(@RequestParam(value = "id", required = true) long id, Model model) {
 
-		Group g = this.service.getGroup(id);
+		Group group = this.service.getGroup(id);
 		
-		if(g == null) {
+		if(group == null) {
 			model.addAttribute("error", "ITEM NOT FOUND !");
 			return "error";
 		}
 		
-		model.addAttribute("group", g);
+		model.addAttribute("group", group);
 		return "group.form";
 		
 	}
 	
 	@RequestMapping(value = { "/edit" }, method = RequestMethod.POST)
-	public String edit(@Valid Group group, BindingResult result) {
+	public String edit(@ModelAttribute("group") @Valid Group group, BindingResult result, Model model) {
 		
 		if (result.hasErrors()) {
 			return "group.form";
@@ -124,7 +93,9 @@ public class GroupController {
 				return "group.form";
 			}
 			
-			return "redirect:/group/save/" + group.getId();
+			model.addAttribute("done", group);
+			
+			return "group.form";
 			
 		}
 		
@@ -152,7 +123,6 @@ public class GroupController {
 		model.addAttribute("pagingType", "list");
 		
 		return "groups";
-		
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
