@@ -2,7 +2,9 @@ package org.minioasis.library.controller;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Map;
 
+import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.minioasis.library.domain.Publisher;
@@ -22,6 +24,8 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
+import org.springframework.web.util.UriComponents;
 
 @Controller
 @RequestMapping("/publisher")
@@ -31,13 +35,13 @@ public class PublisherController {
 	private LibraryService service;
 
 	@RequestMapping("/save")
-	public String newPublisher(Model model) {
+	public String create(Model model) {
 		model.addAttribute("publisher", new Publisher());
 		return "publisher.form";
 	}
 
 	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
-	public String save(@Valid Publisher publisher , BindingResult result, ModelMap model) {
+	public String save(@Valid Publisher publisher, BindingResult result, ModelMap model) {
 
 		if(result.hasErrors()){	
 			return "publisher.form";			
@@ -52,45 +56,16 @@ public class PublisherController {
 				return "publisher.form";				
 			}
 			
-			return "redirect:/publisher/save/" + publisher.getId();
+			model.addAttribute("publisher", new Publisher());
+			model.addAttribute("done", publisher);
+			
+			return "publisher.form";
 			
 		}			
 	}
 	
-	@RequestMapping("/save/{id}")
-	public String newAndShowPublisher(@PathVariable long id, Model model) {
-		
-		Publisher done = service.getPublisher(id);
-		
-		model.addAttribute("publisher", new Publisher());
-		model.addAttribute("done", done);
-		
-		return "publisher.form";
-	}
-	
-	@RequestMapping(value = { "/save/{id}" }, method = RequestMethod.POST)
-	public String save(@PathVariable long id, @Valid Publisher publisher , BindingResult result, ModelMap model) {
-
-		if(result.hasErrors()){	
-			return "publisher.form";			
-		} else {		
-			
-			try{
-				this.service.save(publisher);
-			} 
-			catch (DataIntegrityViolationException eive)
-			{
-				result.rejectValue("name","error.not.unique");			
-				return "publisher.form";				
-			}
-			
-			return "redirect:/publisher/save/" + publisher.getId();
-			
-		}			
-	}
-	
-	@RequestMapping(value = { "/edit/{id}" }, method = RequestMethod.GET)
-	public String edit(@PathVariable("id") long id, Model model) {
+	@RequestMapping(value = { "/edit" }, method = RequestMethod.GET)
+	public String edit(@RequestParam(value = "id", required = true) long id, Model model) {
 		
 		Publisher publisher = this.service.getPublisher(id);
 		
@@ -121,7 +96,9 @@ public class PublisherController {
 				return "publisher.form";
 			}
 			
-			return "redirect:/publisher/save/" + publisher.getId();
+			model.addAttribute("done", publisher);
+			
+			return "publisher.form";
 			
 		}
 		
@@ -135,27 +112,11 @@ public class PublisherController {
 			this.service.deletePublisher(id);
 		
 		model.addAttribute("id", id);
+		
 		return "deleted";
 		
 	}
 
-	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@RequestParam(value = "keyword", required = false) String keyword, Model model, Pageable pageable) {
-
-		Page<Publisher> page = new PageImpl<Publisher>(new ArrayList<Publisher>(), pageable, 0);
-		
-		if(keyword != null){
-			page = this.service.findPublishersByNameContaining(keyword, pageable);
-		}
-
-		model.addAttribute("page", page);
-		model.addAttribute("keyword", keyword);
-		model.addAttribute("pagingType", "search");
-		
-		return "publishers";
-
-	}
-	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
 	public String publishers(Model model, Pageable pageable) {
 
@@ -168,6 +129,29 @@ public class PublisherController {
 		
 	}
 	
+	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
+	public String search(@RequestParam(value = "keyword", required = false) String keyword, HttpServletRequest request, Map<String,String> params,
+			Model model, Pageable pageable) {
+
+		Page<Publisher> page = new PageImpl<Publisher>(new ArrayList<Publisher>(), pageable, 0);
+		
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
+		
+		if(keyword != null){
+			page = this.service.findPublishersByNameContaining(keyword, pageable);
+		}
+
+		model.addAttribute("keyword", keyword);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
+		model.addAttribute("page", page);
+		model.addAttribute("pagingType", "search");
+		
+		return "publishers";
+
+	}
+	
 	@RequestMapping(value = "/phase", method = RequestMethod.GET)
 	public @ResponseBody List<Publisher> findPublishers(@RequestParam("phase") String phase) {
 
@@ -177,6 +161,14 @@ public class PublisherController {
 		}
 	
 		return null;
+	}
+	
+	private String buildUri(HttpServletRequest request, int page){
+		UriComponents uc = ServletUriComponentsBuilder.fromRequest(request)
+		        .replaceQueryParam("page", "{id}").build()
+		        .expand(page);
+		
+		return uc.toUriString();
 	}
 	
 }

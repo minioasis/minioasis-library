@@ -15,7 +15,10 @@
 			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/series/save}">
       			<i class="fas fa-signal"></i>
 	      	</a>
-			<a class="btn btn-outline-info text-danger" href="#" th:href="@{/series/list(page=0,size=10,sort='name,asc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/publisher/save}">
+      			<i class="far fa-newspaper"></i>
+	      	</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/publisher/list(page=0,size=10,sort='name,asc')}">
 				<i class="fas fa-search"></i>
 			</a>
 		</h4>
@@ -78,7 +81,7 @@
 								<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 								<td th:text="${e.name}">class S1S1</td>
 								<td>
-									<a href="#" th:href="@{/series/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+									<a href="#" th:href="@{/series/edit?id={sid}(id=${e.id})}"><i class="far fa-edit"></i></a>
 									| <a href="#" th:href="@{/series/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 								</td>
 							</tr>

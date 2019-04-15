@@ -12,11 +12,64 @@
 	
 		<h4>
 			<span th:text="#{create.series}">Create Series</span>
-			<a class="btn btn-outline-info text-danger" href="#" th:href="@{/series/list(page=0,size=10,sort='name,asc')}">
+			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/series/list(page=0,size=10,sort='name,asc')}">
+				<i class="fas fa-search"></i>
+			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/publisher/save}">
+      			<i class="far fa-newspaper"></i>
+	      	</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/publisher/list(page=0,size=10,sort='name,asc')}">
 				<i class="fas fa-search"></i>
 			</a>
 		</h4>
-		  
+
+		<div class="card bg-hb" style="max-width: 40rem;">
+		
+			<div class="card-header">
+				<i class="fas fa-signal"></i>
+			</div>
+			<div class="card-body bg-lb">
+				
+				<form th:object="${series}" method="post">			
+					<input type="text" hidden="hidden" th:field="*{id}" />
+
+					<div class="form-row">
+						<div class="form-group col-sm-10">
+					      	<label th:text="#{name}">Name</label>
+					      	<input type="text" class="form-control" th:field="*{name}" autofocus="autofocus"  placeholder="Name"/>
+					      	<p class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></p>
+					    </div>
+					    <div class="form-group col-sm-2">
+					    	<label>&nbsp;</label>
+						    <button type="submit" class="form-control btn bg-info text-white"  th:text="#{submit}">Submit</button>
+						</div>
+					</div>
+							
+		 		</form>
+		 		
+			</div>
+		</div>
+		
+		<br>
+
+		<table class="table table-bordered" th:if="${done != null}" style="max-width: 40rem;">
+		  <thead>
+		    <tr>
+		      <th scope="col" th:text="#{name}">Name</th>
+		      <th scope="col" th:text="#{actions}">Action</th>
+		    </tr>
+		  </thead>
+		  <tbody>
+		    <tr>
+		      <td th:text="${done.name}">Name</td>
+		      <td>
+				<a href="#" th:href="@{/series/edit?id={id}(id=${done.id})}"><i class="far fa-edit"></i></a>
+				| <a href="#" th:href="@{/series/delete/{id}(id=${done.id})}"><i class="far fa-trash-alt"></i></a>		      
+		      </td>
+		    </tr>
+		  </tbody>
+		</table>
+				  
 		<div th:replace="fragments/script :: script"></div>	  
 		<div th:replace="fragments/footer :: footer"></div>
   
