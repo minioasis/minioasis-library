@@ -22,8 +22,6 @@ import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
-import org.minioasis.library.domain.Block;
-import org.minioasis.library.domain.BlockState;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.Location;
@@ -32,6 +30,7 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.exception.LibraryException;
@@ -44,7 +43,6 @@ import org.minioasis.library.repository.HolidayRepository;
 import org.minioasis.library.repository.ItemDurationRepository;
 import org.minioasis.library.repository.ItemRepository;
 import org.minioasis.library.repository.ItemStatusRepository;
-import org.minioasis.library.repository.BlockRepository;
 import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.library.repository.PatronTypeRepository;
 import org.minioasis.library.repository.LocationRepository;
@@ -69,8 +67,6 @@ public class LibraryServiceImpl implements LibraryService {
 	private AttachmentCheckoutRepository attachmentCheckoutRepository;
 	@Autowired
 	private BiblioRepository biblioRepository;
-	@Autowired
-	private BlockRepository blockRepository;
 	@Autowired
 	private CheckoutRepository checkoutRepository;
 	@Autowired
@@ -367,38 +363,8 @@ public class LibraryServiceImpl implements LibraryService {
 	public Page<Biblio> findByTitleAndIsbnAndNoteContaining(String title, Pageable pageable){
 		return this.biblioRepository.findByTitleAndIsbnAndNoteContaining(title, pageable);
 	}
-	
-	/****************************************  Block  ************************************/
-	
-	public void save(Block entity){
-		this.blockRepository.save(entity);
-	}
-	public void delete(Block entity){
-		this.blockRepository.delete(entity);
-	}
-	public void deleteBlock(long id){
-		this.blockRepository.deleteById(id);
-	}
-	public Block getBlock(long id){
-		return this.blockRepository.getOne(id);
-	}
-	public Block getBlockFetchUser(long id){
-		return this.blockRepository.getBlockFetchUser(id);
-	}
-	public List<Block> findAllBlocks(Sort sort){
-		return this.blockRepository.findAll(sort);
-	}
-	public List<Block> getFilterBlocksByCardKey(String cardKey){
-		return this.blockRepository.getFilterBlocksByCardKey(cardKey);
-	}
-	public Page<Block> findAllBlocksByName(String name, Pageable pageable){
-		return this.blockRepository.findAllByName(name, pageable);
-	}
-	public Page<Block> findAllBlocks(Pageable pageable){
-		return this.blockRepository.findAll(pageable);
-	}
-	public void refreshBlockStates(){
-		this.blockRepository.refreshLibraryBlockStates();
+	public Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable){
+		return this.biblioRepository.findByCriteria(criteria, pageable);
 	}
 	
 	/****************************************  Checkout  ******************************************/
@@ -775,9 +741,6 @@ public class LibraryServiceImpl implements LibraryService {
 	
 		List<Reservation> reservations = this.reservationRepository.findByCardKeyAndFilterByStates(cardKey, ReservationState.getActives());
 		patron.setReservations(reservations);
-		
-		Set<Block> blocks = this.blockRepository.findByCardKeyAndFilterByStates(cardKey, given, BlockState.getActives());
-		patron.setBlocks(blocks);
 		
 		List<AttachmentCheckout> attachmentCheckouts = this.attachmentCheckoutRepository.findByCardKeyAndFilterByStates(cardKey, AttachmentCheckoutState.CHECKOUT);
 		patron.setAttachmentCheckouts(attachmentCheckouts);

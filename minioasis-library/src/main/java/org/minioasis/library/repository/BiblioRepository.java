@@ -1,6 +1,7 @@
 package org.minioasis.library.repository;
 
 import org.minioasis.library.domain.Biblio;
+import org.minioasis.library.domain.search.BiblioCriteria;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
@@ -8,7 +9,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface BiblioRepository extends JpaRepository<Biblio, Long> {
+public interface BiblioRepository extends JpaRepository<Biblio, Long>, BiblioRepositoryCustom {
 
 	@Query("SELECT b FROM Biblio b WHERE b.id = ?1")
 	public Biblio getBiblioDetails(long id);

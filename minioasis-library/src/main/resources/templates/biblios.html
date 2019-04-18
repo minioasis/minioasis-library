@@ -1,0 +1,231 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{search.biblio}">Search Biblio.</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/save}">
+				<i class="fas fa-book"></i>
+			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<i class="fas fa-search"></i>
+			</a>	
+		</h4>
+
+		<ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{general}">General</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="date-tab" data-toggle="tab" href="#date" role="tab" aria-controls="date" aria-selected="false">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{date}">Date</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="type-tab" data-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{type}">Type</span>
+				</a>
+			</li>
+		</ul>
+
+		<form action="#" th:action="@{/biblio/search}" th:object="${criteria}" method="get">
+
+			<input type="hidden" id="page" name="page" value="0" />
+			<input type="hidden" id="size" name="size" value="10" />
+			<input type="hidden" id="sort" name="sort" value="updated,desc" />
+						
+			<div class="tab-content" id="myTabContent">
+			
+				<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">			
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{keyword1}">Keyword 1</label>
+					      	<input type="text" class="form-control" th:field="*{keyword1}" autofocus="autofocus" th:placeholder="#{title} + ',' + #{author} + ',' + #{isbn}"/>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{keyword2}">Keyword 2</label>
+					      	<input type="text" class="form-control" th:field="*{keyword2}" placeholder="Subject,Classmark,ISSN,Coden,Desc"/>
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label th:text="#{publisher}">Publisher</label>
+					      	<input type="text" class="form-control" th:field="*{publisher}"/>
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label th:text="#{series}">Series</label>
+					      	<input type="text" class="form-control" th:field="*{series}"/>
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label th:text="#{note}">Note</label>
+					      	<input type="text" class="form-control"	th:field="*{note}"/>
+					    </div>
+					</div>								
+				</div>
+				
+				<div class="tab-pane fade" id="date" role="tabpanel" aria-labelledby="date-tab">	
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-2">
+					    	<label>
+						      	<i class="far fa-calendar-plus"></i>
+						      	<span th:text="#{updated}">Updated</span>
+					      	</label>
+					      <input type="text" class="form-control" th:field="*{updatedFrom}" placeholder="From" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label><i class="far fa-calendar-minus"></i></label>
+					      <input type="text" class="form-control" th:field="*{updatedTo}" placeholder="To" />
+					    </div>
+					</div>
+				</div>
+				
+				<div class="tab-pane fade" id="type" role="tabpanel"	aria-labelledby="type-tab">
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{binding}">Binding</label>
+							<select	class="form-control" th:field="*{bindings}" multiple="multiple">						
+								<option th:each="b : ${binds}" th:value="${b}" th:text="${b}" />
+								<option th:remove="all" value="H">H</option>
+								<option th:remove="all" value="S">S</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{language}">Language</label>
+							<select	class="form-control" th:field="*{languages}" multiple="multiple">						
+								<option th:each="l : ${langs}" th:value="${l}" th:text="${l}" />
+								<option th:remove="all" value="en">en</option>
+								<option th:remove="all" value="cn">cn</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{active}">Active</label>
+							<select	class="form-control" th:field="*{actives}" multiple="multiple">
+								<option th:each="a : ${ats}" th:value="${a}" th:text="${a}" />						
+								<option th:remove="all" value="Y" th:text="${yes}">SM1</option>
+								<option th:remove="all" value="N" th:text="${no}">SM2</option>
+							</select>
+					    </div>
+
+					</div>			
+				</div>
+				
+			</div>
+			
+			<input hidden="hidden" type="submit" name="search" value="Submit"/>	
+			
+		</form>			
+			
+		<hr/>
+
+		<div class="float-right">
+			<div th:if="${pagingType eq 'list'}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/biblio/list(page=${page.number - 1},size=${page.size},sort='updated,desc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="@{/biblio/list(page=${page.number + 1},size=${page.size},sort='updated,desc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>
+					
+			<div th:if="${pagingType eq 'search'}">
+				<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>		
+		</div>
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive-sm">					
+			<table class="table table-sm table-striped">
+				<thead>
+					<tr class="table-primary">
+						<th>#</th>
+						<th th:text="#{photo}">Photo</th>
+						<th th:text="#{title} + '/' + #{author} + '/' + #{isbn}">Title/Author/ISBN</th>
+						<th th:text="#{item}">Item</th>
+						<th th:text="#{add.item}">Add Item</th>
+						<th th:text="#{publisher} + '/' + #{series}">Publisher / Series</th>
+						<th th:text="#{classmark}">ClassMark</th>
+						<th th:text="#{issn}">ISSN</th>
+						<th th:text="#{updated}">Start / End</th>
+						<th th:text="#{actions}">Actions</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td>
+							<img src="@{/images/smiley.png}" 
+								 th:src="@{/biblio/photo/{id}(id=${e.id})}" 
+								 class="thumbnail" 
+								 style="min-height:75px;height:95px;width:80px;"/>
+						</td>
+						<td>
+							<div>
+								<a href="#" th:href="@{/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a>
+							</div>
+							<p><code th:text="${e.author}"></code></p>											
+							<p><code th:text="${e.isbn}"></code></p>
+						</td>
+						<td>
+							<a href="#" th:href="@{/biblio/{id}/items(id=${e.id})}" class="btn btn-outline-info text-info">
+								<i class="fas fa-list-ul"></i>
+							</a>
+						</td>
+						<td>
+							<a href="#" th:href="@{/item/save?bid={bid}(bid=${e.id})}" class="btn btn-outline-success text-success">
+								<i class="fas fa-plus"></i> <i class="fas fa-info"></i>
+							</a>
+						</td>
+						<td>
+							<p th:text="${e.publisher != null ? e.publisher.name : ''}">Richard P. Feynman</p>
+							<p th:text="${e.series != null ? e.series.name : ''}">Physics Series</p>
+						</td>
+						<td th:text="${e.classMark}">555.55 HA1</td>
+						<td th:text="${e.journal != null ? e.journal.issn : ''}">Issn</td>
+						<td th:text="${#calendars.format(e.updated,'yyyy-MM-dd')}">2015-08-31</td>
+						<td>
+							<a href="#" th:href="@{/biblio/upload?id={id}(id=${e.id})}"><i class="far fa-image"></i></a></a>
+							| <a href="#" th:href="@{/biblio/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/biblio/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+						</td>
+					</tr>
+					<tr th:remove="all">
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+						<td>8</td>
+						<td>9</td>
+						<td>10</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+								
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

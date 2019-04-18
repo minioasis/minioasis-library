@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{biblio}">Biblio</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/save}">
+				<span><i class="fas fa-user-plus"></i></span>
+			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<span><i class="fas fa-search"></i></span>
+			</a>
+		</h4>
+
+		<div class="card bg-hb" style="max-width: 42rem;">
+		  <div class="card-header">
+			<i class="fas fa-user-plus"></i>
+			<div class="float-right">
+				<a class="text-white" href="#" th:href="@{/biblio/{id}/upload(id=${id})}"><i class="far fa-image"></i></a>
+				| <a class="text-white" href="#" th:href="@{/biblio/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
+				| <a class="text-white" href="#" th:href="@{/biblio/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
+			</div>
+		  </div>
+		  <div class="card-body bg-white">
+			<div class="row">
+				<div class="col-md-4">
+					<img src="@{/images/smiley.png}" th:src="@{/biblio/{id}/photo(id=${biblio.id})}" 
+						class="thumbnail" style="min-height:200px;height:215px;width:175px;"/>
+				</div>
+				<div class="col-md-8">
+				
+					<div class="table-responsive">
+						<table class="table table-sm">
+							<tbody>
+								<tr>
+									<td><i class="far fa-check-circle text-label"></i> <span th:text="#{active}">Active</span></td>
+									<td class="text-info" th:text="${biblio.active}">Y</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{biblio.type}">Biblio Type</span></td>
+									<td class="text-info" th:text="${biblio.biblioType}">BOOK</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-angellist text-label"></i> <span th:text="#{title}">Title</span></td>
+									<td class="text-info" th:text="${biblio.title}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{updated}">Updated</span></td>
+									<td class="text-info" th:text="${#calendars.format(biblio.updated,'yyyy-MM-dd')}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-user text-label"></i> <span th:text="#{author}">Author</span></td>
+									<td class="text-info" th:text="${biblio.author}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-newspaper text-label"></i> <span th:text="#{publisher}">Publisher</span></td>
+									<td class="text-info" th:text="${biblio.publisher != null ? biblio.publisher.name : ''}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{subject}">Subject</span></td>
+									<td class="text-info" th:text="${biblio.subject}">4S1S</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{series}">Series</span></td>
+									<td class="text-info" th:text="${biblio.series != null ? biblio.series.name : ''}">M</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{classmark}">Class Mark</span></td>
+									<td class="text-info" th:text="${biblio.classMark}">530.12</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{publishing.year}">Publishing Year</span></td>
+									<td class="text-info" th:text="${biblio.publishingYear}">1970</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{isbn}">ISBN</span></td>
+									<td class="text-info" th:text="${biblio.isbn}">15651651561</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{issn}">ISSN</span></td>
+									<td class="text-info" th:text="${biblio.journal != null ? biblio.journal.issn : ''}">654651651</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{coden}">Coden</span></td>
+									<td class="text-info" th:text="${biblio.journal != null ? biblio.journal.coden : ''}">AS125</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{edition}">Edition</span></td>
+									<td class="text-info" th:text="${biblio.edition}">1st</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{pages}">Pages</span></td>
+									<td class="text-info" th:text="${biblio.pages}">124</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{binding}">Binding</span></td>
+									<td class="text-info" th:text="${biblio.binding.value}">Hand Cover</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-language text-label"></i> <span th:text="#{language}">Language</span></td>
+									<td class="text-info" th:text="${biblio.language.value}">EN</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-map-pin text-label"></i> <span th:text="#{publication.place}">Publication Place</span></td>
+									<td class="text-info" th:text="${biblio.publicationPlace}">KL</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-audio-description text-label"></i> <span th:text="#{description}">Description</span></td>
+									<td class="text-info" th:text="${biblio.description}">Hello, this is a good book</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-sticky-note text-label"></i> <span th:text="#{note}">Note</span></td>
+									<td class="text-info"><textarea rows="7" cols="35" name="note" th:text="${biblio.note}"></textarea></td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>		
+ 		
+		  </div>
+		</div>
+				
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

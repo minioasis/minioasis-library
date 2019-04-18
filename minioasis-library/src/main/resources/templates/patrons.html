@@ -153,7 +153,6 @@
 			
 		<hr/>
 
-
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
 				<a th:if="${page.hasPrevious()}" th:href="@{/patron/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
@@ -222,7 +221,8 @@
 						<td>
 							  <a href="#" th:href="@{/patron/{id}/upload(id=${e.id})}"><i class="far fa-image"></i></a>
 							| <a href="#" th:href="@{/patron/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/patron/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+							| <a href="#" th:href="@{/patron/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+						</td>
 					</tr>
 					<tr th:remove="all">
 						<td>2</td>

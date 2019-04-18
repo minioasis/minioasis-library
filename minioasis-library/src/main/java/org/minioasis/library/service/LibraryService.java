@@ -17,7 +17,6 @@ import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemStatus;
-import org.minioasis.library.domain.Block;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.Location;
@@ -25,6 +24,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.exception.LibraryException;
@@ -95,19 +95,7 @@ public interface LibraryService {
 	Page<Biblio> findAllBiblios(Pageable pageable);
 	Page<Biblio> findAllBibliosWithoutItem(Pageable pageable);
 	Page<Biblio> findByTitleAndIsbnAndNoteContaining(String title, Pageable pageable);
-	
-	// Block	
-	void save(Block entity);
-	void delete(Block entity);
-	void deleteBlock(long id);
-	Block getBlock(long id);
-	Block getBlockFetchUser(long id);
-	List<Block> findAllBlocks(Sort sort);
-	List<Block> getFilterBlocksByCardKey(String cardKey);
-	Page<Block> findAllBlocks(Pageable pageable);
-	Page<Block> findAllBlocksByName(String name, Pageable pageable);
-	
-	void refreshBlockStates();
+	Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable);
 	
 	// Checkout
 	void save(Checkout entity);

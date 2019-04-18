@@ -19,7 +19,6 @@ import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.repository.AttachmentRepository;
 import org.minioasis.library.repository.BiblioRepository;
-import org.minioasis.library.repository.BlockRepository;
 import org.minioasis.library.repository.CheckoutRepository;
 import org.minioasis.library.repository.GroupRepository;
 import org.minioasis.library.repository.HolidayRepository;
@@ -45,8 +44,6 @@ public class BootstrapData implements CommandLineRunner {
 	private AttachmentRepository attachmentRepository;
 	@Autowired
 	private BiblioRepository biblioRepository;
-	@Autowired
-	private BlockRepository blockRepository;
 	@Autowired
 	private CheckoutRepository checkoutRepository;
 	@Autowired

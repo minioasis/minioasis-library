@@ -135,10 +135,10 @@
 		      	
 				<span th:text="#{biblio}">Bibliography</span> / <span th:text="#{uncompleted}"> Uncompleted</span> 
 				<br>
-				<a class="btn btn-outline-danger text-danger">
+				<a class="btn btn-outline-danger text-danger" th:href="@{/biblio/save}">
 		      		<i class="fas fa-book"></i>
 		      	</a>
-		      	<a class="btn btn-outline-danger text-danger">
+		      	<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
 				    <i class="fas fa-search"></i>
 		      	</a>
 		      	/

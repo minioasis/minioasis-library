@@ -119,9 +119,6 @@ public class Patron implements Serializable {
 	@Column(columnDefinition = "TEXT")
 	private String note;
 
-	@OneToMany(mappedBy = "patron")
-	private Set<Block> blocks = new HashSet<Block>(0);
-
 	@OneToMany(mappedBy = "patron", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@OrderBy("checkoutDate ASC")
 	private List<Checkout> checkouts = new ArrayList<Checkout>(0);
@@ -299,14 +296,6 @@ public class Patron implements Serializable {
 		this.note = note;
 	}
 
-	public Set<Block> getBlocks() {
-		return blocks;
-	}
-
-	public void setBlocks(Set<Block> blocks) {
-		this.blocks = blocks;
-	}
-
 	public List<Checkout> getCheckouts() {
 		return checkouts;
 	}
@@ -361,20 +350,6 @@ public class Patron implements Serializable {
 
 	public void setTotalAmountOfFines(BigDecimal totalAmountOfFines) {
 		this.totalAmountOfFines = totalAmountOfFines;
-	}
-
-	public void addBlock(Block block) {
-		if (block == null)
-			throw new IllegalArgumentException("Can't add a null block.");
-
-		this.blocks.add(block);
-	}
-
-	public void removeBlock(Block block) {
-		if (block == null)
-			throw new IllegalArgumentException("Can't remove a null block.");
-
-		this.blocks.remove(block);
 	}
 
 	public void addCheckout(Checkout checkout) {
@@ -471,13 +446,10 @@ public class Patron implements Serializable {
 		// 1. validation - given date
 		givenDateValidation(given, notification);
 
-		// 2. has block ?
-		checkBlock(notification);
-
-		// 3. validation - item
+		// 2. validation - item
 		itemValidation(item, given, notification);
 
-		// 4. validation - patronType
+		// 3. validation - patronType
 		patronTypeValidation(given, holidays, strategy, notification);
 
 		return notification;
@@ -519,13 +491,6 @@ public class Patron implements Serializable {
 			notification.addError(CirculationCode.INVALID_GIVENDATE_PATRONTYPE);
 		}
 
-	}
-
-	// A.2
-	private void checkBlock(Notification notifications) {
-		// A.2.1
-		if (this.blocks.size() > 0)
-			notifications.addError(CirculationCode.HAS_BLOCKS);
 	}
 
 	// A.3
@@ -711,14 +676,8 @@ public class Patron implements Serializable {
 			return notification;
 		}
 
-		// 1. validation - given date
+		// validation - given date
 		givenDateValidation(given, notification);
-
-		// 2. check block
-		if (this.blocks.size() > 0) {
-			notification.addError(CirculationCode.HAS_BLOCKS);
-			return notification;
-		}
 
 		return notification;
 	}

@@ -84,6 +84,7 @@ public class Biblio implements Serializable {
 	private Language language;
 	
 	@Length(max = 20)
+	@Column(name = "class_mark")
 	private String classMark;
 
 	@Column(name = "publishing_year")
