@@ -110,11 +110,11 @@ public class Biblio implements Serializable {
 	@Column(name = "topic")
 	private String subject;
 	
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name="publisher_id", foreignKey = @ForeignKey(name = "fk_biblio_publisher"))
 	private Publisher publisher;
 
-	@ManyToOne(cascade = {CascadeType.PERSIST, CascadeType.REFRESH, CascadeType.MERGE})
+	@ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name="series_id", foreignKey = @ForeignKey(name = "fk_biblio_series"))
 	private Series series;
  

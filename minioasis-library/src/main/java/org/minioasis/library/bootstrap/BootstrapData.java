@@ -84,27 +84,62 @@ public class BootstrapData implements CommandLineRunner {
 	}
 	
 	public void run(String... args) throws Exception {
+
+		// publisher
+		Publisher pb1 = new Publisher();
+		pb1.setName("Pearson Education");
+		publisherRepository.save(pb1);
+		
+		Publisher pb2 = new Publisher();
+		pb2.setName("Oxford University Press");
+		publisherRepository.save(pb2);
+
+		Publisher pb3 = new Publisher();
+		pb3.setName("John Wiley & Sons");
+		publisherRepository.save(pb3);
+		
+		// series
+		Series s1 = new Series();
+		s1.setName("Happy Boy Series");
+		seriesRepository.save(s1);
+		
+		Series s2 = new Series();
+		s2.setName("Harry Potter Series");
+		seriesRepository.save(s2);
+		
+		Series s3 = new Series();
+		s3.setName("Bad Ass Series");
+		seriesRepository.save(s3);
 		
 		Biblio b1 = new Biblio();
 		b1.setTitle("X-Man");
 		b1.setActive(YesNo.Y);
+		b1.setAuthor("Steven Spy");
 		b1.setBiblioType(BiblioType.BOOK);
 		b1.setLanguage(Language.cn);
-		service.save(b1);
-		
+		b1.setPublisher(pb3);
+		b1.setSeries(s2);
+		biblioRepository.save(b1);
+						
 		Biblio b2 = new Biblio();
 		b2.setTitle("Spider Man");
 		b2.setActive(YesNo.Y);
+		b2.setAuthor("Ken Robinson");
 		b2.setBiblioType(BiblioType.BOOK);
 		b2.setLanguage(Language.cn);
-		service.save(b2);
+		b2.setPublisher(pb2);
+		b2.setSeries(s2);
+		biblioRepository.save(b2);
 		
 		Biblio b3 = new Biblio();
 		b3.setTitle("Iron Man");
 		b3.setActive(YesNo.Y);
+		b3.setAuthor("Robert");
 		b3.setBiblioType(BiblioType.BOOK);
 		b3.setLanguage(Language.cn);
-		service.save(b3);
+		b3.setPublisher(pb2);
+		b3.setSeries(s3);
+		biblioRepository.save(b3);
 		
 		// Patron Type
 		PatronType pt1 = new PatronType();
@@ -240,32 +275,6 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setIc("44415-10-7777");
 		p3.setContact(c3);
 		patronRepository.save(p3);
-		
-		// publisher
-		Publisher pb1 = new Publisher();
-		pb1.setName("Pearson Education");
-		publisherRepository.save(pb1);
-		
-		Publisher pb2 = new Publisher();
-		pb2.setName("Oxford University Press");
-		publisherRepository.save(pb2);
-
-		Publisher pb3 = new Publisher();
-		pb3.setName("John Wiley & Sons");
-		publisherRepository.save(pb3);
-		
-		// series
-		Series s1 = new Series();
-		s1.setName("Happy Boy Series");
-		seriesRepository.save(s1);
-		
-		Series s2 = new Series();
-		s2.setName("Harry Potter Series");
-		seriesRepository.save(s2);
-		
-		Series s3 = new Series();
-		s3.setName("Bad Ass Series");
-		seriesRepository.save(s3);
 		
 	}
 	

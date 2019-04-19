@@ -81,7 +81,7 @@ public class HolidayRepositoryImpl implements HolidayRepositoryCustom {
 	private long findCountByCriteriaLikeExpression(HolidayCriteria criteria) {
 
         long total = dsl.fetchCount(
-        						dsl.select()
+        						dsl.select(h.ID)
         						.from(h)
         						.where(condition(criteria))
         );

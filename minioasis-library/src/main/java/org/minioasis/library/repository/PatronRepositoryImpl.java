@@ -131,7 +131,7 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 	private long findCountByCriteriaLikeExpression(PatronCriteria criteria) {
 
         long total = dsl.fetchCount(
-        						dsl.select()
+        						dsl.select(p.ID)
         						.from(p)
         						.where(condition(criteria))
         );

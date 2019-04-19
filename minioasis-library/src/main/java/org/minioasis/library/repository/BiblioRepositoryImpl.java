@@ -91,11 +91,11 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 		
 		Table<?> table = b;
 		
-		if(publisher != null) {
-			table.innerJoin(p).on(b.PUBLISHER_ID.eq(p.ID)).and(p.NAME.likeIgnoreCase("%" + publisher + "%"));
+		if (publisher != null) {
+			table = table.innerJoin(p).on(b.PUBLISHER_ID.eq(p.ID)).and(p.NAME.likeIgnoreCase("%" + publisher + "%"));
 		}
 		if(series != null) {
-			table.innerJoin(s).on(b.SERIES_ID.eq(s.ID)).and(s.NAME.likeIgnoreCase("%" + series + "%"));
+			table = table.innerJoin(s).on(b.SERIES_ID.eq(s.ID)).and(s.NAME.likeIgnoreCase("%" + series + "%"));
 		}
 	
 		org.jooq.Query jooqQuery = dsl.select()
@@ -129,14 +129,14 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 		Table<?> table = b;
 		
 		if(publisher != null) {
-			table.innerJoin(p).on(b.PUBLISHER_ID.eq(p.ID)).and(p.NAME.likeIgnoreCase("%" + publisher + "%"));
+			table = table.innerJoin(p).on(b.PUBLISHER_ID.eq(p.ID)).and(p.NAME.likeIgnoreCase("%" + publisher + "%"));
 		}
 		if(series != null) {
-			table.innerJoin(s).on(b.SERIES_ID.eq(s.ID)).and(s.NAME.likeIgnoreCase("%" + series + "%"));
+			table = table.innerJoin(s).on(b.SERIES_ID.eq(s.ID)).and(s.NAME.likeIgnoreCase("%" + series + "%"));
 		}
 		
         long total = dsl.fetchCount(
-        						dsl.select()
+        						dsl.select(b.ID)
         						.from(table)
         						.where(condition(criteria))
         );
