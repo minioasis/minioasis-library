@@ -26,6 +26,7 @@ import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
+import org.minioasis.library.domain.search.ItemCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.springframework.data.domain.Page;
@@ -150,6 +151,7 @@ public interface LibraryService {
 	List<Item> findAllItemsOrderByBarcode(long id);
 	Page<Item> findAllItems(Pageable pageable);
 	Page<Item> findAllItemsByKeyword(String keyword, Pageable pageable);
+	Page<Item> findByCriteria(ItemCriteria criteria, Pageable pageable);
 	
 	Item getItemForCheckout(String barcode);
 	Item getItemForCheckin(String barcode);

@@ -137,10 +137,10 @@ public class ItemDao extends DAOImpl<ItemRecord, org.minioasis.library.jooq.tabl
     }
 
     /**
-     * Fetch records that have <code>SHELFMARK IN (values)</code>
+     * Fetch records that have <code>SHELF_MARK IN (values)</code>
      */
-    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByShelfmark(String... values) {
-        return fetch(Item.ITEM.SHELFMARK, values);
+    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByShelfMark(String... values) {
+        return fetch(Item.ITEM.SHELF_MARK, values);
     }
 
     /**

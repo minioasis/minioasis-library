@@ -42,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.ItemRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item extends TableImpl<ItemRecord> {
 
-    private static final long serialVersionUID = -31720672;
+    private static final long serialVersionUID = -597353067;
 
     /**
      * The reference instance of <code>PUBLIC.ITEM</code>
@@ -108,9 +108,9 @@ public class Item extends TableImpl<ItemRecord> {
     public final TableField<ItemRecord, BigDecimal> PRICE = createField("PRICE", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.ITEM.SHELFMARK</code>.
+     * The column <code>PUBLIC.ITEM.SHELF_MARK</code>.
      */
-    public final TableField<ItemRecord, String> SHELFMARK = createField("SHELFMARK", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<ItemRecord, String> SHELF_MARK = createField("SHELF_MARK", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>PUBLIC.ITEM.SOURCE</code>.

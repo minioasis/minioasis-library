@@ -199,12 +199,12 @@
 							<p th:text="${e.language}"></p>
 						</td>
 						<td>
-							<a href="#" th:href="@{/biblio/{id}/items(id=${e.id})}" class="btn btn-outline-info text-info">
+							<a href="#" th:href="@{/biblio/{id}/items(id=${e.id})}" class="btn btn-outline-success btn-sm">
 								<i class="fas fa-list-ul"></i>
 							</a>
 						</td>
 						<td>
-							<a href="#" th:href="@{/item/save?bid={bid}(bid=${e.id})}" class="btn btn-outline-success text-success">
+							<a href="#" th:href="@{/item/save?bid={bid}(bid=${e.id})}" class="btn btn-info btn-sm">
 								<i class="fas fa-plus"></i> <i class="fas fa-info"></i>
 							</a>
 						</td>
@@ -216,7 +216,7 @@
 						<td th:text="${e.journal != null ? e.journal.issn : ''}">Issn</td>
 						<td th:text="${#calendars.format(e.updated,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
-							<a href="#" th:href="@{/biblio/upload?id={id}(id=${e.id})}"><i class="far fa-image"></i></a></a>
+							<a href="#" th:href="@{/biblio/upload?id={id}(id=${e.id})}"><i class="far fa-image"></i></a>
 							| <a href="#" th:href="@{/biblio/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
 							| <a href="#" th:href="@{/biblio/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>

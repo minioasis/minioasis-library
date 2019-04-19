@@ -1,0 +1,269 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{search.item}">Search Item.</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/save}">
+				<i class="fas fa-list-ol"></i>
+			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search"></i>
+			</a>	
+		</h4>
+
+		<ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{general}">General</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="date-tab" data-toggle="tab" href="#date" role="tab" aria-controls="date" aria-selected="false">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{date}">Date</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="type-tab" data-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{type}">Type</span>
+				</a>
+			</li>
+		</ul>
+
+		<form action="#" th:action="@{/item/search}" th:object="${criteria}" method="get">
+
+			<input type="hidden" id="page" name="page" value="0" />
+			<input type="hidden" id="size" name="size" value="10" />
+			<input type="hidden" id="sort" name="sort" value="lastCheckin,desc" />
+						
+			<div class="tab-content" id="myTabContent">
+			
+				<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">			
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{keyword}">Keyword</label>
+					      	<input type="text" class="form-control" th:field="*{keyword}" autofocus="autofocus" th:placeholder="#{barcode} + ',' + #{shelfmark} + ',' + #{source}"/>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{biblio}">Biblio</label>
+					      	<input type="text" class="form-control" th:field="*{biblio}" th:placeholder="#{isbn}"/>
+					    </div>
+					</div>								
+				</div>
+				
+				<div class="tab-pane fade" id="date" role="tabpanel" aria-labelledby="date-tab">	
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-2">
+					    	<label>
+						      	<i class="far fa-calendar-plus"></i>
+						      	<span th:text="#{1st.checkin}">1st Check In</span>
+					      	</label>
+					      <input type="text" class="form-control" th:field="*{firstCheckinFrom}" placeholder="yyyy-MM-dd" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label><i class="far fa-calendar-minus"></i></label>
+					      <input type="text" class="form-control" th:field="*{firstCheckinTo}" placeholder="To" />
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label>
+						      	<i class="far fa-calendar-plus"></i>
+						      	<span th:text="#{last.checkin}">Last Check In</span>
+					      	</label>
+					      <input type="text" class="form-control" th:field="*{lastCheckinFrom}" placeholder="From" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label><i class="far fa-calendar-minus"></i></label>
+					      <input type="text" class="form-control" th:field="*{lastCheckinTo}" placeholder="To" />
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label>
+						      	<i class="far fa-calendar-plus"></i>
+						      	<span th:text="#{expired}">Expired Date</span>
+					      	</label>
+					      <input type="text" class="form-control" th:field="*{expiredFrom}" placeholder="From" />
+					    </div>
+					    <div class="form-group col-md-2">
+					      <label><i class="far fa-calendar-minus"></i></label>
+					      <input type="text" class="form-control" th:field="*{expiredTo}" placeholder="To" />
+					    </div>
+					</div>
+				</div>
+				
+				<div class="tab-pane fade" id="type" role="tabpanel"	aria-labelledby="type-tab">
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-1">
+					    	<label th:text="#{active}">Active</label>
+							<select	class="form-control" th:field="*{actives}" multiple="multiple">
+								<option th:each="a : ${ats}" th:value="${a}" th:text="${a}" />						
+								<option th:remove="all" value="Y" th:text="${yes}">SM1</option>
+								<option th:remove="all" value="N" th:text="${no}">SM2</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-1">
+					    	<label th:text="#{stock}">Stock</label>
+							<select	class="form-control" th:field="*{checkeds}" multiple="multiple">
+								<option th:each="c : ${checkedz}" th:value="${c}" th:text="${c}" />
+								<option th:remove="all" value="Y">YES</option>
+								<option th:remove="all" value="N">NO</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label th:text="#{item.duration}">Item Duration</label>
+							<select	class="form-control" th:field="*{itemDurations}" multiple="multiple">						
+								<option th:each="d : ${idurations}" th:value="${d.id}" th:text="${d.name}" />
+								<option th:remove="all" value="24121">1 Week</option>
+								<option th:remove="all" value="12123">2 Weeks</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{item.state}">Item State</label>
+							<select	class="form-control" th:field="*{itemStates}" multiple="multiple">						
+								<option th:each="i : ${istatez}" th:value="${i}" th:text="${i}" />
+								<option th:remove="all" value="24121">Available</option>
+								<option th:remove="all" value="12123">Lost</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label th:text="#{item.status}">Item Status</label>
+							<select	class="form-control" th:field="*{itemStatuz}" multiple="multiple">						
+								<option th:each="i : ${istatuz}" th:value="${i.id}" th:text="${i.name}" />
+								<option th:remove="all" value="24121">Available</option>
+								<option th:remove="all" value="12123">Lost</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-2">
+					    	<label th:text="#{location}">Location</label>
+							<select	class="form-control" th:field="*{locations}" multiple="multiple">						
+								<option th:each="i : ${locs}" th:value="${i.id}" th:text="${i.name}" />
+								<option th:remove="all" value="24121">Available</option>
+								<option th:remove="all" value="12123">Lost</option>
+							</select>
+					    </div>
+					</div>			
+				</div>
+				
+			</div>
+			
+			<input hidden="hidden" type="submit" name="search" value="Submit"/>	
+			
+		</form>			
+			
+		<hr/>
+
+		<div class="float-right">
+			<div th:if="${pagingType eq 'list'}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/item/list(page=${page.number - 1},size=${page.size},sort='lastCheckin,desc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="@{/item/list(page=${page.number + 1},size=${page.size},sort='lastCheckin,desc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>
+					
+			<div th:if="${pagingType eq 'search'}">
+				<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>		
+		</div>
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive-sm">					
+			<table class="table table-sm table-striped">
+				<thead>
+					<tr class="table-primary">
+						<th>#</th>
+						<th th:text="#{title}">Title</th>
+						<th th:text="#{biblio}">Biblio</th>
+						<th th:text="#{barcode}">Barcode</th>
+						<th th:text="#{active}">Active</th>
+						<th th:text="#{stock}">S.Check</th>
+						<th th:text="#{item.state} + ',' + #{item.status}">State/Status</th>
+						<th><i class="fas fa-paperclip"></i></th>
+						<th th:text="#{location}">Location</th>
+						<th th:text="#{shelfmark}">ShelfMark</th>
+						<th th:text="#{price}">Price</th>
+						<th th:text="#{source}">Source</th>
+						<th th:text="#{1st.checkin}">1st In</th>
+						<th th:text="#{last.checkin}">Last In</th>
+						<th th:text="#{expired}">Expired</th>
+						<th th:text="#{actions}">Action</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td>
+							<a href="#" th:href="@{/item/{id}(id=${e.id})}" th:text="${e.biblio != null ? e.biblio.title : ''}">Feynman Lecture of Physics</a>
+						</td>
+						<td><a href="#" th:href="@{/biblio/{id}(id=${e.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
+						<td th:text="${e.barcode}">221214214</td>
+						<td th:text="${e.active}">Y</td>
+						<td th:text="${e.checked}">N</td>
+						<td>
+							<div th:text="${e.state}">Item State</div>
+							<div th:text="${e.itemStatus.name}">Item Status</div>
+						</td>
+						<td>
+							<a href="#" th:href="@{/attachment/save/{iid}(iid=${e.id})}" class="btn btn-info btn-sm">
+								<i class="fas fa-paperclip"></i>
+							</a>
+						</td>
+						<td th:text="${e.location.name}">Kepong</td>
+						<td th:text="${e.shelfMark}">530.17 HT1</td>
+						<td th:text="${e.price}">13.50</td>
+						<td th:text="${e.source}">Shiang Hwa</td>
+						<td th:text="${#calendars.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
+						<td>
+							<a href="#" th:href="@{/library/item/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/library/item/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+						</td>
+
+					</tr>
+					<tr th:remove="all">
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+						<td>8</td>
+						<td>9</td>
+						<td>10</td>
+						<td>11</td>
+						<td>12</td>
+						<td>13</td>
+						<td>14</td>
+						<td>15</td>
+						<td>16</td>				
+					</tr>
+				</tbody>
+			</table>
+		</div>
+								
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

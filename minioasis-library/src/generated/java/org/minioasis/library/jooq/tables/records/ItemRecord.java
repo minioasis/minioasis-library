@@ -31,7 +31,7 @@ import org.minioasis.library.jooq.tables.Item;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ItemRecord extends UpdatableRecordImpl<ItemRecord> implements Record21<Long, String, String, String, Timestamp, Date, Timestamp, Timestamp, String, BigDecimal, String, String, Boolean, Boolean, String, Date, String, Long, Long, Long, Long> {
 
-    private static final long serialVersionUID = -402568501;
+    private static final long serialVersionUID = 1798162846;
 
     /**
      * Setter for <code>PUBLIC.ITEM.ID</code>.
@@ -174,16 +174,16 @@ public class ItemRecord extends UpdatableRecordImpl<ItemRecord> implements Recor
     }
 
     /**
-     * Setter for <code>PUBLIC.ITEM.SHELFMARK</code>.
+     * Setter for <code>PUBLIC.ITEM.SHELF_MARK</code>.
      */
-    public void setShelfmark(String value) {
+    public void setShelfMark(String value) {
         set(10, value);
     }
 
     /**
-     * Getter for <code>PUBLIC.ITEM.SHELFMARK</code>.
+     * Getter for <code>PUBLIC.ITEM.SHELF_MARK</code>.
      */
-    public String getShelfmark() {
+    public String getShelfMark() {
         return (String) get(10);
     }
 
@@ -444,7 +444,7 @@ public class ItemRecord extends UpdatableRecordImpl<ItemRecord> implements Recor
      */
     @Override
     public Field<String> field11() {
-        return Item.ITEM.SHELFMARK;
+        return Item.ITEM.SHELF_MARK;
     }
 
     /**
@@ -612,7 +612,7 @@ public class ItemRecord extends UpdatableRecordImpl<ItemRecord> implements Recor
      */
     @Override
     public String component11() {
-        return getShelfmark();
+        return getShelfMark();
     }
 
     /**
@@ -780,7 +780,7 @@ public class ItemRecord extends UpdatableRecordImpl<ItemRecord> implements Recor
      */
     @Override
     public String value11() {
-        return getShelfmark();
+        return getShelfMark();
     }
 
     /**
@@ -958,7 +958,7 @@ public class ItemRecord extends UpdatableRecordImpl<ItemRecord> implements Recor
      */
     @Override
     public ItemRecord value11(String value) {
-        setShelfmark(value);
+        setShelfMark(value);
         return this;
     }
 
@@ -1095,7 +1095,7 @@ public class ItemRecord extends UpdatableRecordImpl<ItemRecord> implements Recor
     /**
      * Create a detached, initialised ItemRecord
      */
-    public ItemRecord(Long id, String active, String barcode, String checked, Timestamp created, Date expired, Timestamp firstCheckin, Timestamp lastCheckin, String lastFullRenewPerson, BigDecimal price, String shelfmark, String source, Boolean borrowable, Boolean reservable, String state, Date publishingDate, String volumeNo, Long biblioId, Long itemDurationId, Long itemStatusId, Long locationId) {
+    public ItemRecord(Long id, String active, String barcode, String checked, Timestamp created, Date expired, Timestamp firstCheckin, Timestamp lastCheckin, String lastFullRenewPerson, BigDecimal price, String shelfMark, String source, Boolean borrowable, Boolean reservable, String state, Date publishingDate, String volumeNo, Long biblioId, Long itemDurationId, Long itemStatusId, Long locationId) {
         super(Item.ITEM);
 
         set(0, id);
@@ -1108,7 +1108,7 @@ public class ItemRecord extends UpdatableRecordImpl<ItemRecord> implements Recor
         set(7, lastCheckin);
         set(8, lastFullRenewPerson);
         set(9, price);
-        set(10, shelfmark);
+        set(10, shelfMark);
         set(11, source);
         set(12, borrowable);
         set(13, reservable);

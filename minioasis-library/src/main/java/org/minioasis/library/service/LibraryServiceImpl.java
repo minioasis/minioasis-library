@@ -32,6 +32,7 @@ import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
+import org.minioasis.library.domain.search.ItemCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.AttachmentCheckoutRepository;
@@ -520,6 +521,9 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<Item> findAllItemsByKeyword(String keyword, Pageable pageable){
 		return this.itemRepository.findAllByKeyword(keyword, pageable);
+	}
+	public Page<Item> findByCriteria(ItemCriteria criteria, Pageable pageable){
+		return this.itemRepository.findByCriteria(criteria, pageable);
 	}
 	
 	public Item getItemForCheckout(String barcode){

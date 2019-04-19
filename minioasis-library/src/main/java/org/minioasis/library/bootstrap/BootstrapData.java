@@ -12,11 +12,17 @@ import org.minioasis.library.domain.BiblioType;
 import org.minioasis.library.domain.Binding;
 import org.minioasis.library.domain.Contact;
 import org.minioasis.library.domain.Group;
+import org.minioasis.library.domain.Item;
+import org.minioasis.library.domain.ItemDuration;
+import org.minioasis.library.domain.ItemState;
+import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Language;
+import org.minioasis.library.domain.Location;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.Volume;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.repository.AttachmentRepository;
 import org.minioasis.library.repository.BiblioRepository;
@@ -150,6 +156,129 @@ public class BootstrapData implements CommandLineRunner {
 		b3.setPublisher(pb2);
 		b3.setSeries(s3);
 		biblioRepository.save(b3);
+
+		// Item Duration
+		ItemDuration d1 = new ItemDuration("1 Week", 7);
+		ItemDuration d2 = new ItemDuration("2 Weeks", 14);
+		ItemDuration d3 = new ItemDuration("1 Month", 30);
+		itemDurationRepository.save(d1);
+		itemDurationRepository.save(d2);
+		itemDurationRepository.save(d3);
+		
+		// Item Status
+		ItemStatus is1 = new ItemStatus("Available",true,true);
+		ItemStatus is2 = new ItemStatus("Lost",false,false);
+		ItemStatus is3 = new ItemStatus("New Book Display",false,true);
+		itemStatusRepository.save(is1);
+		itemStatusRepository.save(is2);
+		itemStatusRepository.save(is3);
+		
+		// Location
+		Location l1 = new Location("Kepong");
+		Location l2 = new Location("Sri Petaling");
+		Location l3 = new Location("Jalan Ipoh");
+		locationRepository.save(l1);
+		locationRepository.save(l2);
+		locationRepository.save(l3);
+		
+		// Item
+		Item i1 = new Item();
+		i1.setActive(YesNo.Y);
+		i1.setBarcode("111");
+		i1.setBiblio(b2);
+		i1.setChecked(YesNo.N);
+		i1.setCreated(date("2015-10-10"));
+		i1.setExpired(date("2016-10-10"));
+		i1.setFirstCheckin(date("2015-10-10"));
+		i1.setItemDuration(d1);
+		i1.setState(ItemState.CHECKOUT);
+		i1.setItemStatus(is1);
+		i1.setLastCheckin(date("2015-10-10"));
+		i1.setLastFullRenewPerson("Moon");
+		i1.setLocation(l1);
+		i1.setPrice(new BigDecimal(12.50));
+		i1.setShelfMark("435.78 HY1");
+		i1.setSource("Shiang Hua");
+		itemRepository.save(i1);
+		
+		Item i2 = new Item();
+		i2.setActive(YesNo.Y);
+		i2.setBarcode("222");
+		i2.setBiblio(b3);
+		i2.setChecked(YesNo.N);
+		i2.setCreated(date("2015-10-10"));
+		i2.setExpired(date("2016-10-10"));
+		i2.setFirstCheckin(date("2015-10-10"));
+		i2.setItemDuration(d1);
+		i2.setState(ItemState.IN_LIBRARY);
+		i2.setItemStatus(is1);
+		i2.setLastCheckin(date("2015-10-10"));
+		i2.setLastFullRenewPerson("Thai");
+		i2.setLocation(l2);
+		i2.setPrice(new BigDecimal(12.50));
+		i2.setShelfMark("435.78 HY2");
+		i2.setSource("Shiang Hua");
+		itemRepository.save(i2);
+	
+		Item i3 = new Item();
+		i3.setActive(YesNo.N);
+		i3.setBarcode("333");
+		i3.setBiblio(b1);
+		i3.setChecked(YesNo.N);
+		i3.setCreated(date("2015-10-10"));
+		i3.setExpired(date("2016-10-10"));
+		i3.setFirstCheckin(date("2015-10-10"));
+		i3.setItemDuration(d1);
+		i3.setState(ItemState.IN_LIBRARY);
+		i3.setItemStatus(is1);
+		i3.setLastCheckin(date("2015-10-10"));
+		i3.setLastFullRenewPerson("Karuna");
+		i3.setLocation(l1);
+		i3.setPrice(new BigDecimal(12.50));
+		i3.setShelfMark("530.78 HY1");
+		i3.setSource("Karuna");
+		i3.setVolume(new Volume(date("2015-10-10"), "234"));
+		itemRepository.save(i3);	
+
+		Item i4 = new Item();
+		i4.setActive(YesNo.Y);
+		i4.setBarcode("444");
+		i4.setBiblio(b1);
+		i4.setChecked(YesNo.Y);
+		i4.setCreated(date("2015-10-10"));
+		i4.setExpired(date("2016-10-10"));
+		i4.setFirstCheckin(date("2015-10-10"));
+		i4.setItemDuration(d1);
+		i4.setState(ItemState.IN_LIBRARY);
+		i4.setItemStatus(is3);
+		i4.setLastCheckin(date("2015-10-10"));
+		i4.setLastFullRenewPerson("Karuna");
+		i4.setLocation(l1);
+		i4.setPrice(new BigDecimal(12.50));
+		i4.setShelfMark("530.78 HY2");
+		i4.setSource("Karuna");
+		i4.setVolume(new Volume(date("2015-10-10"), "234"));
+		itemRepository.save(i4);
+		
+		Item i5 = new Item();
+		i5.setActive(YesNo.Y);
+		i5.setBarcode("555");
+		i5.setBiblio(b1);
+		i5.setChecked(YesNo.N);
+		i5.setCreated(date("2015-10-10"));
+		i5.setExpired(date("2016-10-10"));
+		i5.setFirstCheckin(date("2015-10-10"));
+		i5.setItemDuration(d1);
+		i5.setState(ItemState.IN_LIBRARY);
+		i5.setItemStatus(is1);
+		i5.setLastCheckin(date("2015-10-10"));
+		i5.setLastFullRenewPerson("Karuna");
+		i5.setLocation(l1);
+		i5.setPrice(new BigDecimal(12.50));
+		i5.setShelfMark("530.78 HY3");
+		i5.setSource("Karuna");
+		i5.setVolume(new Volume(date("2015-10-10"), "234"));
+		itemRepository.save(i5);
 		
 		// Patron Type
 		PatronType pt1 = new PatronType();

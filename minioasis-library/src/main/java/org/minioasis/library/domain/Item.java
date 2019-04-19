@@ -69,6 +69,7 @@ public class Item implements Serializable {
 	private String barcode;
 	
 	@Length(max = 30)
+	@Column(name = "shelf_mark")
 	private String shelfMark;
 	
 	@Length(max = 16)

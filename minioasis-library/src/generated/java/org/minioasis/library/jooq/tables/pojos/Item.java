@@ -25,7 +25,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item implements Serializable {
 
-    private static final long serialVersionUID = -64418616;
+    private static final long serialVersionUID = 2090564904;
 
     private Long       id;
     private String     active;
@@ -37,7 +37,7 @@ public class Item implements Serializable {
     private Timestamp  lastCheckin;
     private String     lastFullRenewPerson;
     private BigDecimal price;
-    private String     shelfmark;
+    private String     shelfMark;
     private String     source;
     private Boolean    borrowable;
     private Boolean    reservable;
@@ -62,7 +62,7 @@ public class Item implements Serializable {
         this.lastCheckin = value.lastCheckin;
         this.lastFullRenewPerson = value.lastFullRenewPerson;
         this.price = value.price;
-        this.shelfmark = value.shelfmark;
+        this.shelfMark = value.shelfMark;
         this.source = value.source;
         this.borrowable = value.borrowable;
         this.reservable = value.reservable;
@@ -86,7 +86,7 @@ public class Item implements Serializable {
         Timestamp  lastCheckin,
         String     lastFullRenewPerson,
         BigDecimal price,
-        String     shelfmark,
+        String     shelfMark,
         String     source,
         Boolean    borrowable,
         Boolean    reservable,
@@ -108,7 +108,7 @@ public class Item implements Serializable {
         this.lastCheckin = lastCheckin;
         this.lastFullRenewPerson = lastFullRenewPerson;
         this.price = price;
-        this.shelfmark = shelfmark;
+        this.shelfMark = shelfMark;
         this.source = source;
         this.borrowable = borrowable;
         this.reservable = reservable;
@@ -201,12 +201,12 @@ public class Item implements Serializable {
         this.price = price;
     }
 
-    public String getShelfmark() {
-        return this.shelfmark;
+    public String getShelfMark() {
+        return this.shelfMark;
     }
 
-    public void setShelfmark(String shelfmark) {
-        this.shelfmark = shelfmark;
+    public void setShelfMark(String shelfMark) {
+        this.shelfMark = shelfMark;
     }
 
     public String getSource() {
@@ -303,7 +303,7 @@ public class Item implements Serializable {
         sb.append(", ").append(lastCheckin);
         sb.append(", ").append(lastFullRenewPerson);
         sb.append(", ").append(price);
-        sb.append(", ").append(shelfmark);
+        sb.append(", ").append(shelfMark);
         sb.append(", ").append(source);
         sb.append(", ").append(borrowable);
         sb.append(", ").append(reservable);

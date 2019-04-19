@@ -40,15 +40,6 @@
 						<i class="fas fa-random"></i>
 					</span>
 				</a>
-				<p><p/>
-				
-				<span th:text="#{patron.ban}">Ban Patron</span>
-				<br>
-				<a class="btn btn-outline-info text-info">
-					<span class="has-text-link">
-						<i class="fas fa-lock"></i>
-					</span>
-				</a>
 
 		    </div>
 		    
@@ -119,21 +110,21 @@
 
 				<p><p/>
 				
-				<span th:text="#{opac}">OPACs</span> / <span th:text="#{web.scraping}">Web Scraping</span>
+				<span th:text="#{opac}">OPACs</span> : <span th:text="#{web.scraping}">Web Scraping</span>
 				<br/>
 				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/opac}">
 			      	<span>
 			      		<i class="fas fa-university"></i>
 			      	</span>
 				</a>
-				/
+				:
 				<a class="btn btn-outline-danger text-danger">
 		      		<i class="fas fa-spider"></i>
 		      	</a>
 
 		      	<p><p/>
 		      	
-				<span th:text="#{biblio}">Bibliography</span> / <span th:text="#{uncompleted}"> Uncompleted</span> 
+				<span th:text="#{biblio}">Bibliography</span> : <span th:text="#{uncompleted}"> Uncompleted</span> 
 				<br>
 				<a class="btn btn-outline-danger text-danger" th:href="@{/biblio/save}">
 		      		<i class="fas fa-book"></i>
@@ -141,19 +132,19 @@
 		      	<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
 				    <i class="fas fa-search"></i>
 		      	</a>
-		      	/
-				<a>
-				    <i class="fas fa-star-half-alt text-danger"></i>
+		      	:
+				<a class="btn btn-outline-danger text-danger btn-sm">
+				    <i class="fas fa-book"></i>
 		      	</a>
 		      	
 		      	<p><p/>
 		      	
-				<span th:text="#{item}">Item</span> / <span th:text="#{attachment}">Attachment</span>
+				<span th:text="#{item}">Item</span> : <span th:text="#{attachment}">Attachment</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger">
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
 				    <i class="fas fa-list-ol"></i>
 		      	</a>
-		      	/
+		      	:
 				<a class="btn btn-outline-danger text-danger">
 				    <i class="fas fa-paperclip"></i>
 		      	</a>
