@@ -5,6 +5,7 @@ import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
+import org.minioasis.library.domain.BiblioType;
 import org.minioasis.library.domain.Binding;
 import org.minioasis.library.domain.Language;
 import org.minioasis.library.domain.YesNo;
@@ -21,6 +22,7 @@ public class BiblioCriteria implements Serializable {
 	private Date updatedTo;
 	private String note;
 	
+	private Set<BiblioType> bibliotypes = new HashSet<BiblioType>();
 	private Set<Language> languages = new HashSet<Language>();
 	private Set<Binding> bindings = new HashSet<Binding>();
 	private Set<YesNo> actives = new HashSet<YesNo>();
@@ -66,6 +68,12 @@ public class BiblioCriteria implements Serializable {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public Set<BiblioType> getBibliotypes() {
+		return bibliotypes;
+	}
+	public void setBibliotypes(Set<BiblioType> bibliotypes) {
+		this.bibliotypes = bibliotypes;
 	}
 	public Set<Language> getLanguages() {
 		return languages;

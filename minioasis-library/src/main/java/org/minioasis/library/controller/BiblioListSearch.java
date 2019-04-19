@@ -5,6 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.Biblio;
+import org.minioasis.library.domain.BiblioType;
 import org.minioasis.library.domain.Binding;
 import org.minioasis.library.domain.Language;
 import org.minioasis.library.domain.YesNo;
@@ -41,6 +42,11 @@ public class BiblioListSearch {
 	@ModelAttribute("binds")
 	public Binding[] populateBindinds() {
 		return Binding.values();	
+	}
+
+	@ModelAttribute("bts")
+	public BiblioType[] populateBiblioTypes() {
+		return BiblioType.values();	
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)

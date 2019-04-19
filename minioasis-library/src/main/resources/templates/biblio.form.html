@@ -38,7 +38,9 @@
 				<i class="fas fa-user-plus"></i>
 			</div>
 			<div class="card-body bg-lb">
-				<form action="#" th:action="@{/biblio/save}" th:object="${biblio}" method="post">
+				<form action="#" th:object="${biblio}" method="post">
+				
+					<input type="text" hidden="hidden" th:field="*{id}" />
 
 					<div class="form-row pt-3">
 						<div class="form-group col-sm-3">

@@ -57,7 +57,8 @@
 					    </div>
 					    <div class="form-group col-md-3">
 					    	<label th:text="#{keyword2}">Keyword 2</label>
-					      	<input type="text" class="form-control" th:field="*{keyword2}" placeholder="Subject,Classmark,ISSN,Coden,Desc"/>
+					      	<input type="text" class="form-control" th:field="*{keyword2}" 
+					      		th:placeholder="#{subject} + ',' + #{classmark} + ',' + #{issn} + ',' + #{coden} + ',' + #{description}"/>
 					    </div>
 					    <div class="form-group col-md-2">
 					    	<label th:text="#{publisher}">Publisher</label>
@@ -93,7 +94,15 @@
 				<div class="tab-pane fade" id="type" role="tabpanel"	aria-labelledby="type-tab">
 					<div class="form-row pt-3">
 					    <div class="form-group col-md-3">
-					    	<label th:text="#{binding}">Binding</label>
+					    	<label th:text="'(T) ' + #{biblio.type}">Biblio Type</label>
+							<select	class="form-control" th:field="*{bibliotypes}" multiple="multiple">						
+								<option th:each="t : ${bts}" th:value="${t}" th:text="${t}" />
+								<option th:remove="all" value="BOOK">BOOK</option>
+								<option th:remove="all" value="JOURNAL">JOURNAL</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="'(B) ' + #{binding}">Binding</label>
 							<select	class="form-control" th:field="*{bindings}" multiple="multiple">						
 								<option th:each="b : ${binds}" th:value="${b}" th:text="${b}" />
 								<option th:remove="all" value="H">H</option>
@@ -101,7 +110,7 @@
 							</select>
 					    </div>
 					    <div class="form-group col-md-3">
-					    	<label th:text="#{language}">Language</label>
+					    	<label th:text="'(L) ' + #{language}">Language</label>
 							<select	class="form-control" th:field="*{languages}" multiple="multiple">						
 								<option th:each="l : ${langs}" th:value="${l}" th:text="${l}" />
 								<option th:remove="all" value="en">en</option>
@@ -109,7 +118,7 @@
 							</select>
 					    </div>
 					    <div class="form-group col-md-3">
-					    	<label th:text="#{active}">Active</label>
+					    	<label th:text="'(A) ' + #{active}">Active</label>
 							<select	class="form-control" th:field="*{actives}" multiple="multiple">
 								<option th:each="a : ${ats}" th:value="${a}" th:text="${a}" />						
 								<option th:remove="all" value="Y" th:text="${yes}">SM1</option>
@@ -156,7 +165,10 @@
 					<tr class="table-primary">
 						<th>#</th>
 						<th th:text="#{photo}">Photo</th>
-						<th th:text="#{title} + '/' + #{author} + '/' + #{isbn}">Title/Author/ISBN</th>
+						<th>(A)</th>
+						<th th:text="#{title} + '/' + #{author} + '/' + #{isbn} + '/(B)'">Title/Author/ISBN/(B)</th>
+						<th>(T)</th>
+						<th>(L)</th>
 						<th th:text="#{item}">Item</th>
 						<th th:text="#{add.item}">Add Item</th>
 						<th th:text="#{publisher} + '/' + #{series}">Publisher / Series</th>
@@ -176,12 +188,15 @@
 								 class="thumbnail" 
 								 style="min-height:75px;height:95px;width:80px;"/>
 						</td>
+						<td th:text="${e.active}">Active</td>
 						<td>
-							<div>
-								<a href="#" th:href="@{/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a>
-							</div>
-							<p><code th:text="${e.author}"></code></p>											
+							<a href="#" th:href="@{/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a> (<span th:text="${e.binding}"></span>)
+							<p><code th:text="${e.author}"></code></p>									
 							<p><code th:text="${e.isbn}"></code></p>
+						</td>
+						<td th:text="${e.biblioType}">BiblioType</td>
+						<td>
+							<p th:text="${e.language}"></p>
 						</td>
 						<td>
 							<a href="#" th:href="@{/biblio/{id}/items(id=${e.id})}" class="btn btn-outline-info text-info">
@@ -217,6 +232,7 @@
 						<td>8</td>
 						<td>9</td>
 						<td>10</td>
+						<td>11</td>
 					</tr>
 				</tbody>
 			</table>

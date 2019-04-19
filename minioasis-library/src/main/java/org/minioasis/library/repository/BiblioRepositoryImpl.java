@@ -17,6 +17,7 @@ import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
 import org.minioasis.library.domain.Biblio;
+import org.minioasis.library.domain.BiblioType;
 import org.minioasis.library.domain.Binding;
 import org.minioasis.library.domain.Language;
 import org.minioasis.library.domain.YesNo;
@@ -38,6 +39,63 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 	private org.minioasis.library.jooq.tables.Publisher p = PUBLISHER.as("p");
 	private org.minioasis.library.jooq.tables.Series s = SERIES.as("s");
 	
+	public Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable){
+
+		Table<?> table = createTable(criteria);
+	
+		org.jooq.Query jooqQuery = dsl.select()
+									.from(table)
+									.where(condition(criteria))
+									.limit(pageable.getPageSize())
+									.offset((int)pageable.getOffset());
+		
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), Biblio.class);
+		setBindParameterValues(q, jooqQuery);
+		
+		List<Biblio> biblios = q.getResultList();
+		
+		long total = findCountByCriteriaLikeExpression(criteria);
+		
+		return new PageImpl<>(biblios, pageable, total);
+	}
+	
+	private long findCountByCriteriaLikeExpression(BiblioCriteria criteria) {
+
+		Table<?> table = createTable(criteria);
+		
+        long total = dsl.fetchCount(
+        						dsl.select(b.ID)
+        						.from(table)
+        						.where(condition(criteria))
+        );
+
+        return total;
+    }
+	
+	private static void setBindParameterValues(Query hibernateQuery, org.jooq.Query jooqQuery) {
+	    List<Object> values = jooqQuery.getBindValues();
+	    for (int i = 0; i < values.size(); i++) {
+	        hibernateQuery.setParameter(i + 1, values.get(i));
+	    }
+	}
+	
+	private Table<?> createTable(BiblioCriteria criteria) {
+		
+		final String publisher = criteria.getPublisher();
+		final String series = criteria.getSeries();
+		
+		Table<?> table = b;
+		
+		if(publisher != null) {
+			table = table.innerJoin(p).on(b.PUBLISHER_ID.eq(p.ID)).and(p.NAME.likeIgnoreCase("%" + publisher + "%"));
+		}
+		if(series != null) {
+			table = table.innerJoin(s).on(b.SERIES_ID.eq(s.ID)).and(s.NAME.likeIgnoreCase("%" + series + "%"));
+		}
+		
+		return b;
+	}
+
 	private Condition condition(BiblioCriteria criteria) {
 		
 	    Condition condition = DSL.trueCondition();
@@ -50,6 +108,7 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 		final Set<YesNo> actives = criteria.getActives();
 		final Set<Binding> bindings = criteria.getBindings();		
 		final Set<Language> languages = criteria.getLanguages();
+		final Set<BiblioType> bibliotypes = criteria.getBibliotypes();
 		
 	    if (keyword1 != null) {
 	    	condition = condition.and(b.TITLE.likeIgnoreCase("%" + keyword1 + "%"))
@@ -80,67 +139,11 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 		if(languages != null && languages.size() > 0){
 			condition = condition.and(b.LANGUAGE.in(languages));
 		}
+		if(bibliotypes != null && bibliotypes.size() > 0){
+			condition = condition.and(b.BIBLIO_TYPE.in(bibliotypes));
+		}
 		
 	    return condition;
 	}
 	
-	public Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable){
-
-		final String publisher = criteria.getPublisher();
-		final String series = criteria.getSeries();
-		
-		Table<?> table = b;
-		
-		if (publisher != null) {
-			table = table.innerJoin(p).on(b.PUBLISHER_ID.eq(p.ID)).and(p.NAME.likeIgnoreCase("%" + publisher + "%"));
-		}
-		if(series != null) {
-			table = table.innerJoin(s).on(b.SERIES_ID.eq(s.ID)).and(s.NAME.likeIgnoreCase("%" + series + "%"));
-		}
-	
-		org.jooq.Query jooqQuery = dsl.select()
-									.from(table)
-									.where(condition(criteria))
-									.limit(pageable.getPageSize())
-									.offset((int)pageable.getOffset());
-		
-		Query q = em.createNativeQuery(jooqQuery.getSQL(), Biblio.class);
-		setBindParameterValues(q, jooqQuery);
-		
-		List<Biblio> biblios = q.getResultList();
-		
-		long total = findCountByCriteriaLikeExpression(criteria);
-		
-		return new PageImpl<>(biblios, pageable, total);
-	}
-	
-	private static void setBindParameterValues(Query hibernateQuery, org.jooq.Query jooqQuery) {
-	    List<Object> values = jooqQuery.getBindValues();
-	    for (int i = 0; i < values.size(); i++) {
-	        hibernateQuery.setParameter(i + 1, values.get(i));
-	    }
-	}
-	
-	private long findCountByCriteriaLikeExpression(BiblioCriteria criteria) {
-
-		final String publisher = criteria.getPublisher();
-		final String series = criteria.getSeries();
-		
-		Table<?> table = b;
-		
-		if(publisher != null) {
-			table = table.innerJoin(p).on(b.PUBLISHER_ID.eq(p.ID)).and(p.NAME.likeIgnoreCase("%" + publisher + "%"));
-		}
-		if(series != null) {
-			table = table.innerJoin(s).on(b.SERIES_ID.eq(s.ID)).and(s.NAME.likeIgnoreCase("%" + series + "%"));
-		}
-		
-        long total = dsl.fetchCount(
-        						dsl.select(b.ID)
-        						.from(table)
-        						.where(condition(criteria))
-        );
-
-        return total;
-    }
 }
