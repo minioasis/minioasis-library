@@ -160,16 +160,16 @@
 		Total : <span th:text="${page.totalElements}">105</span>
 
 		<div class="table-responsive-sm">					
-			<table class="table table-sm table-striped">
+			<table class="table table-striped">
 				<thead>
-					<tr class="table-primary">
+					<tr>
 						<th>#</th>
 						<th th:text="#{photo}">Photo</th>
 						<th>(A)</th>
 						<th th:text="#{title} + '/' + #{author} + '/' + #{isbn} + '/(B)'">Title/Author/ISBN/(B)</th>
 						<th>(T)</th>
 						<th>(L)</th>
-						<th th:text="#{item}">Item</th>
+						<th th:text="#{items}">Items</th>
 						<th th:text="#{add.item}">Add Item</th>
 						<th th:text="#{publisher} + '/' + #{series}">Publisher / Series</th>
 						<th th:text="#{classmark}">ClassMark</th>
@@ -205,7 +205,7 @@
 						</td>
 						<td>
 							<a href="#" th:href="@{/item/save?bid={bid}(bid=${e.id})}" class="btn btn-info btn-sm">
-								<i class="fas fa-plus"></i> <i class="fas fa-info"></i>
+								<i class="fas fa-list-ul"></i>
 							</a>
 						</td>
 						<td>

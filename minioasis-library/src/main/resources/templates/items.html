@@ -183,10 +183,10 @@
 		
 		Total : <span th:text="${page.totalElements}">105</span>
 
-		<div class="table-responsive-sm">					
-			<table class="table table-sm table-striped">
+		<div class="table-responsive-sm">
+			<table class="table table-striped table-sm">				
 				<thead>
-					<tr class="table-primary">
+					<tr>
 						<th>#</th>
 						<th th:text="#{title}">Title</th>
 						<th th:text="#{biblio}">Biblio</th>
@@ -194,11 +194,11 @@
 						<th th:text="#{active}">Active</th>
 						<th th:text="#{stock}">S.Check</th>
 						<th th:text="#{item.state} + ',' + #{item.status}">State/Status</th>
-						<th><i class="fas fa-paperclip"></i></th>
 						<th th:text="#{location}">Location</th>
 						<th th:text="#{shelfmark}">ShelfMark</th>
 						<th th:text="#{price}">Price</th>
 						<th th:text="#{source}">Source</th>
+						<th><i class="fas fa-paperclip"></i></th>
 						<th th:text="#{1st.checkin}">1st In</th>
 						<th th:text="#{last.checkin}">Last In</th>
 						<th th:text="#{expired}">Expired</th>
@@ -220,15 +220,15 @@
 							<div th:text="${e.state}">Item State</div>
 							<div th:text="${e.itemStatus.name}">Item Status</div>
 						</td>
+						<td th:text="${e.location.name}">Kepong</td>
+						<td th:text="${e.shelfMark}">530.17 HT1</td>
+						<td th:text="${e.price}">13.50</td>
+						<td th:text="${e.source}">Shiang Hwa</td>
 						<td>
 							<a href="#" th:href="@{/attachment/save/{iid}(iid=${e.id})}" class="btn btn-info btn-sm">
 								<i class="fas fa-paperclip"></i>
 							</a>
 						</td>
-						<td th:text="${e.location.name}">Kepong</td>
-						<td th:text="${e.shelfMark}">530.17 HT1</td>
-						<td th:text="${e.price}">13.50</td>
-						<td th:text="${e.source}">Shiang Hwa</td>
 						<td th:text="${#calendars.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${#calendars.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${#calendars.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>

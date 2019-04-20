@@ -21,15 +21,19 @@ public class BiblioViewRemove {
 	
 	@RequestMapping(value = { "/{id}" }, method = RequestMethod.GET)
 	public String view(@PathVariable("id") long id, Model model) {
+		
 		model.addAttribute("biblio", this.service.getBiblio(id));
+		
 		return "biblio";
 
 	}
 
 	@RequestMapping(value = { "/{id}/items" }, method = RequestMethod.GET)
 	public String viewItems(@PathVariable("id") long id, Model model) {
+		
 		List<Item> items = this.service.findAllItemsOrderByBarcode(id);
 		model.addAttribute("items", items);
+		
 		return "biblio.items";
 
 	}
@@ -42,6 +46,7 @@ public class BiblioViewRemove {
 			this.service.deleteBiblio(id);
 		
 		model.addAttribute("id", id);
+		
 		return "deleted";
 		
 	}
