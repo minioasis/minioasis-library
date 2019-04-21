@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{item}">Item</span>
+			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<i class="fas fa-search"></i> b
+		    </a>
+			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-list-ol"></i> i
+			</a>
+			<a class="btn btn-outline-danger text-danger" th:href="@{/biblio/save}">
+	      		<i class="fas fa-book"></i>
+	      	</a>
+		</h4>
+
+		<div class="card bg-hb" style="max-width: 35rem;">
+		  <div class="card-header">
+			<i class="fas fa-user-plus"></i>
+			<div class="float-right">
+				<a class="text-white" href="#" th:href="@{/item/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
+				| <a class="text-white" href="#" th:href="@{/item/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
+			</div>
+		  </div>
+		  <div class="card-body bg-white">
+			<div class="row">
+				<div class="col">
+				
+					<div class="table-responsive">
+						<table class="table table-sm">
+							<tbody>
+								<tr>
+									<td><i class="far fa-check-circle text-label"></i> <span th:text="#{active}">Active</span></td>
+									<td class="text-info" th:text="${item.active}">Y</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-book text-label"></i> <span th:text="#{title}">Title</span></td>
+									<td class="text-info" th:text="${item.biblio.title}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-user text-label"></i> <span th:text="#{author}"></span></td>
+									<td class="text-info" th:text="${item.biblio.author}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-newspaper text-label"></i> <span th:text="#{publisher}"></span></td>
+									<td class="text-info" th:text="${item.biblio.publisher != null ? item.biblio.publisher.name : ''}">Science Publishing</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-barcode text-label"></i> <span th:text="#{barcode}"></span></td>
+									<td class="text-info" th:text="${item.barcode}">8954954959</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-maxcdn text-label"></i></i> <span th:text="#{shelfmark}"></span></td>
+									<td class="text-info" th:text="${item.shelfMark}">541.12 KL</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{created}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(item.created,'yyyy-MM-dd')}">2019-01-01</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{expired}"></span></td>
+									<td class="text-info" th:text="${item.expired !=null ? #calendars.format(item.expired,'yyyy-MM-dd') : ''}">2019-10-10</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-user text-label"></i>  <span th:text="#{last.full.renew.person}"></span></td>
+									<td class="text-info" th:text="${item.lastFullRenewPerson}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{1st.checkin}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(item.firstCheckin,'yyyy-MM-dd')}">2019-01-01</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{last.checkin}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(item.lastCheckin,'yyyy-MM-dd')}">2019-01-01</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-dollar-sign text-label"></i> <span th:text="#{price}"></span></td>
+									<td class="text-info" th:text="${item.price}">16.20</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-user text-label"></i> <span th:text="#{source}"></span></td>
+									<td class="text-info" th:text="${item.source}">minioasis</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-check text-label"></i> <span th:text="#{stock}"></span></td>
+									<td class="text-info" th:text="${item.checked}">Y</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{publishing.date}"></span></td>
+									<td class="text-info" th:text="${item.volume != null ? item.volume.publishingDate : ''}">2019-01-01</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-at text-label"></i> <span th:text="#{volume.no}"></span></td>
+									<td class="text-info" th:text="${item.volume != null ? item.volume.volumeNo : ''}">IN_LIBRARY</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-clock text-label"></i> <span th:text="#{item.duration}"></span></td>
+									<td class="text-info" th:text="${item.itemDuration.name}">none</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-battery-half text-label"></i> <span th:text="#{item.status}"></span></td>
+									<td class="text-info" th:text="${item.itemStatus.name}">Available</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-battery-half text-label"></i> <span th:text="#{item.state}"></span></td>
+									<td class="text-info" th:text="${item.state}">IN_LIBRARY</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-at text-label"></i> <span th:text="#{location}"></span></td>
+									<td class="text-info" th:text="${item.location.name}">KL</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>		
+ 		
+		  </div>
+		</div>
+				
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

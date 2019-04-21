@@ -12,9 +12,6 @@
 
 		<h4>
 			<span th:text="#{search.item}">Search Item.</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/save}">
-				<i class="fas fa-list-ol"></i>
-			</a>
 			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
 				<i class="fas fa-search"></i>
 			</a>	
@@ -233,8 +230,8 @@
 						<td th:text="${#calendars.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${#calendars.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
-							<a href="#" th:href="@{/library/item/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/library/item/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							<a href="#" th:href="@{/item/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/item/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>
 
 					</tr>

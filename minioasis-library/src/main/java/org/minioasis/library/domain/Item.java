@@ -88,7 +88,7 @@ public class Item implements Serializable {
 	
 	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "last_checkin")
-	private Date lastCheckin;
+	private Date lastCheckin = new Date();
 	
 	@NotNull
 	@Column(name = "price" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
@@ -113,7 +113,7 @@ public class Item implements Serializable {
 	private Date expired;
 	
 	@Valid
-	private ItemState state;
+	private ItemState state = ItemState.IN_LIBRARY;
 
 	@OneToMany(mappedBy="item")
     @OrderBy("checkoutDate ASC")

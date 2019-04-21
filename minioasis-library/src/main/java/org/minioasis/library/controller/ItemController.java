@@ -9,18 +9,18 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import org.minioasis.library.domain.YesNo;
+import org.minioasis.library.domain.util.ItemDurationEditor;
+import org.minioasis.library.domain.util.ItemStatusEditor;
+import org.minioasis.library.domain.util.LocationEditor;
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
-import org.minioasis.library.domain.ItemDurationEditor;
 //import org.minioasis.library.domain.ItemDurationEditor;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
-import org.minioasis.library.domain.ItemStatusEditor;
 //import org.minioasis.library.domain.ItemStatusEditor;
 import org.minioasis.library.domain.Location;
-import org.minioasis.library.domain.LocationEditor;
 //import org.minioasis.library.domain.LocationEditor;
 import org.minioasis.library.service.LibraryService;
 import org.apache.commons.lang3.time.DateUtils;
@@ -36,7 +36,6 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.support.SessionStatus;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
@@ -90,7 +89,7 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
-	public String itemAdd(@ModelAttribute("item") @Valid Item item, BindingResult result, SessionStatus status) {
+	public String itemAdd(@ModelAttribute("item") @Valid Item item, BindingResult result) {
 
 		String barcode = item.getBarcode();
 		
@@ -102,7 +101,7 @@ public class ItemController {
 
 			Attachment a = this.service.getAttachment(barcode);
 			if(a != null){
-				result.rejectValue("barcode","error.not.unique");			
+				result.rejectValue("barcode","error.attachment.with.this.item");			
 				return "item.form";
 			}
 			
@@ -120,9 +119,8 @@ public class ItemController {
 			item.setChecked(YesNo.N);
 
 			try{
-				
+			
 				this.service.save(item);
-				status.setComplete();
 				
 			}catch (DataIntegrityViolationException eive){
 				
@@ -149,7 +147,7 @@ public class ItemController {
 	}
 
 	@RequestMapping(value = { "/edit" }, method = RequestMethod.POST)
-	public String itemEdit(@ModelAttribute("item") @Valid Item item , BindingResult result , SessionStatus status) {
+	public String itemEdit(@ModelAttribute("item") @Valid Item item , BindingResult result) {
 
 		String barcode = item.getBarcode();
 		
@@ -159,7 +157,7 @@ public class ItemController {
 
 			Attachment a = this.service.getAttachment(barcode);
 			if(a != null){
-				result.rejectValue("barcode","error.not.unique");			
+				result.rejectValue("barcode","error.attachment.with.this.item");		
 				return "item.form";
 			}
 			
@@ -174,9 +172,7 @@ public class ItemController {
 				}
 					
 				item.setLastCheckin(item.getFirstCheckin());
-				
-				this.service.save(item);
-				status.setComplete();
+				this.service.edit(item);
 				
 			}catch (DataIntegrityViolationException eive){
 

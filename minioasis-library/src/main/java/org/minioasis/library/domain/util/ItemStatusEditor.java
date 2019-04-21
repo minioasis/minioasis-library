@@ -1,14 +1,15 @@
-package org.minioasis.library.domain;
+package org.minioasis.library.domain.util;
 
 import java.beans.PropertyEditorSupport;
 
+import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.service.LibraryService;
 
-public class LocationEditor extends PropertyEditorSupport {
+public class ItemStatusEditor extends PropertyEditorSupport {
 
 	private LibraryService service;
 	
-	public LocationEditor(LibraryService service) {
+	public ItemStatusEditor(LibraryService service) {
 		super();
 		this.service = service;
 	}
@@ -19,8 +20,8 @@ public class LocationEditor extends PropertyEditorSupport {
 
 	public void setAsText(String text) throws IllegalArgumentException {
 		int id = Integer.parseInt(text);
-		Location location = service.getLocation(id);
-		setValue(location);
+		ItemStatus status = service.getItemStatus(id);
+		setValue(status);
 	}
 	
 }

@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/library/item")
+@RequestMapping("/item")
 public class ItemViewRemove {
 
 	@Autowired
@@ -22,7 +22,7 @@ public class ItemViewRemove {
 		Item item = this.service.getItem(id);
 		model.addAttribute("item", item);
 		
-		return "library/item";
+		return "item";
 
 	}
 	

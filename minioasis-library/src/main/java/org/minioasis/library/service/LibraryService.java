@@ -139,6 +139,7 @@ public interface LibraryService {
 	
 	// Item	
 	void save(Item entity);
+	void edit(Item entity);
 	void delete(Item entity);
 	void deleteItem(long id);
 	Item getItem(long id);

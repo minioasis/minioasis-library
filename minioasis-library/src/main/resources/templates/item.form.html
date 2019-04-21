@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{create.item}">Create Item</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search"></i>
+			</a>
+		</h4>
+
+		<div class="card bg-hb" style="max-width: 40rem;">
+			<div class="card-header">
+				<i class="fas fa-user-plus"></i>
+			</div>
+			<div class="card-body bg-lb">
+				
+				<form th:object="${item}" method="post">
+	
+					<input type="text" hidden="hidden" th:field="*{id}" />
+						
+					<div class="form-group row pt-3">
+						<label class="col-sm-3 col-form-label" th:text="#{title}">Title</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" th:field="*{biblio.title}" disabled="disabled"/>
+							<input type="text" hidden="hidden" th:field="*{biblio.id}" />
+							<span class="text-danger" th:if="${#fields.hasErrors('biblio.id')}" th:errors="*{biblio.id}"></span>		        
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{barcode}">Barcode</label>
+					  	<div class="col-sm-6">
+					    	<input type="text" class="form-control" th:field="*{barcode}" autofocus="autofocus" th:placeholder="#{barcode}" />
+					 		<span class="text-danger" th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"></span>
+					  	</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{shelfmark}">Shelfmark</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{shelfMark}" th:placeholder="#{shelfmark}" />
+							<span class="text-danger" th:if="${#fields.hasErrors('shelfMark')}" th:errors="*{shelfMark}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{1st.checkin}">1st Checkin</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{firstCheckin}" th:placeholder="#{1st.checkin}" />
+							<span class="text-danger" th:if="${#fields.hasErrors('firstCheckin')}" th:errors="*{firstCheckin}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{last.checkin}">Last Checkin</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{lastCheckin}" th:placeholder="#{last.checkin}" disabled="disabled"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('lastCheckin')}" th:errors="*{lastCheckin}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{price}">Price</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{price}" th:placeholder="#{price}" />
+							<span class="text-danger" th:if="${#fields.hasErrors('price')}" th:errors="*{price}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{source}">Source</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{source}" th:placeholder="#{source}" />
+							<span class="text-danger" th:if="${#fields.hasErrors('source')}" th:errors="*{source}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{item.duration}">Item Duration</label>
+						<div class="col-sm-6">
+					      	<select	class="form-control" th:field="*{itemDuration}">
+								<option th:each="d : ${itemDurations}" th:value="${d.id}" th:text="${d.name}" />
+								<option th:remove="all" value="32423234">1 Week</option>
+								<option th:remove="all" value="23423423">2 Weeks</option>
+							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('itemDuration')}" th:errors="*{itemDuration}"></span>		        
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{item.status}">Item Status</label>
+						<div class="col-sm-6">
+					      	<select	class="form-control" th:field="*{itemStatus}">
+								<option th:each="is : ${itemStatuz}" th:value="${is.id}" th:text="${is.name}" />
+								<option th:remove="all" value="32423234">1 Week</option>
+								<option th:remove="all" value="23423423">2 Weeks</option>
+							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('itemStatus')}" th:errors="*{itemStatus}"></span>		        
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{location}">Location</label>
+						<div class="col-sm-6">
+					      	<select	class="form-control" th:field="*{location}">
+								<option th:each="l : ${locations}" th:value="${l.id}" th:text="${l.name}" />
+								<option th:remove="all" value="2121312">Kepong</option>
+								<option th:remove="all" value="1231231">Selayang</option>
+							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('location')}" th:errors="*{location}"></span>		        
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{active}">Active</label>
+						<div class="col-sm-3">
+					      	<select	class="form-control" th:field="*{active}">
+								<option th:each="act : ${actives}" th:value="${act}" th:text="${act}" />
+								<option th:remove="all" value="Y">YES</option>
+								<option th:remove="all" value="N">NO</option>
+							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></span>		        
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{stock}">Stock Check</label>
+						<div class="col-sm-3">
+					      	<select	class="form-control" th:field="*{checked}">
+								<option th:each="c : ${checkeds}" th:value="${c}" th:text="${c}" />
+								<option th:remove="all" value="Y">YES</option>
+								<option th:remove="all" value="N">NO</option>
+							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('checked')}" th:errors="*{checked}"></span>		        
+						</div>
+					</div>
+						
+					<div class="form-group row">
+					  <div class="col">
+					    <button type="submit" class="btn bg-info text-white float-right"  th:text="#{submit}">Submit</button>
+					  </div>
+					</div>
+					
+				</form>	 		
+		  	</div>
+		</div>
+				
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

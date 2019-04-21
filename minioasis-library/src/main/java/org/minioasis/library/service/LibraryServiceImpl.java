@@ -484,6 +484,15 @@ public class LibraryServiceImpl implements LibraryService {
 	/****************************************  Item  ********************************************/
 	
 	public void save(Item entity){
+		entity.setState(ItemState.IN_LIBRARY);
+		this.itemRepository.save(entity);
+	}
+	public void edit(Item entity){
+		
+		Item origin = this.itemRepository.getOne(entity.getId());
+		ItemState state = origin.getState();
+		entity.setState(state);
+		
 		this.itemRepository.save(entity);
 	}
 	public void delete(Item entity){

@@ -1,7 +1,8 @@
-package org.minioasis.library.domain;
+package org.minioasis.library.domain.util;
 
 import java.beans.PropertyEditorSupport;
 
+import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.service.LibraryService;
 
 public class ItemDurationEditor extends PropertyEditorSupport {
