@@ -94,7 +94,7 @@ public interface LibraryService {
 	Biblio getBiblioFetchItems(long id);
 	List<Biblio> findAllBiblios(Sort sort);
 	Page<Biblio> findAllBiblios(Pageable pageable);
-	Page<Biblio> findAllBibliosWithoutItem(Pageable pageable);
+	Page<Biblio> findAllUncompleteBiblios(Pageable pageable);
 	Page<Biblio> findByTitleAndIsbnAndNoteContaining(String title, Pageable pageable);
 	Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable);
 	

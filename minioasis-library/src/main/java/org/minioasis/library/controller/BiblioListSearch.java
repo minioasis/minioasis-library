@@ -80,11 +80,11 @@ public class BiblioListSearch {
 		
 	}
 
-	@RequestMapping(value = { "/emptyitem/search" }, method = RequestMethod.GET)
-	public String emptyItemSearch(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	@RequestMapping(value = { "/search.uncomplete" }, method = RequestMethod.GET)
+	public String umcompleteSearch(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request, Map<String,String> params, 
 			Model model, Pageable pageable) {
 
-/*		Page<Biblio> page = this.service.findAllBibliosByCriteriaDsl(criteria, pageable);
+		Page<Biblio> page = this.service.findByCriteria(criteria, pageable);
 		
 		String next = buildUri(request, page.getNumber() + 1);
 		String previous = buildUri(request, page.getNumber() - 1);
@@ -92,19 +92,22 @@ public class BiblioListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagerType", "search");*/
+		model.addAttribute("pagingType", "search");
 		
-		return "biblios.null.item";
+		return "biblios";
 
 	}
 	
-	@RequestMapping(value = "/emptyitem/list", method = RequestMethod.GET)
-	public String emptyItemBiblios(Model model, Pageable pageable) {
+	@RequestMapping(value = "/list.uncomplete", method = RequestMethod.GET)
+	public String umcompleteBiblios(Model model, Pageable pageable) {
 
-		Page<Biblio> page = this.service.findAllBibliosWithoutItem(pageable);		
+		Page<Biblio> page = this.service.findAllUncompleteBiblios(pageable);
+		
 		model.addAttribute("page", page);
 		model.addAttribute("criteria", new BiblioCriteria());
-		return "biblios.null.item";
+		model.addAttribute("pagingType", "list");
+		
+		return "biblios";
 		
 	}
 	

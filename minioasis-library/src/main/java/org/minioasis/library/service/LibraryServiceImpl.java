@@ -358,8 +358,8 @@ public class LibraryServiceImpl implements LibraryService {
 	public Page<Biblio> findAllBiblios(Pageable pageable){
 		return this.biblioRepository.findAll(pageable);
 	}
-	public Page<Biblio> findAllBibliosWithoutItem(Pageable pageable){
-		return this.biblioRepository.findAllBibliosWithoutItem(pageable);
+	public Page<Biblio> findAllUncompleteBiblios(Pageable pageable){
+		return this.biblioRepository.findAllUncompleteBiblios(pageable);
 	}
 	public Page<Biblio> findByTitleAndIsbnAndNoteContaining(String title, Pageable pageable){
 		return this.biblioRepository.findByTitleAndIsbnAndNoteContaining(title, pageable);

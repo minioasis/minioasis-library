@@ -21,6 +21,6 @@ public interface BiblioRepository extends JpaRepository<Biblio, Long>, BiblioRep
 	public Page<Biblio> findByTitleAndIsbnAndNoteContaining(String title, Pageable pageable); 
 	
 	@Query("SELECT b FROM Biblio b LEFT JOIN b.items i WHERE i.biblio is NULL")
-	public Page<Biblio> findAllBibliosWithoutItem(Pageable pageable);
+	public Page<Biblio> findAllUncompleteBiblios(Pageable pageable);
 	
 }
