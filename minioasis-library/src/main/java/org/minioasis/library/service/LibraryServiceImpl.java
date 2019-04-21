@@ -5,7 +5,6 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.Date;
 import java.util.List;
-import java.util.Set;
 
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.AttachmentCheckout;
@@ -30,6 +29,7 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.AttachmentCriteria;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
@@ -237,6 +237,9 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<Attachment> findByDescriptionContaining(String desp, Pageable pageable){
 		return this.attachmentRepository.findByDescriptionContaining(desp, pageable);
+	}
+	public Page<Attachment> findByCriteria(AttachmentCriteria criteria, Pageable pageable){
+		return this.attachmentRepository.findByCriteria(criteria, pageable);
 	}
 	
 	public Attachment getAttachmentForCheckout(String barcode){

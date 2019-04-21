@@ -24,6 +24,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.AttachmentCriteria;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
@@ -75,6 +76,7 @@ public interface LibraryService {
 	Page<Attachment> findAllAttachments(Pageable pageable);
 	Page<Attachment> findByBarcode(String barcode, Pageable pageable);
 	Page<Attachment> findByDescriptionContaining(String desp, Pageable pageable);
+	Page<Attachment> findByCriteria(AttachmentCriteria criteria, Pageable pageable);
 
 	// AttachmentCheckout
 	void save(AttachmentCheckout entity);
