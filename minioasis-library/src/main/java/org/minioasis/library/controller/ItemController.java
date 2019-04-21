@@ -101,7 +101,7 @@ public class ItemController {
 
 			Attachment a = this.service.getAttachment(barcode);
 			if(a != null){
-				result.rejectValue("barcode","error.attachment.with.this.item");			
+				result.rejectValue("barcode","error.not.unique");			
 				return "item.form";
 			}
 			
@@ -157,7 +157,7 @@ public class ItemController {
 
 			Attachment a = this.service.getAttachment(barcode);
 			if(a != null){
-				result.rejectValue("barcode","error.attachment.with.this.item");		
+				result.rejectValue("barcode","error.not.unique");	
 				return "item.form";
 			}
 			

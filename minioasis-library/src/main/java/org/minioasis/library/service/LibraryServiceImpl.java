@@ -209,6 +209,10 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	// Attachment
 	public void save(Attachment entity){
+		entity.setLastCheckin(entity.getFirstCheckin());
+		this.attachmentRepository.save(entity);
+	}
+	public void edit(Attachment entity){
 		this.attachmentRepository.save(entity);
 	}
 	public void delete(Attachment entity){

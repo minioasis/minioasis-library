@@ -18,8 +18,6 @@ public class AttachmentCriteria implements Serializable {
 	private Date firstCheckinTo;
 	private Date lastCheckinFrom;
 	private Date lastCheckinTo;
-	private Date expiredFrom;
-	private Date expiredTo;
 	
 	Set<YesNo> borrowables = new HashSet<YesNo>();
 	Set<AttachmentState> states = new HashSet<AttachmentState>();
@@ -59,18 +57,6 @@ public class AttachmentCriteria implements Serializable {
 	}
 	public void setLastCheckinTo(Date lastCheckinTo) {
 		this.lastCheckinTo = lastCheckinTo;
-	}
-	public Date getExpiredFrom() {
-		return expiredFrom;
-	}
-	public void setExpiredFrom(Date expiredFrom) {
-		this.expiredFrom = expiredFrom;
-	}
-	public Date getExpiredTo() {
-		return expiredTo;
-	}
-	public void setExpiredTo(Date expiredTo) {
-		this.expiredTo = expiredTo;
 	}
 	public Set<YesNo> getBorrowables() {
 		return borrowables;

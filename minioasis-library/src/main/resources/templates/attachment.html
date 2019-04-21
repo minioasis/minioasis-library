@@ -1,0 +1,88 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{attachment}">Attachment</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<i class="fas fa-search"></i> b
+		    </a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search"></i> i
+			</a>
+		</h4>
+
+		<div class="card bg-hb" style="max-width: 35rem;">
+		  <div class="card-header">
+			<i class="fas fa-user-plus"></i>
+			<div class="float-right">
+				<a class="text-white" href="#" th:href="@{/attachment/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
+				| <a class="text-white" href="#" th:href="@{/attachment/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
+			</div>
+		  </div>
+		  <div class="card-body bg-white">
+			<div class="row">
+				<div class="col">
+				
+					<div class="table-responsive">
+						<table class="table table-sm">
+							<tbody>
+								<tr>
+									<td><i class="fas fa-book text-label"></i> <span th:text="#{title}">Title</span></td>
+									<td class="text-info" th:text="${attachment.item.biblio.title}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-user text-label"></i> <span th:text="#{item.barcode}">Item Barcode</span></td>
+									<td class="text-info" th:text="${attachment.item.barcode}">Moon</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-barcode text-label"></i> <span th:text="#{barcode}"></span></td>
+									<td class="text-info" th:text="${attachment.barcode}">8954954959</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-maxcdn text-label"></i> <span th:text="#{description}"></span></td>
+									<td class="text-info" th:text="${attachment.description}">Hello</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-maxcdn text-label"></i> <span th:text="#{call.no}"></span></td>
+									<td class="text-info" th:text="${attachment.callNo}">65161</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{1st.checkin}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(attachment.firstCheckin,'yyyy-MM-dd')}">2019-01-01</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{last.checkin}"></span></td>
+									<td class="text-info" th:text="${#calendars.format(attachment.lastCheckin,'yyyy-MM-dd')}">2019-01-01</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-dollar-sign text-label"></i> <span th:text="#{borrowable}"></span></td>
+									<td class="text-info" th:text="${attachment.borrowable}">Y</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-user text-label"></i> <span th:text="#{state}"></span></td>
+									<td class="text-info" th:text="${attachment.state}">minioasis</td>
+								</tr>
+							</tbody>
+						</table>
+					</div>
+				</div>
+			</div>		
+ 		
+		  </div>
+		</div>
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

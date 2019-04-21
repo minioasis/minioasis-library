@@ -1,0 +1,100 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{create.attachment}">Create Attachment</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search"></i>a
+			</a>
+		</h4>
+
+		<div class="card bg-hb" style="max-width: 40rem;">
+			<div class="card-header">
+				<i class="fas fa-user-plus"></i>
+			</div>
+			<div class="card-body bg-lb">
+				
+				<form th:object="${attachment}" method="post">
+	
+					<input type="text" hidden="hidden" th:field="*{id}" />
+					<input type="text" hidden="hidden" th:field="*{item.id}" />
+						
+					<div class="form-group row pt-3">
+						<label class="col-sm-3 col-form-label" th:text="#{title}">Title</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" th:field="*{item.biblio.title}" disabled="disabled"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('item.biblio.title')}" th:errors="*{item.biblio.title}"></span>		        
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{item.barcode}">Item Barcode</label>
+					  	<div class="col-sm-6">
+					    	<input type="text" class="form-control" th:field="*{item.barcode}" th:placeholder="#{item.barcode}" disabled="disabled"/>
+					 		<span class="text-danger" th:if="${#fields.hasErrors('item.barcode')}" th:errors="*{item.barcode}"></span>
+					  	</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{barcode}">Barcode</label>
+					  	<div class="col-sm-6">
+					    	<input type="text" class="form-control" th:field="*{barcode}" autofocus="autofocus" />
+					 		<span class="text-danger" th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"></span>
+					  	</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{description}">Description</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{description}" />
+							<span class="text-danger" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{call.no}">Call No.</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{callNo}" />
+							<span class="text-danger" th:if="${#fields.hasErrors('callNo')}" th:errors="*{callNo}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{1st.checkin}">1st Checkin</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{firstCheckin}" placeholder="yyyy-MM-dd"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('firstCheckin')}" th:errors="*{firstCheckin}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{borrowable}">Borrowable</label>
+						<div class="col-sm-4">
+					      	<select	class="form-control" th:field="*{borrowable}">
+								<option th:each="b : ${borrowables}" th:value="${b}" th:text="${b}" />
+								<option th:remove="all" value="Y">YES</option>
+								<option th:remove="all" value="N">NO</option>
+							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('borrowable')}" th:errors="*{borrowable}"></span>		        
+						</div>
+					</div>
+						
+					<div class="form-group row">
+					  <div class="col">
+					    <button type="submit" class="btn bg-info text-white float-right"  th:text="#{submit}">Submit</button>
+					  </div>
+					</div>
+					
+				</form>	 		
+		  	</div>
+		</div>
+			
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

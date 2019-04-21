@@ -69,7 +69,7 @@ public class Attachment implements Serializable {
 	@Enumerated(EnumType.STRING)
 	@Column(name = "state" , nullable = false , columnDefinition = "CHAR(20)" )
     @Filter(name = "attachmentStateFilter")
-	private AttachmentState state;
+	private AttachmentState state = AttachmentState.IN_LIBRARY;
     
     @ManyToOne
     @JoinColumn(name="item_id", nullable = false , foreignKey = @ForeignKey(name = "fk_attachment_item"))

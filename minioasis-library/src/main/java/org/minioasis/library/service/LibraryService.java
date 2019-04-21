@@ -66,6 +66,7 @@ public interface LibraryService {
 	
 	// Attachment
 	void save(Attachment entity);
+	void edit(Attachment entity);	
 	void delete(Attachment entity);
 	void deleteAttachment(long id);
 	Attachment getAttachment(long id);

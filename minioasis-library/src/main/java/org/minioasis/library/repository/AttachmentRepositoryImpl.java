@@ -60,7 +60,7 @@ public class AttachmentRepositoryImpl implements AttachmentRepositoryCustom {
 		Table<?> table = createTable(criteria);
 		
         long total = dsl.fetchCount(
-        						dsl.select(i.ID)
+        						dsl.select(a.ID)
         						.from(table)
         						.where(condition(criteria))
         );
@@ -97,8 +97,6 @@ public class AttachmentRepositoryImpl implements AttachmentRepositoryCustom {
 		final Date firstTo = criteria.getFirstCheckinTo();
 		final Date lastFrom = criteria.getLastCheckinFrom();
 		final Date lastTo = criteria.getLastCheckinTo();
-		final Date expiredFrom = criteria.getExpiredFrom();
-		final Date expiredTo = criteria.getExpiredTo();
 		
 		final Set<AttachmentState> states = criteria.getStates();
 		final Set<YesNo> borrowables = criteria.getBorrowables();
@@ -109,16 +107,12 @@ public class AttachmentRepositoryImpl implements AttachmentRepositoryCustom {
 	    					.or(a.DESCRIPTION.likeIgnoreCase("%" + keyword + "%"));				
 	    }
 		if(firstFrom != null && firstTo != null){
-			condition = condition.and(i.FIRST_CHECKIN.ge(new java.sql.Timestamp(firstFrom.getTime()))
-							.and(i.FIRST_CHECKIN.le(new java.sql.Timestamp(firstTo.getTime()))));
+			condition = condition.and(a.FIRST_CHECKIN.ge(new java.sql.Date(firstFrom.getTime()))
+							.and(a.FIRST_CHECKIN.le(new java.sql.Date(firstTo.getTime()))));
 		}
 		if(lastFrom != null && lastTo != null){
-			condition = condition.and(i.LAST_CHECKIN.ge(new java.sql.Timestamp(lastFrom.getTime()))
-							.and(i.LAST_CHECKIN.le(new java.sql.Timestamp(lastTo.getTime()))));
-		}
-		if(expiredFrom != null && expiredTo != null){
-			condition = condition.and(i.EXPIRED.ge(new java.sql.Date(expiredFrom.getTime()))
-							.and(i.EXPIRED.le(new java.sql.Date(expiredTo.getTime()))));
+			condition = condition.and(a.LAST_CHECKIN.ge(new java.sql.Date(lastFrom.getTime()))
+							.and(a.LAST_CHECKIN.le(new java.sql.Date(lastTo.getTime()))));
 		}
 		if(states != null && states.size() > 0){
 			condition = condition.and(a.STATE.in(states));

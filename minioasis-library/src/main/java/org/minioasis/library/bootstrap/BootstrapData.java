@@ -7,11 +7,14 @@ import java.text.SimpleDateFormat;
 import java.util.Date;
 
 import org.minioasis.library.domain.Address;
+import org.minioasis.library.domain.Attachment;
+import org.minioasis.library.domain.AttachmentState;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.BiblioType;
 import org.minioasis.library.domain.Binding;
 import org.minioasis.library.domain.Contact;
 import org.minioasis.library.domain.Group;
+import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
@@ -37,15 +40,12 @@ import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.library.repository.PatronTypeRepository;
 import org.minioasis.library.repository.PublisherRepository;
 import org.minioasis.library.repository.SeriesRepository;
-import org.minioasis.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
 
 @Service
 public class BootstrapData implements CommandLineRunner {
-
-	private final LibraryService service;
 
 	@Autowired
 	private AttachmentRepository attachmentRepository;
@@ -74,10 +74,6 @@ public class BootstrapData implements CommandLineRunner {
 	@Autowired
 	private SeriesRepository seriesRepository;
 	
-	public BootstrapData(LibraryService service) {
-		this.service = service;
-	}
-	
 	DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
 	
 	private Date date(String date) {
@@ -92,6 +88,28 @@ public class BootstrapData implements CommandLineRunner {
 	
 	public void run(String... args) throws Exception {
 
+		// holiday
+		Holiday h1 = new Holiday();
+		h1.setName("Hari Aidilfitri 2019");
+		h1.setFine(false);
+		h1.setStartDate(date("2019-06-04"));
+		h1.setEndDate(date("2019-06-04"));
+		holidayRepository.save(h1);
+		
+		Holiday h2 = new Holiday();
+		h2.setName("Labour Day 2019");
+		h2.setFine(false);
+		h2.setStartDate(date("2019-05-01"));
+		h2.setEndDate(date("2019-05-01"));
+		holidayRepository.save(h2);
+		
+		Holiday h3 = new Holiday();
+		h3.setName("Minioasis Holiday April");
+		h3.setFine(false);
+		h3.setStartDate(date("2019-04-16"));
+		h3.setEndDate(date("2019-04-16"));
+		holidayRepository.save(h3);
+		
 		// publisher
 		Publisher pb1 = new Publisher();
 		pb1.setName("Pearson Education");
@@ -279,6 +297,40 @@ public class BootstrapData implements CommandLineRunner {
 		i5.setSource("Karuna");
 		i5.setVolume(new Volume(date("2015-10-10"), "234"));
 		itemRepository.save(i5);
+		
+		// attachments
+		Attachment at1 = new Attachment();
+		at1.setBarcode("A111");
+		at1.setBorrowable(YesNo.N);
+		at1.setCallNo("callNo");
+		at1.setDescription("description");
+		at1.setFirstCheckin(date("2019-01-01"));
+		at1.setItem(i1);
+		at1.setLastCheckin(date("2019-04-04"));
+		at1.setState(AttachmentState.IN_LIBRARY);
+		attachmentRepository.save(at1);
+		
+		Attachment at2 = new Attachment();
+		at2.setBarcode("A212");
+		at2.setBorrowable(YesNo.Y);
+		at2.setCallNo("callNo");
+		at2.setDescription("description");
+		at2.setFirstCheckin(date("2019-02-02"));
+		at2.setItem(i2);
+		at2.setLastCheckin(date("2019-05-05"));
+		at2.setState(AttachmentState.IN_LIBRARY);
+		attachmentRepository.save(at2);
+		
+		Attachment at3 = new Attachment();
+		at3.setBarcode("B232");
+		at3.setBorrowable(YesNo.Y);
+		at3.setCallNo("callNo");
+		at3.setDescription("description");
+		at3.setFirstCheckin(date("2019-03-03"));
+		at3.setItem(i3);
+		at3.setLastCheckin(date("2019-06-06"));
+		at3.setState(AttachmentState.CHECKOUT);
+		attachmentRepository.save(at3);
 		
 		// Patron Type
 		PatronType pt1 = new PatronType();

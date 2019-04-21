@@ -20,7 +20,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -44,16 +43,17 @@ public class AttachmentController {
 		return AttachmentState.values();	
 	}
 	
-	@RequestMapping(value = { "/save/{iid}" }, method = RequestMethod.GET)
-	public String save(@PathVariable("iid") long iid , Model model) {
+	@RequestMapping(value = { "/save" }, method = RequestMethod.GET)
+	public String save(@RequestParam(value = "iid", required = true) long iid, Model model) {
 
 		Attachment attachment = new Attachment();
 		Item item = this.service.getItem(iid);
+		
 		if(item != null){
 			attachment.setItem(item);	
 		}
 
-		model.addAttribute("attachment", attachment );
+		model.addAttribute("attachment", attachment);
 		return "attachment.form";
 
 	}
@@ -69,14 +69,13 @@ public class AttachmentController {
 			
 		} else {
 			
+			// cannot have same barcode for item and attachment
+			// attachment's barcode has to be unique even compare to item's barcode !
 			Item item = this.service.findByBarcode(barcode);
 			if(item != null){
-				result.rejectValue("barcode","","not unique");			
+				result.rejectValue("barcode","error.not.unique");			
 				return "attachment.form";
 			}
-
-			attachment.setState(AttachmentState.IN_LIBRARY);
-			attachment.setLastCheckin(attachment.getFirstCheckin());
 			
 			try{
 				
@@ -118,18 +117,18 @@ public class AttachmentController {
 
 			Item item = this.service.findByBarcode(barcode);
 			if(item != null){
-				result.rejectValue("barcode","","not unique");			
+				result.rejectValue("barcode","error.not.unique");			
 				return "attachment.form";
 			}
 						
 			try{
 				
-				this.service.save(attachment);
+				this.service.edit(attachment);
 				status.setComplete();
 				
 			}catch (DataIntegrityViolationException eive){
 				
-				result.rejectValue("barcode","","not unique");			
+				result.rejectValue("barcode","error.not.unique");			
 				return "attachment.form";
 				
 			}

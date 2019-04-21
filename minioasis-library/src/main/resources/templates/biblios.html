@@ -15,12 +15,18 @@
 			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/save}">
 				<i class="fas fa-book"></i>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
-				<i class="fas fa-search"></i>b
-			</a>
 			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
 				<i class="fas fa-search"></i>u
 			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<i class="fas fa-search"></i>b
+			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search"></i>i
+			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search"></i>a
+			</a>	
 		</h4>
 
 		<ul class="nav nav-tabs pt-3" id="myTab" role="tablist">

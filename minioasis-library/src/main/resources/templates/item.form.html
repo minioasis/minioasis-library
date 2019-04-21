@@ -12,8 +12,11 @@
 
 		<h4>
 			<span th:text="#{create.item}">Create Item</span>
+		      	<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+				    <i class="fas fa-search"></i>b
+		      	</a>
 			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
-				<i class="fas fa-search"></i>
+				<i class="fas fa-search"></i>i
 			</a>
 		</h4>
 
