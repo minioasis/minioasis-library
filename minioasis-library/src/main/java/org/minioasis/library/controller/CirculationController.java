@@ -39,9 +39,9 @@ public class CirculationController {
 		return "circ.patronid.form";
 	}
 
-	// Circulation Entry Point
-	@RequestMapping(value = { "/patron" }, method = RequestMethod.GET)
-	public String checkout(@RequestParam(value = "cardkey", required = true) String cardKey, Model model) {
+	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
+	public String checkout(@RequestParam(value = "pid", required = true) String cardKey, 
+							@ModelAttribute("dto") CirculationDTO dto, Model model) {
 
 		Date now = new Date();
 		
@@ -52,9 +52,8 @@ public class CirculationController {
 			return "circ.patronid.form";
 		}
 
-		patron.calculateAllStates(now, strategy);
-
-		CirculationDTO dto = new CirculationDTO();
+		//patron.calculateAllStates(now, strategy);
+		
 		dto.setPatron(patron);
 		dto.setCardKey(cardKey);
 
@@ -65,7 +64,7 @@ public class CirculationController {
 	}
 
 	// Circulation Tabs
-	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
+/*	@RequestMapping(value = { "/checkout" }, method = RequestMethod.GET)
 	public String checkout(@ModelAttribute("dto") CirculationDTO dto) {
 
 		String cardKey = dto.getCardKey();
@@ -76,12 +75,11 @@ public class CirculationController {
 		dto.clearHistory();
 		
 		return "circ.checkout.form";
-	}
+	}*/
 
 	@RequestMapping(value = { "/checkin" }, method = RequestMethod.GET)
-	public String checkin(@ModelAttribute("dto") CirculationDTO dto) {
+	public String checkin(@RequestParam(value = "pid", required = true) String cardKey, @ModelAttribute("dto") CirculationDTO dto) {
 
-		String cardKey = dto.getCardKey();
 		Date now = new Date();
 		
 		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, now);
@@ -92,9 +90,8 @@ public class CirculationController {
 	}
 
 	@RequestMapping(value = { "/renew" }, method = RequestMethod.GET)
-	public String renew(@ModelAttribute("dto") CirculationDTO dto) {
+	public String renew(@RequestParam(value = "pid", required = true) String cardKey, @ModelAttribute("dto") CirculationDTO dto) {
 
-		String cardKey = dto.getCardKey();
 		Date now = new Date();
 		
 		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, now);
@@ -105,9 +102,8 @@ public class CirculationController {
 	}
 
 	@RequestMapping(value = { "/reportlost" }, method = RequestMethod.GET)
-	public String reportLost(@ModelAttribute("dto") CirculationDTO dto) {
+	public String reportLost(@RequestParam(value = "pid", required = true) String cardKey, @ModelAttribute("dto") CirculationDTO dto) {
 
-		String cardKey = dto.getCardKey();	
 		Date now = new Date();
 		
 		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, now);
@@ -118,9 +114,8 @@ public class CirculationController {
 	}
 
 	@RequestMapping(value = { "/payfine" }, method = RequestMethod.GET)
-	public String payFine(@ModelAttribute("dto") CirculationDTO dto) {
+	public String payFine(@RequestParam(value = "pid", required = true) String cardKey, @ModelAttribute("dto") CirculationDTO dto) {
 
-		String cardKey = dto.getCardKey();
 		Date now = new Date();
 		
 		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, now);

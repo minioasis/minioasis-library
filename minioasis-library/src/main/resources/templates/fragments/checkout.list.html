@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+	<div th:fragment="checkoutlist">
+		
+			<h5>Books , Journals :</h5>
+				
+			<div class="table-responsive">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr class="warning">
+							<th>#</th>
+							<th>Title</th>
+							<th>P.Type</th>
+							<th><i class="fas fa-barcode"></i></th>
+							<th>Checkout</th>
+							<th>Due Date</th>
+							<th>Done</th>
+							<th>State</th>
+							<th>Renew</th>
+							<th>L/D Fine</th>
+							<th>L/D</th>
+							<th>Fine</th>
+		
+						</tr>
+					</thead>
+		
+					<tbody>
+						<tr th:each="e,iterator : ${dto.patron.checkouts}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.item.biblio.title}">Feynman Lecture On Physics</td>
+							<td th:text="${e.patron.patronType.name}">Student</td>
+							<td th:text="${e.item.barcode}">154646</td>
+							<td th:text="${#calendars.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+							<td th:text="${#calendars.format(e.dueDate,'yyyy-MM-dd')}">2015-09-15</td>
+							<td th:text="${e.done != null} ? ${#calendars.format(e.done,'yyyy-MM-dd')} : '' ">2015-09-15</td>
+							<td th:text="${e.state}">CHECKOUT</td>
+							<td th:text="${e.renewedNo}">1</td>
+							<td th:text="${e.lostOrDamageFineAmount}">0.00</td>
+							<td th:switch="${e.isInLostOrDamageState()}" >
+								<a href="#" th:case="true" th:href="@{/library/checkout/edit/{id}(id=${e.id})}" >
+									<span class="glyphicon glyphicon-edit"></span>
+								</a>
+								<span th:case="false"></span>
+							</td>
+							<td th:text="${e.fineAmount}">10.00</td>
+						</tr>
+						<tr th:remove="all">
+							<td>No.</td>
+							<td>Feynman Lecture On Physics</td>
+							<td>Student</td>
+							<td>5536156</td>
+							<td>2015-01-01</td>
+							<td>2015-01-15</td>
+							<td>2015-01-15</td>
+							<td>CHECKOUT</td>
+							<td>1</td>
+							<td>5.00</td>
+							<td>XX</td>
+							<td>6.00</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h5>Attachments :</h5>	
+			
+			<div class="table-responsive">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr class="warning">
+							<th>#</th>
+							<th>Title</th>
+							<th>Description</th>
+							<th><i class="fas fa-barcode"></i></th>
+							<th>State</th>
+							<th>Call No</th>
+							<th>Checkout Date</th>
+						</tr>
+					</thead>
+		
+					<tbody>			
+						<tr th:each="e,iterator : ${dto.patron.attachmentCheckouts}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.attachment.item.biblio.title}">Feynman Lecture On Physics</td>
+							<td th:text="${e.attachment.description}">Cds For Feynman Lecture On Physics</td>
+							<td th:text="${e.attachment.barcode}">154646</td>
+							<td th:text="${e.state}">CHECKOUT</td>
+							<td th:text="${e.attachment.callNo}">530.30 HJT1</td>
+							<td th:text="${#calendars.format(e.checkoutDate,'yyyy-MM-dd')}">2015-09-15</td>
+						</tr>								
+						<tr th:remove="all">
+							<td>No.</td>
+							<td>Feynman Lecture On Physics</td>
+							<td>Cds For Feynman Lecture On Physics</td>
+							<td>5536156</td>
+							<td>CHECKOUT</td>
+							<td>530.30 HJT1</td>
+							<td>2015-09-15</td>
+						</tr>			
+					</tbody>
+				</table>
+			</div>
+
+			<h5>Reservation :</h5>	
+			
+			<div class="table-responsive">					
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr class="warning">
+							<th>#</th>
+							<th>Title</th>
+							<th><i class="fas fa-barcode"></i> Isbn</th>
+							<th>Reservation</th>
+							<th>Available</th>
+							<th>Notification</th>
+							<th>Expiry Date</th>
+							<th>Cancel</th>
+							<th>Collected Date</th>
+							<th>UnCollected Date</th>
+							<th>State</th>
+						</tr>
+					</thead>
+		
+					<tbody>
+						<tr th:each="e,iterator : ${dto.patron.reservations}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td><a href="#" th:href="@{/library/biblio/{id}(id=${e.biblio.id})}" th:text="${e.biblio.title}"></a></td>
+							<td th:text="${e.biblio.isbn}">213223434113</td>
+							<td th:text="${e.reservationDate != null ? #calendars.format(e.reservationDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
+							<td th:text="${e.availableDate != null ? #calendars.format(e.availableDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.notificationDate != null ? #calendars.format(e.notificationDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.expiryDate != null ? #calendars.format(e.expiryDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.cancelDate != null ? #calendars.format(e.cancelDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.collectedDate != null ? #calendars.format(e.collectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.unCollectedDate != null ? #calendars.format(e.unCollectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:if="${e.state.toString() == 'RESERVE'}" th:text="${e.state}">RESERVE</td>
+							<td th:unless="${e.state.toString() == 'RESERVE'}" th:text="${e.state}" class="error">AVAILABLE</td>
+						</tr>
+						<tr th:remove="all">
+							<td>#</td>
+							<td>213223434113</td>
+							<td>2015-07-31</td>
+							<td>2015-07-31</td>
+							<td>2015-07-31</td>
+							<td>2015-07-31</td>
+							<td>2015-09-30</td>
+							<td>2015-07-31</td>
+							<td>2015-07-31</td>
+							<td>CHECKOUT</td>
+						</tr>
+					</tbody>
+				</table>
+
+		</div>
+		
+	</div>
+
+</body>
+</html>

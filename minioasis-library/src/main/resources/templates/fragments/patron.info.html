@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+	<div th:fragment="patroninfo">
+
+		<div class="card inf-content">
+			<div class="card-body">
+				<div class="row">
+					<div class="col-md-2">
+						<!-- th:src="@{/patron/photo/{id}(id=${dto.patron.id})}" -->
+						<img src="/images/bookworm.png"
+							class="rounded-circle"
+							style="min-height: 150px; height: 185px; width: 150px;" />
+					</div>
+
+					<div class="col-md-5">
+
+						<table class="table table-sm">
+							<tbody>
+								<tr>
+									<td><i class="far fa-check-circle text-label"></i> Active</td>
+									<td th:text="${dto.patron.active}">Y</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-address-card text-label"></i> Card Key</td>
+									<td th:text="${dto.patron.cardKey}"> CardKey</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-user text-label"></i> Name</td>
+									<td th:text="${dto.patron.name} + ' (' + ${dto.patron.name2} + ')'">Name</td>
+								</tr>
+								<tr>
+									<td><i class="far fa-calendar-alt text-label"></i> Start/End</td>
+									<td th:text="${#calendars.format(dto.patron.startDate,'yyyy-MM-dd')} + ' / ' + ${#calendars.format(dto.patron.endDate,'yyyy-MM-dd')}">2015-08-31</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-user-friends text-label"></i> P.Type</td>
+									<td th:text="${dto.patron.patronType.name}">Name</td>
+								</tr>
+								<tr>
+									<td><i class="fas fa-users text-label"></i> Group</td>
+									<td th:text="${dto.patron.group.name}">Name</td>
+								</tr>
+							</tbody>
+						</table>
+							
+					</div>
+
+					<div class="col-md-4">
+						<h6>Note</h6>
+						<textarea rows="7" cols="45" name="note" th:text="${dto.patron.note}"></textarea>
+					</div>
+					<div class="col-md-1">
+						<a class="btn btn-outline-info" href="#" th:href="@{/patron/edit?id={id}(id=${dto.patron.id})}"><i class="far fa-edit"></i></a>
+					</div>
+				</div>
+			</div>
+		</div>
+		
+	</div>
+
+</body>
+</html>

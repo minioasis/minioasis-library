@@ -9,6 +9,32 @@
 	<div th:replace="fragments/topnav :: topnav"></div>
 
 	<div class="container pt-3 pb-3">
+	
+		<div th:replace="fragments/patron.info :: patroninfo"></div>
+
+		<hr>
+		
+		<ul class="nav nav-pills">
+		  <li class="nav-item">
+		    <a class="nav-link" href="#" th:href="@{/circ/checkout?pid={id}(id=${dto.patron.cardKey})}">Check Out</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#" th:href="@{/circ/checkin?pid={id}(id=${dto.patron.cardKey})}">Check In</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#" th:href="@{/circ/renew?pid={id}(id=${dto.patron.cardKey})}">Renew</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link" href="#" th:href="@{/circ/reportlost?pid={id}(id=${dto.patron.cardKey})}">Report Lost</a>
+		  </li>
+		  <li class="nav-item">
+		    <a class="nav-link active" href="#" th:href="@{/circ/payfine?pid={id}(id=${dto.patron.cardKey})}">Pay Fines</a>
+		  </li>
+		</ul>
+
+		<hr>
+				
+		<div th:replace="fragments/checkout.list :: checkoutlist"></div>
 
 		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>

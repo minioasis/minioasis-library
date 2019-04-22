@@ -20,9 +20,9 @@
 
 			<p class="text-danger" th:if="${exist == 'no'}"	th:text="#{error.no.patron}">No Patron Found</p>
 
-			<form action="#" th:action="@{/circ/patron}" method="get">
+			<form action="#" th:action="@{/circ/checkout}" method="get">
 				<div class="form-group">
-					<input name="cardkey"
+					<input name="pid"
 						class="form-control form-control-lg col-md-4 col-sm"
 						autofocus="autofocus" th:placeholder="#{card.key}" />
 				</div>
