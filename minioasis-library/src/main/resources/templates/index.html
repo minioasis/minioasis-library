@@ -16,29 +16,27 @@
 		    <div class="col-6 col-md-3">	    	
 				<!----------------- Patron ---------------------->
 				<h5>
-					<span class="text-info">
-						<i class="fas fa-user"></i>
-					</span>
+					<i class="fas fa-user text-info"></i>
 					<span th:text="#{patron}">Patron</span>
 				</h5>
 				
 				<p><p/>
+				
 				<span th:text="#{patron}">Patron</span>
 				<br>
 				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/save}">
-					<span><i class="fas fa-user-plus"></i></span>
+					<i class="fas fa-user-plus"></i>
 				</a>
 				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
-					<span><i class="fas fa-search"></i></span>
+					<i class="fas fa-search"></i>
 				</a>
+				
 				<p><p/>
 				
 				<span th:text="#{patron.change.group}">Change Group</span>
 				<br>
 				<a class="btn btn-outline-info text-info">
-					<span class="has-text-link">
-						<i class="fas fa-random"></i>
-					</span>
+					<i class="fas fa-random"></i>
 				</a>
 
 		    </div>
@@ -46,55 +44,47 @@
 		    <div class="col-6 col-md-3">
 		    	<!----------------- Circulation ---------------------->	
 				<h5>
-		      		<span class="text-success">
-						<i class="fas fa-sync-alt"></i>
-					</span>
+					<i class="fas fa-sync-alt text-success"></i>
 					<span th:text="#{circulation}">Circulation</span>
 				</h5>
 		      
 				<p></p>
+				
 				<span th:text="#{checkout}">Check Out </span>
 				<br/>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-shopping-cart"></i>
-					</span>
+				<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/patronid.form}">
+					<i class="fas fa-shopping-cart"></i>
 				</a>
-				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-search"></i>
-					</span>
+				<a class="btn btn-outline-success text-success" href="#" th:href="@{/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+					<i class="fas fa-search"></i>
 				</a>
+				
 				<p><p/>
+				
 				<span th:text="#{attachment.checkout}">Attachment Check Out </span>
 				<br>
 				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-paperclip"></i>
-						<i class="fas fa-shopping-cart"></i>
-					</span>
+					<i class="fas fa-paperclip"></i>
+					<i class="fas fa-shopping-cart"></i>
 				</a>
+				
 				<p><p/>
+				
 				<span th:text="#{checkin}">Check In</span>
 				<br>
 				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-arrow-down"></i>
-					</span>
+					<i class="fas fa-arrow-down"></i>
 				</a>
-				<p><p/>
-				<span th:text="#{reservation.notification}">Reservation Notification</span>
 				
+				<p><p/>
+				
+				<span th:text="#{reservation.notification}">Reservation Notification</span>		
 				<br>
 				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-mobile-alt"></i>
-					</span>
+					<i class="fas fa-mobile-alt"></i>
 				</a>
 				<a class="btn btn-outline-success text-success">
-					<span>
-						<i class="fas fa-search"></i>
-					</span>
+					<i class="fas fa-search"></i>
 				</a>
 			      	
 		    </div>
@@ -102,20 +92,16 @@
 		    <div class="col-6 col-md-3">
 				<!----------------- Cataloging ---------------------->
 				<h5>
-					<span class="text-danger">
-						<i class="fas fa-sitemap"></i>
-					</span>
+					<i class="fas fa-sitemap text-danger"></i>
 			      	<span th:text="#{cataloging}">Cataloging</span>
 				</h5>
 
 				<p><p/>
-				
+							
 				<span th:text="#{opac}">OPACs</span> : <span th:text="#{web.scraping}">Web Scraping</span>
 				<br/>
 				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/opac}">
-			      	<span>
-			      		<i class="fas fa-university"></i>
-			      	</span>
+			      	<i class="fas fa-university"></i>
 				</a>
 				:
 				<a class="btn btn-outline-danger text-danger">
@@ -176,19 +162,20 @@
 		    <div class="col-6 col-md-3">
 		    	<!----------------- Cataloging ---------------------->	
 				<h5>
-					<span class="text-danger">
-						<i class="fas fa-sitemap"></i>
-					</span>
+					<i class="fas fa-sitemap text-danger"></i>
 					...
 				</h5>
 
-				<p><p/>				
+				<p><p/>
+							
 				<span th:text="#{print.shelfmark}">Print Shelfmarks</span>
 				<br>
 				<a class="btn btn-outline-danger text-danger">
 				    <i class="fas fa-barcode"></i>
 		      	</a>
+		      	
 		      	<p><p/>
+		      	
 				<span th:text="#{stock.check.reset}">Stock Check / Reset</span>
 				<br>
 				<a class="btn btn-outline-danger text-danger">

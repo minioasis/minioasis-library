@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorator="layouts/library.template">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link
+		href="https://cdn.jsdelivr.net/bootstrap/3.3.5/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+		rel="stylesheet" media="screen" />
+
+</head>
+<body>
+
+	<div class="container" layout:fragment="content">
+
+		<div class="row">
+
+			<div class="col-md-8">
+
+				<h3>Checkout</h3>
+				
+				<div class="panel panel-success">
+				
+					<div class="panel-heading">
+						Checkout
+						<div class="pull-right">
+							<a href="#" th:href="@{/library/checkout/edit/{id}(id=${checkout.id})}"><span class="glyphicon glyphicon-edit"></span></a>
+						</div>
+					</div>
+					
+					<div class="panel-body">
+					
+				        <div class="col-md-12">
+				        
+				            <div class="table-responsive">
+					            <table class="table table-condensed table-user-information">
+					                <tbody>
+					                    <tr>        
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-user text-primary"></span>
+					                                Patron                                                
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.patron.name}">Moon</td>
+					                    </tr>
+					                    <tr>    
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-book text-primary"></span>    
+					                                Title                                          
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.item.biblio.title}">Feynman Lecture On Physics</td>
+					                    </tr>
+					                    <tr>    
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-barcode text-primary"></span>    
+					                                Barcode                                         
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.item.barcode}">6454564564</td>
+					                    </tr>
+					                    <tr>    
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-repeat text-primary"></span>    
+					                                Renew No                                         
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.renewedNo}">2</td>
+					                    </tr>
+					                    <tr>        
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+					                                Check Out                                                
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${#calendars.format(checkout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+					                    </tr>
+					                    <tr>        
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+					                                Due Date                                              
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${#calendars.format(checkout.dueDate,'yyyy-MM-dd')}">2016-08-31</td>
+					                    </tr>
+					                    <tr>        
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+					                                Done                                                
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.done != null ? #calendars.format(checkout.done,'yyyy-MM-dd') : ''}">2016-08-31</td>
+					                    </tr>
+					                    <tr>    
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-usd text-primary"></span>    
+					                                Price                                         
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.item.price}">52.10</td>
+					                    </tr>
+					                    <tr>    
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-usd text-primary"></span>    
+					                                Fine Amount                                         
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.fineAmount}">52.10</td>
+					                    </tr>
+					                    <tr>        
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+					                                Fine Paid                                                
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.finePaidDate != null ? #calendars.format(checkout.finePaidDate,'yyyy-MM-dd') : ''}">2016-08-31</td>
+					                    </tr>
+					                    <tr>    
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-usd text-primary"></span>    
+					                                Lost/Damage Fine                                         
+					                            </strong>
+					                        </td>
+					                        <td class="text-danger" th:text="${checkout.lostOrDamageFineAmount}">52.10</td>
+					                    </tr>
+					                    <tr>        
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-calendar text-primary"></span>
+					                                L/D Paid                                                
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.finePaidDate != null ? #calendars.format(checkout.lostOrDamagePaidDate,'yyyy-MM-dd') : ''}">2016-08-31</td>
+					                    </tr>
+					                    <tr>        
+					                        <td>
+					                            <strong>
+					                                <span class="glyphicon glyphicon-refresh text-primary"></span>
+					                                State                                                
+					                            </strong>
+					                        </td>
+					                        <td class="text-primary" th:text="${checkout.State}">State</td>
+					                    </tr>
+					                    <tr>        
+					                        <td>
+					                        </td>
+					                        <td>
+						                        <div class="pull-right" >
+													<a class="btn btn-success" href="#" th:href="@{/library/patron/checkout/cardkey} "><span class="glyphicon glyphicon-share-alt"></span></a>
+												</div>
+					                        </td>
+					                    </tr>
+					                </tbody>
+					            </table>
+				            </div>
+				        </div>
+
+					</div>
+					
+				</div>	<!-- panel panel-info -->			
+
+			</div> <!-- col-md-6 -->
+			
+		</div>
+
+	</div>
+
+</body>
+</html>

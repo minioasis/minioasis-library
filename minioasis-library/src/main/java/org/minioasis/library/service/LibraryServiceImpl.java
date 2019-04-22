@@ -31,6 +31,7 @@ import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.search.AttachmentCriteria;
 import org.minioasis.library.domain.search.BiblioCriteria;
+import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
@@ -417,6 +418,10 @@ public class LibraryServiceImpl implements LibraryService {
 	// Report
 	public Page<Checkout> findAllOverDue(List<CheckoutState> cStates, Date given, Pageable pageable){
 		return this.checkoutRepository.findAllOverDue(cStates, given, pageable);
+	}
+	
+	public Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable){
+		return this.checkoutRepository.findByCriteria(criteria, pageable);
 	}
 	
 	/****************************************  Group  *****************************************/

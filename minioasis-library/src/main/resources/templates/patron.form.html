@@ -189,7 +189,7 @@
 					  <div class="form-group row">
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-9">
-					      <input type="text" class="form-control" th:field="*{contact.address.state}" th:placeholder="#{state}"/>
+					      <input type="text" class="form-control" th:field="*{contact.address.state}" th:placeholder="#{state.c}"/>
 					      <span class="text-danger" th:if="${#fields.hasErrors('contact.address.state')}" th:errors="*{contact.address.state}"></span>
 					    </div>
 					  </div>

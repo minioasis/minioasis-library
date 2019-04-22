@@ -26,6 +26,7 @@ import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.search.AttachmentCriteria;
 import org.minioasis.library.domain.search.BiblioCriteria;
+import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
@@ -113,6 +114,7 @@ public interface LibraryService {
 	Page<Checkout> findAllCheckouts(Pageable pageable);
 	Page<Checkout> findAllOverDue(List<CheckoutState> cStates, Date given, Pageable pageable);
 	Page<Checkout> findAllCheckouts(String username, List<CheckoutState> cStates, Pageable pageable);
+	Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable);
 	//Page<Checkout> findAllCheckoutsByName(String name, Pageable pageable);
 
 	// Group

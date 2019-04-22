@@ -13,7 +13,7 @@ import org.springframework.data.jpa.repository.Query;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface CheckoutRepository extends JpaRepository<Checkout, Long> {
+public interface CheckoutRepository extends JpaRepository<Checkout, Long>, CheckoutRepositoryCustom {
 	
 	@Query("SELECT c FROM Checkout c"
 			+ " LEFT JOIN FETCH c.item i"

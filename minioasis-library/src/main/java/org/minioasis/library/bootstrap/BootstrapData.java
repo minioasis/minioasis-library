@@ -12,6 +12,8 @@ import org.minioasis.library.domain.AttachmentState;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.BiblioType;
 import org.minioasis.library.domain.Binding;
+import org.minioasis.library.domain.Checkout;
+import org.minioasis.library.domain.CheckoutState;
 import org.minioasis.library.domain.Contact;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
@@ -267,7 +269,7 @@ public class BootstrapData implements CommandLineRunner {
 		i4.setExpired(date("2016-10-10"));
 		i4.setFirstCheckin(date("2015-10-10"));
 		i4.setItemDuration(d1);
-		i4.setState(ItemState.IN_LIBRARY);
+		i4.setState(ItemState.CHECKOUT);
 		i4.setItemStatus(is3);
 		i4.setLastCheckin(date("2015-10-10"));
 		i4.setLastFullRenewPerson("Karuna");
@@ -287,7 +289,7 @@ public class BootstrapData implements CommandLineRunner {
 		i5.setExpired(date("2016-10-10"));
 		i5.setFirstCheckin(date("2015-10-10"));
 		i5.setItemDuration(d1);
-		i5.setState(ItemState.IN_LIBRARY);
+		i5.setState(ItemState.CHECKOUT);
 		i5.setItemStatus(is1);
 		i5.setLastCheckin(date("2015-10-10"));
 		i5.setLastFullRenewPerson("Karuna");
@@ -302,7 +304,7 @@ public class BootstrapData implements CommandLineRunner {
 		Attachment at1 = new Attachment();
 		at1.setBarcode("A111");
 		at1.setBorrowable(YesNo.N);
-		at1.setCallNo("callNo");
+		at1.setCallNo("1212");
 		at1.setDescription("description");
 		at1.setFirstCheckin(date("2019-01-01"));
 		at1.setItem(i1);
@@ -313,7 +315,7 @@ public class BootstrapData implements CommandLineRunner {
 		Attachment at2 = new Attachment();
 		at2.setBarcode("A212");
 		at2.setBorrowable(YesNo.Y);
-		at2.setCallNo("callNo");
+		at2.setCallNo("1313");
 		at2.setDescription("description");
 		at2.setFirstCheckin(date("2019-02-02"));
 		at2.setItem(i2);
@@ -324,7 +326,7 @@ public class BootstrapData implements CommandLineRunner {
 		Attachment at3 = new Attachment();
 		at3.setBarcode("B232");
 		at3.setBorrowable(YesNo.Y);
-		at3.setCallNo("callNo");
+		at3.setCallNo("2222");
 		at3.setDescription("description");
 		at3.setFirstCheckin(date("2019-03-03"));
 		at3.setItem(i3);
@@ -466,6 +468,16 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setIc("44415-10-7777");
 		p3.setContact(c3);
 		patronRepository.save(p3);
+		
+		//checkout
+		Checkout co1 = new Checkout(date("2019-01-10"), date("2019-02-10"), new Integer(0), CheckoutState.CHECKOUT, p1, i1);
+		checkoutRepository.save(co1);
+		
+		Checkout co2 = new Checkout(date("2019-09-10"), date("2019-09-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i4);
+		checkoutRepository.save(co2);
+		
+		Checkout co3 = new Checkout(date("2019-10-10"), date("2019-11-10"), new Integer(0), CheckoutState.CHECKOUT, p3, i5);
+		checkoutRepository.save(co3);
 		
 	}
 	
