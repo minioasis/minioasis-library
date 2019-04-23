@@ -22,27 +22,27 @@
 						<table class="table table-sm">
 							<tbody>
 								<tr>
-									<td><i class="far fa-check-circle text-label"></i> Active</td>
+									<td><i class="far fa-check-circle text-label"></i> <span th:text="#{active}">Active</span></td>
 									<td th:text="${dto.patron.active}">Y</td>
 								</tr>
 								<tr>
-									<td><i class="far fa-address-card text-label"></i> Card Key</td>
+									<td><i class="far fa-address-card text-label"></i> <span th:text="#{card.key}">Card Key</span></td>
 									<td th:text="${dto.patron.cardKey}"> CardKey</td>
 								</tr>
 								<tr>
-									<td><i class="far fa-user text-label"></i> Name</td>
+									<td><i class="far fa-user text-label"></i> <span th:text="#{name}">Name</span></td>
 									<td th:text="${dto.patron.name} + ' (' + ${dto.patron.name2} + ')'">Name</td>
 								</tr>
 								<tr>
-									<td><i class="far fa-calendar-alt text-label"></i> Start/End</td>
+									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{start.end}">Start/End</span></td>
 									<td th:text="${#calendars.format(dto.patron.startDate,'yyyy-MM-dd')} + ' / ' + ${#calendars.format(dto.patron.endDate,'yyyy-MM-dd')}">2015-08-31</td>
 								</tr>
 								<tr>
-									<td><i class="fas fa-user-friends text-label"></i> P.Type</td>
+									<td><i class="fas fa-user-friends text-label"></i> <span th:text="#{patron.type}">P.Type</span></td>
 									<td th:text="${dto.patron.patronType.name}">Name</td>
 								</tr>
 								<tr>
-									<td><i class="fas fa-users text-label"></i> Group</td>
+									<td><i class="fas fa-users text-label"></i> <span th:text="#{group}">Group</span></td>
 									<td th:text="${dto.patron.group.name}">Name</td>
 								</tr>
 							</tbody>

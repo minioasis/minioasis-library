@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="fragments/head :: head(Minioasis)">
-	<title>Minioasis Library</title>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+			integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+			crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/css/minioasis.css" th:href="@{/css/minioasis.css}"/>
+		<link rel="stylesheet" type="text/css" href="/css/dropzone.min.css" th:href="@{/css/dropzone.min.css}"/>
+		<link rel="stylesheet" type="text/css" href="/css/easy-autocomplete.min.css" th:href="@{/css/easy-autocomplete.min.css}">
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
+		<script src="/js/jquery.easy-autocomplete.min.js" th:src="@{/js/jquery.easy-autocomplete.min.js}"></script>
+			
+		<title th:text="${title}">Page Title</title>
 	</head>
 <body>
 
@@ -16,28 +32,134 @@
 		
 		<ul class="nav nav-pills">
 		  <li class="nav-item">
-		    <a class="nav-link" href="#" th:href="@{/circ/checkout?pid={id}(id=${dto.patron.cardKey})}">Check Out</a>
+		    <a class="nav-link" href="#" th:href="@{/circ/checkout?pid={id}(id=${dto.patron.cardKey})}" th:text="#{checkout}">Check Out</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#" th:href="@{/circ/checkin?pid={id}(id=${dto.patron.cardKey})}">Check In</a>
+		    <a class="nav-link" href="#" th:href="@{/circ/checkin?pid={id}(id=${dto.patron.cardKey})}" th:text="#{checkin}">Check In</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#" th:href="@{/circ/renew?pid={id}(id=${dto.patron.cardKey})}">Renew</a>
+		    <a class="nav-link" href="#" th:href="@{/circ/renew?pid={id}(id=${dto.patron.cardKey})}" th:text="#{renew}">Renew</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#" th:href="@{/circ/reportlost?pid={id}(id=${dto.patron.cardKey})}">Report Lost</a>
+		    <a class="nav-link" href="#" th:href="@{/circ/reportlost?pid={id}(id=${dto.patron.cardKey})}" th:text="#{report.lost}">Report Lost</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link active" href="#" th:href="@{/circ/payfine?pid={id}(id=${dto.patron.cardKey})}">Pay Fines</a>
+		    <a class="nav-link active" href="#" th:href="@{/circ/payfine?pid={id}(id=${dto.patron.cardKey})}" th:text="#{pay.fine}">Pay Fines</a>
 		  </li>
 		</ul>
 
 		<hr>
-				
-		<div th:replace="fragments/checkout.list :: checkoutlist"></div>
+
+		<script type="text/javascript">
+			$(function () {
+			    $('#checkall').on('click', function () {
+			        $(this).closest('table').find(':checkbox').prop('checked', this.checked);
+			    });
+			});
+		</script>
+
+		<form class="form" th:object="${dto}" method="post">
+			<div class="form-row">
+				<div class="form-group col-md-2">
+					<label th:text="#{pay.amount}">Pay Amount</label> <input
+						class="form-control" type="text" th:field="*{payAmount}"
+						autofocus="autofocus" placeholder="0.00" />
+					<p class="text-danger" th:if="${#fields.hasErrors('payAmount')}"
+						th:errors="*{payAmount}"></p>
+				</div>
+				<div class="form-group col-md-2">
+					<label th:text="#{when}">When</label> <input type="text"
+						class="form-control" th:field="*{given}" placeholder="yyyy-MM-dd" />
+					<p class="text-danger" th:if="${#fields.hasErrors('given')}"
+						th:errors="*{given}"></p>
+				</div>
+				<div class="form-group col-md-2">
+					<div class="text-danger" th:if="${PAYFINE_ERRORS != null}">
+						<ul th:each="e : ${PAYFINE_ERRORS}">
+							<li th:text="${e}"></li>
+						</ul>
+					</div>
+				</div>
+				<div class="form-group col-md-2">
+					<input class="sr-only" type="submit" name="search" value="Submit" />
+				</div>
+			</div>
+
+			<hr>
+
+			<h5>Books , Journals :</h5>
+
+			<div class="table-responsive">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr class="warning">
+							<th>#</th>
+							<th><span th:text="#{active}"></span> | <input type="checkbox" id="checkall" /></th>
+							<th th:text="#{title}">Title</th>
+							<th th:text="#{patron.type}">P.Type</th>
+							<th><i class="fas fa-barcode"></i></th>
+							<th th:text="#{checkout}">Checkout</th>
+							<th th:text="#{due.date}">Due Date</th>
+							<th th:text="#{done}">Done</th>
+							<th th:text="#{state}">State</th>
+							<th th:text="#{renew}">Renew</th>
+							<th th:text="#{ld.fine}">L/D Fine</th>
+							<th>L/D</th>
+							<th th:text="#{fine}">Fine</th>
+						</tr>
+					</thead>
+					
+					<tbody>
+						<tr th:each="e,iterator : ${dto.patron.checkouts}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td><input type="checkbox" th:field="*{ids}"
+								th:value="${e.id}" /></td>
+							<td th:text="${e.item.biblio.title}">Feynman Lecture On
+								Physics</td>
+							<td th:text="${e.patron.patronType.name}">Student</td>
+							<td th:text="${e.item.barcode}">154646</td>
+							<td th:text="${#calendars.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+							<td th:text="${#calendars.format(e.dueDate,'yyyy-MM-dd')}">2015-09-15</td>
+							<td
+								th:text="${e.done != null} ? ${#calendars.format(e.done,'yyyy-MM-dd')} : '' ">2015-09-15</td>
+							<td th:text="${e.state}">CHECKOUT</td>
+							<td th:text="${e.renewedNo}">1</td>
+							<td th:text="${e.lostOrDamageFineAmount}">0.00</td>
+							<td th:switch="${e.isInLostOrDamageState()}"><a href="#"
+								th:case="true" th:href="@{/checkout/edit/{id}(id=${e.id})}">
+									<i class="far fa-edit"></i>
+							</a> <span th:case="false"></span></td>
+							<td th:text="${e.fineAmount}">10.00</td>
+						</tr>
+						<tr th:remove="all">
+							<td>No.</td>
+							<td>check</td>
+							<td>Feynman Lecture On Physics</td>
+							<td>Student</td>
+							<td>5536156</td>
+							<td>2015-01-01</td>
+							<td>2015-01-15</td>
+							<td>2015-01-15</td>
+							<td>CHECKOUT</td>
+							<td>1</td>
+							<td>5.00</td>
+							<td>XX</td>
+							<td>6.00</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+		</form>
+
+		<div th:replace="fragments/checkout.list.payfine :: checkoutlistpayfine"></div>
 
 		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>
+		<!-- to prevent 2 version of jquery conflict -->
+		<script>
+		   var $y = jQuery.noConflict();
+		</script>
 	</div>
 
 </body>
