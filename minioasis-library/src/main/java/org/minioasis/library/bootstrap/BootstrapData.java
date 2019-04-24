@@ -176,6 +176,19 @@ public class BootstrapData implements CommandLineRunner {
 		b3.setPublisher(pb2);
 		b3.setSeries(s3);
 		biblioRepository.save(b3);
+		
+		Biblio b4 = new Biblio();
+		b4.setActive(YesNo.Y);
+		b4.setLanguage(Language.cn);
+		b4.setBinding(Binding.H);
+		b4.setBiblioType(BiblioType.BOOK);
+		b4.setTitle("Feynman Lecture On Physics");
+		b4.setAuthor("Feynman R.P");
+		b4.setIsbn("845151512232");
+		b4.setClassMark("564.12");
+		b4.setPublisher(pb2);
+		b4.setSeries(s3);
+		biblioRepository.save(b4);
 
 		// Item Duration
 		ItemDuration d1 = new ItemDuration("1 Week", 7);
@@ -205,7 +218,7 @@ public class BootstrapData implements CommandLineRunner {
 		Item i1 = new Item();
 		i1.setActive(YesNo.Y);
 		i1.setBarcode("111");
-		i1.setBiblio(b2);
+		i1.setBiblio(b1);
 		i1.setChecked(YesNo.N);
 		i1.setCreated(date("2015-10-10"));
 		i1.setExpired(date("2016-10-10"));
@@ -224,13 +237,13 @@ public class BootstrapData implements CommandLineRunner {
 		Item i2 = new Item();
 		i2.setActive(YesNo.Y);
 		i2.setBarcode("222");
-		i2.setBiblio(b3);
+		i2.setBiblio(b2);
 		i2.setChecked(YesNo.N);
 		i2.setCreated(date("2015-10-10"));
 		i2.setExpired(date("2016-10-10"));
 		i2.setFirstCheckin(date("2015-10-10"));
 		i2.setItemDuration(d1);
-		i2.setState(ItemState.IN_LIBRARY);
+		i2.setState(ItemState.CHECKOUT);
 		i2.setItemStatus(is1);
 		i2.setLastCheckin(date("2015-10-10"));
 		i2.setLastFullRenewPerson("Thai");
@@ -243,7 +256,7 @@ public class BootstrapData implements CommandLineRunner {
 		Item i3 = new Item();
 		i3.setActive(YesNo.N);
 		i3.setBarcode("333");
-		i3.setBiblio(b1);
+		i3.setBiblio(b3);
 		i3.setChecked(YesNo.N);
 		i3.setCreated(date("2015-10-10"));
 		i3.setExpired(date("2016-10-10"));
@@ -263,14 +276,14 @@ public class BootstrapData implements CommandLineRunner {
 		Item i4 = new Item();
 		i4.setActive(YesNo.Y);
 		i4.setBarcode("444");
-		i4.setBiblio(b1);
+		i4.setBiblio(b3);
 		i4.setChecked(YesNo.Y);
 		i4.setCreated(date("2015-10-10"));
 		i4.setExpired(date("2016-10-10"));
 		i4.setFirstCheckin(date("2015-10-10"));
 		i4.setItemDuration(d1);
-		i4.setState(ItemState.CHECKOUT);
-		i4.setItemStatus(is3);
+		i4.setState(ItemState.IN_LIBRARY);
+		i4.setItemStatus(is1);
 		i4.setLastCheckin(date("2015-10-10"));
 		i4.setLastFullRenewPerson("Karuna");
 		i4.setLocation(l1);
@@ -283,13 +296,13 @@ public class BootstrapData implements CommandLineRunner {
 		Item i5 = new Item();
 		i5.setActive(YesNo.Y);
 		i5.setBarcode("555");
-		i5.setBiblio(b1);
+		i5.setBiblio(b4);
 		i5.setChecked(YesNo.N);
 		i5.setCreated(date("2015-10-10"));
 		i5.setExpired(date("2016-10-10"));
 		i5.setFirstCheckin(date("2015-10-10"));
 		i5.setItemDuration(d1);
-		i5.setState(ItemState.CHECKOUT);
+		i5.setState(ItemState.IN_LIBRARY);
 		i5.setItemStatus(is1);
 		i5.setLastCheckin(date("2015-10-10"));
 		i5.setLastFullRenewPerson("Karuna");
@@ -337,8 +350,8 @@ public class BootstrapData implements CommandLineRunner {
 		// Patron Type
 		PatronType pt1 = new PatronType();
 		pt1.setName("Student");
-		pt1.setStartDate(date("2015-01-02"));
-		pt1.setExpiryDate(date("2016-12-12"));
+		pt1.setStartDate(date("2019-01-02"));
+		pt1.setExpiryDate(date("2030-12-12"));
 		pt1.setMemberFee(new BigDecimal(100.00));
 		pt1.setDeposit(new BigDecimal(200.00));
 		pt1.setBiblioLimit(5);
@@ -355,8 +368,8 @@ public class BootstrapData implements CommandLineRunner {
 
 		PatronType pt2 = new PatronType();
 		pt2.setName("Teacher");
-		pt2.setStartDate(date("2015-01-02"));
-		pt2.setExpiryDate(date("2016-12-12"));
+		pt2.setStartDate(date("2019-01-02"));
+		pt2.setExpiryDate(date("2030-12-12"));
 		pt2.setMemberFee(new BigDecimal(100.00));
 		pt2.setDeposit(new BigDecimal(200.00));
 		pt2.setBiblioLimit(5);
@@ -428,8 +441,8 @@ public class BootstrapData implements CommandLineRunner {
 		p1.setActive(YesNo.Y);
 		p1.setName("Moan Ah Meng");
 		p1.setName2("Mr. Moon");
-		p1.setStartDate(date("2015-01-03"));
-		p1.setEndDate(date("2016-12-12"));
+		p1.setStartDate(date("2019-01-03"));
+		p1.setEndDate(date("2019-12-12"));
 		p1.setCardKey("11111");
 		p1.setEntangled("entangled1");
 		p1.setPatronType(pt1);
@@ -443,8 +456,8 @@ public class BootstrapData implements CommandLineRunner {
 		p2.setActive(YesNo.Y);
 		p2.setName("Moan Wai Loong");
 		p2.setName2("Mr. Loong");
-		p2.setStartDate(date("2015-01-01"));
-		p2.setEndDate(date("2016-12-12"));
+		p2.setStartDate(date("2019-01-01"));
+		p2.setEndDate(date("2019-12-12"));
 		p2.setCardKey("22222");
 		p2.setEntangled("entangled2");
 		p2.setPatronType(pt1);
@@ -458,8 +471,8 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setActive(YesNo.N);
 		p3.setName("R.P. Feynman");
 		p3.setName2("Prof Feynman");
-		p3.setStartDate(date("2015-01-15"));
-		p3.setEndDate(date("2016-12-12"));
+		p3.setStartDate(date("2019-01-15"));
+		p3.setEndDate(date("2019-12-12"));
 		p3.setCardKey("33333");
 		p3.setEntangled("entangled3");
 		p3.setPatronType(pt2);
@@ -473,10 +486,10 @@ public class BootstrapData implements CommandLineRunner {
 		Checkout co1 = new Checkout(date("2019-01-10"), date("2019-02-10"), new Integer(0), CheckoutState.CHECKOUT, p1, i1);
 		checkoutRepository.save(co1);
 		
-		Checkout co2 = new Checkout(date("2019-09-10"), date("2019-09-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i4);
+		Checkout co2 = new Checkout(date("2019-09-10"), date("2019-09-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
 		checkoutRepository.save(co2);
 		
-		Checkout co3 = new Checkout(date("2019-10-10"), date("2019-11-10"), new Integer(0), CheckoutState.CHECKOUT, p3, i5);
+		Checkout co3 = new Checkout(date("2019-10-10"), date("2019-11-10"), new Integer(0), CheckoutState.CHECKOUT, p3, i3);
 		checkoutRepository.save(co3);
 		
 	}

@@ -59,6 +59,7 @@
 		</script>
 
 		<form class="form" th:object="${dto}" method="post">
+			<input type="text" hidden="hidden" th:field="*{cardKey}" />
 			<div class="form-row">
 				<div class="form-group col-md-2">
 					<label th:text="#{pay.amount}">Pay Amount</label> <input

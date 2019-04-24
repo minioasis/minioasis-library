@@ -77,7 +77,6 @@ public class CirculationDTO implements Serializable {
 	}
 	public void clearHistory(){
 		setBarcode(null);
-		setGiven(null);
 		setDamage(false);
 
 		setMsg(null);

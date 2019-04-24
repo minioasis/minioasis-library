@@ -167,9 +167,9 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td><a href="#" th:href="@{/patron/checkout/entry?cardKey={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
+						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
 						<td th:text="${e.item.barcode}">121212</td>
-						<td><a href="#" th:href="@{/checkout/{id}(id=${e.id})}" th:text="${e.item.biblio.title}"></a></td>
+						<td th:text="${e.item.biblio.title}"></td>
 						<td><a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
 						<td th:text="${e.checkoutDate != null ? #calendars.format(e.checkoutDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
 						<td th:text="${e.dueDate != null ? #calendars.format(e.dueDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
@@ -178,7 +178,7 @@
 						<td th:text="${e.finePaidAmount}">12.00</td>
 						<td th:text="${e.finePaidDate != null ? #calendars.format(e.finePaidDate,'yyyy-MM-dd') : ''}">2015-09-30</td>
 						<td th:text="${e.state}">CHECKOUT</td>
-						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/checkout/edit/{id}(id=${e.id})}">Set L/D Fine</a></td>
+						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/circ/checkout/edit/{id}(id=${e.id})}">Set L/D Fine</a></td>
 					</tr>
 					<tr th:remove="all">
 						<td>2</td>

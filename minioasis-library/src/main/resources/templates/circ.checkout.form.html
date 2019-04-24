@@ -33,32 +33,38 @@
 		</ul>
 
 		<hr>
-		
+
 		<form class="form" th:object="${dto}" method="post">
-		  <div class="form-row">
-		    <div class="form-group col-md-2">
-				<label th:text="#{item}">Item</label>
-				<input class="form-control" type="text" th:field="*{barcode}" autofocus="autofocus" th:placeholder="#{barcode}"/>
-				<p class="text-danger" th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"></p>
-		    </div>
-		    <div class="form-group col-md-2">
-				<label th:text="#{when}">When</label>
-				<input type="text" class="form-control"	th:field="*{given}" placeholder="yyyy-MM-dd" />
-				<p class="text-danger" th:if="${#fields.hasErrors('given')}" th:errors="*{given}"></p>
-		    </div>
-		    <div class="form-group col-md-2">
-				<div class="text-danger" th:if="${CHECKOUT_ERRORS != null}">
-					<ul th:each="e : ${CHECKOUT_ERRORS}">
-						<li th:text="${e}"></li>
-					</ul>
-				</div>
-		    </div>
-		    <div class="form-group col-md-2">
-		    	<input class="sr-only" type="submit" name="search" value="Submit"/>	
-		    </div>
-		  </div>	
-		</form>
 		
+			<input type="text" hidden="hidden" th:field="*{cardKey}" />
+			
+			<div class="form-row">
+				<div class="form-group col-md-2">
+					<label th:text="#{item}">Item</label> <input class="form-control"
+						type="text" th:field="*{barcode}" autofocus="autofocus"
+						th:placeholder="#{barcode}" />
+					<p class="text-danger" th:if="${#fields.hasErrors('barcode')}"
+						th:errors="*{barcode}"></p>
+				</div>
+				<div class="form-group col-md-2">
+					<label th:text="#{when}">When</label> <input type="text"
+						class="form-control" th:field="*{given}" placeholder="yyyy-MM-dd" />
+					<p class="text-danger" th:if="${#fields.hasErrors('given')}"
+						th:errors="*{given}"></p>
+				</div>
+				<div class="form-group col-md-2">
+					<div class="text-danger" th:if="${CHECKOUT_ERRORS != null}">
+						<ul th:each="e : ${CHECKOUT_ERRORS}">
+							<li th:text="${e}"></li>
+						</ul>
+					</div>
+				</div>
+				<div class="form-group col-md-2">
+					<input class="sr-only" type="submit" name="search" value="Submit" />
+				</div>
+			</div>
+		</form>
+
 		<hr>
 				
 		<div th:replace="fragments/checkout.list :: checkoutlist"></div>
