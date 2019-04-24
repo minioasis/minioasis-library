@@ -60,7 +60,7 @@ public class CirculationController {
 
 	@RequestMapping(value = { "/checkin" }, method = RequestMethod.GET)
 	public String checkin(@RequestParam(value = "pid", required = true) String cardKey, 
-							@ModelAttribute("dto") CirculationDTO dto, Model model) {
+							@ModelAttribute("dto") CirculationDTO dto) {
 
 		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
 		preparingCirculation(patron, dto, cardKey);
@@ -70,7 +70,8 @@ public class CirculationController {
 	}
 
 	@RequestMapping(value = { "/renew" }, method = RequestMethod.GET)
-	public String renew(@RequestParam(value = "pid", required = true) String cardKey, @ModelAttribute("dto") CirculationDTO dto) {
+	public String renew(@RequestParam(value = "pid", required = true) String cardKey, 
+							@ModelAttribute("dto") CirculationDTO dto) {
 
 		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
 		preparingCirculation(patron, dto, cardKey);
@@ -80,7 +81,8 @@ public class CirculationController {
 	}
 
 	@RequestMapping(value = { "/reportlost" }, method = RequestMethod.GET)
-	public String reportLost(@RequestParam(value = "pid", required = true) String cardKey, @ModelAttribute("dto") CirculationDTO dto) {
+	public String reportLost(@RequestParam(value = "pid", required = true) String cardKey, 
+								@ModelAttribute("dto") CirculationDTO dto) {
 
 		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
 		preparingCirculation(patron, dto, cardKey);
@@ -90,7 +92,8 @@ public class CirculationController {
 	}
 
 	@RequestMapping(value = { "/payfine" }, method = RequestMethod.GET)
-	public String payFine(@RequestParam(value = "pid", required = true) String cardKey, @ModelAttribute("dto") CirculationDTO dto) {
+	public String payFine(@RequestParam(value = "pid", required = true) String cardKey, 
+							@ModelAttribute("dto") CirculationDTO dto) {
 
 		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
 		preparingCirculation(patron, dto, cardKey);
@@ -221,7 +224,7 @@ public class CirculationController {
 					this.service.checkinAttachment(patron, attachment, given, damage);
 
 				} catch (LibraryException ex) {
-
+					
 					model.addAttribute("CHECKIN_ERRORS", ex.getAllErrors());
 					return "circ.checkin.form";
 
