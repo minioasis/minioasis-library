@@ -8,15 +8,14 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
+<!-- https://getbootstrap.com/docs/4.3/components/forms/ -->
+
 	<div class="container pt-3 pb-3">
 
 		<h4>
-			<span th:text="#{create.item}">Create Item</span>
-		      	<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
-				    <i class="fas fa-search"></i>b
-		      	</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
-				<i class="fas fa-search"></i>i
+			<span th:text="#{title}">Title</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/title/list(page=0,size=10,sort='title,desc')}">
+				<i class="fas fa-search"></i>
 			</a>
 		</h4>
 
@@ -29,8 +28,8 @@
 				<form th:object="${item}" method="post">
 	
 					<input type="text" hidden="hidden" th:field="*{id}" />
-					<input type="text" hidden="hidden" th:field="*{biblio.id}"/>
-						
+					<input type="text" hidden="hidden" th:field="*{biblio.id}" />
+					
 					<div class="form-group row pt-3">
 						<label class="col-sm-3 col-form-label" th:text="#{title}">Title</label>
 						<div class="col-sm-9">

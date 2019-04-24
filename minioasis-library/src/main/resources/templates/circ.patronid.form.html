@@ -8,25 +8,32 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container pt-3 pb-3">
+	<div class="container pt-5 pb-3">
 
-		<div class="jumbotron">
-
-			<h1 class="display-4">
-				<i class="fas fa-shopping-cart"></i> <span th:text="#{checkout}">Checkout</span>
-			</h1>
-
-			<p class="lead" th:text="#{key.in.patron.id}">Please key in member ID.</p>
-
-			<p class="text-danger" th:if="${exist == 'no'}"	th:text="#{error.no.patron}">No Patron Found</p>
-
-			<form action="#" th:action="@{/circ/checkout}" method="get">
-				<div class="form-group">
-					<input name="pid"
-						class="form-control form-control-lg col-md-4 col-sm"
-						autofocus="autofocus" th:placeholder="#{card.key}" />
+		<div class="col-6">
+			<div class="card inf-content">
+				<div class="card-body">
+					<h1 class="display-5 text-success">
+						<i class="fas fa-shopping-cart"></i> <span th:text="#{checkout}">Checkout</span>
+					</h1>
+					
+					<hr></hr>
+					
+					<p class="lead" th:text="#{key.in.patron.id}">Please key in
+						member ID.</p>
+	
+					<p class="text-danger" th:if="${exist == 'no'}"
+						th:text="#{error.no.patron}">No Patron Found</p>
+	
+					<form action="#" th:action="@{/circ/checkout}" method="get">
+						<div class="form-group">
+							<input name="pid"
+								class="form-control form-control-lg col-sm"
+								autofocus="autofocus" th:placeholder="#{card.key}" />
+						</div>
+					</form>
 				</div>
-			</form>
+			</div>
 		</div>
 
 		<div th:replace="fragments/script :: script"></div>

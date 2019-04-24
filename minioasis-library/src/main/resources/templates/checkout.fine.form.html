@@ -1,0 +1,108 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{update.checkout}">Edit Checkout</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+				<i class="fas fa-search"></i>
+			</a>
+		</h4>
+
+		<div class="card bg-hb" style="max-width: 40rem;">
+			<div class="card-header">
+				<i class="fas fa-shopping-cart"></i>
+			</div>
+			<div class="card-body bg-lb">
+				
+				<form th:object="${checkout}" method="post">
+	
+					<input type="text" hidden="hidden" th:field="*{id}" />
+						
+					<div class="form-group row pt-3">
+						<label class="col-sm-3 col-form-label" th:text="#{patron}">Patron</label>
+						<div class="col-sm-9">
+							<input type="text" class="form-control" th:field="*{patron.name}" th:disabled="disabled" />
+						    <span class="text-danger" th:if="${#fields.hasErrors('patron.name')}" th:errors="*{patron.name}"></span>		        
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{title}">Title</label>
+					  	<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{item.biblio.title}" th:disabled="disabled" />
+							<span class="text-danger" th:if="${#fields.hasErrors('item.biblio.title')}" th:errors="*{item.biblio.title}"></span>
+					  	</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{barcode}">Barcode</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{item.barcode}" th:disabled="disabled"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('item.barcode')}" th:errors="*{item.barcode}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{checkout.date}">Checkout Date</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{checkoutDate}" th:placeholder="#{checkout.date}" disabled="disabled"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('checkoutDate')}" th:errors="*{checkoutDate}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{due.date}">Due Date</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{dueDate}" th:placeholder="#{due.date}" disabled="disabled"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('dueDate')}" th:errors="*{dueDate}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{done}">Done</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{done}" disabled="disabled"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('done')}" th:errors="*{done}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{price}">Price</label>
+						<div class="col-sm-4">
+							<input type="text" class="form-control" th:field="*{item.price}" th:disabled="disabled"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('item.price')}" th:errors="*{item.price}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{state}">State</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{state}" th:placeholder="#{state}" disabled="disabled"/>
+							<span class="text-danger" th:if="${#fields.hasErrors('state')}" th:errors="*{state}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<label class="col-sm-3 col-form-label" th:text="#{ld.fine}">Lost/Damage Fine</label>
+						<div class="col-sm-6">
+							<input type="text" class="form-control" th:field="*{lostOrDamageFineAmount}" autofocus="autofocus"/>
+							<span class="help-inline error" th:if="${#fields.hasErrors('lostOrDamageFineAmount')}" th:errors="*{lostOrDamageFineAmount}"></span>
+						</div>
+					</div>						
+					<div class="form-group row">
+					  <div class="col">
+					    <button type="submit" class="btn bg-info text-white float-right"  th:text="#{submit}">Submit</button>
+					  </div>
+					</div>
+					
+				</form>	 		
+		  	</div>
+		</div>
+				
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

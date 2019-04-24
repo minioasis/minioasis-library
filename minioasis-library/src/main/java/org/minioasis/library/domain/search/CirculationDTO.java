@@ -17,7 +17,7 @@ public class CirculationDTO implements Serializable {
 	private Date given;
 	private boolean damage = false;
 	private String msg = null;
-	private BigDecimal payAmount= new BigDecimal(0);
+	private BigDecimal payAmount;
 	private Long[] ids = null;
 	private Reservation reservation = null;
 	

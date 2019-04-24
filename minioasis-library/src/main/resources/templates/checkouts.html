@@ -178,7 +178,7 @@
 						<td th:text="${e.finePaidAmount}">12.00</td>
 						<td th:text="${e.finePaidDate != null ? #calendars.format(e.finePaidDate,'yyyy-MM-dd') : ''}">2015-09-30</td>
 						<td th:text="${e.state}">CHECKOUT</td>
-						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/circ/checkout/edit/{id}(id=${e.id})}">Set L/D Fine</a></td>
+						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/circ/checkout/edit?id={id}(id=${e.id})}">Set L/D Fine</a></td>
 					</tr>
 					<tr th:remove="all">
 						<td>2</td>
