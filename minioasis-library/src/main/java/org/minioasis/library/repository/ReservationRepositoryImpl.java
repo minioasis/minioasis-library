@@ -3,24 +3,134 @@ package org.minioasis.library.repository;
 import java.util.Date;
 import java.util.Iterator;
 import java.util.List;
+import java.util.Set;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
+import javax.persistence.Query;
 
 import org.hibernate.CacheMode;
 import org.hibernate.ScrollMode;
 import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
+import org.jooq.Condition;
+import org.jooq.DSLContext;
+import org.jooq.Table;
+import org.jooq.impl.DSL;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationState;
+import org.minioasis.library.domain.search.ReservationCriteria;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageImpl;
+import org.springframework.data.domain.Pageable;
+
+import static org.minioasis.library.jooq.tables.Reservation.RESERVATION;
+import static org.minioasis.library.jooq.tables.Patron.PATRON;
+import static org.minioasis.library.jooq.tables.Biblio.BIBLIO;
 
 public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
 	@PersistenceContext
 	private EntityManager em;
+	
+	@Autowired
+	private DSLContext dsl;
+	
+	private org.minioasis.library.jooq.tables.Patron p = PATRON.as("p");
+	private org.minioasis.library.jooq.tables.Reservation r = RESERVATION.as("r");
+	private org.minioasis.library.jooq.tables.Biblio b = BIBLIO.as("b");
 
+	public Page<Reservation> findByCriteria(ReservationCriteria criteria, Pageable pageable){
+
+		Table<?> table = createTable(criteria);
+	
+		org.jooq.Query jooqQuery = dsl.select()
+									.from(table)
+									.where(condition(criteria))
+									.limit(pageable.getPageSize())
+									.offset((int)pageable.getOffset());
+		
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), Reservation.class);
+		setBindParameterValues(q, jooqQuery);
+		
+		List<Reservation> list = q.getResultList();
+		
+		long total = findCountByCriteriaLikeExpression(criteria);
+		
+		return new PageImpl<>(list, pageable, total);
+	}
+	
+	private long findCountByCriteriaLikeExpression(ReservationCriteria criteria) {
+
+		Table<?> table = createTable(criteria);
+		
+        long total = dsl.fetchCount(
+        						dsl.select(r.ID)
+        						.from(table)
+        						.where(condition(criteria))
+        );
+
+        return total;
+    }
+	
+	private static void setBindParameterValues(Query hibernateQuery, org.jooq.Query jooqQuery) {
+	    List<Object> values = jooqQuery.getBindValues();
+	    for (int i = 0; i < values.size(); i++) {
+	        hibernateQuery.setParameter(i + 1, values.get(i));
+	    }
+	}
+	
+	private Table<?> createTable(ReservationCriteria criteria) {
+
+		final String cardkey = criteria.getCardKey();
+		final String isbn = criteria.getIsbn();
+		
+		Table<?> table = r;
+		
+		if(cardkey != null) {
+			table = table.innerJoin(p).on(r.PATRON_ID.eq(p.ID)).and(p.CARD_KEY.eq(cardkey));
+		}
+		if(isbn != null) {
+			table = table.innerJoin(b).on(r.BIBLIO_ID.eq(b.ID)).and(b.ISBN.eq(isbn));
+		}
+		
+		return table;
+	}
+
+	private Condition condition(ReservationCriteria criteria) {
+		
+	    Condition condition = DSL.trueCondition();
+	    
+		final Date reservationDateFrom = criteria.getReservationDateFrom();
+		final Date reservationDateTo = criteria.getReservationDateTo();
+		final Date availableDateFrom = criteria.getAvailableDateFrom();
+		final Date availableDateTo = criteria.getAvailableDateTo();
+		final Date notificationDateFrom = criteria.getNotificationDateFrom();
+		final Date notificationDateTo = criteria.getNotificationDateTo();
+		final Set<ReservationState> states = criteria.getStates();
+		
+		if(reservationDateFrom != null && reservationDateTo != null){
+			condition = condition.and(r.RESERVATION_DATE.ge(new java.sql.Timestamp(reservationDateFrom.getTime()))
+							.and(r.RESERVATION_DATE.le(new java.sql.Timestamp(reservationDateTo.getTime()))));
+		}
+		if(availableDateFrom != null && availableDateTo != null){
+			condition = condition.and(r.AVAILABLE_DATE.ge(new java.sql.Date(availableDateFrom.getTime()))
+							.and(r.AVAILABLE_DATE.le(new java.sql.Date(availableDateTo.getTime()))));
+		}
+		if(notificationDateFrom != null && notificationDateTo != null){
+			condition = condition.and(r.NOTIFICATION_DATE.ge(new java.sql.Date(notificationDateFrom.getTime()))
+							.and(r.NOTIFICATION_DATE.le(new java.sql.Date(notificationDateTo.getTime()))));
+		}
+		if(states != null && states.size() > 0){
+			condition = condition.and(r.STATE.in(states));
+		}
+		
+	    return condition;
+	}	
+	
 	@SuppressWarnings("unchecked")
 	private List<Reservation> getExpiredBiblioReservations() {
 
@@ -36,13 +146,14 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 				.setParameter("state", ReservationState.NOTIFIED).getResultList();
 
 		session.close();
+		
 		return result;
 
 	}
 	
 	public void refreshReservationStates() {
 		
-		System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  refreshReservationStates");
+		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  refreshReservationStates");
 		Date now = new Date();
 		
 		clearExpiredReservations(now);

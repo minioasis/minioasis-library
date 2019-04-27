@@ -31,6 +31,7 @@ import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
+import org.minioasis.library.domain.search.ReservationCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -248,6 +249,7 @@ public interface LibraryService {
 	
 	List<Reservation> findReservationsByBiblioIdAndActiveStates(long id);
 	Page<Reservation> findAllReservations(Pageable pageable);
+	Page<Reservation> findByCriteria(ReservationCriteria criteria, Pageable pageable);
 	
 	void refreshReservationStates();
 	//void clearExpiredReservations(Date given);

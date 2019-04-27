@@ -36,6 +36,7 @@ import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
+import org.minioasis.library.domain.search.ReservationCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.AttachmentCheckoutRepository;
 import org.minioasis.library.repository.AttachmentRepository;
@@ -872,6 +873,10 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	public Page<Reservation> findAllReservations(Pageable pageable){
 		return this.reservationRepository.findAll(pageable);
+	}
+	
+	public Page<Reservation> findByCriteria(ReservationCriteria criteria, Pageable pageable){
+		return this.reservationRepository.findByCriteria(criteria, pageable);
 	}
 	
 	//Map findReservationsByCriteria(ReservationCmd command);

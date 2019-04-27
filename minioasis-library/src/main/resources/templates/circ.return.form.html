@@ -64,13 +64,13 @@
 			<table class="table">
 				<thead>
 					<tr class="warning">
-						<th>Card Key</th>
-						<th>Title</th>
-						<th>Item <i class="fas fa-barcode"></i></th>
-						<th>Checkout</th>
-						<th>Due</th>
-						<th>Completed</th>
-						<th>State</th>
+						<th th:text="#{card.key}">Card Key</th>
+						<th th:text="#{title}">Title</th>
+						<th th:text="#{item}">Item <i class="fas fa-barcode"></i></th>
+						<th th:text="#{checkout}">Checkout</th>
+						<th th:text="#{due.date}">Due</th>
+						<th th:text="#{completed}">Completed</th>
+						<th th:text="#{state}">State</th>
 					</tr>
 				</thead>
 	
@@ -101,12 +101,12 @@
 			<table class="table">
 				<thead>
 					<tr class="warning">
-						<th>Card Key</th>
-						<th>Description</th>
-						<th>Attachment <i class="fas fa-barcode"></i></th>
-						<th>Checkout</th>
-						<th>Completed</th>
-						<th>State</th>
+						<th th:text="#{card.key}">Card Key</th>
+						<th th:text="#{description}">Description</th>
+						<th th:text="#{attachment}">Attachment <i class="fas fa-barcode"></i></th>
+						<th th:text="#{checkout}">Checkout</th>
+						<th th:text="#{done}">Completed</th>
+						<th th:text="#{state}">State</th>
 					</tr>
 				</thead>
 	
@@ -137,11 +137,11 @@
 			<table class="table">
 				<thead>
 					<tr class="danger">
-						<th>Patron</th>
-						<th>CardKey</th>
-						<th>Reservation Date</th>
-						<th>Expired</th>
-						<th>State</th>
+						<th th:text="#{patron}">Patron</th>
+						<th th:text="#{card.key}">CardKey</th>
+						<th th:text="#{reservation.date}">Reservation Date</th>
+						<th th:text="#{expiry.date}">Expired</th>
+						<th th:text="#{state}">State</th>
 					</tr>
 				</thead>
 	
