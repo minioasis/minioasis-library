@@ -40,7 +40,7 @@ import org.minioasis.library.jooq.tables.records.AttachmentCheckoutRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AttachmentCheckout extends TableImpl<AttachmentCheckoutRecord> {
 
-    private static final long serialVersionUID = -1581533700;
+    private static final long serialVersionUID = 551710559;
 
     /**
      * The reference instance of <code>PUBLIC.ATTACHMENT_CHECKOUT</code>
@@ -66,9 +66,9 @@ public class AttachmentCheckout extends TableImpl<AttachmentCheckoutRecord> {
     public final TableField<AttachmentCheckoutRecord, Date> CHECKOUT_DATE = createField("CHECKOUT_DATE", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.ATTACHMENT_CHECKOUT.COMPLETED</code>.
+     * The column <code>PUBLIC.ATTACHMENT_CHECKOUT.DONE</code>.
      */
-    public final TableField<AttachmentCheckoutRecord, Date> COMPLETED = createField("COMPLETED", org.jooq.impl.SQLDataType.DATE, this, "");
+    public final TableField<AttachmentCheckoutRecord, Date> DONE = createField("DONE", org.jooq.impl.SQLDataType.DATE, this, "");
 
     /**
      * The column <code>PUBLIC.ATTACHMENT_CHECKOUT.STATE</code>.

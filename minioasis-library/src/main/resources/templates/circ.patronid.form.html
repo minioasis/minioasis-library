@@ -15,6 +15,9 @@
 				<div class="card-body">
 					<h1 class="display-5 text-success">
 						<i class="fas fa-shopping-cart"></i> <span th:text="#{checkout}">Checkout</span>
+						<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/return}">
+							<i class="fas fa-arrow-down"></i>
+						</a>
 					</h1>
 					
 					<hr></hr>
@@ -31,6 +34,7 @@
 								class="form-control form-control-lg col-sm"
 								autofocus="autofocus" th:placeholder="#{card.key}" />
 						</div>
+						<input class="sr-only" type="submit" name="search" value="Submit" />
 					</form>
 				</div>
 			</div>

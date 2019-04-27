@@ -24,6 +24,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
 import org.minioasis.library.domain.search.AttachmentCriteria;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.CheckoutCriteria;
@@ -87,6 +88,7 @@ public interface LibraryService {
 	AttachmentCheckout getAttachmentCheckout(long id);
 	List<AttachmentCheckout> findAllAttachmentCheckouts(Sort sort);
 	Page<AttachmentCheckout> findAllAttachmentCheckouts(Pageable pageable);
+	Page<AttachmentCheckout> findByCriteria(AttachmentCheckoutCriteria criteria, Pageable pageable);
 	
 	// Biblio	
 	void save(Biblio entity);

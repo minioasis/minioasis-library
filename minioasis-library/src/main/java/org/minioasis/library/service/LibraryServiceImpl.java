@@ -29,6 +29,7 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
 import org.minioasis.library.domain.search.AttachmentCriteria;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.CheckoutCriteria;
@@ -298,6 +299,9 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<AttachmentCheckout> findAllAttachmentCheckouts(Pageable pageable){
 		return this.attachmentCheckoutRepository.findAll(pageable);
+	}
+	public Page<AttachmentCheckout> findByCriteria(AttachmentCheckoutCriteria criteria, Pageable pageable){
+		return this.attachmentCheckoutRepository.findByCriteria(criteria, pageable);
 	}
 	
 	/****************************************  Biblio  *****************************************/

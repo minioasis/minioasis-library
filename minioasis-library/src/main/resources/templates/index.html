@@ -63,7 +63,7 @@
 				
 				<span th:text="#{attachment.checkout}">Attachment Check Out </span>
 				<br>
-				<a class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}" class="btn btn-outline-success text-success">
 					<i class="fas fa-paperclip"></i>
 					<i class="fas fa-shopping-cart"></i>
 				</a>
@@ -72,7 +72,7 @@
 				
 				<span th:text="#{checkin}">Check In</span>
 				<br>
-				<a class="btn btn-outline-success text-success">
+				<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/return}">
 					<i class="fas fa-arrow-down"></i>
 				</a>
 				

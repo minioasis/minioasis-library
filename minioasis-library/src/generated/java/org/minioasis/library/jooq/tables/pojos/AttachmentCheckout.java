@@ -23,11 +23,11 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AttachmentCheckout implements Serializable {
 
-    private static final long serialVersionUID = -535280344;
+    private static final long serialVersionUID = -941161737;
 
     private Long   id;
     private Date   checkoutDate;
-    private Date   completed;
+    private Date   done;
     private String state;
     private Long   attachmentId;
     private Long   checkoutId;
@@ -38,7 +38,7 @@ public class AttachmentCheckout implements Serializable {
     public AttachmentCheckout(AttachmentCheckout value) {
         this.id = value.id;
         this.checkoutDate = value.checkoutDate;
-        this.completed = value.completed;
+        this.done = value.done;
         this.state = value.state;
         this.attachmentId = value.attachmentId;
         this.checkoutId = value.checkoutId;
@@ -48,7 +48,7 @@ public class AttachmentCheckout implements Serializable {
     public AttachmentCheckout(
         Long   id,
         Date   checkoutDate,
-        Date   completed,
+        Date   done,
         String state,
         Long   attachmentId,
         Long   checkoutId,
@@ -56,7 +56,7 @@ public class AttachmentCheckout implements Serializable {
     ) {
         this.id = id;
         this.checkoutDate = checkoutDate;
-        this.completed = completed;
+        this.done = done;
         this.state = state;
         this.attachmentId = attachmentId;
         this.checkoutId = checkoutId;
@@ -79,12 +79,12 @@ public class AttachmentCheckout implements Serializable {
         this.checkoutDate = checkoutDate;
     }
 
-    public Date getCompleted() {
-        return this.completed;
+    public Date getDone() {
+        return this.done;
     }
 
-    public void setCompleted(Date completed) {
-        this.completed = completed;
+    public void setDone(Date done) {
+        this.done = done;
     }
 
     public String getState() {
@@ -125,7 +125,7 @@ public class AttachmentCheckout implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(checkoutDate);
-        sb.append(", ").append(completed);
+        sb.append(", ").append(done);
         sb.append(", ").append(state);
         sb.append(", ").append(attachmentId);
         sb.append(", ").append(checkoutId);

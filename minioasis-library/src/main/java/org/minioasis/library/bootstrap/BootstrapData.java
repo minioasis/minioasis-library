@@ -254,7 +254,7 @@ public class BootstrapData implements CommandLineRunner {
 		itemRepository.save(i2);
 	
 		Item i3 = new Item();
-		i3.setActive(YesNo.N);
+		i3.setActive(YesNo.Y);
 		i3.setBarcode("333");
 		i3.setBiblio(b3);
 		i3.setChecked(YesNo.N);
@@ -262,7 +262,7 @@ public class BootstrapData implements CommandLineRunner {
 		i3.setExpired(date("2016-10-10"));
 		i3.setFirstCheckin(date("2015-10-10"));
 		i3.setItemDuration(d1);
-		i3.setState(ItemState.IN_LIBRARY);
+		i3.setState(ItemState.CHECKOUT);
 		i3.setItemStatus(is1);
 		i3.setLastCheckin(date("2015-10-10"));
 		i3.setLastFullRenewPerson("Karuna");
@@ -486,10 +486,10 @@ public class BootstrapData implements CommandLineRunner {
 		Checkout co1 = new Checkout(date("2019-01-10"), date("2019-02-10"), new Integer(0), CheckoutState.CHECKOUT, p1, i1);
 		checkoutRepository.save(co1);
 		
-		Checkout co2 = new Checkout(date("2019-09-10"), date("2019-09-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
+		Checkout co2 = new Checkout(date("2019-04-20"), date("2019-05-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
 		checkoutRepository.save(co2);
 		
-		Checkout co3 = new Checkout(date("2019-10-10"), date("2019-11-10"), new Integer(0), CheckoutState.CHECKOUT, p3, i3);
+		Checkout co3 = new Checkout(date("2019-04-25"), date("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p3, i3);
 		checkoutRepository.save(co3);
 		
 	}

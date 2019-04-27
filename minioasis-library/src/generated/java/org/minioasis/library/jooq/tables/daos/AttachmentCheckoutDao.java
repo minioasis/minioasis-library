@@ -72,10 +72,10 @@ public class AttachmentCheckoutDao extends DAOImpl<AttachmentCheckoutRecord, org
     }
 
     /**
-     * Fetch records that have <code>COMPLETED IN (values)</code>
+     * Fetch records that have <code>DONE IN (values)</code>
      */
-    public List<org.minioasis.library.jooq.tables.pojos.AttachmentCheckout> fetchByCompleted(Date... values) {
-        return fetch(AttachmentCheckout.ATTACHMENT_CHECKOUT.COMPLETED, values);
+    public List<org.minioasis.library.jooq.tables.pojos.AttachmentCheckout> fetchByDone(Date... values) {
+        return fetch(AttachmentCheckout.ATTACHMENT_CHECKOUT.DONE, values);
     }
 
     /**

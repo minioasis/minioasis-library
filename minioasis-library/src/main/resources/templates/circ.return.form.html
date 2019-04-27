@@ -1,0 +1,172 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-5 pb-3">
+		
+		<div class="col-8">
+			<div class="card inf-content">
+				<div class="card-body">
+					<h1 class="display-5 text-success">
+						<i class="fas fa-arrow-down"></i> <span th:text="#{return}">Return</span>
+						<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/patronid.form}">
+							<i class="fas fa-shopping-cart"></i>
+						</a>
+					</h1>
+					
+					<hr></hr>
+					
+					<p class="lead" th:text="#{key.in.item.barcode}">Please key in	item barcode</p>
+	
+					<form class="form" action="#" th:action="@{/circ/return}" th:object="${dto}" method="post">
+						<div class="form-row">
+						  <div class="col-md-4 mb-4">
+						   	<label th:text="#{barcode}">Item Barcode</label>
+						   	<input class="form-control form-control-lg col-sm" type="text" th:field="*{barcode}" autofocus="autofocus"/>
+							<p class="text-danger" th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"></p>
+						  </div>
+						  <div class="col-md-3 mb-3">
+						   	<label th:text="#{when}">When</label>
+						   	<input type="text" class="form-control form-control-lg col-sm"	th:field="*{given}" placeholder="yyyy-MM-dd" />
+							<p class="text-danger" th:if="${#fields.hasErrors('given')}" th:errors="*{given}"></p>
+						  </div>
+						  <div class="col-md-2 mb-2">
+						   	<label th:text="#{damage}">Damage</label>
+						   	<input type="checkbox" class="form-control form-control-lg col-sm"	th:field="*{damage}" />
+							<p class="text-danger" th:if="${#fields.hasErrors('damage')}" th:errors="*{damage}"></p>
+						  </div>
+						  <div class="col-md-3 mb-3">
+							<div class="text-danger" th:if="${RETURN_ERRORS != null}">
+								<ul th:each="e : ${RETURN_ERRORS}">
+					        	  <li th:text="${e}"></li>
+								</ul>
+							</div>
+						  </div>
+						</div>
+						
+						<input class="sr-only" type="submit" name="search" value="Submit" />
+						
+					</form>
+					
+				</div>
+			</div>
+		</div>
+		
+		<br>
+
+		<div class="table-responsive" th:if="${icheckout != null}">					
+			<table class="table">
+				<thead>
+					<tr class="warning">
+						<th>Card Key</th>
+						<th>Title</th>
+						<th>Item <i class="fas fa-barcode"></i></th>
+						<th>Checkout</th>
+						<th>Due</th>
+						<th>Completed</th>
+						<th>State</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr>
+						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${icheckout.patron.cardKey})}" th:text="${icheckout.patron.cardKey}">cardKey</a></td>
+						<td th:text="${icheckout.item.biblio.title}">Title</td>
+						<td th:text="${icheckout.item.barcode}">Barcode</td>
+						<td th:text="${#calendars.format(icheckout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(icheckout.dueDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(icheckout.done,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${icheckout.state}">State</td>
+					</tr>
+					<tr th:remove="all">
+						<td>cardkey2</td>
+						<td>Day After Tomorrow</td>
+						<td>barcode</td>
+						<td>2015-01-01</td>
+						<td>2015-01-02</td>
+						<td>2015-01-02</td>
+						<td>IN_LIBRARY</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" th:if="${acheckout != null}">					
+			<table class="table">
+				<thead>
+					<tr class="warning">
+						<th>Card Key</th>
+						<th>Description</th>
+						<th>Attachment <i class="fas fa-barcode"></i></th>
+						<th>Checkout</th>
+						<th>Completed</th>
+						<th>State</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr>
+						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${acheckout.patron.cardKey})}" th:text="${acheckout.patron.cardKey}">cardKey</a></td>
+						<td th:text="${acheckout.attachment.description}">Description</td>
+						<td th:text="${acheckout.attachment.barcode}">Barcode</td>
+						<td th:text="${#calendars.format(acheckout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(acheckout.completed,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${acheckout.state}">State</td>
+					</tr>
+					<tr th:remove="all">
+						<td>cardkey2</td>
+						<td>Day After Tomorrow</td>
+						<td>barcode</td>
+						<td>2015-01-01</td>
+						<td>2015-01-02</td>
+						<td>IN_LIBRARY</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+
+		<div class="table-responsive" th:if="${reservation != null}">
+		
+			<h3>This Book Has Reservation !</h3>				
+			<table class="table">
+				<thead>
+					<tr class="danger">
+						<th>Patron</th>
+						<th>CardKey</th>
+						<th>Reservation Date</th>
+						<th>Expired</th>
+						<th>State</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr>
+						<td th:text="${reservation.patron.name}">Name</td>
+						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${reservation.patron.cardKey})}" th:text="${reservation.patron.cardKey}">cardKey</a></td>
+						<td th:text="${#calendars.format(reservation.reservationDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(reservation.expiryDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${reservation.state}">State</td>
+					</tr>
+					<tr th:remove="all">
+						<td>Moon</td>
+						<td>5456464</td>
+						<td>2015-01-01</td>
+						<td>2015-01-02</td>
+						<td>RESERVE</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+			
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

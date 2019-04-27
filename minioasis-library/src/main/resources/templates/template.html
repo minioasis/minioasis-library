@@ -10,6 +10,13 @@
 
 	<div class="container pt-3 pb-3">
 
+		<h4>
+			<span th:text="#{title}">Title</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/title/list(page=0,size=10,sort='title,desc')}">
+				<i class="fas fa-search"></i>
+			</a>
+		</h4>
+		
 		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>
 	</div>

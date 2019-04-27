@@ -199,7 +199,7 @@ public class Attachment implements Serializable {
 		if (this.state.equals(AttachmentState.CHECKOUT)
 				|| this.state.equals(AttachmentState.LOST)) {
 		
-			ac.setCompleted(given);
+			ac.setDone(given);
 			setLastCheckin(given);
 
 			if (damageBadly) {

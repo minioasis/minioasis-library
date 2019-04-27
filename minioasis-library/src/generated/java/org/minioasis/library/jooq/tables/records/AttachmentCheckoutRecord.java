@@ -29,7 +29,7 @@ import org.minioasis.library.jooq.tables.AttachmentCheckout;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AttachmentCheckoutRecord extends UpdatableRecordImpl<AttachmentCheckoutRecord> implements Record7<Long, Date, Date, String, Long, Long, Long> {
 
-    private static final long serialVersionUID = 1425239188;
+    private static final long serialVersionUID = 70120874;
 
     /**
      * Setter for <code>PUBLIC.ATTACHMENT_CHECKOUT.ID</code>.
@@ -60,16 +60,16 @@ public class AttachmentCheckoutRecord extends UpdatableRecordImpl<AttachmentChec
     }
 
     /**
-     * Setter for <code>PUBLIC.ATTACHMENT_CHECKOUT.COMPLETED</code>.
+     * Setter for <code>PUBLIC.ATTACHMENT_CHECKOUT.DONE</code>.
      */
-    public void setCompleted(Date value) {
+    public void setDone(Date value) {
         set(2, value);
     }
 
     /**
-     * Getter for <code>PUBLIC.ATTACHMENT_CHECKOUT.COMPLETED</code>.
+     * Getter for <code>PUBLIC.ATTACHMENT_CHECKOUT.DONE</code>.
      */
-    public Date getCompleted() {
+    public Date getDone() {
         return (Date) get(2);
     }
 
@@ -182,7 +182,7 @@ public class AttachmentCheckoutRecord extends UpdatableRecordImpl<AttachmentChec
      */
     @Override
     public Field<Date> field3() {
-        return AttachmentCheckout.ATTACHMENT_CHECKOUT.COMPLETED;
+        return AttachmentCheckout.ATTACHMENT_CHECKOUT.DONE;
     }
 
     /**
@@ -238,7 +238,7 @@ public class AttachmentCheckoutRecord extends UpdatableRecordImpl<AttachmentChec
      */
     @Override
     public Date component3() {
-        return getCompleted();
+        return getDone();
     }
 
     /**
@@ -294,7 +294,7 @@ public class AttachmentCheckoutRecord extends UpdatableRecordImpl<AttachmentChec
      */
     @Override
     public Date value3() {
-        return getCompleted();
+        return getDone();
     }
 
     /**
@@ -352,7 +352,7 @@ public class AttachmentCheckoutRecord extends UpdatableRecordImpl<AttachmentChec
      */
     @Override
     public AttachmentCheckoutRecord value3(Date value) {
-        setCompleted(value);
+        setDone(value);
         return this;
     }
 
@@ -421,12 +421,12 @@ public class AttachmentCheckoutRecord extends UpdatableRecordImpl<AttachmentChec
     /**
      * Create a detached, initialised AttachmentCheckoutRecord
      */
-    public AttachmentCheckoutRecord(Long id, Date checkoutDate, Date completed, String state, Long attachmentId, Long checkoutId, Long patronId) {
+    public AttachmentCheckoutRecord(Long id, Date checkoutDate, Date done, String state, Long attachmentId, Long checkoutId, Long patronId) {
         super(AttachmentCheckout.ATTACHMENT_CHECKOUT);
 
         set(0, id);
         set(1, checkoutDate);
-        set(2, completed);
+        set(2, done);
         set(3, state);
         set(4, attachmentId);
         set(5, checkoutId);

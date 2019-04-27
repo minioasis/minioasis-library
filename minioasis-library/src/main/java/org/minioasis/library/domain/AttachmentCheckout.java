@@ -47,8 +47,8 @@ public class AttachmentCheckout implements Serializable {
 	private Date checkoutDate;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "completed")
-	private Date completed;
+	@Column(name = "done")
+	private Date done;
 	
     @NotNull
 	@Enumerated(EnumType.STRING)
@@ -69,10 +69,10 @@ public class AttachmentCheckout implements Serializable {
 	
 	public AttachmentCheckout() {}
 
-	public AttachmentCheckout(Date checkoutDate, Date completed, AttachmentCheckoutState state, 
+	public AttachmentCheckout(Date checkoutDate, Date done, AttachmentCheckoutState state, 
 			Patron patron, Attachment attachment, Checkout checkout) {
 		this.checkoutDate = checkoutDate;
-		this.completed = completed;
+		this.done = done;
 		this.state = state;
 		this.patron = patron;
 		this.attachment = attachment;
@@ -95,12 +95,12 @@ public class AttachmentCheckout implements Serializable {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public Date getCompleted() {
-		return completed;
+	public Date getDone() {
+		return done;
 	}
 
-	public void setCompleted(Date completed) {
-		this.completed = completed;
+	public void setDone(Date done) {
+		this.done = done;
 	}
 
 	public AttachmentCheckoutState getState() {

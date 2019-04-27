@@ -4,9 +4,9 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.minioasis.library.domain.Checkout;
-import org.minioasis.library.domain.CheckoutState;
-import org.minioasis.library.domain.search.CheckoutCriteria;
+import org.minioasis.library.domain.AttachmentCheckout;
+import org.minioasis.library.domain.AttachmentCheckoutState;
+import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
 import org.minioasis.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,35 +20,34 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/checkout")
-public class CheckoutListSearch {
+@RequestMapping("/attachment.checkout")
+public class AttachmentCheckoutListSearch {
 
 	@Autowired
 	private LibraryService service;
 	
-	@ModelAttribute("checkoutStatez")
-	public CheckoutState[] populateCheckoutState() {
-		return CheckoutState.values();	
+	@ModelAttribute("attachmentCheckoutStatez")
+	public AttachmentCheckoutState[] populateAttachmentCheckoutState() {
+		return AttachmentCheckoutState.values();	
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String checkouts(Model model, Pageable pageable) {
+	public String attachmentCheckouts(Model model, Pageable pageable) {
 
-		Page<Checkout> page = this.service.findAllCheckouts(pageable);	
+		Page<AttachmentCheckout> page = this.service.findAllAttachmentCheckouts(pageable);
 		
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
-		model.addAttribute("criteria", new CheckoutCriteria());
+		model.addAttribute("criteria", new AttachmentCheckoutCriteria());
 		
-		return "checkouts";
+		return "attachmentcheckouts";
 		
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") CheckoutCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") AttachmentCheckoutCriteria criteria, HttpServletRequest request, Map<String,String> params, 
 			Model model, Pageable pageable) {
-
-		Page<Checkout> page = this.service.findByCriteria(criteria, pageable);
+		
+		Page<AttachmentCheckout> page = this.service.findByCriteria(criteria, pageable);
 		
 		String next = buildUri(request, page.getNumber() + 1);
 		String previous = buildUri(request, page.getNumber() - 1);
@@ -58,7 +57,7 @@ public class CheckoutListSearch {
 		model.addAttribute("previous", previous);
 		model.addAttribute("pagingType", "search");
 		
-		return "checkouts";
+		return "attachmentcheckouts";
 
 	}
 	
@@ -66,7 +65,7 @@ public class CheckoutListSearch {
 		UriComponents uc = ServletUriComponentsBuilder.fromRequest(request)
 		        .replaceQueryParam("page", "{id}").build()
 		        .expand(page);
-
+		
 		return uc.toUriString();
 	}
 	

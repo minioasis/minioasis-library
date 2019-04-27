@@ -703,8 +703,11 @@ public class Patron implements Serializable {
 			// check returnDate , it cannot < checkoutDate
 
 			/*
-			 * fine | damage | state 1 | 1 | RETURN_WITH_DAMAGE_AND_FINE 1 | 0 |
-			 * RETURN_WITH_FINE 0 | 1 | RETURN_WITH_DAMAGE 0 | 0 | RETURN
+			 * fine |damage | state
+			 * 	1 	| 	1 	| RETURN_WITH_DAMAGE_AND_FINE
+			 * 	1 	| 	0 	| RETURN_WITH_FINE
+			 * 	0 	| 	1 	| RETURN_WITH_DAMAGE
+			 * 	0 	| 	0 	| RETURN
 			 */
 
 			// set checkout state
@@ -833,13 +836,14 @@ public class Patron implements Serializable {
 			if (notification.hasErrors())
 				throw new LibraryException(notification.getAllMessages());
 
-			ac.setCompleted(given);
+			ac.setDone(given);
 			attachment.setLastCheckin(given);
 
 			if (damageBadly) {
 				ac.setState(AttachmentCheckoutState.DAMAGE);
 				attachment.setState(AttachmentState.DAMAGE);
 			} else {
+				// if this is a LOST item, then return
 				ac.setState(AttachmentCheckoutState.RETURN);
 				attachment.setState(AttachmentState.IN_LIBRARY);
 
@@ -848,7 +852,7 @@ public class Patron implements Serializable {
 			removeAttachmentCheckout(ac);
 
 		}
-
+		
 		if (attachment.getState().equals(AttachmentState.IN_LIBRARY)) {
 			throw new LibraryException(CirculationCode.ITEM_IN_LIBRARY);
 		}
@@ -1020,9 +1024,9 @@ public class Patron implements Serializable {
 			throw new LibraryException(CirculationCode.ATTACHMENTCHECKOUT_NOT_FOUND);
 		}
 
-		ac.setCompleted(given);
+		ac.setDone(given);
 		ac.setState(AttachmentCheckoutState.LOST);
-		ac.getAttachment().setState(AttachmentState.LOST);
+		attachment.setState(AttachmentState.LOST);
 
 	}
 

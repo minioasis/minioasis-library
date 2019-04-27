@@ -1,7 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.math.BigDecimal;
-
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutState;
 import org.minioasis.library.service.LibraryService;
@@ -32,7 +30,7 @@ public class CheckoutController {
 		}
 		
 		model.addAttribute("checkout", c);
-		return "checkout.fine.form";
+		return "checkout.edit.form";
 		
 	}
 	
@@ -40,7 +38,7 @@ public class CheckoutController {
 	public String edit(Checkout checkout, BindingResult result, Model model) {
 		
 		if (result.hasErrors()) {
-			return "checkout.fine.form";
+			return "checkout.edit.form";
 		}
 		else 
 		{
