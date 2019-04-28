@@ -13,10 +13,8 @@
 			crossorigin="anonymous">
 		<link rel="stylesheet" type="text/css" href="/css/minioasis.css" th:href="@{/css/minioasis.css}"/>
 		<link rel="stylesheet" type="text/css" href="/css/dropzone.min.css" th:href="@{/css/dropzone.min.css}"/>
-		<link rel="stylesheet" type="text/css" href="/css/easy-autocomplete.min.css" th:href="@{/css/easy-autocomplete.min.css}">
 		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
 		<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
-		<script src="/js/jquery.easy-autocomplete.min.js" th:src="@{/js/jquery.easy-autocomplete.min.js}"></script>
 			
 		<title th:text="${title}">Page Title</title>
 	</head>
@@ -95,7 +93,7 @@
 					<thead>
 						<tr class="warning">
 							<th>#</th>
-							<th><span th:text="#{active}"></span> | <input type="checkbox" id="checkall" /></th>
+							<th><span th:text="#{all}"></span> | <input type="checkbox" id="checkall" /></th>
 							<th th:text="#{title}">Title</th>
 							<th th:text="#{patron.type}">P.Type</th>
 							<th><i class="fas fa-barcode"></i></th>

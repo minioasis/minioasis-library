@@ -35,7 +35,7 @@
 				
 				<span th:text="#{patron.change.group}">Change Group</span>
 				<br>
-				<a class="btn btn-outline-info text-info">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=10,sort='cardKey,desc')}">
 					<i class="fas fa-random"></i>
 				</a>
 
@@ -80,8 +80,8 @@
 				
 				<span th:text="#{reservation.notification}">Reservation Notification</span>		
 				<br>
-				<a class="btn btn-outline-success text-success">
-					<i class="fas fa-mobile-alt"></i>
+				<a href="#" th:href="@{/reservation/notification/list(page=0,size=10,sort='reservationDate,desc',states='AVAILABLE',states='NOTIFIED')}" class="btn btn-outline-success text-success">
+					<i class="fas fa-mobile-alt"></i> a
 				</a>
 				<a href="#" th:href="@{/reservation/list(page=0,size=10,sort='reservationDate,desc')}" class="btn btn-outline-success text-success">
 					<i class="fas fa-search"></i>

@@ -66,7 +66,7 @@ public class Reservation implements Serializable {
 	private Date cancelDate;
 	
 	@Temporal(TemporalType.DATE)
-	@Column(name = "unCollected_date")
+	@Column(name = "uncollected_date")
 	private Date unCollectedDate;
 	
     @NotNull

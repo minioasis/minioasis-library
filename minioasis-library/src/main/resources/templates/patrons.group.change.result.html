@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+		<h4>
+			<span th:text="#{patron} + ' (' + #{done} + ')'">Patrons (Done)</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=10,sort='cardKey,desc')}">
+				<i class="fas fa-random"></i>
+			</a>
+		</h4>
+
+		Total : <span th:text="${patrons.size()}">105</span>
+
+		<div class="table-responsive">					
+			<table class="table table-striped">
+				<thead>
+					<tr class="info">
+						<th>#</th>
+						<th>Group</th>
+						<th>Name</th>
+						<th>Name2</th>
+						<th>Entangled</th>
+						<th>Card Key</th>
+						<th>Start Date</th>
+						<th>End Date</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${patrons}">
+						<td th:text="${iterator.index + 1}">1</td>
+						<td class="text-primary" th:text="${e.group.code}">4S1S</td>
+						<td th:text="${e.name}">Moan Wai Meng</td>
+						<td th:text="${e.name2}">Mr. Moon</td>
+						<td th:text="${e.entangled}">2321321</td>
+						<td th:text="${e.cardKey}">Card Key</td>
+						<td th:text="${#calendars.format(e.startDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(e.endDate,'yyyy-MM-dd')}">2015-08-31</td>
+					</tr>
+					<tr th:remove="all">
+						<td>2</td>
+						<td>4S1S</td>
+						<td>Name</td>
+						<td>Name2</td>
+						<td>Entangled</td>
+						<td>Card Key</td>
+						<td>2015-01-01</td>
+						<td>2015-01-02</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+				
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
