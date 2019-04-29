@@ -26,7 +26,7 @@
 
 		<h4>
 			<span th:text="#{search.patron} + ' ('+ #{change.group} + ')'">Search Patron (Change Group)</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=10,sort='cardKey,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
 				<i class="fas fa-random"></i>
 			</a>	
 		</h4>
@@ -55,7 +55,7 @@
 		<form  action="#" th:action="@{/patron/group.change/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
-			<input type="hidden" id="size" name="size" value="10" />
+			<input type="hidden" id="size" name="size" value="60" />
 			<input type="hidden" id="sort" name="sort" value="cardKey,desc" />
 						
 			<div class="tab-content" id="myTabContent">

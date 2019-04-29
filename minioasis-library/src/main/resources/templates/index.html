@@ -35,7 +35,7 @@
 				
 				<span th:text="#{patron.change.group}">Change Group</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=10,sort='cardKey,desc')}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
 					<i class="fas fa-random"></i>
 				</a>
 
@@ -178,12 +178,42 @@
 		      	
 				<span th:text="#{stock.check.reset}">Stock Check / Reset</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger">
-				    <i class="fas fa-search"></i>
-		      	</a>
-		      	<a class="btn btn-outline-danger text-danger">
-				    <i class="fas fa-clipboard-check"></i>
-		      	</a>
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/stock.check/item}">
+					<i class="far fa-check-circle"></i>
+				</a>
+				<!-- Button trigger modal -->
+		      	<a class="btn btn-outline-danger text-danger" data-toggle="modal" data-target="#reset">
+				    <i class="fas fa-history"></i>
+		      	</a>			
+						      	
+				<!-- Modal -->
+				<div class="modal fade" id="reset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+
+					<form class="form" action="#" th:action="@{/stock.check/reset}" method="post">
+								  
+					  <div class="modal-dialog" role="document">
+					    <div class="modal-content">
+					      <div class="modal-header">
+					        <h4 class="modal-title" id="myModalLabel" th:text="#{reset.marking}">Reset Stock Check Marking ?</h4>
+					        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+					        	<span aria-hidden="true">&times;</span>
+					        </button>
+					      </div>
+					      <div class="modal-body">
+					        <p>Do you really want to reset all the <code>stockcheck</code> markings ? </p>
+					        <p>This will change ALL the item's <code>stockcheck</code> marking to <code>N</code> !! </p>
+					      </div>
+					      <div class="modal-footer">
+					        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+					        <button type="submit" class="btn btn-primary">Reset</button>
+					      </div>
+					    </div>
+					  </div>
+					  
+					</form>
+					
+				</div><!-- Modal -->
+				
 		    </div>
 
 		  </div> <!-- row -->

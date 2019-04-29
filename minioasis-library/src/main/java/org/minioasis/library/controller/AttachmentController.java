@@ -71,7 +71,7 @@ public class AttachmentController {
 			
 			// cannot have same barcode for item and attachment
 			// attachment's barcode has to be unique even compare to item's barcode !
-			Item item = this.service.findByBarcode(barcode);
+			Item item = this.service.getItemFetchBiblio(barcode);
 			if(item != null){
 				result.rejectValue("barcode","error.not.unique");			
 				return "attachment.form";
@@ -115,7 +115,7 @@ public class AttachmentController {
 			
 		} else {
 
-			Item item = this.service.findByBarcode(barcode);
+			Item item = this.service.getItemFetchBiblio(barcode);
 			if(item != null){
 				result.rejectValue("barcode","error.not.unique");			
 				return "attachment.form";

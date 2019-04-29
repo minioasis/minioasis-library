@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+<!-- https://getbootstrap.com/docs/4.3/components/forms/ -->
+
+	<div class="container pt-5 pb-3">
+
+		<div class="col-6">
+			<div class="card inf-content">
+			
+				<div class="card-body">			
+					<h1 class="display-5 text-success">
+						<i class="fas fa-check"></i> <span th:text="#{check.item}">Check Item</span>
+						<a class="btn btn-outline-success text-success" href="#" th:href="@{/stock.check/item}">
+							<i class="far fa-check-circle"></i>
+						</a>
+					</h1>
+					
+					<hr></hr>
+					
+					<p class="lead" th:text="#{scan.item.barcode}">Please scan item's barcode.</p>
+	
+					<form  action="#" th:action="@{/stock.check/item}" th:object="${cmd}" method="POST">
+
+						<h3 class="text-danger" th:errors="*">Errors</h3>
+						
+						<div class="form-group">
+							<input type="text" class="form-control"	th:field="*{barcode}" autofocus="autofocus" th:placeholder="#{barcode}" />
+						</div>		
+								
+						<input class="sr-only" type="submit" name="search" value="Submit"/>
+						
+					</form>
+				</div>
+				
+			</div>
+		</div>
+
+		<hr/>
+
+		<div class="table-responsive" th:if="${cmd.item.biblio != null}">					
+			<table class="table">
+				<thead>
+					<tr class="info">
+						<th th:text="#{barcode}">Barcode</th>
+						<th th:text="#{active}">Active</th>
+						<th th:text="#{title}">Title</th>
+						<th th:text="#{checked}">Checked</th>
+						<th th:text="#{location}">Location</th>
+						<th th:text="#{1st.checkin}">1st In</th>
+						<th th:text="#{last.checkin}">Last In</th>
+						<th th:text="#{expired}">Expired</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr>
+						<td th:text="${cmd.item.barcode}">E23122131</td>
+						<td th:text="${cmd.item.active}">Y</td>
+						<td th:text="${cmd.item.biblio.title}">Feynman</td>
+						<td th:text="${cmd.item.checked}">Y</td>
+						<td th:text="${cmd.item.location.name}">Kepong</td>
+						<td th:text="${#calendars.format(cmd.item.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(cmd.item.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#calendars.format(cmd.item.created,'yyyy-MM-dd')}">2015-08-31</td>
+					</tr>
+					<tr th:remove="all">
+						<td>2</td>
+						<td>Y</td>
+						<td>E1212121</td>
+						<td>Feynman Lecture</td>
+						<td>N</td>
+						<td>location</td>
+						<td>2019-01-01</td>
+						<td>2019-01-01</td>
+						<td>2019-01-01</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+						
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
