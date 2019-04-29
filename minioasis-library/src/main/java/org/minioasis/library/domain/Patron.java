@@ -827,38 +827,47 @@ public class Patron implements Serializable {
 
 	public void checkin(Attachment attachment, Date given, boolean damageBadly) {
 
-		if (attachment.getState().equals(AttachmentState.CHECKOUT)
-				|| attachment.getState().equals(AttachmentState.LOST)) {
-
-			AttachmentCheckout ac = findAttachmentCheckout(attachment);
-
-			Notification notification = checkinValidation(ac, given);
-			if (notification.hasErrors())
-				throw new LibraryException(notification.getAllMessages());
-
-			ac.setDone(given);
-			attachment.setLastCheckin(given);
-
-			if (damageBadly) {
-				ac.setState(AttachmentCheckoutState.DAMAGE);
-				attachment.setState(AttachmentState.DAMAGE);
-			} else {
-				// if this is a LOST item, then return
-				ac.setState(AttachmentCheckoutState.RETURN);
-				attachment.setState(AttachmentState.IN_LIBRARY);
-
-			}
-
-			removeAttachmentCheckout(ac);
-
+		AttachmentState state = attachment.getState();
+		
+		int stateNo = 0;
+		
+		if(state.equals(AttachmentState.IN_LIBRARY)) {
+			stateNo = 1;
+		} else if (state.equals(AttachmentState.DAMAGE)){
+			stateNo = 2;
+		} else if (state.equals(AttachmentState.CHECKOUT) || 
+					state.equals(AttachmentState.LOST)){
+			stateNo = 3;
 		}
 		
-		if (attachment.getState().equals(AttachmentState.IN_LIBRARY)) {
-			throw new LibraryException(CirculationCode.ITEM_IN_LIBRARY);
-		}
+		switch (stateNo) {
 
-		if (attachment.getState().equals(AttachmentState.DAMAGE)) {
-			throw new LibraryException(CirculationCode.ITEM_DAMAGED);
+			case 1 :
+				throw new LibraryException(CirculationCode.ITEM_IN_LIBRARY);
+			case 2 :
+				throw new LibraryException(CirculationCode.ITEM_DAMAGED);
+			case 3 :
+				AttachmentCheckout ac = findAttachmentCheckout(attachment);
+
+				Notification notification = checkinValidation(ac, given);
+				if (notification.hasErrors())
+					throw new LibraryException(notification.getAllMessages());
+
+				ac.setDone(given);
+				attachment.setLastCheckin(given);
+
+				if (damageBadly) {
+					ac.setState(AttachmentCheckoutState.DAMAGE);
+					attachment.setState(AttachmentState.DAMAGE);
+				} else {
+					// if this is a LOST item, then return
+					ac.setState(AttachmentCheckoutState.RETURN);
+					attachment.setState(AttachmentState.IN_LIBRARY);
+
+				}
+
+				removeAttachmentCheckout(ac);
+				break;
 		}
 
 	}

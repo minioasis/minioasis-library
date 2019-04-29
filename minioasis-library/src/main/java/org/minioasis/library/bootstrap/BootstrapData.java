@@ -317,7 +317,7 @@ public class BootstrapData implements CommandLineRunner {
 		Attachment at1 = new Attachment();
 		at1.setBarcode("A111");
 		at1.setBorrowable(YesNo.N);
-		at1.setCallNo("1212");
+		at1.setCallNo("1111");
 		at1.setDescription("description");
 		at1.setFirstCheckin(date("2019-01-01"));
 		at1.setItem(i1);
@@ -326,9 +326,9 @@ public class BootstrapData implements CommandLineRunner {
 		attachmentRepository.save(at1);
 		
 		Attachment at2 = new Attachment();
-		at2.setBarcode("A212");
+		at2.setBarcode("A222");
 		at2.setBorrowable(YesNo.Y);
-		at2.setCallNo("1313");
+		at2.setCallNo("2222");
 		at2.setDescription("description");
 		at2.setFirstCheckin(date("2019-02-02"));
 		at2.setItem(i2);
@@ -337,14 +337,14 @@ public class BootstrapData implements CommandLineRunner {
 		attachmentRepository.save(at2);
 		
 		Attachment at3 = new Attachment();
-		at3.setBarcode("B232");
+		at3.setBarcode("A333");
 		at3.setBorrowable(YesNo.Y);
-		at3.setCallNo("2222");
+		at3.setCallNo("3333");
 		at3.setDescription("description");
 		at3.setFirstCheckin(date("2019-03-03"));
 		at3.setItem(i3);
 		at3.setLastCheckin(date("2019-06-06"));
-		at3.setState(AttachmentState.CHECKOUT);
+		at3.setState(AttachmentState.IN_LIBRARY);
 		attachmentRepository.save(at3);
 		
 		// Patron Type
@@ -491,7 +491,7 @@ public class BootstrapData implements CommandLineRunner {
 		
 		Checkout co3 = new Checkout(date("2019-04-25"), date("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p3, i3);
 		checkoutRepository.save(co3);
-		
+
 	}
 	
 }

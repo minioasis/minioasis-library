@@ -254,23 +254,17 @@ public class Attachment implements Serializable {
 		return notification;
 	}
 	
-    @Override
 	public boolean equals(Object other) {
-		
-		if(this == other)
-			return true;
-		if(other == null)
-			return false;
-		if(!(other instanceof Attachment))
-			return false;
-		final Attachment that = (Attachment)other;
-		return Objects.equals(barcode, that.getBarcode());
-		
+
+		if (this == other) return true;
+		if ( !(other instanceof Attachment) ) return false;
+		final Attachment that = (Attachment) other;
+		return this.id.equals(that.getId());
+
 	}
-	
-    @Override
+
 	public int hashCode() {
-    	return Objects.hashCode(barcode);
+		return id == null ? System.identityHashCode(this) : id.hashCode();
 	}
 	
 }
