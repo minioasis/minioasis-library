@@ -105,10 +105,10 @@
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td th:text="${e.name}">Student</td>
 						<td th:inline="text">
-							[[${#calendars.format(e.startDate,'yyyy-MM-dd')}]]
+							[[${#temporals.format(e.startDate,'yyyy-MM-dd')}]]
 						</td>
 						<td th:inline="text">
-							[[${#calendars.format(e.endDate,'yyyy-MM-dd')}]]
+							[[${#temporals.format(e.endDate,'yyyy-MM-dd')}]]
 						</td>
 						<td th:text="${e.fine}">true</td>
 						<td>

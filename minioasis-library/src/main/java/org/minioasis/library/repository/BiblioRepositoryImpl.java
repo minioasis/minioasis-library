@@ -4,7 +4,7 @@ import static org.minioasis.library.jooq.tables.Biblio.BIBLIO;
 import static org.minioasis.library.jooq.tables.Publisher.PUBLISHER;
 import static org.minioasis.library.jooq.tables.Series.SERIES;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -102,8 +102,8 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 	    
 		final String keyword1 = criteria.getKeyword1();
 		final String keyword2 = criteria.getKeyword2();
-		final Date updatedFrom = criteria.getUpdatedFrom();
-		final Date updatedTo = criteria.getUpdatedTo();
+		final LocalDateTime updatedFrom = criteria.getUpdatedFrom();
+		final LocalDateTime updatedTo = criteria.getUpdatedTo();
 		final String note = criteria.getNote();
 		final Set<YesNo> actives = criteria.getActives();
 		final Set<Binding> bindings = criteria.getBindings();		
@@ -127,8 +127,8 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 	    	condition = condition.and(b.NOTE.likeIgnoreCase("%" + note + "%"));
 	    }
 		if(updatedFrom != null && updatedTo != null){
-			condition = condition.and(b.UPDATED.ge(new java.sql.Timestamp(updatedFrom.getTime()))
-							.and(b.UPDATED.le(new java.sql.Timestamp(updatedTo.getTime()))));
+			condition = condition.and(b.UPDATED.ge(java.sql.Timestamp.valueOf(updatedFrom))
+							.and(b.UPDATED.le(java.sql.Timestamp.valueOf(updatedTo))));
 		}
 		if(actives != null && actives.size() > 0){
 			condition = condition.and(b.ACTIVE.in(actives));

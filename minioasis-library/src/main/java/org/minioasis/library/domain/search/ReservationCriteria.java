@@ -1,7 +1,8 @@
 package org.minioasis.library.domain.search;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,12 +14,12 @@ public class ReservationCriteria implements Serializable {
 
 	private String cardKey;
 	private String isbn;
-	private Date reservationDateFrom;
-	private Date reservationDateTo;
-	private Date availableDateFrom;
-	private Date availableDateTo;
-	private Date notificationDateFrom;
-	private Date notificationDateTo;
+	private LocalDateTime reservationDateFrom;
+	private LocalDateTime reservationDateTo;
+	private LocalDate availableDateFrom;
+	private LocalDate availableDateTo;
+	private LocalDate notificationDateFrom;
+	private LocalDate notificationDateTo;
 	
 	Set<ReservationState> states = new HashSet<ReservationState>();
 
@@ -38,51 +39,51 @@ public class ReservationCriteria implements Serializable {
 		this.isbn = isbn;
 	}
 
-	public Date getReservationDateFrom() {
+	public LocalDateTime getReservationDateFrom() {
 		return reservationDateFrom;
 	}
 
-	public void setReservationDateFrom(Date reservationDateFrom) {
+	public void setReservationDateFrom(LocalDateTime reservationDateFrom) {
 		this.reservationDateFrom = reservationDateFrom;
 	}
 
-	public Date getReservationDateTo() {
+	public LocalDateTime getReservationDateTo() {
 		return reservationDateTo;
 	}
 
-	public void setReservationDateTo(Date reservationDateTo) {
+	public void setReservationDateTo(LocalDateTime reservationDateTo) {
 		this.reservationDateTo = reservationDateTo;
 	}
 
-	public Date getAvailableDateFrom() {
+	public LocalDate getAvailableDateFrom() {
 		return availableDateFrom;
 	}
 
-	public void setAvailableDateFrom(Date availableDateFrom) {
+	public void setAvailableDateFrom(LocalDate availableDateFrom) {
 		this.availableDateFrom = availableDateFrom;
 	}
 
-	public Date getAvailableDateTo() {
+	public LocalDate getAvailableDateTo() {
 		return availableDateTo;
 	}
 
-	public void setAvailableDateTo(Date availableDateTo) {
+	public void setAvailableDateTo(LocalDate availableDateTo) {
 		this.availableDateTo = availableDateTo;
 	}
 
-	public Date getNotificationDateFrom() {
+	public LocalDate getNotificationDateFrom() {
 		return notificationDateFrom;
 	}
 
-	public void setNotificationDateFrom(Date notificationDateFrom) {
+	public void setNotificationDateFrom(LocalDate notificationDateFrom) {
 		this.notificationDateFrom = notificationDateFrom;
 	}
 
-	public Date getNotificationDateTo() {
+	public LocalDate getNotificationDateTo() {
 		return notificationDateTo;
 	}
 
-	public void setNotificationDateTo(Date notificationDateTo) {
+	public void setNotificationDateTo(LocalDate notificationDateTo) {
 		this.notificationDateTo = notificationDateTo;
 	}
 

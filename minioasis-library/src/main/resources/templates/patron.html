@@ -55,11 +55,11 @@
 								</tr>
 								<tr>
 									<td><i class="fas fa-toggle-on text-label"></i> <span th:text="#{start.date}"></span></td>
-									<td class="text-info" th:text="${#calendars.format(patron.startDate,'yyyy-MM-dd')}">Moon</td>
+									<td class="text-info" th:text="${#temporals.format(patron.startDate,'yyyy-MM-dd')}">Moon</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-toggle-off text-label"></i> <span th:text="#{end.date}"></span></td>
-									<td class="text-info" th:text="${#calendars.format(patron.endDate,'yyyy-MM-dd')}">Moon</td>
+									<td class="text-info" th:text="${#temporals.format(patron.endDate,'yyyy-MM-dd')}">Moon</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-id-card-alt text-label"></i> <span th:text="#{card.key}"></span></td>

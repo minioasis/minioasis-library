@@ -2,7 +2,7 @@ package org.minioasis.library.domain.search;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Reservation;
@@ -14,7 +14,7 @@ public class CirculationDTO implements Serializable {
 	private Patron patron;
 	private String cardKey;
 	private String barcode;
-	private Date given;
+	private LocalDate given;
 	private boolean damage = false;
 	private String msg = null;
 	private BigDecimal payAmount;
@@ -39,10 +39,10 @@ public class CirculationDTO implements Serializable {
 	public void setBarcode(String barcode) {
 		this.barcode = barcode;
 	}
-	public Date getGiven() {
+	public LocalDate getGiven() {
 		return given;
 	}
-	public void setGiven(Date given) {
+	public void setGiven(LocalDate given) {
 		this.given = given;
 	}
 	public boolean isDamage() {

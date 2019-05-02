@@ -240,9 +240,9 @@
 							<td th:text="${e.cardKey}">Card Key</td>
 							<td th:text="${e.name}">Moan Wai Meng</td>
 							<td th:text="${e.active}">ACTIVE</td>
-							<td th:text="${e.updated != null ? #calendars.format(e.updated,'yyyy-MM-dd') : ''}">2015-08-31</td>
-							<td th:text="${#calendars.format(e.startDate,'yyyy-MM-dd')}">2015-08-31</td>
-							<td th:text="${#calendars.format(e.endDate,'yyyy-MM-dd')}">2015-08-31</td>
+							<td th:text="${e.updated != null ? #temporals.format(e.updated,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${#temporals.format(e.startDate,'yyyy-MM-dd')}">2015-08-31</td>
+							<td th:text="${#temporals.format(e.endDate,'yyyy-MM-dd')}">2015-08-31</td>
 						</tr>
 						<tr th:remove="all">
 							<td>2</td>

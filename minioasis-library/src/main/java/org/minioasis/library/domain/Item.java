@@ -20,8 +20,9 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
@@ -40,8 +41,6 @@ import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.JoinColumn;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -77,18 +76,15 @@ public class Item implements Serializable {
 	private String lastFullRenewPerson;
 
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "first_checkin" , nullable = false)
-	private Date firstCheckin;
+	private LocalDate firstCheckin;
 
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created" , nullable = false)
-	private Date created = new Date();
+	private LocalDate created = LocalDate.now();
 	
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "last_checkin")
-	private Date lastCheckin = new Date();
+	private LocalDateTime lastCheckin = LocalDateTime.now();
 	
 	@NotNull
 	@Column(name = "price" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
@@ -108,9 +104,8 @@ public class Item implements Serializable {
 	@Enumerated(EnumType.STRING)
 	private YesNo active;
 	
-	@Temporal(TemporalType.TIMESTAMP)
-	@Column(name = "expired" , columnDefinition = "DATE default '1970-01-01'" )
-	private Date expired;
+	@Column(name = "expired")
+	private LocalDateTime expired;
 	
 	@Valid
 	private ItemState state = ItemState.IN_LIBRARY;
@@ -176,36 +171,36 @@ public class Item implements Serializable {
 		this.lastFullRenewPerson = lastFullRenewPerson;
 	}
 
-	public Date getLastCheckin() {
-		return this.lastCheckin;
+	public LocalDateTime getLastCheckin() {
+		return lastCheckin;
 	}
 
-	public void setLastCheckin(Date lastCheckin) {
+	public void setLastCheckin(LocalDateTime lastCheckin) {
 		this.lastCheckin = lastCheckin;
 	}
 
-	public Date getFirstCheckin() {
-		return this.firstCheckin;
+	public LocalDate getFirstCheckin() {
+		return firstCheckin;
 	}
 
-	public void setFirstCheckin(Date firstCheckin) {
+	public void setFirstCheckin(LocalDate firstCheckin) {
 		this.firstCheckin = firstCheckin;
 	}
 
-	public Date getCreated() {
+	public LocalDate getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(LocalDate created) {
 		this.created = created;
 	}
-
-	public Date getExpired() {
+	
+	public LocalDateTime getExpired() {
 		return expired;
 	}
 
-	public void setExpired(Date expiryDate) {
-		this.expired = expiryDate;
+	public void setExpired(LocalDateTime expired) {
+		this.expired = expired;
 	}
 
 	public BigDecimal getPrice() {
@@ -306,7 +301,7 @@ public class Item implements Serializable {
 	
     // ***************************** Domain Logic ******************************
  
-	public CheckoutResult checkIn(Date given, boolean damage, HolidayCalculationStrategy strategy) {
+	public CheckoutResult checkIn(LocalDate given, boolean damage, HolidayCalculationStrategy strategy) {
 
 		CheckoutResult result = new CheckoutResult();
 		
@@ -358,7 +353,7 @@ public class Item implements Serializable {
 			}
 
 			checkin.setDone(given);
-			checkin.getItem().setLastCheckin(given);
+			checkin.getItem().setLastCheckin(given.atTime(00, 00, 00));
 			checkin.getItem().setState(ItemState.IN_LIBRARY);
 
 			result.setCheckout(checkin);
@@ -384,12 +379,12 @@ public class Item implements Serializable {
 
 	}
 	
-	private Notification checkinValidation(Checkout checkin, Date given){
+	private Notification checkinValidation(Checkout checkin, LocalDate given){
 		
 		Notification notification = new Notification();
 		
 		// check return date validation
-		if (given.before(checkin.getCheckoutDate())) {
+		if (given.isBefore(checkin.getCheckoutDate())) {
 			notification.addError(CirculationCode.INVALID_GIVENDATE);
 		}
 

@@ -213,9 +213,9 @@
 						</td>
 						<td th:text="${e.group.code}">SM1</td>
 						<td th:inline="text">
-							[[${#calendars.format(e.startDate,'yyyy-MM-dd')}]]
+							[[${#temporals.format(e.startDate,'yyyy-MM-dd')}]]
 							<br>
-							[[${#calendars.format(e.endDate,'yyyy-MM-dd')}]]
+							[[${#temporals.format(e.endDate,'yyyy-MM-dd')}]]
 						</td>
 						<td><textarea rows="4" cols="30" name="note" th:text="${e.note}"></textarea></td>
 						<td>

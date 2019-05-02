@@ -1,8 +1,11 @@
 package org.minioasis.library.repository;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
+import java.sql.Date;
+import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -98,12 +101,12 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	    Condition condition = DSL.trueCondition();
 	    
 		final String keyword = criteria.getKeyword();
-		final Date firstFrom = criteria.getFirstCheckinFrom();
-		final Date firstTo = criteria.getFirstCheckinTo();
-		final Date lastFrom = criteria.getLastCheckinFrom();
-		final Date lastTo = criteria.getLastCheckinTo();
-		final Date expiredFrom = criteria.getExpiredFrom();
-		final Date expiredTo = criteria.getExpiredTo();
+		final LocalDate firstFrom = criteria.getFirstCheckinFrom();
+		final LocalDate firstTo = criteria.getFirstCheckinTo();
+		final LocalDateTime lastFrom = criteria.getLastCheckinFrom();
+		final LocalDateTime lastTo = criteria.getLastCheckinTo();
+		final LocalDateTime expiredFrom = criteria.getExpiredFrom();
+		final LocalDateTime expiredTo = criteria.getExpiredTo();
 		
 		final Set<YesNo> actives = criteria.getActives();
 		final Set<Long> itemdurations = criteria.getItemDurations();
@@ -118,16 +121,16 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 	    					.or(i.SOURCE.likeIgnoreCase("%" + keyword + "%"));				
 	    }
 		if(firstFrom != null && firstTo != null){
-			condition = condition.and(i.FIRST_CHECKIN.ge(new java.sql.Timestamp(firstFrom.getTime()))
-							.and(i.FIRST_CHECKIN.le(new java.sql.Timestamp(firstTo.getTime()))));
+			condition = condition.and(i.FIRST_CHECKIN.ge(java.sql.Date.valueOf(firstFrom))
+							.and(i.FIRST_CHECKIN.le(java.sql.Date.valueOf(firstTo))));
 		}
 		if(lastFrom != null && lastTo != null){
-			condition = condition.and(i.LAST_CHECKIN.ge(new java.sql.Timestamp(lastFrom.getTime()))
-							.and(i.LAST_CHECKIN.le(new java.sql.Timestamp(lastTo.getTime()))));
+			condition = condition.and(i.LAST_CHECKIN.ge(java.sql.Timestamp.valueOf(lastFrom))
+							.and(i.LAST_CHECKIN.le(java.sql.Timestamp.valueOf(lastTo))));
 		}
 		if(expiredFrom != null && expiredTo != null){
-			condition = condition.and(i.EXPIRED.ge(new java.sql.Date(expiredFrom.getTime()))
-							.and(i.EXPIRED.le(new java.sql.Date(expiredTo.getTime()))));
+			condition = condition.and(i.EXPIRED.ge(java.sql.Timestamp.valueOf(expiredFrom))
+							.and(i.EXPIRED.le(java.sql.Timestamp.valueOf(expiredTo))));
 		}
 		if(actives != null && actives.size() > 0){
 			condition = condition.and(i.ACTIVE.in(actives));

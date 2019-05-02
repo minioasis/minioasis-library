@@ -174,13 +174,13 @@
 						<td><a href="#" th:href="@{/patron/{id}(id=${e.patron.id})}" th:text="${e.patron.cardKey}"></a></td>
 						<td><a href="#" th:href="@{/biblio/{id}(id=${e.biblio.id})}" th:text="${e.biblio.title}"></a></td>
 						<td th:text="${e.biblio.isbn}">213223434113</td>
-						<td th:text="${e.reservationDate != null ? #calendars.format(e.reservationDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
-						<td th:text="${e.expiryDate != null ? #calendars.format(e.expiryDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
-						<td th:text="${e.availableDate != null ? #calendars.format(e.availableDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
-						<td th:text="${e.notificationDate != null ? #calendars.format(e.notificationDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
-						<td th:text="${e.cancelDate != null ? #calendars.format(e.cancelDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
-						<td th:text="${e.collectedDate != null ? #calendars.format(e.collectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
-						<td th:text="${e.unCollectedDate != null ? #calendars.format(e.unCollectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.reservationDate != null ? #temporals.format(e.reservationDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
+						<td th:text="${e.expiryDate != null ? #temporals.format(e.expiryDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.availableDate != null ? #temporals.format(e.availableDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.notificationDate != null ? #temporals.format(e.notificationDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.cancelDate != null ? #temporals.format(e.cancelDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.collectedDate != null ? #temporals.format(e.collectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.unCollectedDate != null ? #temporals.format(e.unCollectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.state}">CHECKOUT</td>
 					</tr>
 					<tr th:remove="all">

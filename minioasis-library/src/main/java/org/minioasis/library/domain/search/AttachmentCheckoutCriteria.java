@@ -1,7 +1,7 @@
 package org.minioasis.library.domain.search;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,10 +14,10 @@ public class AttachmentCheckoutCriteria implements Serializable {
 	private String barcode;
 	private String cardkey;
 	private String keyword;
-	private Date checkoutFrom;
-	private Date checkoutTo;
-	private Date doneFrom;
-	private Date doneTo;
+	private LocalDate checkoutFrom;
+	private LocalDate checkoutTo;
+	private LocalDate doneFrom;
+	private LocalDate doneTo;
 
 	Set<AttachmentCheckoutState> states = new HashSet<AttachmentCheckoutState>();
 
@@ -45,35 +45,35 @@ public class AttachmentCheckoutCriteria implements Serializable {
 		this.keyword = keyword;
 	}
 
-	public Date getCheckoutFrom() {
+	public LocalDate getCheckoutFrom() {
 		return checkoutFrom;
 	}
 
-	public void setCheckoutFrom(Date checkoutFrom) {
+	public void setCheckoutFrom(LocalDate checkoutFrom) {
 		this.checkoutFrom = checkoutFrom;
 	}
 
-	public Date getCheckoutTo() {
+	public LocalDate getCheckoutTo() {
 		return checkoutTo;
 	}
 
-	public void setCheckoutTo(Date checkoutTo) {
+	public void setCheckoutTo(LocalDate checkoutTo) {
 		this.checkoutTo = checkoutTo;
 	}
 
-	public Date getDoneFrom() {
+	public LocalDate getDoneFrom() {
 		return doneFrom;
 	}
 
-	public void setDoneFrom(Date doneFrom) {
+	public void setDoneFrom(LocalDate doneFrom) {
 		this.doneFrom = doneFrom;
 	}
 
-	public Date getDoneTo() {
+	public LocalDate getDoneTo() {
 		return doneTo;
 	}
 
-	public void setDoneTo(Date doneTo) {
+	public void setDoneTo(LocalDate doneTo) {
 		this.doneTo = doneTo;
 	}
 

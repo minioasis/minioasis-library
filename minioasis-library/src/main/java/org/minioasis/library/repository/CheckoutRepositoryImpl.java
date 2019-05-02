@@ -21,7 +21,7 @@ import static org.minioasis.library.jooq.tables.Patron.PATRON;
 import static org.minioasis.library.jooq.tables.Item.ITEM;
 import static org.minioasis.library.jooq.tables.Biblio.BIBLIO;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -103,25 +103,25 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		
 	    Condition condition = DSL.trueCondition();
 	    
-		final Date checkoutFrom = criteria.getCheckoutFrom();
-		final Date checkoutTo = criteria.getCheckoutTo();
-		final Date dueDateFrom = criteria.getDueDateFrom();
-		final Date dueDateTo = criteria.getDueDateTo();
-		final Date doneFrom = criteria.getDoneFrom();
-		final Date doneTo = criteria.getDoneTo();
+		final LocalDate checkoutFrom = criteria.getCheckoutFrom();
+		final LocalDate checkoutTo = criteria.getCheckoutTo();
+		final LocalDate dueDateFrom = criteria.getDueDateFrom();
+		final LocalDate dueDateTo = criteria.getDueDateTo();
+		final LocalDate doneFrom = criteria.getDoneFrom();
+		final LocalDate doneTo = criteria.getDoneTo();
 		final Set<CheckoutState> states = criteria.getStates();		
 		
 		if(checkoutFrom != null && checkoutTo != null){
-			condition = condition.and(c.CHECKOUT_DATE.ge(new java.sql.Date(checkoutFrom.getTime()))
-							.and(c.CHECKOUT_DATE.le(new java.sql.Date(checkoutTo.getTime()))));
+			condition = condition.and(c.CHECKOUT_DATE.ge(java.sql.Date.valueOf(checkoutFrom))
+							.and(c.CHECKOUT_DATE.le(java.sql.Date.valueOf(checkoutTo))));
 		}
 		if(dueDateFrom != null && dueDateTo != null){
-			condition = condition.and(c.DUE_DATE.ge(new java.sql.Date(dueDateFrom.getTime()))
-							.and(c.DUE_DATE.le(new java.sql.Date(dueDateTo.getTime()))));
+			condition = condition.and(c.DUE_DATE.ge(java.sql.Date.valueOf(dueDateFrom))
+							.and(c.DUE_DATE.le(java.sql.Date.valueOf(dueDateTo))));
 		}
 		if(doneFrom != null && doneTo != null){
-			condition = condition.and(c.DONE.ge(new java.sql.Date(doneFrom.getTime()))
-							.and(c.DONE.le(new java.sql.Date(doneTo.getTime()))));
+			condition = condition.and(c.DONE.ge(java.sql.Date.valueOf(doneFrom))
+							.and(c.DONE.le(java.sql.Date.valueOf(doneTo))));
 		}
 		if(states != null && states.size() > 0){
 			condition = condition.and(c.STATE.in(states));

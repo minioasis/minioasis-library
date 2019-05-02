@@ -1,9 +1,10 @@
 package org.minioasis.library.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.minioasis.library.domain.Attachment;
@@ -103,11 +104,11 @@ public class LibraryServiceImpl implements LibraryService {
 
 	/****************************************  Business Logic **************************************/	
 	
-	public void checkout(Patron patron, Item item, Date given) throws LibraryException {
+	public void checkout(Patron patron, Item item, LocalDate given) throws LibraryException {
 
 		// holidays calculation
-		Date dueDate = patron.calculateDueDate(given, item);
-		Date newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
+		LocalDate dueDate = patron.calculateDueDate(given, item);
+		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
 		int holidays = holidayStrategy.getNoOfHolidaysBetween(given, dueDate);
 		
 		patron.calculateAllStates(given,holidayStrategy);
@@ -117,14 +118,14 @@ public class LibraryServiceImpl implements LibraryService {
 
 	}
 
-	public void checkoutAttachment(Patron patron, Attachment attachment, Date given){
+	public void checkoutAttachment(Patron patron, Attachment attachment, LocalDate given){
 
 		patron.checkout(attachment, given);
 		this.patronRepository.save(patron);
 		
 	}
 	
-	public CheckoutResult checkin(Patron patron, Item item, Date given, boolean damage, boolean renew) throws LibraryException {
+	public CheckoutResult checkin(Patron patron, Item item, LocalDate given, boolean damage, boolean renew) throws LibraryException {
 		
 		// checkin Book
 		CheckoutResult result = patron.checkin(item, given, damage, renew, holidayStrategy);
@@ -136,18 +137,18 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	// why the return is void which is different from item checkin ?
 	// because this method no need to return "AttachmentCheckout" and "Reservation" !
-	public void checkinAttachment(Patron patron, Attachment attachment, Date given, boolean damageBadly) throws LibraryException {
+	public void checkinAttachment(Patron patron, Attachment attachment, LocalDate given, boolean damageBadly) throws LibraryException {
 		
 		patron.checkin(attachment, given, damageBadly);
 		this.patronRepository.save(patron);
 
 	}
 
-	public void renew(Patron patron, Item item, Date given) throws LibraryException {
+	public void renew(Patron patron, Item item, LocalDate given) throws LibraryException {
 		
 		// holidays calculation
-		Date dueDate = patron.calculateDueDate(given,item);
-		Date newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
+		LocalDate dueDate = patron.calculateDueDate(given,item);
+		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
 		int holidays = holidayStrategy.getNoOfHolidaysBetween(given, dueDate);
 		
 		patron.calculateAllStates(given, holidayStrategy);
@@ -158,28 +159,28 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 	
-	public void reportlost(Patron patron, Item item, Date given) throws LibraryException {
+	public void reportlost(Patron patron, Item item, LocalDate given) throws LibraryException {
 		
 		patron.reportLost(item, given);
 		this.patronRepository.save(patron);
 		
 	}
 
-	public void reportlost(Patron patron, Attachment attachment, Date given) throws LibraryException {
+	public void reportlost(Patron patron, Attachment attachment, LocalDate given) throws LibraryException {
 		
 		patron.reportLost(attachment, given);
 		this.patronRepository.save(patron);
 
 	}
 
-	public void payFine(Patron patron, Long[] ids, BigDecimal payAmount, Date given) throws LibraryException {
+	public void payFine(Patron patron, Long[] ids, BigDecimal payAmount, LocalDate given) throws LibraryException {
 		
 		patron.payFine(ids, payAmount, given, holidayStrategy);
 		this.patronRepository.save(patron);
 		
 	}
 	
-	public CheckoutResult returnItem(Item item, Date given, boolean damage) throws LibraryException {
+	public CheckoutResult returnItem(Item item, LocalDate given, boolean damage) throws LibraryException {
 		
 		CheckoutResult result = item.checkIn(given, damage, holidayStrategy);
 		this.itemRepository.save(item);
@@ -188,7 +189,7 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 
-	public CheckoutResult returnAttachment(Attachment attachment, Date given, boolean damage) throws LibraryException {
+	public CheckoutResult returnAttachment(Attachment attachment, LocalDate given, boolean damage) throws LibraryException {
 		
 		CheckoutResult result = attachment.checkin(given, damage);
 		this.attachmentRepository.save(attachment);
@@ -197,7 +198,7 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 	
-	public ReservationResult reserve(Patron patron, Biblio biblio, Date given, Date expiryDate) throws LibraryException {
+	public ReservationResult reserve(Patron patron, Biblio biblio, LocalDateTime given, LocalDate expiryDate) throws LibraryException {
 
 		ReservationResult result = patron.reserve(biblio, given, expiryDate);
 		this.patronRepository.save(patron);
@@ -206,7 +207,7 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 	
-	public void cancelReservation(Patron patron, long reservationId, Date cancelDate) throws LibraryException {
+	public void cancelReservation(Patron patron, long reservationId, LocalDate cancelDate) throws LibraryException {
 		patron.cancelReservation(cancelDate, reservationId);
 	}
 	
@@ -412,7 +413,7 @@ public class LibraryServiceImpl implements LibraryService {
 		Page<Checkout> checkoutsPage = this.checkoutRepository.findAll(pageable);
 
 		for(Checkout c : checkoutsPage.getContent()){
-			c.calculateAllStates(new Date(), holidayStrategy);
+			c.calculateAllStates(LocalDate.now(), holidayStrategy);
 		}
 		
 		return checkoutsPage;
@@ -421,7 +422,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return this.checkoutRepository.findAllCheckouts(username, cStates, pageable);
 	}
 	// Report
-	public Page<Checkout> findAllOverDue(List<CheckoutState> cStates, Date given, Pageable pageable){
+	public Page<Checkout> findAllOverDue(List<CheckoutState> cStates, LocalDate given, Pageable pageable){
 		return this.checkoutRepository.findAllOverDue(cStates, given, pageable);
 	}
 	
@@ -470,19 +471,19 @@ public class LibraryServiceImpl implements LibraryService {
 	public Holiday getHoliday(long id){
 		return this.holidayRepository.getOne(id);
 	}
-	public Holiday getHolidayByDueDate(Date dueDate){
+	public Holiday getHolidayByDueDate(LocalDate dueDate){
 		return this.holidayRepository.getHolidayByDueDate(dueDate);
 	}
-	public Holiday getHolidayByStartAndEndDate(Date start, Date end){
+	public Holiday getHolidayByStartAndEndDate(LocalDate start, LocalDate end){
 		return this.holidayRepository.getHolidayByStartAndEndDate(start, end);
 	}
-	public List<Holiday> findByInBetween(Date start , Date end){
+	public List<Holiday> findByInBetween(LocalDate start , LocalDate end){
 		return this.holidayRepository.findByInBetween(start, end);
 	}
-	public List<Holiday> findByInBetweenWithFines(Date start, Date end, Boolean fine){
+	public List<Holiday> findByInBetweenWithFines(LocalDate start, LocalDate end, Boolean fine){
 		return this.holidayRepository.findByInBetweenWithFines(start, end, fine);
 	}
-	public List<Holiday> findByExcluded(Date start , Date end){
+	public List<Holiday> findByExcluded(LocalDate start , LocalDate end){
 		return this.holidayRepository.findByExcluded(start, end);
 	}
 	public List<Holiday> findAllHolidays(Sort sort){
@@ -491,7 +492,7 @@ public class LibraryServiceImpl implements LibraryService {
 	public Page<Holiday> findAllHolidays(Pageable pageable){
 		return this.holidayRepository.findAll(pageable);
 	}
-	public List<Holiday> findAllHolidaysByGivenDate(Date given){
+	public List<Holiday> findAllHolidaysByGivenDate(LocalDate given){
 		return this.holidayRepository.findAllHolidaysByGivenDate(given);
 	}
 	public Page<Holiday> findByCriteria(HolidayCriteria criteria, Pageable pageable){
@@ -748,7 +749,7 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<Patron> findByIdIn(Collection<Long> ids){
 		return this.patronRepository.findByIdIn(ids);
 	}
-	public List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, Date updated){
+	public List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, LocalDateTime updated){
 		return this.patronRepository.findByGroupAndUpdatedOrderByUpdatedDesc(group, updated);
 	}
 	public Page<Patron> findAllPatrons(Pageable pageable){
@@ -758,7 +759,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return this.patronRepository.findByCriteria(criteria, pageable);
 	}
 	
-	public Patron getPatronByCardKeyForCirculation(String cardKey, Date given){
+	public Patron getPatronByCardKeyForCirculation(String cardKey, LocalDate given){
 
 		Patron patron = this.patronRepository.findByCardKeyFetchPatronType(cardKey);	
 		if(patron == null) return null;
@@ -777,7 +778,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return patron;
 	}
 	
-	public int bulkUpdateGroup(List<Long> ids , Group group, Date now){
+	public int bulkUpdateGroup(List<Long> ids , Group group, LocalDateTime now){
 		return this.patronRepository.bulkUpdateGroup(ids, group, now);
 	}
 	

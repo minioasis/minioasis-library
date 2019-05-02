@@ -1,7 +1,7 @@
 package org.minioasis.library.domain.search;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,12 +14,12 @@ public class CheckoutCriteria implements Serializable {
 	private String cardkey;
 	private String barcode;
 	private String title;
-	private Date checkoutFrom;
-	private Date checkoutTo;
-	private Date dueDateFrom;
-	private Date dueDateTo;
-	private Date doneFrom;
-	private Date doneTo;
+	private LocalDate checkoutFrom;
+	private LocalDate checkoutTo;
+	private LocalDate dueDateFrom;
+	private LocalDate dueDateTo;
+	private LocalDate doneFrom;
+	private LocalDate doneTo;
 	
 	Set<CheckoutState> states = new HashSet<CheckoutState>();
 
@@ -47,51 +47,51 @@ public class CheckoutCriteria implements Serializable {
 		this.title = title;
 	}
 
-	public Date getCheckoutFrom() {
+	public LocalDate getCheckoutFrom() {
 		return checkoutFrom;
 	}
 
-	public void setCheckoutFrom(Date checkoutFrom) {
+	public void setCheckoutFrom(LocalDate checkoutFrom) {
 		this.checkoutFrom = checkoutFrom;
 	}
 
-	public Date getCheckoutTo() {
+	public LocalDate getCheckoutTo() {
 		return checkoutTo;
 	}
 
-	public void setCheckoutTo(Date checkoutTo) {
+	public void setCheckoutTo(LocalDate checkoutTo) {
 		this.checkoutTo = checkoutTo;
 	}
 
-	public Date getDueDateFrom() {
+	public LocalDate getDueDateFrom() {
 		return dueDateFrom;
 	}
 
-	public void setDueDateFrom(Date dueDateFrom) {
+	public void setDueDateFrom(LocalDate dueDateFrom) {
 		this.dueDateFrom = dueDateFrom;
 	}
 
-	public Date getDueDateTo() {
+	public LocalDate getDueDateTo() {
 		return dueDateTo;
 	}
 
-	public void setDueDateTo(Date dueDateTo) {
+	public void setDueDateTo(LocalDate dueDateTo) {
 		this.dueDateTo = dueDateTo;
 	}
 
-	public Date getDoneFrom() {
+	public LocalDate getDoneFrom() {
 		return doneFrom;
 	}
 
-	public void setDoneFrom(Date doneFrom) {
+	public void setDoneFrom(LocalDate doneFrom) {
 		this.doneFrom = doneFrom;
 	}
 
-	public Date getDoneTo() {
+	public LocalDate getDoneTo() {
 		return doneTo;
 	}
 
-	public void setDoneTo(Date doneTo) {
+	public void setDoneTo(LocalDate doneTo) {
 		this.doneTo = doneTo;
 	}
 

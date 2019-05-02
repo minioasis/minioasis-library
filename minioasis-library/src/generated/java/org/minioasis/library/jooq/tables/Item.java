@@ -42,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.ItemRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item extends TableImpl<ItemRecord> {
 
-    private static final long serialVersionUID = -597353067;
+    private static final long serialVersionUID = 1708410667;
 
     /**
      * The reference instance of <code>PUBLIC.ITEM</code>
@@ -80,17 +80,17 @@ public class Item extends TableImpl<ItemRecord> {
     /**
      * The column <code>PUBLIC.ITEM.CREATED</code>.
      */
-    public final TableField<ItemRecord, Timestamp> CREATED = createField("CREATED", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ItemRecord, Date> CREATED = createField("CREATED", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.ITEM.EXPIRED</code>.
      */
-    public final TableField<ItemRecord, Date> EXPIRED = createField("EXPIRED", org.jooq.impl.SQLDataType.DATE.defaultValue(org.jooq.impl.DSL.field("'1970-01-01'", org.jooq.impl.SQLDataType.DATE)), this, "");
+    public final TableField<ItemRecord, Timestamp> EXPIRED = createField("EXPIRED", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
      * The column <code>PUBLIC.ITEM.FIRST_CHECKIN</code>.
      */
-    public final TableField<ItemRecord, Timestamp> FIRST_CHECKIN = createField("FIRST_CHECKIN", org.jooq.impl.SQLDataType.TIMESTAMP.nullable(false), this, "");
+    public final TableField<ItemRecord, Date> FIRST_CHECKIN = createField("FIRST_CHECKIN", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.ITEM.LAST_CHECKIN</code>.

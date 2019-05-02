@@ -1,7 +1,7 @@
 package org.minioasis.library.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -74,9 +74,6 @@ public class ReservationListUpdate {
 	@RequestMapping(value = { "/notify/{id}" }, method = RequestMethod.GET)
 	public String notify(@PathVariable("id") long id, Model model) {
 
-		// given Date
-		Date now = new Date();
-
 		Reservation r = this.service.getReservation(id);
 		
 		if(r == null){
@@ -84,7 +81,7 @@ public class ReservationListUpdate {
 		}
 		
 		if(r.getState().equals(ReservationState.AVAILABLE)){
-			r.setNotificationDate(now);
+			r.setNotificationDate(LocalDate.now());
 			r.setState(ReservationState.NOTIFIED);
 		}else{
 			return "not.in.available.state";

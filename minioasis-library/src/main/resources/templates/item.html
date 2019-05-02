@@ -64,11 +64,11 @@
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{created}"></span></td>
-									<td class="text-info" th:text="${#calendars.format(item.created,'yyyy-MM-dd')}">2019-01-01</td>
+									<td class="text-info" th:text="${#temporals.format(item.created,'yyyy-MM-dd')}">2019-01-01</td>
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{expired}"></span></td>
-									<td class="text-info" th:text="${item.expired !=null ? #calendars.format(item.expired,'yyyy-MM-dd') : ''}">2019-10-10</td>
+									<td class="text-info" th:text="${item.expired !=null ? #temporals.format(item.expired,'yyyy-MM-dd') : ''}">2019-10-10</td>
 								</tr>
 								<tr>
 									<td><i class="far fa-user text-label"></i>  <span th:text="#{last.full.renew.person}"></span></td>
@@ -76,11 +76,11 @@
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{1st.checkin}"></span></td>
-									<td class="text-info" th:text="${#calendars.format(item.firstCheckin,'yyyy-MM-dd')}">2019-01-01</td>
+									<td class="text-info" th:text="${#temporals.format(item.firstCheckin,'yyyy-MM-dd')}">2019-01-01</td>
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{last.checkin}"></span></td>
-									<td class="text-info" th:text="${#calendars.format(item.lastCheckin,'yyyy-MM-dd')}">2019-01-01</td>
+									<td class="text-info" th:text="${#temporals.format(item.lastCheckin,'yyyy-MM-dd')}">2019-01-01</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-dollar-sign text-label"></i> <span th:text="#{price}"></span></td>

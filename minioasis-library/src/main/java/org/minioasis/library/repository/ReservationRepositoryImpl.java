@@ -1,6 +1,7 @@
 package org.minioasis.library.repository;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -104,25 +105,25 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 		
 	    Condition condition = DSL.trueCondition();
 	    
-		final Date reservationDateFrom = criteria.getReservationDateFrom();
-		final Date reservationDateTo = criteria.getReservationDateTo();
-		final Date availableDateFrom = criteria.getAvailableDateFrom();
-		final Date availableDateTo = criteria.getAvailableDateTo();
-		final Date notificationDateFrom = criteria.getNotificationDateFrom();
-		final Date notificationDateTo = criteria.getNotificationDateTo();
+		final LocalDateTime reservationDateFrom = criteria.getReservationDateFrom();
+		final LocalDateTime reservationDateTo = criteria.getReservationDateTo();
+		final LocalDate availableDateFrom = criteria.getAvailableDateFrom();
+		final LocalDate availableDateTo = criteria.getAvailableDateTo();
+		final LocalDate notificationDateFrom = criteria.getNotificationDateFrom();
+		final LocalDate notificationDateTo = criteria.getNotificationDateTo();
 		final Set<ReservationState> states = criteria.getStates();
 		
 		if(reservationDateFrom != null && reservationDateTo != null){
-			condition = condition.and(r.RESERVATION_DATE.ge(new java.sql.Timestamp(reservationDateFrom.getTime()))
-							.and(r.RESERVATION_DATE.le(new java.sql.Timestamp(reservationDateTo.getTime()))));
+			condition = condition.and(r.RESERVATION_DATE.ge(java.sql.Timestamp.valueOf(reservationDateFrom)))
+							.and(r.RESERVATION_DATE.le(java.sql.Timestamp.valueOf(reservationDateTo)));
 		}
 		if(availableDateFrom != null && availableDateTo != null){
-			condition = condition.and(r.AVAILABLE_DATE.ge(new java.sql.Date(availableDateFrom.getTime()))
-							.and(r.AVAILABLE_DATE.le(new java.sql.Date(availableDateTo.getTime()))));
+			condition = condition.and(r.AVAILABLE_DATE.ge(java.sql.Date.valueOf(availableDateFrom))
+							.and(r.AVAILABLE_DATE.le(java.sql.Date.valueOf(availableDateTo))));
 		}
 		if(notificationDateFrom != null && notificationDateTo != null){
-			condition = condition.and(r.NOTIFICATION_DATE.ge(new java.sql.Date(notificationDateFrom.getTime()))
-							.and(r.NOTIFICATION_DATE.le(new java.sql.Date(notificationDateTo.getTime()))));
+			condition = condition.and(r.NOTIFICATION_DATE.ge(java.sql.Date.valueOf(notificationDateFrom))
+							.and(r.NOTIFICATION_DATE.le(java.sql.Date.valueOf(notificationDateTo))));
 		}
 		if(states != null && states.size() > 0){
 			condition = condition.and(r.STATE.in(states));
@@ -154,7 +155,7 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 	public void refreshReservationStates() {
 		
 		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  refreshReservationStates");
-		Date now = new Date();
+		LocalDate now = LocalDate.now();
 		
 		clearExpiredReservations(now);
 		clearUncollectedReservations(now);
@@ -163,7 +164,7 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 		
 	}
 	
-	private void clearExpiredReservations(Date given) {
+	private void clearExpiredReservations(LocalDate given) {
 		
 		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  clearExpiredReservations");
 		Session session = em.unwrap(Session.class);
@@ -178,7 +179,7 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 		while (reservationCursor.next()) {
 			Reservation reservation = (Reservation) reservationCursor.get(0);
 
-			if (reservation.getExpiryDate().before(given)){
+			if (reservation.getExpiryDate().isBefore(given)){
 				reservation.setState(ReservationState.RESERVATION_EXPIRED);
 			}
 				
@@ -194,13 +195,12 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
 	}
 	
-	private void clearUncollectedReservations(Date given){
+	private void clearUncollectedReservations(LocalDate given){
 		
 		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  clearUncollectedReservations");
 		Session session = em.unwrap(Session.class);
 		
 		int count = 0;
-		long oneDay = 86400000;
 		
 		// biblio
 		List<Reservation> biblioReservations = getExpiredBiblioReservations();
@@ -212,10 +212,9 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 			Reservation reservation = (Reservation) itb.next();
 
 			// TODO : LUT use old or new ? old now !
-			int maxCollectablePeriod = reservation.getPatronType().getMaxCollectablePeriod().intValue();
-			long notificationTime = reservation.getNotificationDate().getTime();
-			long bufferTime = notificationTime + maxCollectablePeriod * oneDay;
-			Date bufferDate = new Date(bufferTime);
+			long maxCollectablePeriod = reservation.getPatronType().getMaxCollectablePeriod().longValue();
+			LocalDate notificationDate = reservation.getNotificationDate();
+			LocalDate bufferDate = notificationDate.plusDays(maxCollectablePeriod);
 
 			Patron patron = reservation.getPatron();
 			short unCollectedNo = patron.getUnCollectedNo();
@@ -223,7 +222,7 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
 			if(reservation.getBiblio() != null){
 
-				if (bufferDate.before(given)) {
+				if (bufferDate.isBefore(given)) {
 
 					reservation.setState(ReservationState.COLLECTION_PERIOD_EXPIRED);
 					reservation.setUnCollectedDate(bufferDate);
@@ -251,7 +250,7 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 
 	}
 	
-	private void clearPunishedReservations(Date given) {
+	private void clearPunishedReservations(LocalDate given) {
 
 		//System.out.println(">>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>>  clearPunishedReservations");
 		Session session = em.unwrap(Session.class);

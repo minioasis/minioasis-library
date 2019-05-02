@@ -84,8 +84,8 @@
 		  <tbody>
 		    <tr>
 		      <td th:text="${done.name}">Name</td>
-		      <td th:text="${#calendars.format(done.startDate,'yyyy-MM-dd')}">2019-01-01</td>
-		      <td th:text="${#calendars.format(done.endDate,'yyyy-MM-dd')}">2019-12-31</td>
+		      <td th:text="${#temporals.format(done.startDate,'yyyy-MM-dd')}">2019-01-01</td>
+		      <td th:text="${#temporals.format(done.endDate,'yyyy-MM-dd')}">2019-12-31</td>
 		      <td th:text="${done.fine}">true</td>
 		      <td>
 				<a href="#" th:href="@{/holiday/edit?id={id}(id=${done.id})}"><i class="far fa-edit"></i></a>

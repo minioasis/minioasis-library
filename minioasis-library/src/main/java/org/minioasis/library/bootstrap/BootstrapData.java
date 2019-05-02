@@ -1,10 +1,8 @@
 package org.minioasis.library.bootstrap;
 
 import java.math.BigDecimal;
-import java.text.DateFormat;
-import java.text.ParseException;
-import java.text.SimpleDateFormat;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.minioasis.library.domain.Address;
 import org.minioasis.library.domain.Attachment;
@@ -76,40 +74,28 @@ public class BootstrapData implements CommandLineRunner {
 	@Autowired
 	private SeriesRepository seriesRepository;
 	
-	DateFormat format = new SimpleDateFormat("yyyy-MM-dd'T'HH:mm:ss'Z'");
-	
-	private Date date(String date) {
-		Date d = null;	
-		 try{
-			 d = format.parse(date + "T00:00:00Z");
-		 }catch(ParseException ex){
-			 ex.printStackTrace();
-		 }
-		return d;	
-	}
-	
 	public void run(String... args) throws Exception {
 
 		// holiday
 		Holiday h1 = new Holiday();
 		h1.setName("Hari Aidilfitri 2019");
 		h1.setFine(false);
-		h1.setStartDate(date("2019-06-04"));
-		h1.setEndDate(date("2019-06-04"));
+		h1.setStartDate(LocalDate.parse("2019-06-04"));
+		h1.setEndDate(LocalDate.parse("2019-06-04"));
 		holidayRepository.save(h1);
 		
 		Holiday h2 = new Holiday();
 		h2.setName("Labour Day 2019");
 		h2.setFine(false);
-		h2.setStartDate(date("2019-05-01"));
-		h2.setEndDate(date("2019-05-01"));
+		h2.setStartDate(LocalDate.parse("2019-05-01"));
+		h2.setEndDate(LocalDate.parse("2019-05-01"));
 		holidayRepository.save(h2);
 		
 		Holiday h3 = new Holiday();
 		h3.setName("Minioasis Holiday April");
 		h3.setFine(false);
-		h3.setStartDate(date("2019-04-16"));
-		h3.setEndDate(date("2019-04-16"));
+		h3.setStartDate(LocalDate.parse("2019-04-16"));
+		h3.setEndDate(LocalDate.parse("2019-04-16"));
 		holidayRepository.save(h3);
 		
 		// publisher
@@ -220,13 +206,13 @@ public class BootstrapData implements CommandLineRunner {
 		i1.setBarcode("111");
 		i1.setBiblio(b1);
 		i1.setChecked(YesNo.N);
-		i1.setCreated(date("2015-10-10"));
-		i1.setExpired(date("2016-10-10"));
-		i1.setFirstCheckin(date("2015-10-10"));
+		i1.setCreated(LocalDate.parse("2015-10-10"));
+		i1.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
+		i1.setFirstCheckin(LocalDate.parse("2015-10-10"));
 		i1.setItemDuration(d1);
 		i1.setState(ItemState.CHECKOUT);
 		i1.setItemStatus(is1);
-		i1.setLastCheckin(date("2015-10-10"));
+		i1.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
 		i1.setLastFullRenewPerson("Moon");
 		i1.setLocation(l1);
 		i1.setPrice(new BigDecimal(12.50));
@@ -239,13 +225,13 @@ public class BootstrapData implements CommandLineRunner {
 		i2.setBarcode("222");
 		i2.setBiblio(b2);
 		i2.setChecked(YesNo.N);
-		i2.setCreated(date("2015-10-10"));
-		i2.setExpired(date("2016-10-10"));
-		i2.setFirstCheckin(date("2015-10-10"));
+		i2.setCreated(LocalDate.parse("2015-10-10"));
+		i2.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
+		i2.setFirstCheckin(LocalDate.parse("2015-10-10"));
 		i2.setItemDuration(d1);
 		i2.setState(ItemState.CHECKOUT);
 		i2.setItemStatus(is1);
-		i2.setLastCheckin(date("2015-10-10"));
+		i2.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
 		i2.setLastFullRenewPerson("Thai");
 		i2.setLocation(l2);
 		i2.setPrice(new BigDecimal(12.50));
@@ -258,19 +244,19 @@ public class BootstrapData implements CommandLineRunner {
 		i3.setBarcode("333");
 		i3.setBiblio(b3);
 		i3.setChecked(YesNo.N);
-		i3.setCreated(date("2015-10-10"));
-		i3.setExpired(date("2016-10-10"));
-		i3.setFirstCheckin(date("2015-10-10"));
+		i3.setCreated(LocalDate.parse("2015-10-10"));
+		i3.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
+		i3.setFirstCheckin(LocalDate.parse("2015-10-10"));
 		i3.setItemDuration(d1);
 		i3.setState(ItemState.CHECKOUT);
 		i3.setItemStatus(is1);
-		i3.setLastCheckin(date("2015-10-10"));
+		i3.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
 		i3.setLastFullRenewPerson("Karuna");
 		i3.setLocation(l1);
 		i3.setPrice(new BigDecimal(12.50));
 		i3.setShelfMark("530.78 HY1");
 		i3.setSource("Karuna");
-		i3.setVolume(new Volume(date("2015-10-10"), "234"));
+		i3.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 		itemRepository.save(i3);	
 
 		Item i4 = new Item();
@@ -278,19 +264,19 @@ public class BootstrapData implements CommandLineRunner {
 		i4.setBarcode("444");
 		i4.setBiblio(b3);
 		i4.setChecked(YesNo.Y);
-		i4.setCreated(date("2015-10-10"));
-		i4.setExpired(date("2016-10-10"));
-		i4.setFirstCheckin(date("2015-10-10"));
+		i4.setCreated(LocalDate.parse("2015-10-10"));
+		i4.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
+		i4.setFirstCheckin(LocalDate.parse("2015-10-10"));
 		i4.setItemDuration(d1);
 		i4.setState(ItemState.IN_LIBRARY);
 		i4.setItemStatus(is1);
-		i4.setLastCheckin(date("2015-10-10"));
+		i4.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
 		i4.setLastFullRenewPerson("Karuna");
 		i4.setLocation(l1);
 		i4.setPrice(new BigDecimal(12.50));
 		i4.setShelfMark("530.78 HY2");
 		i4.setSource("Karuna");
-		i4.setVolume(new Volume(date("2015-10-10"), "234"));
+		i4.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 		itemRepository.save(i4);
 		
 		Item i5 = new Item();
@@ -298,19 +284,19 @@ public class BootstrapData implements CommandLineRunner {
 		i5.setBarcode("555");
 		i5.setBiblio(b4);
 		i5.setChecked(YesNo.N);
-		i5.setCreated(date("2015-10-10"));
-		i5.setExpired(date("2016-10-10"));
-		i5.setFirstCheckin(date("2015-10-10"));
+		i5.setCreated(LocalDate.parse("2015-10-10"));
+		i5.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
+		i5.setFirstCheckin(LocalDate.parse("2015-10-10"));
 		i5.setItemDuration(d1);
 		i5.setState(ItemState.IN_LIBRARY);
 		i5.setItemStatus(is1);
-		i5.setLastCheckin(date("2015-10-10"));
+		i5.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
 		i5.setLastFullRenewPerson("Karuna");
 		i5.setLocation(l1);
 		i5.setPrice(new BigDecimal(12.50));
 		i5.setShelfMark("530.78 HY3");
 		i5.setSource("Karuna");
-		i5.setVolume(new Volume(date("2015-10-10"), "234"));
+		i5.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 		itemRepository.save(i5);
 		
 		// attachments
@@ -319,9 +305,9 @@ public class BootstrapData implements CommandLineRunner {
 		at1.setBorrowable(YesNo.N);
 		at1.setCallNo("1111");
 		at1.setDescription("description");
-		at1.setFirstCheckin(date("2019-01-01"));
+		at1.setFirstCheckin(LocalDate.parse("2019-01-01"));
 		at1.setItem(i1);
-		at1.setLastCheckin(date("2019-04-04"));
+		at1.setLastCheckin(LocalDate.parse("2019-04-04"));
 		at1.setState(AttachmentState.IN_LIBRARY);
 		attachmentRepository.save(at1);
 		
@@ -330,9 +316,9 @@ public class BootstrapData implements CommandLineRunner {
 		at2.setBorrowable(YesNo.Y);
 		at2.setCallNo("2222");
 		at2.setDescription("description");
-		at2.setFirstCheckin(date("2019-02-02"));
+		at2.setFirstCheckin(LocalDate.parse("2019-02-02"));
 		at2.setItem(i2);
-		at2.setLastCheckin(date("2019-05-05"));
+		at2.setLastCheckin(LocalDate.parse("2019-05-05"));
 		at2.setState(AttachmentState.IN_LIBRARY);
 		attachmentRepository.save(at2);
 		
@@ -341,17 +327,17 @@ public class BootstrapData implements CommandLineRunner {
 		at3.setBorrowable(YesNo.Y);
 		at3.setCallNo("3333");
 		at3.setDescription("description");
-		at3.setFirstCheckin(date("2019-03-03"));
+		at3.setFirstCheckin(LocalDate.parse("2019-03-03"));
 		at3.setItem(i3);
-		at3.setLastCheckin(date("2019-06-06"));
+		at3.setLastCheckin(LocalDate.parse("2019-06-06"));
 		at3.setState(AttachmentState.IN_LIBRARY);
 		attachmentRepository.save(at3);
 		
 		// Patron Type
 		PatronType pt1 = new PatronType();
 		pt1.setName("Student");
-		pt1.setStartDate(date("2019-01-02"));
-		pt1.setExpiryDate(date("2030-12-12"));
+		pt1.setStartDate(LocalDate.parse("2019-01-02"));
+		pt1.setExpiryDate(LocalDate.parse("2030-12-12"));
 		pt1.setMemberFee(new BigDecimal(100.00));
 		pt1.setDeposit(new BigDecimal(200.00));
 		pt1.setBiblioLimit(5);
@@ -368,8 +354,8 @@ public class BootstrapData implements CommandLineRunner {
 
 		PatronType pt2 = new PatronType();
 		pt2.setName("Teacher");
-		pt2.setStartDate(date("2019-01-02"));
-		pt2.setExpiryDate(date("2030-12-12"));
+		pt2.setStartDate(LocalDate.parse("2019-01-02"));
+		pt2.setExpiryDate(LocalDate.parse("2030-12-12"));
 		pt2.setMemberFee(new BigDecimal(100.00));
 		pt2.setDeposit(new BigDecimal(200.00));
 		pt2.setBiblioLimit(5);
@@ -441,8 +427,8 @@ public class BootstrapData implements CommandLineRunner {
 		p1.setActive(YesNo.Y);
 		p1.setName("Moan Ah Meng");
 		p1.setName2("Mr. Moon");
-		p1.setStartDate(date("2019-01-03"));
-		p1.setEndDate(date("2019-12-12"));
+		p1.setStartDate(LocalDate.parse("2019-01-03"));
+		p1.setEndDate(LocalDate.parse("2019-12-12"));
 		p1.setCardKey("11111");
 		p1.setEntangled("entangled1");
 		p1.setPatronType(pt1);
@@ -456,8 +442,8 @@ public class BootstrapData implements CommandLineRunner {
 		p2.setActive(YesNo.Y);
 		p2.setName("Moan Wai Loong");
 		p2.setName2("Mr. Loong");
-		p2.setStartDate(date("2019-01-01"));
-		p2.setEndDate(date("2019-12-12"));
+		p2.setStartDate(LocalDate.parse("2019-01-01"));
+		p2.setEndDate(LocalDate.parse("2019-12-12"));
 		p2.setCardKey("22222");
 		p2.setEntangled("entangled2");
 		p2.setPatronType(pt1);
@@ -471,8 +457,8 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setActive(YesNo.N);
 		p3.setName("R.P. Feynman");
 		p3.setName2("Prof Feynman");
-		p3.setStartDate(date("2019-01-15"));
-		p3.setEndDate(date("2019-12-12"));
+		p3.setStartDate(LocalDate.parse("2019-01-15"));
+		p3.setEndDate(LocalDate.parse("2019-12-12"));
 		p3.setCardKey("33333");
 		p3.setEntangled("entangled3");
 		p3.setPatronType(pt2);
@@ -483,13 +469,13 @@ public class BootstrapData implements CommandLineRunner {
 		patronRepository.save(p3);
 		
 		//checkout
-		Checkout co1 = new Checkout(date("2019-01-10"), date("2019-02-10"), new Integer(0), CheckoutState.CHECKOUT, p1, i1);
+		Checkout co1 = new Checkout(LocalDate.parse("2019-01-10"), LocalDate.parse("2019-02-10"), new Integer(0), CheckoutState.CHECKOUT, p1, i1);
 		checkoutRepository.save(co1);
 		
-		Checkout co2 = new Checkout(date("2019-04-20"), date("2019-05-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
+		Checkout co2 = new Checkout(LocalDate.parse("2019-04-20"), LocalDate.parse("2019-05-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
 		checkoutRepository.save(co2);
 		
-		Checkout co3 = new Checkout(date("2019-04-25"), date("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p3, i3);
+		Checkout co3 = new Checkout(LocalDate.parse("2019-04-25"), LocalDate.parse("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p3, i3);
 		checkoutRepository.save(co3);
 
 	}

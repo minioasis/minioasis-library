@@ -1,6 +1,7 @@
 package org.minioasis.library.domain.search;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
@@ -14,10 +15,10 @@ public class AttachmentCriteria implements Serializable {
 
 	private String itemBarcode;
 	private String keyword;
-	private Date firstCheckinFrom;
-	private Date firstCheckinTo;
-	private Date lastCheckinFrom;
-	private Date lastCheckinTo;
+	private LocalDate firstCheckinFrom;
+	private LocalDate firstCheckinTo;
+	private LocalDate lastCheckinFrom;
+	private LocalDate lastCheckinTo;
 	
 	Set<YesNo> borrowables = new HashSet<YesNo>();
 	Set<AttachmentState> states = new HashSet<AttachmentState>();
@@ -34,28 +35,28 @@ public class AttachmentCriteria implements Serializable {
 	public void setKeyword(String keyword) {
 		this.keyword = keyword;
 	}
-	public Date getFirstCheckinFrom() {
+	public LocalDate getFirstCheckinFrom() {
 		return firstCheckinFrom;
 	}
-	public void setFirstCheckinFrom(Date firstCheckinFrom) {
+	public void setFirstCheckinFrom(LocalDate firstCheckinFrom) {
 		this.firstCheckinFrom = firstCheckinFrom;
 	}
-	public Date getFirstCheckinTo() {
+	public LocalDate getFirstCheckinTo() {
 		return firstCheckinTo;
 	}
-	public void setFirstCheckinTo(Date firstCheckinTo) {
+	public void setFirstCheckinTo(LocalDate firstCheckinTo) {
 		this.firstCheckinTo = firstCheckinTo;
 	}
-	public Date getLastCheckinFrom() {
+	public LocalDate getLastCheckinFrom() {
 		return lastCheckinFrom;
 	}
-	public void setLastCheckinFrom(Date lastCheckinFrom) {
+	public void setLastCheckinFrom(LocalDate lastCheckinFrom) {
 		this.lastCheckinFrom = lastCheckinFrom;
 	}
-	public Date getLastCheckinTo() {
+	public LocalDate getLastCheckinTo() {
 		return lastCheckinTo;
 	}
-	public void setLastCheckinTo(Date lastCheckinTo) {
+	public void setLastCheckinTo(LocalDate lastCheckinTo) {
 		this.lastCheckinTo = lastCheckinTo;
 	}
 	public Set<YesNo> getBorrowables() {

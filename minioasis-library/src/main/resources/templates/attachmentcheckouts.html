@@ -153,8 +153,8 @@
 						<td><a href="#" th:href="@{/circ/patron/{id}(id=${e.patron.id})}" th:text="${e.patron.cardKey}">cardKey</a></td>
 						<td th:text="${e.attachment.barcode}">2312131</td>
 						<td th:text="${e.attachment.description}">Feynman Lecture On Physics's CD</td>
-						<td th:text="${#calendars.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${e.completed != null ? #calendars.format(e.done,'yyyy-MM-dd') : ''}">2015-09-30</td>
+						<td th:text="${#temporals.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${e.completed != null ? #temporals.format(e.done,'yyyy-MM-dd') : ''}">2015-09-30</td>
 						<td th:text="${e.state}">CHECKOUT</td>
 					</tr>
 					<tr th:remove="all">

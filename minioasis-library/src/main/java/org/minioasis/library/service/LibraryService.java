@@ -1,8 +1,9 @@
 package org.minioasis.library.service;
 
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.minioasis.library.domain.Attachment;
@@ -41,30 +42,30 @@ public interface LibraryService {
 
 	// Business Logic
 	// Checkout
-	void checkout(Patron patron, Item item, Date given) throws LibraryException;
-	void checkoutAttachment(Patron patron, Attachment attachment, Date given) throws LibraryException;
+	void checkout(Patron patron, Item item, LocalDate given) throws LibraryException;
+	void checkoutAttachment(Patron patron, Attachment attachment, LocalDate given) throws LibraryException;
 	
 	// Checkin
-	CheckoutResult checkin(Patron patron, Item item, Date given, boolean damage, boolean renew) throws LibraryException;
-	void checkinAttachment(Patron patron, Attachment attachment, Date given, boolean damageBadly) throws LibraryException;
+	CheckoutResult checkin(Patron patron, Item item, LocalDate given, boolean damage, boolean renew) throws LibraryException;
+	void checkinAttachment(Patron patron, Attachment attachment, LocalDate given, boolean damageBadly) throws LibraryException;
 	
 	// Renew
-	void renew(Patron patron, Item item, Date given) throws LibraryException;
+	void renew(Patron patron, Item item, LocalDate given) throws LibraryException;
 	
 	// ReportLost
-	void reportlost(Patron patron, Item item, Date given) throws LibraryException;
-	void reportlost(Patron patron, Attachment attachment, Date given) throws LibraryException;
+	void reportlost(Patron patron, Item item, LocalDate given) throws LibraryException;
+	void reportlost(Patron patron, Attachment attachment, LocalDate given) throws LibraryException;
 	
 	// PayFine
-	void payFine(Patron patron, Long[] ids, BigDecimal payAmount, Date given) throws LibraryException;
+	void payFine(Patron patron, Long[] ids, BigDecimal payAmount, LocalDate given) throws LibraryException;
 	
 	// Return
-	CheckoutResult returnItem(Item item, Date given, boolean damage) throws LibraryException;
-	CheckoutResult returnAttachment(Attachment attachment, Date given, boolean damage) throws LibraryException;
+	CheckoutResult returnItem(Item item, LocalDate given, boolean damage) throws LibraryException;
+	CheckoutResult returnAttachment(Attachment attachment, LocalDate given, boolean damage) throws LibraryException;
 	
 	// Reserve
-	ReservationResult reserve(Patron patron, Biblio biblio, Date given, Date expiryDate) throws LibraryException;
-	void cancelReservation(Patron patron, long reservationId, Date cancelDate) throws LibraryException;
+	ReservationResult reserve(Patron patron, Biblio biblio, LocalDateTime given, LocalDate expiryDate) throws LibraryException;
+	void cancelReservation(Patron patron, long reservationId, LocalDate cancelDate) throws LibraryException;
 	
 	
 	// Attachment
@@ -115,7 +116,7 @@ public interface LibraryService {
 	List<Checkout> findByCardKeyFetchItemBiblio(String cardKey);
 	List<Checkout> findByBarcodeAndFilterByStates(String barcode, List<CheckoutState> cStates, List<AttachmentCheckoutState> acStates);
 	Page<Checkout> findAllCheckouts(Pageable pageable);
-	Page<Checkout> findAllOverDue(List<CheckoutState> cStates, Date given, Pageable pageable);
+	Page<Checkout> findAllOverDue(List<CheckoutState> cStates, LocalDate given, Pageable pageable);
 	Page<Checkout> findAllCheckouts(String username, List<CheckoutState> cStates, Pageable pageable);
 	Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable);
 	//Page<Checkout> findAllCheckoutsByName(String name, Pageable pageable);
@@ -135,13 +136,13 @@ public interface LibraryService {
 	void delete(Holiday entity);
 	void deleteHoliday(long id);
 	Holiday getHoliday(long id);
-	Holiday getHolidayByDueDate(Date dueDate);
-	Holiday getHolidayByStartAndEndDate(Date start, Date end);
-	List<Holiday> findByInBetween(Date start , Date end);
-	List<Holiday> findByInBetweenWithFines(Date start, Date end, Boolean fine);
-	List<Holiday> findByExcluded(Date start , Date end);
+	Holiday getHolidayByDueDate(LocalDate dueDate);
+	Holiday getHolidayByStartAndEndDate(LocalDate start, LocalDate end);
+	List<Holiday> findByInBetween(LocalDate start , LocalDate end);
+	List<Holiday> findByInBetweenWithFines(LocalDate start, LocalDate end, Boolean fine);
+	List<Holiday> findByExcluded(LocalDate start , LocalDate end);
 	List<Holiday> findAllHolidays(Sort sort);
-	List<Holiday> findAllHolidaysByGivenDate(Date given);
+	List<Holiday> findAllHolidaysByGivenDate(LocalDate given);
 	Page<Holiday> findAllHolidays(Pageable pageable);
 	Page<Holiday> findByCriteria(HolidayCriteria criteria, Pageable pageable);
 	
@@ -198,7 +199,7 @@ public interface LibraryService {
 	// Patron
 	void save(Patron entity);
 	void edit(Patron entity);
-	int bulkUpdateGroup(List<Long> ids, Group group, Date now);
+	int bulkUpdateGroup(List<Long> ids, Group group, LocalDateTime now);
 	void delete(Patron entity);
 	void deletePatron(long id);
 	Patron getPatron(long id);
@@ -211,11 +212,11 @@ public interface LibraryService {
 	List<Patron> findByCardKeyAndEntangledContaining(String keyword);
 	List<Patron> findByNameOrCardKeyContaining(String key,Pageable pageable);
 	List<Patron> findByIdIn(Collection<Long> ids);
-	List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, Date updated);
+	List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, LocalDateTime updated);
 	Page<Patron> findAllPatrons(Pageable pageable);
 	Page<Patron> findByCriteria(PatronCriteria criteria, Pageable pageable);
 	
-	Patron getPatronByCardKeyForCirculation(String cardKey,Date given);
+	Patron getPatronByCardKeyForCirculation(String cardKey,LocalDate given);
 	
 	// PatronType	
 	void save(PatronType entity);

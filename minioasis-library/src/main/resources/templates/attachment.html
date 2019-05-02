@@ -57,11 +57,11 @@
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{1st.checkin}"></span></td>
-									<td class="text-info" th:text="${#calendars.format(attachment.firstCheckin,'yyyy-MM-dd')}">2019-01-01</td>
+									<td class="text-info" th:text="${#temporals.format(attachment.firstCheckin,'yyyy-MM-dd')}">2019-01-01</td>
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{last.checkin}"></span></td>
-									<td class="text-info" th:text="${#calendars.format(attachment.lastCheckin,'yyyy-MM-dd')}">2019-01-01</td>
+									<td class="text-info" th:text="${#temporals.format(attachment.lastCheckin,'yyyy-MM-dd')}">2019-01-01</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-dollar-sign text-label"></i> <span th:text="#{borrowable}"></span></td>

@@ -19,8 +19,7 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
-import java.util.Date;
-import java.util.Objects;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -28,8 +27,6 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -48,14 +45,12 @@ public class Holiday implements Serializable {
 	private String name;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date", nullable = false)
-	private Date startDate;
+	private LocalDate startDate;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date", nullable = false)
-	private Date endDate;
+	private LocalDate endDate;
 	
 	@NotNull
 	@Column(nullable = false)
@@ -64,7 +59,7 @@ public class Holiday implements Serializable {
 	public Holiday() {
 	}
 
-	public Holiday(String name, Date startDate, Date endDate) {
+	public Holiday(String name, LocalDate startDate, LocalDate endDate) {
 		this.name = name;
 		this.startDate = startDate;
 		this.endDate = endDate;
@@ -85,23 +80,23 @@ public class Holiday implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
-
-	public Date getStartDate() {
-		return this.startDate;
+	
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
-		return this.endDate;
+	public LocalDate getEndDate() {
+		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
-	
+
 	public Boolean getFine() {
 		return fine;
 	}

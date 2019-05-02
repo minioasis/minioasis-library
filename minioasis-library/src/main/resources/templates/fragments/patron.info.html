@@ -35,7 +35,7 @@
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{start.end}">Start/End</span></td>
-									<td th:text="${#calendars.format(dto.patron.startDate,'yyyy-MM-dd')} + ' / ' + ${#calendars.format(dto.patron.endDate,'yyyy-MM-dd')}">2015-08-31</td>
+									<td th:text="${#temporals.format(dto.patron.startDate,'yyyy-MM-dd')} + ' / ' + ${#temporals.format(dto.patron.endDate,'yyyy-MM-dd')}">2015-08-31</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-user-friends text-label"></i> <span th:text="#{patron.type}">P.Type</span></td>

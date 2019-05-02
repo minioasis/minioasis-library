@@ -25,15 +25,15 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item implements Serializable {
 
-    private static final long serialVersionUID = 2090564904;
+    private static final long serialVersionUID = 1881647826;
 
     private Long       id;
     private String     active;
     private String     barcode;
     private String     checked;
-    private Timestamp  created;
-    private Date       expired;
-    private Timestamp  firstCheckin;
+    private Date       created;
+    private Timestamp  expired;
+    private Date       firstCheckin;
     private Timestamp  lastCheckin;
     private String     lastFullRenewPerson;
     private BigDecimal price;
@@ -80,9 +80,9 @@ public class Item implements Serializable {
         String     active,
         String     barcode,
         String     checked,
-        Timestamp  created,
-        Date       expired,
-        Timestamp  firstCheckin,
+        Date       created,
+        Timestamp  expired,
+        Date       firstCheckin,
         Timestamp  lastCheckin,
         String     lastFullRenewPerson,
         BigDecimal price,
@@ -153,27 +153,27 @@ public class Item implements Serializable {
         this.checked = checked;
     }
 
-    public Timestamp getCreated() {
+    public Date getCreated() {
         return this.created;
     }
 
-    public void setCreated(Timestamp created) {
+    public void setCreated(Date created) {
         this.created = created;
     }
 
-    public Date getExpired() {
+    public Timestamp getExpired() {
         return this.expired;
     }
 
-    public void setExpired(Date expired) {
+    public void setExpired(Timestamp expired) {
         this.expired = expired;
     }
 
-    public Timestamp getFirstCheckin() {
+    public Date getFirstCheckin() {
         return this.firstCheckin;
     }
 
-    public void setFirstCheckin(Timestamp firstCheckin) {
+    public void setFirstCheckin(Date firstCheckin) {
         this.firstCheckin = firstCheckin;
     }
 

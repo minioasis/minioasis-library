@@ -1,7 +1,7 @@
 package org.minioasis.library.controller;
 
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Map;
 
@@ -56,11 +56,11 @@ public class HolidayController {
 			return "holiday.form";
 		} else {
 
-			Date start = holiday.getStartDate();
-			Date end = holiday.getEndDate();
+			LocalDate start = holiday.getStartDate();
+			LocalDate end = holiday.getEndDate();
 
 			// check 1
-			if (start.after(end)) {
+			if (start.isAfter(end)) {
 				result.rejectValue("startDate", "", "error.end.date.<.start.date");
 				return "holiday.form";
 			}
@@ -104,11 +104,11 @@ public class HolidayController {
 			return "holiday.form";
 		} else {
 
-			Date start = holiday.getStartDate();
-			Date end = holiday.getEndDate();
+			LocalDate start = holiday.getStartDate();
+			LocalDate end = holiday.getEndDate();
 
 			// check 1
-			if (start.after(end)) {
+			if (start.isAfter(end)) {
 				result.rejectValue("startDate", "", "error.end.date.<.start.date");
 				return "holiday.form";
 			}
@@ -157,20 +157,19 @@ public class HolidayController {
 			return "holiday.form";
 		} else {
 
-			Date start = holiday.getStartDate();
-			Date end = holiday.getEndDate();
+			LocalDate start = holiday.getStartDate();
+			LocalDate end = holiday.getEndDate();
 
 			// check 1
-			if (start.after(end)) {
+			if (start.isAfter(end)) {
 				result.rejectValue("startDate", "", "error.end.date.<.start.date");
 				return "holiday.form";
 			}
 
 			List<Holiday> holidays = this.service.findByExcluded(start, end);
-			System.out.println("***************1***********" + holidays.size());
+			
 			if(holidays.contains(holiday)){
 				holidays.remove(holiday);
-				System.out.println("**************2************" + holidays.size());
 			}
 			
 			int hit = holidays.size();	

@@ -20,8 +20,8 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -32,8 +32,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 @Entity
@@ -52,14 +50,12 @@ public class PatronType implements Serializable {
 	private String name;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date", nullable = false)
-	private Date startDate;
+	private LocalDate startDate;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "expiry_date", nullable = false)
-	private Date expiryDate;
+	private LocalDate expiryDate;
 	
 	@NotNull
 	@Column(name = "biblio_limit", nullable = false)
@@ -121,7 +117,7 @@ public class PatronType implements Serializable {
 	public PatronType() {
 	}
 
-	public PatronType(String name, Date startDate, Date expiryDate, Integer biblioLimit, Integer duration,
+	public PatronType(String name, LocalDate startDate, LocalDate expiryDate, Integer biblioLimit, Integer duration,
 			Integer maxNoOfReservations, Integer maxCollectablePeriod,
 			Integer maxUncollectedNo, Integer maxCantReservePeriod, Integer maxNoOfRenew, Integer minRenewablePeriod,
 			Integer resumeBorrowablePeriod, BigDecimal fineRate, BigDecimal memberFee,
@@ -159,19 +155,19 @@ public class PatronType implements Serializable {
 		this.name = name;
 	}
 
-	public Date getStartDate() {
-		return this.startDate;
+	public LocalDate getStartDate() {
+		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getExpiryDate() {
-		return this.expiryDate;
+	public LocalDate getExpiryDate() {
+		return expiryDate;
 	}
 
-	public void setExpiryDate(Date expiryDate) {
+	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 

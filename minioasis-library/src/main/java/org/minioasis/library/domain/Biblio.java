@@ -1,9 +1,9 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collections;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -26,8 +26,6 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
@@ -94,9 +92,8 @@ public class Biblio implements Serializable {
 	@Column(name = "publication_place")
 	private String publicationPlace;
 	
-   	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated")
-	private Date updated = new Date();
+	private LocalDateTime updated = LocalDateTime.now();
 
 	@NotNull
 	@Column(nullable = false , columnDefinition = "CHAR(1)")
@@ -245,11 +242,11 @@ public class Biblio implements Serializable {
 		this.publicationPlace = publicationPlace;
 	}
 
-	public Date getUpdated() {
+	public LocalDateTime getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(Date updated) {
+	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
 

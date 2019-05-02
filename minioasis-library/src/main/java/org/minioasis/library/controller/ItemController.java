@@ -2,7 +2,7 @@ package org.minioasis.library.controller;
 
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Locale;
 
@@ -23,7 +23,6 @@ import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Location;
 //import org.minioasis.library.domain.LocationEditor;
 import org.minioasis.library.service.LibraryService;
-import org.apache.commons.lang3.time.DateUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -80,7 +79,7 @@ public class ItemController {
 			return "item.not.found";
 		}else{
 			item.setBiblio(biblio);
-			item.setFirstCheckin(new Date());
+			item.setFirstCheckin(LocalDate.now());
 		}
 			
 		model.addAttribute("item", item);
@@ -105,14 +104,14 @@ public class ItemController {
 				return "item.form";
 			}
 			
-			Date firstCheckin = item.getFirstCheckin();
-			Date now = new Date();
+			LocalDate firstCheckin = item.getFirstCheckin();
+			LocalDate now = LocalDate.now();
 
-			if(DateUtils.isSameDay(now, firstCheckin)){
+			if(now.isEqual(firstCheckin)) {
 				item.setFirstCheckin(now);
-				item.setLastCheckin(now);
+				item.setLastCheckin(now.atTime(00, 00, 00));				
 			}else{
-				item.setLastCheckin(item.getFirstCheckin());
+				item.setLastCheckin(item.getFirstCheckin().atTime(00, 00, 00));
 			}
 
 			item.setState(ItemState.IN_LIBRARY);
@@ -163,15 +162,15 @@ public class ItemController {
 			
 			try{
 
-				Date firstCheckin = item.getFirstCheckin();
-				Date now = new Date();
+				LocalDate firstCheckin = item.getFirstCheckin();
+				LocalDate now = LocalDate.now();
 
-				if(DateUtils.isSameDay(now, firstCheckin)){
+				if(now.isEqual(firstCheckin)) {
 					item.setFirstCheckin(now);
-					item.setLastCheckin(now);
+					item.setLastCheckin(now.atTime(00, 00, 00));				
 				}
 					
-				item.setLastCheckin(item.getFirstCheckin());
+				item.setLastCheckin(item.getFirstCheckin().atTime(00, 00, 00));
 				this.service.edit(item);
 				
 			}catch (DataIntegrityViolationException eive){

@@ -1,6 +1,6 @@
 package org.minioasis.library.repository;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 
 import org.minioasis.library.domain.AttachmentCheckoutState;
@@ -50,7 +50,7 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long>, Check
 			+ " JOIN i.volume v"
 			+ " WHERE c.state in (?1) AND c.dueDate < ?2"
 			+ " ORDER BY c.dueDate asc, p.cardKey asc")
-	public Page<Checkout> findAllOverDue(List<CheckoutState> cStates, Date given, Pageable pageable); 
+	public Page<Checkout> findAllOverDue(List<CheckoutState> cStates, LocalDate given, Pageable pageable); 
 	
 	@Query("SELECT c FROM Checkout c"
 			+ " JOIN c.patron p"

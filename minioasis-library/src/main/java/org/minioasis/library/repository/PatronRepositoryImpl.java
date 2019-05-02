@@ -1,7 +1,7 @@
 package org.minioasis.library.repository;
 
-import java.sql.Timestamp;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
 
@@ -15,6 +15,10 @@ import javax.persistence.criteria.Root;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
+import org.jooq.DatePart;
+import org.jooq.Field;
+import org.jooq.Record3;
+import org.jooq.Result;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.YesNo;
@@ -47,12 +51,12 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		final String cardkey = criteria.getCardKey();
 		final String keyword = criteria.getKeyword();
 		final String note = criteria.getNote();
-		final Date createdFrom = criteria.getCreatedFrom();
-		final Date createdTo = criteria.getCreatedTo();
-		final Date startDateFrom = criteria.getStartDateFrom();
-		final Date startDateTo = criteria.getStartDateTo();
-		final Date endDateFrom = criteria.getEndDateFrom();
-		final Date endDateTo = criteria.getEndDateTo();
+		final LocalDateTime createdFrom = criteria.getCreatedFrom();
+		final LocalDateTime createdTo = criteria.getCreatedTo();
+		final LocalDate startDateFrom = criteria.getStartDateFrom();
+		final LocalDate startDateTo = criteria.getStartDateTo();
+		final LocalDate endDateFrom = criteria.getEndDateFrom();
+		final LocalDate endDateTo = criteria.getEndDateTo();
 		final Set<YesNo> actives = criteria.getActives();
 		final Set<Long> patronTypes = criteria.getPatronTypes();
 		final Set<Long> groups = criteria.getGroups();		
@@ -77,13 +81,13 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		}
 	    
 	    if(createdFrom != null || createdTo != null) {
-	    	result = result.and(p.CREATED.between(new Timestamp(createdFrom.getTime()), new Timestamp(createdTo.getTime())));
+	    	result = result.and(p.CREATED.between(java.sql.Timestamp.valueOf(createdFrom), java.sql.Timestamp.valueOf(createdTo)));
 	    }
 		if(startDateFrom != null || startDateTo != null){
-			result = result.and(p.START_DATE.between(new java.sql.Date(startDateFrom.getTime()), new java.sql.Date(startDateTo.getTime())));
+			result = result.and(p.START_DATE.between(java.sql.Date.valueOf(startDateFrom),java.sql.Date.valueOf(startDateTo)));
 		}
 		if(endDateFrom != null || endDateTo != null){
-			result = result.and(p.START_DATE.between(new java.sql.Date(endDateFrom.getTime()), new java.sql.Date(endDateTo.getTime())));
+			result = result.and(p.START_DATE.between(java.sql.Date.valueOf(endDateFrom), java.sql.Date.valueOf(endDateTo)));
 		}
 		if(patronTypes != null && patronTypes.size() > 0){
 			result = result.and(p.PATRONTYPE_ID.in(patronTypes));
@@ -96,6 +100,21 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		}
 	    
 	    return result;
+	}
+
+	
+	public Result<Record3<Integer, String, Integer>> CountPatronsByTypes(){
+		
+		Field<Integer> month = p.START_DATE.extract(DatePart.MONTH);
+		
+		Result<Record3<Integer, String, Integer>> records = dsl.select(month, pt.NAME, DSL.count())
+									.from(p)
+									.join(pt).on(pt.ID.eq(p.PATRONTYPE_ID))
+									.groupBy(pt.NAME, month)
+									.orderBy(month, pt.NAME)
+									.fetch();
+		
+		return records;
 	}
 	
 	public Page<Patron> findByCriteria(PatronCriteria criteria, Pageable pageable){
@@ -140,7 +159,7 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
     }
 
 
-	public int bulkUpdateGroup(List<Long> ids, Group group, Date now){
+	public int bulkUpdateGroup(List<Long> ids, Group group, LocalDateTime now){
 		
 		CriteriaBuilder cb = em.getCriteriaBuilder();
 		CriteriaUpdate<Patron> query = cb.createCriteriaUpdate(Patron.class);

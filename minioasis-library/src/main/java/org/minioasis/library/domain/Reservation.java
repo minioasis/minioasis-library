@@ -1,7 +1,8 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -14,8 +15,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.FilterDef;
@@ -40,34 +39,27 @@ public class Reservation implements Serializable {
 	private Long id;
 	
 	@NotNull
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "reservation_date", nullable = false)
-	private Date reservationDate;
+	private LocalDateTime reservationDate;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "expiry_date", nullable = false)
-	private Date expiryDate;
+	private LocalDate expiryDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "available_date")
-	private Date availableDate;
+	private LocalDate availableDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "notification_date")
-	private Date notificationDate;
+	private LocalDate notificationDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "collected_date")
-	private Date collectedDate;
+	private LocalDate collectedDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "cancel_date")
-	private Date cancelDate;
+	private LocalDate cancelDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "uncollected_date")
-	private Date unCollectedDate;
+	private LocalDate unCollectedDate;
 	
     @NotNull
 	@Enumerated(EnumType.STRING)
@@ -88,7 +80,7 @@ public class Reservation implements Serializable {
     @JoinColumn(name="patron_id" , nullable = false , updatable = false , foreignKey = @ForeignKey(name = "fk_reservation_patron"))
 	private Patron patron;
 
-	public Reservation(Date collectedDate) {
+	public Reservation(LocalDate collectedDate) {
 		super();
 		this.collectedDate = collectedDate;
 	}
@@ -96,7 +88,7 @@ public class Reservation implements Serializable {
 	public Reservation() {
 	}
 
-	public Reservation(Date reservationDate, Date expiryDate,
+	public Reservation(LocalDateTime reservationDate, LocalDate expiryDate,
 			ReservationState state, PatronType patronType,
 			Biblio biblio, Patron patron) {
 		this.reservationDate = reservationDate;
@@ -107,9 +99,9 @@ public class Reservation implements Serializable {
 		this.patron = patron;
 	}
 
-	public Reservation(Date reservationDate, Date expiryDate,
-			Date availableDate, Date notificationDate, Date collectedDate,
-			Date cancelDate,Date unCollectedDate, ReservationState state,
+	public Reservation(LocalDateTime reservationDate, LocalDate expiryDate,
+			LocalDate availableDate, LocalDate notificationDate, LocalDate collectedDate,
+			LocalDate cancelDate, LocalDate unCollectedDate, ReservationState state,
 			PatronType patronType, Biblio biblio,Patron patron) {
 		this.reservationDate = reservationDate;
 		this.expiryDate = expiryDate;
@@ -132,60 +124,59 @@ public class Reservation implements Serializable {
 		this.id = id;
 	}
 
-	public Date getReservationDate() {
-		return this.reservationDate;
+	public LocalDateTime getReservationDate() {
+		return reservationDate;
 	}
 
-	public void setReservationDate(Date reservationDate) {
+	public void setReservationDate(LocalDateTime reservationDate) {
 		this.reservationDate = reservationDate;
 	}
 
-	public Date getExpiryDate() {
-		return this.expiryDate;
+	public LocalDate getExpiryDate() {
+		return expiryDate;
 	}
 
-	public void setExpiryDate(Date expiryDate) {
+	public void setExpiryDate(LocalDate expiryDate) {
 		this.expiryDate = expiryDate;
 	}
 
-	public Date getAvailableDate() {
-		return this.availableDate;
+	public LocalDate getAvailableDate() {
+		return availableDate;
 	}
 
-	public void setAvailableDate(Date availableDate) {
+	public void setAvailableDate(LocalDate availableDate) {
 		this.availableDate = availableDate;
 	}
 
-	public Date getNotificationDate() {
-		return this.notificationDate;
+	public LocalDate getNotificationDate() {
+		return notificationDate;
 	}
 
-	public void setNotificationDate(Date notificationDate) {
+	public void setNotificationDate(LocalDate notificationDate) {
 		this.notificationDate = notificationDate;
 	}
 
-
-	public Date getCollectedDate() {
+	public LocalDate getCollectedDate() {
 		return collectedDate;
 	}
 
-	public void setCollectedDate(Date collectedDate) {
+	public void setCollectedDate(LocalDate collectedDate) {
 		this.collectedDate = collectedDate;
 	}
 
-	public Date getCancelDate() {
-		return this.cancelDate;
+	public LocalDate getCancelDate() {
+		return cancelDate;
 	}
 
-	public void setCancelDate(Date cancelDate) {
+	public void setCancelDate(LocalDate cancelDate) {
 		this.cancelDate = cancelDate;
 	}
 
-	public Date getUnCollectedDate() {
+	public LocalDate getUnCollectedDate() {
 		return unCollectedDate;
 	}
 
-	public void setUnCollectedDate(Date unCollectedDate) {
+	public void setUnCollectedDate(LocalDate unCollectedDate) {
 		this.unCollectedDate = unCollectedDate;
 	}
 
@@ -221,7 +212,7 @@ public class Reservation implements Serializable {
 		this.patron = patron;
 	}
 
-	public void cancel(Date given) {
+	public void cancel(LocalDate given) {
 
 		if (state.equals(ReservationState.RESERVE)) {
 			setCancelDate(given);
@@ -241,7 +232,7 @@ public class Reservation implements Serializable {
 
 	}
 	
-	public void notification(Date given) {
+	public void notification(LocalDate given) {
 		if(given == null)
 			throw new IllegalArgumentException("Must have a given date.");
 		

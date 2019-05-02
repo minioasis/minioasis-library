@@ -79,9 +79,9 @@
 						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${icheckout.patron.cardKey})}" th:text="${icheckout.patron.cardKey}">cardKey</a></td>
 						<td th:text="${icheckout.item.biblio.title}">Title</td>
 						<td th:text="${icheckout.item.barcode}">Barcode</td>
-						<td th:text="${#calendars.format(icheckout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(icheckout.dueDate,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(icheckout.done,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(icheckout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(icheckout.dueDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(icheckout.done,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${icheckout.state}">State</td>
 					</tr>
 					<tr th:remove="all">
@@ -115,8 +115,8 @@
 						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${acheckout.patron.cardKey})}" th:text="${acheckout.patron.cardKey}">cardKey</a></td>
 						<td th:text="${acheckout.attachment.description}">Description</td>
 						<td th:text="${acheckout.attachment.barcode}">Barcode</td>
-						<td th:text="${#calendars.format(acheckout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(acheckout.completed,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(acheckout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(acheckout.completed,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${acheckout.state}">State</td>
 					</tr>
 					<tr th:remove="all">
@@ -149,8 +149,8 @@
 					<tr>
 						<td th:text="${reservation.patron.name}">Name</td>
 						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${reservation.patron.cardKey})}" th:text="${reservation.patron.cardKey}">cardKey</a></td>
-						<td th:text="${#calendars.format(reservation.reservationDate,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(reservation.expiryDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(reservation.reservationDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(reservation.expiryDate,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${reservation.state}">State</td>
 					</tr>
 					<tr th:remove="all">

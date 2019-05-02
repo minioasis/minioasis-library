@@ -1,6 +1,7 @@
 package org.minioasis.library.domain.search;
 
-import java.util.Date;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -13,12 +14,12 @@ public class PatronCriteria {
 	private String keyword;
 	private String cardKey;
 	private String note;
-	private Date createdFrom;
-	private Date createdTo;
-	private Date startDateFrom;
-	private Date startDateTo;
-	private Date endDateFrom;
-	private Date endDateTo;
+	private LocalDateTime createdFrom;
+	private LocalDateTime createdTo;
+	private LocalDate startDateFrom;
+	private LocalDate startDateTo;
+	private LocalDate endDateFrom;
+	private LocalDate endDateTo;
 	private Set<YesNo> actives = new HashSet<YesNo>();
 	private Set<Long> patronTypes = new HashSet<Long>();
 	private Set<Long> groups = new HashSet<Long>();
@@ -45,40 +46,40 @@ public class PatronCriteria {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public Date getCreatedFrom() {
+	public LocalDateTime getCreatedFrom() {
 		return createdFrom;
 	}
-	public void setCreatedFrom(Date createdFrom) {
+	public void setCreatedFrom(LocalDateTime createdFrom) {
 		this.createdFrom = createdFrom;
 	}
-	public Date getCreatedTo() {
+	public LocalDateTime getCreatedTo() {
 		return createdTo;
 	}
-	public void setCreatedTo(Date createdTo) {
+	public void setCreatedTo(LocalDateTime createdTo) {
 		this.createdTo = createdTo;
 	}
-	public Date getStartDateFrom() {
+	public LocalDate getStartDateFrom() {
 		return startDateFrom;
 	}
-	public void setStartDateFrom(Date startDateFrom) {
+	public void setStartDateFrom(LocalDate startDateFrom) {
 		this.startDateFrom = startDateFrom;
 	}
-	public Date getStartDateTo() {
+	public LocalDate getStartDateTo() {
 		return startDateTo;
 	}
-	public void setStartDateTo(Date startDateTo) {
+	public void setStartDateTo(LocalDate startDateTo) {
 		this.startDateTo = startDateTo;
 	}
-	public Date getEndDateFrom() {
+	public LocalDate getEndDateFrom() {
 		return endDateFrom;
 	}
-	public void setEndDateFrom(Date endDateFrom) {
+	public void setEndDateFrom(LocalDate endDateFrom) {
 		this.endDateFrom = endDateFrom;
 	}
-	public Date getEndDateTo() {
+	public LocalDate getEndDateTo() {
 		return endDateTo;
 	}
-	public void setEndDateTo(Date endDateTo) {
+	public void setEndDateTo(LocalDate endDateTo) {
 		this.endDateTo = endDateTo;
 	}
 	public Set<YesNo> getActives() {

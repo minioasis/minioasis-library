@@ -67,9 +67,9 @@
 						<td th:text="${cmd.item.biblio.title}">Feynman</td>
 						<td th:text="${cmd.item.checked}">Y</td>
 						<td th:text="${cmd.item.location.name}">Kepong</td>
-						<td th:text="${#calendars.format(cmd.item.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(cmd.item.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(cmd.item.created,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(cmd.item.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(cmd.item.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(cmd.item.created,'yyyy-MM-dd')}">2015-08-31</td>
 					</tr>
 					<tr th:remove="all">
 						<td>2</td>

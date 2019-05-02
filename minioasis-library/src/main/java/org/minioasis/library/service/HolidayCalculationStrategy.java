@@ -1,13 +1,13 @@
 package org.minioasis.library.service;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 public interface HolidayCalculationStrategy {
 	
 	// this is for checkout
-	Date getNewDueDateAfterHolidays(Date dueDate);
+	LocalDate getNewDueDateAfterHolidays(LocalDate dueDate);
 
 	// this is for fine
-	int getNoOfHolidaysBetween(Date start , Date end);
+	int getNoOfHolidaysBetween(LocalDate start , LocalDate end);
 
 }

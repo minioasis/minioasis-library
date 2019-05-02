@@ -47,8 +47,8 @@
 						<td>
 							<a href="#" th:href="@{/patrontype/{id}(id=${e.id})}" th:text="${e.name}">Student</a>
 						</td>
-						<td th:text="${#calendars.format(e.startDate,'yyyy-MM-dd')}">2015-01-01</td>
-						<td th:text="${#calendars.format(e.expiryDate,'yyyy-MM-dd')}">2015-12-31</td>
+						<td th:text="${#temporals.format(e.startDate,'yyyy-MM-dd')}">2015-01-01</td>
+						<td th:text="${#temporals.format(e.expiryDate,'yyyy-MM-dd')}">2015-12-31</td>
 						<td th:text="${e.memberFee}">150</td>
 						<td th:text="${e.deposit}">300</td>
 						<td th:text="${e.biblioLimit}">5</td>

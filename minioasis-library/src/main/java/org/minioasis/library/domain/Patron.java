@@ -2,12 +2,11 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
-import java.util.Date;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Objects;
-import java.util.Set;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -25,8 +24,6 @@ import javax.persistence.OneToMany;
 import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
@@ -61,14 +58,12 @@ public class Patron implements Serializable {
 	private String name2;
 
 	@NotNull(message = "{notnull}")
-	@Temporal(TemporalType.DATE)
 	@Column(name = "start_date", nullable = false)
-	private Date startDate;
+	private LocalDate  startDate;
 
 	@NotNull(message = "{notnull}")
-	@Temporal(TemporalType.DATE)
 	@Column(name = "end_date", nullable = false)
-	private Date endDate;
+	private LocalDate  endDate;
 
 	@NotNull(message = "{notnull}")
 	@Length(max = 16)
@@ -102,13 +97,11 @@ public class Patron implements Serializable {
 	@Valid
 	private Contact contact;
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "created")
-	private Date created = new Date();
+	private LocalDateTime created = LocalDateTime.now();
 
-	@Temporal(TemporalType.TIMESTAMP)
 	@Column(name = "updated")
-	private Date updated = new Date();
+	private LocalDateTime updated = LocalDateTime.now();
 
 	@Column(name = "uncollected_no", nullable = false)
 	private Short unCollectedNo = 0;
@@ -176,19 +169,19 @@ public class Patron implements Serializable {
 		this.name2 = name2;
 	}
 
-	public Date getStartDate() {
+	public LocalDate getStartDate() {
 		return startDate;
 	}
 
-	public void setStartDate(Date startDate) {
+	public void setStartDate(LocalDate startDate) {
 		this.startDate = startDate;
 	}
 
-	public Date getEndDate() {
+	public LocalDate getEndDate() {
 		return endDate;
 	}
 
-	public void setEndDate(Date endDate) {
+	public void setEndDate(LocalDate endDate) {
 		this.endDate = endDate;
 	}
 
@@ -256,19 +249,19 @@ public class Patron implements Serializable {
 		this.contact = contact;
 	}
 
-	public Date getCreated() {
+	public LocalDateTime getCreated() {
 		return created;
 	}
 
-	public void setCreated(Date created) {
+	public void setCreated(LocalDateTime created) {
 		this.created = created;
 	}
 
-	public Date getUpdated() {
+	public LocalDateTime getUpdated() {
 		return updated;
 	}
 
-	public void setUpdated(Date updated) {
+	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
 
@@ -394,21 +387,17 @@ public class Patron implements Serializable {
 		this.reservations.remove(reservation);
 	}
 
-	public Date calculateDueDate(Date checkoutDate, Item item) {
+	public LocalDate calculateDueDate(LocalDate checkoutDate, Item item) {
 
 		long duration = this.patronType.getDuration().longValue();
 		long itemDuration = item.getItemDuration().getValue().longValue();
-
-		long total = duration + itemDuration;
-
-		Date dueDate = new Date(checkoutDate.getTime() + (total * oneDay));
-
-		return dueDate;
+		
+		return checkoutDate.plusDays(duration + itemDuration);
 	}
 
 	// ******************** checkout *********************************
 
-	public void checkout(Item item, Date given, Date newDueDate, int holidays, HolidayCalculationStrategy strategy) {
+	public void checkout(Item item, LocalDate given, LocalDate newDueDate, int holidays, HolidayCalculationStrategy strategy) {
 
 		Notification notification = checkoutValidation(item, given, holidays, strategy);
 
@@ -431,7 +420,7 @@ public class Patron implements Serializable {
 
 	// ********************* checkout's helping methods ***************
 
-	private Date whichDueDate(Date one, Date two) {
+	private LocalDate whichDueDate(LocalDate one, LocalDate two) {
 		if (one.equals(two))
 			return one;
 
@@ -439,7 +428,7 @@ public class Patron implements Serializable {
 	}
 
 	// A
-	private Notification checkoutValidation(Item item, Date given, int holidays, HolidayCalculationStrategy strategy) {
+	private Notification checkoutValidation(Item item, LocalDate given, int holidays, HolidayCalculationStrategy strategy) {
 
 		Notification notification = new Notification();
 
@@ -456,7 +445,7 @@ public class Patron implements Serializable {
 	}
 
 	// B
-	private void stateChangeToCompleted(Item item, Date given) {
+	private void stateChangeToCompleted(Item item, LocalDate given) {
 
 		Biblio b = item.getBiblio();
 
@@ -481,20 +470,20 @@ public class Patron implements Serializable {
 	}
 
 	// A.1
-	private void givenDateValidation(Date given, Notification notification) {
+	private void givenDateValidation(LocalDate given, Notification notification) {
 
-		if (startDate.after(given) || endDate.before(given)) {
+		if (startDate.isAfter(given) || endDate.isBefore(given)) {
 			notification.addError(CirculationCode.INVALID_GIVENDATE_PATRON);
 		}
 
-		if (patronType.getStartDate().after(given) || patronType.getExpiryDate().before(given)) {
+		if (patronType.getStartDate().isAfter(given) || patronType.getExpiryDate().isBefore(given)) {
 			notification.addError(CirculationCode.INVALID_GIVENDATE_PATRONTYPE);
 		}
 
 	}
 
 	// A.3
-	private void itemValidation(Item item, Date given, Notification notification) {
+	private void itemValidation(Item item, LocalDate given, Notification notification) {
 
 		// check item's borrowable
 		if (!item.isItemStateBorrowable())
@@ -533,16 +522,15 @@ public class Patron implements Serializable {
 	}
 
 	// A.3.3.1
-	private boolean resumeCheckoutPeriod(Item item, Date given) {
+	private boolean resumeCheckoutPeriod(Item item, LocalDate given) {
 
-		long oneDay = 86400000;
 		long duration = getPatronType().getResumeBorrowablePeriod();
-		Date calResumeCheckoutDate = new Date(item.getLastCheckin().getTime() + (duration * oneDay));
-		if (given.after(calResumeCheckoutDate))
+		LocalDate calResumeCheckoutDate = item.getLastCheckin().plusDays(duration).toLocalDate();
+		
+		if (given.isAfter(calResumeCheckoutDate))
 			return true;
 
 		return false;
-
 	}
 
 	// A.3.1
@@ -607,7 +595,7 @@ public class Patron implements Serializable {
 
 	// A.4 the states must be ACTIVE , otherwise the code bellow is not
 	// true !!
-	private void patronTypeValidation(Date given, int holidays, HolidayCalculationStrategy strategy, Notification notifications) {
+	private void patronTypeValidation(LocalDate given, int holidays, HolidayCalculationStrategy strategy, Notification notifications) {
 
 		// A.4.1
 		if (isBiblioLimitOver(patronType))
@@ -627,7 +615,7 @@ public class Patron implements Serializable {
 
 	// ******************** checkout attachment **********************
 
-	public void checkout(Attachment attachment, Date given) {
+	public void checkout(Attachment attachment, LocalDate given) {
 
 		Checkout checkout = findCheckout(attachment);
 
@@ -657,7 +645,7 @@ public class Patron implements Serializable {
 		return null;
 	}
 
-	private Notification checkoutValidation(Attachment attachment, Checkout checkout, Date given) {
+	private Notification checkoutValidation(Attachment attachment, Checkout checkout, LocalDate given) {
 
 		Notification notification = new Notification();
 
@@ -684,7 +672,7 @@ public class Patron implements Serializable {
 
 	// ********************* checkin *********************************
 
-	public CheckoutResult checkin(Item item, Date given, boolean damage, boolean renew, HolidayCalculationStrategy strategy) {
+	public CheckoutResult checkin(Item item, LocalDate given, boolean damage, boolean renew, HolidayCalculationStrategy strategy) {
 
 		CheckoutResult result = new CheckoutResult();
 
@@ -727,7 +715,7 @@ public class Patron implements Serializable {
 			}
 
 			checkin.setDone(given);
-			checkin.getItem().setLastCheckin(given);
+			checkin.getItem().setLastCheckin(given.atTime(00, 00, 00));
 			checkin.getItem().setState(ItemState.IN_LIBRARY);
 			// set checkin into result, otherwise renew will cause
 			// CHECKOUT_NOT_FOUND
@@ -781,7 +769,7 @@ public class Patron implements Serializable {
 		return null;
 	}
 
-	private Notification checkinValidation(Item item, Checkout checkin, Date given, boolean renew) {
+	private Notification checkinValidation(Item item, Checkout checkin, LocalDate given, boolean renew) {
 
 		Notification notification = new Notification();
 
@@ -797,7 +785,7 @@ public class Patron implements Serializable {
 		}
 
 		// check return date validation
-		if (given.before(checkin.getCheckoutDate())) {
+		if (given.isBefore(checkin.getCheckoutDate())) {
 			notification.addError(CirculationCode.INVALID_GIVENDATE);
 		}
 
@@ -825,7 +813,7 @@ public class Patron implements Serializable {
 
 	// ******************* checkin attachment ***************************************
 
-	public void checkin(Attachment attachment, Date given, boolean damageBadly) {
+	public void checkin(Attachment attachment, LocalDate given, boolean damageBadly) {
 
 		AttachmentState state = attachment.getState();
 		
@@ -882,7 +870,7 @@ public class Patron implements Serializable {
 		return null;
 	}
 
-	private Notification checkinValidation(AttachmentCheckout ac, Date given) {
+	private Notification checkinValidation(AttachmentCheckout ac, LocalDate given) {
 
 		Notification notification = new Notification();
 
@@ -890,7 +878,7 @@ public class Patron implements Serializable {
 			throw new LibraryException(CirculationCode.ATTACHMENTCHECKOUT_NOT_FOUND);
 		}
 
-		if (given.before(ac.getCheckoutDate())) {
+		if (given.isBefore(ac.getCheckoutDate())) {
 			notification.addError(CirculationCode.INVALID_GIVENDATE);
 			return notification;
 		}
@@ -909,7 +897,7 @@ public class Patron implements Serializable {
 		return false;		
 	}
 	
-	public void renew(Item item, Date given, Date newDueDate, int holidays, HolidayCalculationStrategy strategy) {
+	public void renew(Item item, LocalDate given, LocalDate newDueDate, int holidays, HolidayCalculationStrategy strategy) {
 
 		boolean aRenew = true;
 		
@@ -965,7 +953,7 @@ public class Patron implements Serializable {
 
 	}
 
-	private Notification renewValidation(Checkout renew, Date given) {
+	private Notification renewValidation(Checkout renew, LocalDate given) {
 
 		Notification notification = new Notification();
 		
@@ -991,7 +979,7 @@ public class Patron implements Serializable {
 
 	// ******************* reportlost (item) *****************************
 
-	public void reportLost(Item item, Date given) {
+	public void reportLost(Item item, LocalDate given) {
 
 		Checkout checkout = findCheckout(item);
 
@@ -1007,7 +995,7 @@ public class Patron implements Serializable {
 
 		// set reportlost date , state
 		// set item state
-		if (given.after(checkout.getDueDate())) {
+		if (given.isAfter(checkout.getDueDate())) {
 
 			checkout.setDone(given);
 			checkout.setState(CheckoutState.REPORTLOST_WITH_FINE);
@@ -1025,7 +1013,7 @@ public class Patron implements Serializable {
 
 	// ******************* reportlost (attachment) ******************
 
-	public void reportLost(Attachment attachment, Date given) {
+	public void reportLost(Attachment attachment, LocalDate given) {
 
 		AttachmentCheckout ac = findAttachmentCheckout(attachment);
 
@@ -1041,14 +1029,14 @@ public class Patron implements Serializable {
 
 	// ******************** reserve *******************************
 
-	public ReservationResult reserve(Biblio biblio, Date given, Date expiryDate) {
+	public ReservationResult reserve(Biblio biblio, LocalDateTime given, LocalDate expiryDate) {
 
 		ReservationResult result = new ReservationResult();
 		Notification notification = result.getNotification();
 
 		Reservation r = null;
 
-		isBiblioReservable(biblio, given, notification);
+		isBiblioReservable(biblio, given.toLocalDate(), notification);
 
 		if (notification.hasErrors())
 			throw new LibraryException(notification.getAllMessages());
@@ -1063,7 +1051,7 @@ public class Patron implements Serializable {
 
 	}
 
-	public Reservation cancelReservation(Date given, Long reservationId) {
+	public Reservation cancelReservation(LocalDate given, Long reservationId) {
 
 		Long id = new Long(reservationId);
 
@@ -1083,7 +1071,7 @@ public class Patron implements Serializable {
 
 	}
 
-	public boolean isBiblioReservable(Biblio biblio, Date given, Notification notification) {
+	public boolean isBiblioReservable(Biblio biblio, LocalDate given, Notification notification) {
 
 		givenDateValidation(given, notification);
 
@@ -1195,7 +1183,7 @@ public class Patron implements Serializable {
 
 	// ******************* pay fine *******************************
 
-	public void payFine(Long[] ids, BigDecimal payAmount, Date given,  HolidayCalculationStrategy strategy) {
+	public void payFine(Long[] ids, BigDecimal payAmount, LocalDate given,  HolidayCalculationStrategy strategy) {
 
 		BigDecimal fineAmount = new BigDecimal(0);
 
@@ -1214,9 +1202,9 @@ public class Patron implements Serializable {
 			// make fineAmount and checkoutIds
 			for (Checkout c : checkouts) {
 
-				Date actionDate = c.getDone();
+				LocalDate actionDate = c.getDone();
 
-				if (actionDate != null && actionDate.after(given)) {
+				if (actionDate != null && actionDate.isAfter(given)) {
 					throw new LibraryException(CirculationCode.INVALID_GIVENDATE);
 				}
 
@@ -1347,10 +1335,10 @@ public class Patron implements Serializable {
 	 * 
 	 * @param given
 	 */
-	public void calculateAllStates(Date given, HolidayCalculationStrategy strategy) {
+	public void calculateAllStates(LocalDate given, HolidayCalculationStrategy strategy) {
 
 		// TODO : dateExpired has never been used in the code !!!
-		this.dateExpired = this.getEndDate().before(given);
+		this.dateExpired = this.getEndDate().isBefore(given);
 		// TODO: cannot do the following code now !
 		// currentLut.calculateState(given);
 		calculateCheckoutsState(given,strategy);
@@ -1358,7 +1346,7 @@ public class Patron implements Serializable {
 		this.totalAmountOfFines = calculateFine();
 	}
 
-	private void calculateCheckoutsState(Date given,  HolidayCalculationStrategy strategy) {
+	private void calculateCheckoutsState(LocalDate given,  HolidayCalculationStrategy strategy) {
 		for (Checkout c : checkouts) {
 			c.calculateAllStates(given, strategy);
 		}

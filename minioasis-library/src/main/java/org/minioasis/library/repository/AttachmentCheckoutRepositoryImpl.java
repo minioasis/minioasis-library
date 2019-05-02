@@ -19,7 +19,7 @@ import org.springframework.data.domain.Pageable;
 import static org.minioasis.library.jooq.tables.AttachmentCheckout.ATTACHMENT_CHECKOUT;
 import static org.minioasis.library.jooq.tables.Patron.PATRON;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -117,19 +117,19 @@ public class AttachmentCheckoutRepositoryImpl implements AttachmentCheckoutRepos
 		
 	    Condition condition = DSL.trueCondition();
 	    
-		final Date checkoutFrom = criteria.getCheckoutFrom();
-		final Date checkoutTo = criteria.getCheckoutTo();
-		final Date doneFrom = criteria.getDoneFrom();
-		final Date doneTo = criteria.getDoneTo();
+		final LocalDate checkoutFrom = criteria.getCheckoutFrom();
+		final LocalDate checkoutTo = criteria.getCheckoutTo();
+		final LocalDate doneFrom = criteria.getDoneFrom();
+		final LocalDate doneTo = criteria.getDoneTo();
 		final Set<AttachmentCheckoutState> states = criteria.getStates();		
 		
 		if(checkoutFrom != null && checkoutTo != null){
-			condition = condition.and(ac.CHECKOUT_DATE.ge(new java.sql.Date(checkoutFrom.getTime()))
-							.and(ac.CHECKOUT_DATE.le(new java.sql.Date(checkoutTo.getTime()))));
+			condition = condition.and(ac.CHECKOUT_DATE.ge(java.sql.Date.valueOf(checkoutFrom))
+							.and(ac.CHECKOUT_DATE.le(java.sql.Date.valueOf(checkoutTo))));
 		}
 		if(doneFrom != null && doneTo != null){
-			condition = condition.and(ac.DONE.ge(new java.sql.Date(doneFrom.getTime()))
-							.and(ac.DONE.le(new java.sql.Date(doneTo.getTime()))));
+			condition = condition.and(ac.DONE.ge(java.sql.Date.valueOf(doneFrom))
+							.and(ac.DONE.le(java.sql.Date.valueOf(doneTo))));
 		}
 		if(states != null && states.size() > 0){
 			condition = condition.and(ac.STATE.in(states));

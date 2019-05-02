@@ -4,6 +4,7 @@ import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
 import java.util.Map;
+import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
@@ -63,7 +64,8 @@ public class PatronGroupChange {
 		
 		Long groupId = criteria.getId();
 		Long[] userIds = criteria.getIds();
-		Date now = new Date();
+		
+		final LocalDateTime now = LocalDateTime.now();
 		
 		if(userIds.length == 0) {
 			return "redirect:/patron/group.change/list?page=0&size=10&sort=cardKey,desc";
@@ -92,18 +94,18 @@ public class PatronGroupChange {
 			
 		}
 
-		String time = String.valueOf(now.getTime());
+		String time = String.valueOf(now);
 		
 		return "redirect:/patron/group.change/" + groupId + "/" + time;
 		
 	}
 	
 	@RequestMapping(value = { "/{id}/{time}" }, method = RequestMethod.GET)
-	public String view(@PathVariable("id") long id, @PathVariable("time") long time, Model model) {
+	public String view(@PathVariable("id") long id, @PathVariable("time") String time, Model model) {
 		
 		Group group = this.service.getGroup(id);
 
-		Date updated = new Date(time);
+		LocalDateTime updated = LocalDateTime.parse(time);
 		
 		Date nearestSecond = DateUtils.round(updated, Calendar.SECOND);
 		

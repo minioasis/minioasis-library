@@ -1,6 +1,6 @@
 package org.minioasis.library.controller;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.AttachmentCheckout;
@@ -44,9 +44,9 @@ public class CheckinController {
 			return "circ.return.form";
 
 		// given Date
-		Date now = new Date();
+		LocalDate now = LocalDate.now();
 		boolean damage = dto.isDamage();
-		Date given = dto.getGiven();
+		LocalDate given = dto.getGiven();
 		if (given == null)
 			given = now;
 

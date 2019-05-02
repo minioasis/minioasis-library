@@ -41,8 +41,8 @@
 						<td th:text="${e.name2}">Mr. Moon</td>
 						<td th:text="${e.entangled}">2321321</td>
 						<td th:text="${e.cardKey}">Card Key</td>
-						<td th:text="${#calendars.format(e.startDate,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(e.endDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.startDate,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.endDate,'yyyy-MM-dd')}">2015-08-31</td>
 					</tr>
 					<tr th:remove="all">
 						<td>2</td>

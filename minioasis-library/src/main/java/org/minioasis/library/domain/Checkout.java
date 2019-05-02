@@ -20,8 +20,9 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.math.BigDecimal;
+import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
 
 import javax.persistence.CascadeType;
@@ -38,8 +39,6 @@ import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.Transient;
 import javax.validation.constraints.NotNull;
 
@@ -67,26 +66,21 @@ public class Checkout implements Serializable {
 	private Long id;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "checkout_date", nullable = false)
-	private Date checkoutDate;
+	private LocalDate checkoutDate;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "due_date", nullable = false)
-	private Date dueDate;
+	private LocalDate dueDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "done")
-	private Date done;
+	private LocalDate done;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "fine_paid_date")
-	private Date finePaidDate;
+	private LocalDate finePaidDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "lost_or_damage_paid_date")
-	private Date lostOrDamagePaidDate;
+	private LocalDate lostOrDamagePaidDate;
 	
 	@Column(name = "fine_paid_amount" , columnDefinition = "DECIMAL(12,2)")
 	private BigDecimal finePaidAmount;
@@ -133,7 +127,7 @@ public class Checkout implements Serializable {
 	public Checkout() {
 	}
 
-	public Checkout(Date checkoutDate, Date newDueDate,Integer renewedNo,
+	public Checkout(LocalDate checkoutDate, LocalDate newDueDate,Integer renewedNo,
 			CheckoutState state, Patron patron, Item item) {
 		this.checkoutDate = checkoutDate;
 		this.dueDate =  newDueDate;
@@ -144,8 +138,8 @@ public class Checkout implements Serializable {
 		this.item = item;
 	}
 
-	public Checkout(Date checkoutDate, Date newDueDate, Date done,
-			Date finePaidDate, Date lostOrDamagePaidDate,
+	public Checkout(LocalDate checkoutDate, LocalDate newDueDate, LocalDate done,
+			LocalDate finePaidDate, LocalDate lostOrDamagePaidDate,
 			BigDecimal finePaidAmount, BigDecimal lostOrDamageFineAmount,
 			Integer renewedNo, CheckoutState state, Patron patron,
 			PatronType patronType, Item item) {
@@ -211,43 +205,43 @@ public class Checkout implements Serializable {
 		this.overDue = overDue;
 	}
 
-	public Date getCheckoutDate() {
+	public LocalDate getCheckoutDate() {
 		return this.checkoutDate;
 	}
 
-	public void setCheckoutDate(Date checkoutDate) {
+	public void setCheckoutDate(LocalDate checkoutDate) {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public Date getDueDate() {
+	public LocalDate getDueDate() {
 		return this.dueDate;
 	}
 
-	public void setDueDate(Date dueDate) {
+	public void setDueDate(LocalDate dueDate) {
 		this.dueDate = dueDate;
 	}
 
-	public Date getDone() {
+	public LocalDate getDone() {
 		return this.done;
 	}
 
-	public void setDone(Date done) {
+	public void setDone(LocalDate done) {
 		this.done = done;
 	}
 
-	public Date getFinePaidDate() {
+	public LocalDate getFinePaidDate() {
 		return this.finePaidDate;
 	}
 
-	public void setFinePaidDate(Date finePaidDate) {
+	public void setFinePaidDate(LocalDate finePaidDate) {
 		this.finePaidDate = finePaidDate;
 	}
 
-	public Date getLostOrDamagePaidDate() {
+	public LocalDate getLostOrDamagePaidDate() {
 		return this.lostOrDamagePaidDate;
 	}
 
-	public void setLostOrDamagePaidDate(Date lostOrDamagePaidDate) {
+	public void setLostOrDamagePaidDate(LocalDate lostOrDamagePaidDate) {
 		this.lostOrDamagePaidDate = lostOrDamagePaidDate;
 	}
 
@@ -326,33 +320,30 @@ public class Checkout implements Serializable {
 		return false;
 	}
 
-	public Date calculateDueDate(){
+	public LocalDate calculateDueDate(){
 		
 		long duration = this.patronType.getDuration().longValue();
 		long itemDuration = item.getItemDuration().getValue().longValue();
 		
-		long total = duration + itemDuration;
-		
-		Date dueDate =  new Date(checkoutDate.getTime()+(total*oneDay));
-		
-		return dueDate;
+		return checkoutDate.plusDays(duration + itemDuration);
 		
 	}
 	
-	public boolean reachMinRenewableDate(Date given) {
+	public boolean reachMinRenewableDate(LocalDate given) {
 
 		long duration = this.patronType.getMinRenewablePeriod();
+		
 
-		Date minDate = new Date(this.checkoutDate.getTime()	+ (duration * oneDay));
+		LocalDate minDate = this.checkoutDate.plusDays(duration);
 
-		if (given.after(minDate))
+		if (given.isAfter(minDate))
 			return true;
 
 		return false;
 
 	}
 
-    public boolean isOverDue(Date given) {
+    public boolean isOverDue(LocalDate given) {
 
     	if(state.equals(CheckoutState.RETURN_WITH_FINE) ||
 				state.equals(CheckoutState.RETURN_WITH_DAMAGE_AND_FINE) ||
@@ -362,7 +353,7 @@ public class Checkout implements Serializable {
     	
     	if(state.equals(CheckoutState.CHECKOUT) ||
 				state.equals(CheckoutState.RENEW)){
-    		if(given.after(dueDate))
+    		if(given.isAfter(dueDate))
     			return true;
     	}
     	
@@ -370,7 +361,7 @@ public class Checkout implements Serializable {
 
     }
 	
-	public int calculateDaysOfOverDue(Date given, HolidayCalculationStrategy strategy) {
+	public int calculateDaysOfOverDue(LocalDate given, HolidayCalculationStrategy strategy) {
 	
 		int dues = 0;
 		int holidays = 0;
@@ -378,13 +369,14 @@ public class Checkout implements Serializable {
 		if(state.equals(CheckoutState.RETURN_WITH_FINE) ||
 				state.equals(CheckoutState.RETURN_WITH_DAMAGE_AND_FINE) ||
 				state.equals(CheckoutState.REPORTLOST_WITH_FINE)){
-			dues = (int)Math.round((this.done.getTime() - this.dueDate.getTime())/oneDay);
+			
+			dues = (int)ChronoUnit.DAYS.between(done, this.dueDate);
 			holidays = strategy.getNoOfHolidaysBetween(dueDate, done);
 		}
 			
 		if(state.equals(CheckoutState.CHECKOUT) ||
 				state.equals(CheckoutState.RENEW)){
-			dues = (int)Math.round((given.getTime() - this.dueDate.getTime())/oneDay);
+			dues = (int)ChronoUnit.DAYS.between(given, this.dueDate);
 			holidays = strategy.getNoOfHolidaysBetween(dueDate, given);
 		}
 		
@@ -417,13 +409,13 @@ public class Checkout implements Serializable {
 
 	}
 	
-	public int calDaysOfUnpaidFine(Date given) {
+	public int calDaysOfUnpaidFine(LocalDate given) {
 		
-		return (int)Math.round((given.getTime() - this.dueDate.getTime())/oneDay);
+		return (int) ChronoUnit.DAYS.between(given, this.dueDate);
 
 	}
 	
-	public void calculateAllStates(Date given, HolidayCalculationStrategy strategy) {
+	public void calculateAllStates(LocalDate given, HolidayCalculationStrategy strategy) {
 		
 		this.overDue = isOverDue(given);
 		

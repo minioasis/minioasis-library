@@ -1,6 +1,6 @@
 package org.minioasis.library.repository;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -93,10 +93,10 @@ public class AttachmentRepositoryImpl implements AttachmentRepositoryCustom {
 	    Condition condition = DSL.trueCondition();
 	    
 		final String keyword = criteria.getKeyword();
-		final Date firstFrom = criteria.getFirstCheckinFrom();
-		final Date firstTo = criteria.getFirstCheckinTo();
-		final Date lastFrom = criteria.getLastCheckinFrom();
-		final Date lastTo = criteria.getLastCheckinTo();
+		final LocalDate firstFrom = criteria.getFirstCheckinFrom();
+		final LocalDate firstTo = criteria.getFirstCheckinTo();
+		final LocalDate lastFrom = criteria.getLastCheckinFrom();
+		final LocalDate lastTo = criteria.getLastCheckinTo();
 		
 		final Set<AttachmentState> states = criteria.getStates();
 		final Set<YesNo> borrowables = criteria.getBorrowables();
@@ -107,12 +107,12 @@ public class AttachmentRepositoryImpl implements AttachmentRepositoryCustom {
 	    					.or(a.DESCRIPTION.likeIgnoreCase("%" + keyword + "%"));				
 	    }
 		if(firstFrom != null && firstTo != null){
-			condition = condition.and(a.FIRST_CHECKIN.ge(new java.sql.Date(firstFrom.getTime()))
-							.and(a.FIRST_CHECKIN.le(new java.sql.Date(firstTo.getTime()))));
+			condition = condition.and(a.FIRST_CHECKIN.ge(java.sql.Date.valueOf(firstFrom))
+							.and(a.FIRST_CHECKIN.le(java.sql.Date.valueOf(firstTo))));
 		}
 		if(lastFrom != null && lastTo != null){
-			condition = condition.and(a.LAST_CHECKIN.ge(new java.sql.Date(lastFrom.getTime()))
-							.and(a.LAST_CHECKIN.le(new java.sql.Date(lastTo.getTime()))));
+			condition = condition.and(a.LAST_CHECKIN.ge(java.sql.Date.valueOf(lastFrom))
+							.and(a.LAST_CHECKIN.le(java.sql.Date.valueOf(lastTo))));
 		}
 		if(states != null && states.size() > 0){
 			condition = condition.and(a.STATE.in(states));

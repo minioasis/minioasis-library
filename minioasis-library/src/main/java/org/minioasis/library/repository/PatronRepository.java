@@ -1,7 +1,7 @@
 package org.minioasis.library.repository;
 
+import java.time.LocalDateTime;
 import java.util.Collection;
-import java.util.Date;
 import java.util.List;
 
 import org.minioasis.library.domain.Group;
@@ -29,6 +29,6 @@ public interface PatronRepository extends JpaRepository<Patron, Long>, PatronRep
 
 	List<Patron> findByIdIn(Collection<Long> ids);
 	
-	List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, Date updated);
+	List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, LocalDateTime updated);
 	
 }

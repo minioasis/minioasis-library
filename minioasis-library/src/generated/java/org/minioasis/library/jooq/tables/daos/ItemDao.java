@@ -97,21 +97,21 @@ public class ItemDao extends DAOImpl<ItemRecord, org.minioasis.library.jooq.tabl
     /**
      * Fetch records that have <code>CREATED IN (values)</code>
      */
-    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByCreated(Timestamp... values) {
+    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByCreated(Date... values) {
         return fetch(Item.ITEM.CREATED, values);
     }
 
     /**
      * Fetch records that have <code>EXPIRED IN (values)</code>
      */
-    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByExpired(Date... values) {
+    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByExpired(Timestamp... values) {
         return fetch(Item.ITEM.EXPIRED, values);
     }
 
     /**
      * Fetch records that have <code>FIRST_CHECKIN IN (values)</code>
      */
-    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByFirstCheckin(Timestamp... values) {
+    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByFirstCheckin(Date... values) {
         return fetch(Item.ITEM.FIRST_CHECKIN, values);
     }
 

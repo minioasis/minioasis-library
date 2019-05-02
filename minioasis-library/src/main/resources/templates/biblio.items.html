@@ -63,9 +63,9 @@
 						<td th:text="${e.shelfMark}">530.17 HT1</td>
 						<td th:text="${e.price}">13.50</td>
 						<td th:text="${e.source}">Shiang Hwa</td>
-						<td th:text="${#calendars.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
 							<a href="#" th:href="@{/attachment/save/{iid}(iid=${e.id})}" class="btn btn-info btn-sm">
 								<i class="fas fa-paperclip"></i>

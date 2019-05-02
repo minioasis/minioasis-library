@@ -49,15 +49,15 @@
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{checkout.date}"></span></td>
-									<td class="text-info" th:text="${#calendars.format(checkout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+									<td class="text-info" th:text="${#temporals.format(checkout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{due.date}"></span></td>
-					                <td class="text-info" th:text="${#calendars.format(checkout.dueDate,'yyyy-MM-dd')}">2016-08-31</td>
+					                <td class="text-info" th:text="${#temporals.format(checkout.dueDate,'yyyy-MM-dd')}">2016-08-31</td>
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i>  <span th:text="#{done}"></span></td>
-					                <td class="text-info" th:text="${checkout.done != null ? #calendars.format(checkout.done,'yyyy-MM-dd') : ''}">2016-08-31</td>
+					                <td class="text-info" th:text="${checkout.done != null ? #temporals.format(checkout.done,'yyyy-MM-dd') : ''}">2016-08-31</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-dollar-sign text-label"></i> <span th:text="#{price}"></span></td>
@@ -69,7 +69,7 @@
 								</tr>
 								<tr>
 									<td><i class="fas fa-calendar-alt text-label"></i> <span th:text="#{fine.paid}"></span></td>
-					                <td class="text-info" th:text="${checkout.finePaidDate != null ? #calendars.format(checkout.finePaidDate,'yyyy-MM-dd') : ''}">2016-08-31</td>
+					                <td class="text-info" th:text="${checkout.finePaidDate != null ? #temporals.format(checkout.finePaidDate,'yyyy-MM-dd') : ''}">2016-08-31</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-dollar-sign text-label"></i> <span th:text="#{ld.fine}"></span></td>
@@ -77,7 +77,7 @@
 								</tr>
 								<tr>
 									<td><i class="fas fa-calendar-alt text-label"></i> <span th:text="#{ld.paid.date}"></span></td>
-									<td class="text-info" th:text="${checkout.finePaidDate != null ? #calendars.format(checkout.lostOrDamagePaidDate,'yyyy-MM-dd') : ''}">2016-08-31</td>
+									<td class="text-info" th:text="${checkout.finePaidDate != null ? #temporals.format(checkout.lostOrDamagePaidDate,'yyyy-MM-dd') : ''}">2016-08-31</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-thermometer-half text-label"></i> <span th:text="#{state}"></span></td>

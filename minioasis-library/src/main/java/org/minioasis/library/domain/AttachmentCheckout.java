@@ -1,7 +1,7 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.CascadeType;
 import javax.persistence.Column;
@@ -16,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.FilterDef;
@@ -42,13 +40,11 @@ public class AttachmentCheckout implements Serializable {
 	private Long id;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "checkout_date", nullable = false)
-	private Date checkoutDate;
+	private LocalDate checkoutDate;
 	
-	@Temporal(TemporalType.DATE)
 	@Column(name = "done")
-	private Date done;
+	private LocalDate done;
 	
     @NotNull
 	@Enumerated(EnumType.STRING)
@@ -69,7 +65,7 @@ public class AttachmentCheckout implements Serializable {
 	
 	public AttachmentCheckout() {}
 
-	public AttachmentCheckout(Date checkoutDate, Date done, AttachmentCheckoutState state, 
+	public AttachmentCheckout(LocalDate checkoutDate, LocalDate done, AttachmentCheckoutState state, 
 			Patron patron, Attachment attachment, Checkout checkout) {
 		this.checkoutDate = checkoutDate;
 		this.done = done;
@@ -87,19 +83,19 @@ public class AttachmentCheckout implements Serializable {
 		this.id = id;
 	}
 
-	public Date getCheckoutDate() {
+	public LocalDate getCheckoutDate() {
 		return checkoutDate;
 	}
 
-	public void setCheckoutDate(Date checkoutDate) {
+	public void setCheckoutDate(LocalDate checkoutDate) {
 		this.checkoutDate = checkoutDate;
 	}
 
-	public Date getDone() {
+	public LocalDate getDone() {
 		return done;
 	}
 
-	public void setDone(Date done) {
+	public void setDone(LocalDate done) {
 		this.done = done;
 	}
 

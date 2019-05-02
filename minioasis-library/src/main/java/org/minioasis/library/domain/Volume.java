@@ -18,12 +18,10 @@
 
 package org.minioasis.library.domain;
 
-import java.util.Date;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 
 import org.hibernate.validator.constraints.Length;
 
@@ -31,9 +29,8 @@ import org.hibernate.validator.constraints.Length;
 @Embeddable
 public class Volume {
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "publishing_date")
-	private Date publishingDate;
+	private LocalDate publishingDate;
 	
 	@Length(max = 32)
 	@Column(name = "volume_no" , length = 32)
@@ -42,16 +39,16 @@ public class Volume {
 	public Volume() {
 	}
 
-	public Volume(Date publishingDate, String volumeNo) {
+	public Volume(LocalDate publishingDate, String volumeNo) {
 		this.publishingDate = publishingDate;
 		this.volumeNo = volumeNo;
 	}
 
-	public Date getPublishingDate() {
+	public LocalDate getPublishingDate() {
 		return this.publishingDate;
 	}
 
-	public void setPublishingDate(Date publishingDate) {
+	public void setPublishingDate(LocalDate publishingDate) {
 		this.publishingDate = publishingDate;
 	}
 

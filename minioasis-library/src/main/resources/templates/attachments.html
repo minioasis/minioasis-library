@@ -173,8 +173,8 @@
 						<td th:text="${e.callNo}">Call No</td>
 						<td th:text="${e.borrowable}">true</td>
 						<td th:text="${e.state}">IN_LIBRARY</td>
-						<td th:text="${#calendars.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
 							<a href="#" th:href="@{/attachment/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
 							| <a href="#" th:href="@{/attachment/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>

@@ -15,7 +15,7 @@ import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 import static org.minioasis.library.jooq.tables.Holiday.HOLIDAY;
 
-import java.util.Date;
+import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
 
@@ -34,8 +34,8 @@ public class HolidayRepositoryImpl implements HolidayRepositoryCustom {
 	    Condition result = DSL.trueCondition();
 	    
 		final String name = criteria.getName();
-		final Date startDateFrom = criteria.getStartDateFrom();
-		final Date endDateTo = criteria.getEndDateTo();
+		final LocalDate startDateFrom = criteria.getStartDateFrom();
+		final LocalDate endDateTo = criteria.getEndDateTo();
 		final Set<Boolean> fines = criteria.getFines();		
 	    
 	    if (name != null) {
@@ -43,8 +43,8 @@ public class HolidayRepositoryImpl implements HolidayRepositoryCustom {
 	    }
 
 		if(startDateFrom != null && endDateTo != null){
-			result = result.and(h.START_DATE.ge(new java.sql.Date(startDateFrom.getTime()))
-							.and(h.END_DATE.le(new java.sql.Date(endDateTo.getTime()))));
+			result = result.and(h.START_DATE.ge(java.sql.Date.valueOf(startDateFrom))
+							.and(h.END_DATE.le(java.sql.Date.valueOf(endDateTo))));
 		}
 		if(fines != null && fines.size() > 0){
 			result = result.and(h.FINE.in(fines));

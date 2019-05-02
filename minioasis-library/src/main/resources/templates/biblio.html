@@ -54,7 +54,7 @@
 								</tr>
 								<tr>
 									<td><i class="far fa-calendar-alt text-label"></i> <span th:text="#{updated}">Updated</span></td>
-									<td class="text-info" th:text="${#calendars.format(biblio.updated,'yyyy-MM-dd')}">Moon</td>
+									<td class="text-info" th:text="${#temporals.format(biblio.updated,'yyyy-MM-dd')}">Moon</td>
 								</tr>
 								<tr>
 									<td><i class="fas fa-user text-label"></i> <span th:text="#{author}">Author</span></td>

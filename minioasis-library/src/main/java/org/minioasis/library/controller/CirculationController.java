@@ -1,7 +1,7 @@
 package org.minioasis.library.controller;
 
 import java.math.BigDecimal;
-import java.util.Date;
+import java.time.LocalDate;
 
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.CheckoutResult;
@@ -45,7 +45,7 @@ public class CirculationController {
 	public String checkout(@RequestParam(value = "pid", required = true) String cardKey, 
 							@ModelAttribute("dto") CirculationDTO dto, Model model) {
 		
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
+		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
 
 		if (patron == null) {
 			model.addAttribute("exist", "no");
@@ -62,7 +62,7 @@ public class CirculationController {
 	public String checkin(@RequestParam(value = "pid", required = true) String cardKey, 
 							@ModelAttribute("dto") CirculationDTO dto) {
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
+		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
 		preparingCirculation(patron, dto, cardKey);
 		
 		return "circ.checkin.form";
@@ -73,7 +73,7 @@ public class CirculationController {
 	public String renew(@RequestParam(value = "pid", required = true) String cardKey, 
 							@ModelAttribute("dto") CirculationDTO dto) {
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
+		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
 		preparingCirculation(patron, dto, cardKey);
 		
 		return "circ.renew.form";
@@ -84,7 +84,7 @@ public class CirculationController {
 	public String reportLost(@RequestParam(value = "pid", required = true) String cardKey, 
 								@ModelAttribute("dto") CirculationDTO dto) {
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
+		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
 		preparingCirculation(patron, dto, cardKey);
 		
 		return "circ.reportlost.form";
@@ -95,7 +95,7 @@ public class CirculationController {
 	public String payFine(@RequestParam(value = "pid", required = true) String cardKey, 
 							@ModelAttribute("dto") CirculationDTO dto) {
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, new Date());
+		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
 		preparingCirculation(patron, dto, cardKey);
 		
 		return "circ.payfine.form";
@@ -110,9 +110,9 @@ public class CirculationController {
 			return "circ.checkout.form";
 
 		// given Date
-		Date given = dto.getGiven();
+		LocalDate given = dto.getGiven();
 		if (given == null)
-			given = new Date();
+			given = LocalDate.now();
 
 		// patron & item
 		String cardKey = dto.getCardKey();
@@ -175,11 +175,10 @@ public class CirculationController {
 			return "circ.checkin.form";
 
 		// given Date
-		Date now = new Date();
 		boolean damage = dto.isDamage();
-		Date given = dto.getGiven();
+		LocalDate given = dto.getGiven();
 		if (given == null)
-			given = now;
+			given = LocalDate.now();
 
 		// patron & item
 		String cardKey = dto.getCardKey();
@@ -253,10 +252,9 @@ public class CirculationController {
 			return "circ.renew.form";
 
 		// given Date
-		Date now = new Date();
-		Date given = dto.getGiven();
+		LocalDate given = dto.getGiven();
 		if (given == null)
-			given = now;
+			given = LocalDate.now();
 
 		// patron & item
 		String cardKey = dto.getCardKey();
@@ -296,10 +294,9 @@ public class CirculationController {
 			return "circ.reportlost.form";
 
 		// given Date
-		Date now = new Date();
-		Date given = dto.getGiven();
+		LocalDate given = dto.getGiven();
 		if (given == null)
-			given = now;
+			given = LocalDate.now();
 
 		// patron & item
 		String cardKey = dto.getCardKey();
@@ -357,10 +354,9 @@ public class CirculationController {
 			return "circ.payfine.form";
 
 		// given Date
-		Date now = new Date();
-		Date given = dto.getGiven();
+		LocalDate given = dto.getGiven();
 		if (given == null)
-			given = now;
+			given = LocalDate.now();
 		BigDecimal payAmount = dto.getPayAmount();
 		Long[] ids = dto.getIds();
 

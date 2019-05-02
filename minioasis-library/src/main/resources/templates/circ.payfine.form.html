@@ -117,10 +117,10 @@
 								Physics</td>
 							<td th:text="${e.patron.patronType.name}">Student</td>
 							<td th:text="${e.item.barcode}">154646</td>
-							<td th:text="${#calendars.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
-							<td th:text="${#calendars.format(e.dueDate,'yyyy-MM-dd')}">2015-09-15</td>
+							<td th:text="${#temporals.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+							<td th:text="${#temporals.format(e.dueDate,'yyyy-MM-dd')}">2015-09-15</td>
 							<td
-								th:text="${e.done != null} ? ${#calendars.format(e.done,'yyyy-MM-dd')} : '' ">2015-09-15</td>
+								th:text="${e.done != null} ? ${#temporals.format(e.done,'yyyy-MM-dd')} : '' ">2015-09-15</td>
 							<td th:text="${e.state}">CHECKOUT</td>
 							<td th:text="${e.renewedNo}">1</td>
 							<td th:text="${e.lostOrDamageFineAmount}">0.00</td>

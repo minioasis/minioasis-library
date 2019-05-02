@@ -232,9 +232,9 @@
 								<i class="fas fa-paperclip"></i>
 							</a>
 						</td>
-						<td th:text="${#calendars.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#calendars.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
+						<td th:text="${#temporals.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
 							<a href="#" th:href="@{/item/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
 							| <a href="#" th:href="@{/item/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>

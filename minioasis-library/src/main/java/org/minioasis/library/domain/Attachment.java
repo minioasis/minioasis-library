@@ -1,10 +1,9 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.List;
-import java.util.Objects;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -17,8 +16,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.Table;
-import javax.persistence.Temporal;
-import javax.persistence.TemporalType;
 import javax.persistence.OneToMany;
 import javax.persistence.OrderBy;
 import javax.validation.constraints.NotNull;
@@ -53,13 +50,11 @@ public class Attachment implements Serializable {
 	private String callNo;
 	
 	@NotNull
-	@Temporal(TemporalType.DATE)
 	@Column(name = "first_checkin", nullable = false)
-	private Date firstCheckin;
+	private LocalDate firstCheckin;
 
-	@Temporal(TemporalType.DATE)
 	@Column(name = "last_checkin")
-	private Date lastCheckin;
+	private LocalDate lastCheckin;
 	
 	@NotNull
 	@Column(nullable = false , columnDefinition = "CHAR(1)")
@@ -82,8 +77,8 @@ public class Attachment implements Serializable {
 	
 	public Attachment() {}
 
-	public Attachment(String description, String barcode, String callNo,Date firstCheckin,
-			Date lastCheckin,YesNo borrowable,AttachmentState state, Item item) {
+	public Attachment(String description, String barcode, String callNo, LocalDate firstCheckin,
+			LocalDate lastCheckin,YesNo borrowable,AttachmentState state, Item item) {
 		this.description = description;
 		this.barcode = barcode;
 		this.callNo = callNo;
@@ -94,8 +89,8 @@ public class Attachment implements Serializable {
 		this.item = item;
 	}
 
-	public Attachment(String description, String barcode, String callNo, Date firstCheckin, 
-			Date lastCheckin,Item item, YesNo borrowable, AttachmentState state) {
+	public Attachment(String description, String barcode, String callNo, LocalDate firstCheckin, 
+			LocalDate lastCheckin,Item item, YesNo borrowable, AttachmentState state) {
 		this.description = description;
 		this.barcode = barcode;
 		this.callNo = callNo;
@@ -136,19 +131,19 @@ public class Attachment implements Serializable {
 		this.callNo = callNo;
 	}
 
-	public Date getFirstCheckin() {
+	public LocalDate getFirstCheckin() {
 		return firstCheckin;
 	}
 
-	public void setFirstCheckin(Date firstCheckin) {
+	public void setFirstCheckin(LocalDate firstCheckin) {
 		this.firstCheckin = firstCheckin;
 	}
 
-	public Date getLastCheckin() {
+	public LocalDate getLastCheckin() {
 		return lastCheckin;
 	}
 
-	public void setLastCheckin(Date lastCheckin) {
+	public void setLastCheckin(LocalDate lastCheckin) {
 		this.lastCheckin = lastCheckin;
 	}
 
@@ -186,7 +181,7 @@ public class Attachment implements Serializable {
 	
 	// ****************************************** Domain Logic *****************************************
 
-	public CheckoutResult checkin(Date given, boolean damageBadly) {
+	public CheckoutResult checkin(LocalDate given, boolean damageBadly) {
 
 		CheckoutResult result = new CheckoutResult();
 		
@@ -239,7 +234,7 @@ public class Attachment implements Serializable {
 		return null;
 	}
 	
-	private Notification checkoutValidation(AttachmentCheckout ac, Date given){
+	private Notification checkoutValidation(AttachmentCheckout ac, LocalDate given){
 		
 		Notification notification = new Notification();
 		
@@ -247,7 +242,7 @@ public class Attachment implements Serializable {
 			throw new LibraryException(CirculationCode.ATTACHMENTCHECKOUT_NOT_FOUND);
 		}
 		
-		if (given.before(ac.getCheckoutDate())){
+		if (given.isBefore(ac.getCheckoutDate())){
 			notification.addError(CirculationCode.INVALID_GIVENDATE);
 		}
 		
