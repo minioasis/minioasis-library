@@ -39,7 +39,7 @@ public class PatronController {
 	@Autowired
 	private LibraryService service;	
 	
-	@ModelAttribute("groupz")
+	@ModelAttribute("groups")
 	public List<Group> populateGroups() {
 		return this.service.findAllGroups(new Sort(Sort.Direction.ASC, "name"));	
 	}

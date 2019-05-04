@@ -103,10 +103,10 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 	}
 
 	
-	public Result<Record3<Integer, String, Integer>> CountPatronsByTypes(){
+	public Result<Record3<Integer, String, Integer>> CountPatronsByTypes() {
 		
 		Field<Integer> month = p.START_DATE.extract(DatePart.MONTH);
-		
+
 		Result<Record3<Integer, String, Integer>> records = dsl.select(month, pt.NAME, DSL.count())
 									.from(p)
 									.join(pt).on(pt.ID.eq(p.PATRONTYPE_ID))

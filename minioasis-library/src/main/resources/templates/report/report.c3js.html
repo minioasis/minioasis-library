@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head.c3js :: c3js(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span>Report - Count Patron By Type</span>
+		</h4>
+		
+		<div id="chart"></div>
+  		
+  		<!-- must add d3.js before xCharts.min.js -->
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/d3/5.9.2/d3.min.js"></script>
+  		<script src="https://cdnjs.cloudflare.com/ajax/libs/c3/0.7.0/c3.min.js"></script>
+  		
+		
+	    <script>
+	    
+		    var chart = c3.generate({
+		        data: {
+		            columns: [
+		                ['3-Books', 15,12, 9,14, 5, 8,24,54,15,54, 8,36],
+		                ['5-Books', 25,22,19,54, 5, 8,24,14, 5,14,28,26],
+		                ['7-Books', 35,42,28,34,15, 8,14,74,25,24, 8, 6],
+		            ],
+		            type: 'bar',
+		            groups: [
+		                ['3-Books', '5-Books','7-Books']
+		            ]
+		        },
+		        axis: {
+		            x: {
+		                type: 'category',
+		                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec']
+		            }
+		        },
+		        grid: {
+		            y: {
+		                lines: [{value:0}]
+		            }
+		        }
+		    });
+			
+	    </script>
+		
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

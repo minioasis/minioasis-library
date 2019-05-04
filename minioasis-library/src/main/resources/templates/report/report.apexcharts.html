@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span>Report - Count Patron By Type</span>
+		</h4>
+		
+		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
+
+		<div id="chart1"></div>
+		<div id="chart2"></div>
+		
+	    <script>
+	    
+	    var options1 = {
+	    		
+	            chart: {
+	                height: 400,
+	                type: 'bar',
+	                stacked: true,
+	            },
+	            plotOptions: {
+	                bar: {
+	                    horizontal: false,
+	                },
+	                
+	            },
+	            stroke: {
+	                width: 1,
+	                colors: ['#fff']
+	            },
+	            series: [{
+	                name: '3-books',
+	                data: [44, 55, 41, 37, 22, 43, 21,11,4,34,23,55]
+	            },{
+	                name: '5-books',
+	                data: [53, 32, 33, 52, 13, 43, 32,37, 22, 43, 21,11]
+	            },{
+	                name: '7-books',
+	                data: [12, 17, 11, 9, 15, 11, 20, 53, 32, 33, 52, 13]
+	            },{
+	                name: '9-books',
+	                data: [9, 7, 5, 8, 0 , 9, 4,43, 21,11,4,34]
+	            },{
+	                name: '11-books',
+	                data: [25, 12, 19, 32, 25, 24, 10,11, 20, 53, 32, 33]
+	            }],
+	            title: {
+	                text: '2018'
+	            },
+	            xaxis: {
+	                categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+	                labels: {
+	                    formatter: function(val) {
+	                        return val
+	                    }
+	                }
+	            },
+	            yaxis: {
+	                title: {
+	                    text: undefined
+	                },
+	                
+	            },
+	            tooltip: {
+	                y: {
+	                    formatter: function(val) {
+	                    return val
+	                }
+	                }
+	            },
+	            fill: {
+	                opacity: 1
+	                
+	            },
+	            
+	            legend: {
+	                position: 'top',
+	                horizontalAlign: 'left',
+	                offsetX: 0
+	            }
+	        };
+
+	       var chart1 = new ApexCharts(
+	            document.querySelector("#chart1"),
+	            options1
+	        );
+	        
+	        chart1.render();
+	        
+		    var options2 = {
+		    		
+		            chart: {
+		                height: 400,
+		                type: 'bar',
+		                stacked: true,
+		            },
+		            plotOptions: {
+		                bar: {
+		                    horizontal: false,
+		                },
+		                
+		            },
+		            stroke: {
+		                width: 1,
+		                colors: ['#fff']
+		            },
+		            series: [{
+		                name: '3-books',
+		                data: [44, 55, 41, 37, 22, 43, 21,11,4,34,23,55]
+		            },{
+		                name: '5-books',
+		                data: [53, 32, 33, 52, 13, 43, 32,37, 22, 43, 21,11]
+		            },{
+		                name: '7-books',
+		                data: [12, 17, 11, 9, 15, 11, 20, 53, 32, 33, 52, 13]
+		            },{
+		                name: '9-books',
+		                data: [9, 7, 5, 8, 0 , 9, 4,43, 21,11,4,34]
+		            },{
+		                name: '11-books',
+		                data: [25, 12, 19, 32, 25, 24, 10,11, 20, 53, 32, 33]
+		            }],
+		            title: {
+		                text: '2019'
+		            },
+		            xaxis: {
+		                categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+		                labels: {
+		                    formatter: function(val) {
+		                        return val
+		                    }
+		                }
+		            },
+		            yaxis: {
+		                title: {
+		                    text: undefined
+		                },
+		                
+		            },
+		            tooltip: {
+		                y: {
+		                    formatter: function(val) {
+		                    return val
+		                }
+		                }
+		            },
+		            fill: {
+		                opacity: 1
+		                
+		            },
+		            
+		            legend: {
+		                position: 'top',
+		                horizontalAlign: 'left',
+		                offsetX: 0
+		            }
+		        };
+
+		       var chart2 = new ApexCharts(
+		            document.querySelector("#chart2"),
+		            options2
+		        );
+		        
+		        chart2.render();
+			
+	    </script>
+		
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

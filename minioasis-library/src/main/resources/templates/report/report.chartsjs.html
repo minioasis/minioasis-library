@@ -1,0 +1,95 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span>Report - Count Patron By Type</span>
+		</h4>
+		
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.8.0/Chart.bundle.min.js"></script>
+		
+    	<div style="width:75%;">
+			<canvas id="myChart" width="40" height="30"></canvas>
+		</div>
+
+	    <script>
+	    
+	    	var ctx = document.getElementById('myChart').getContext('2d');
+	    	
+			var MONTHS = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+			
+			var config = {
+				type: 'bar',
+				data: {
+					labels: MONTHS,
+					datasets: [{
+						label: '3-Books',
+						backgroundColor: 'rgba(80, 55, 132, 0.2)',
+			            borderColor: 'rgba(80, 55, 132, 1)',
+						data: [30,12,55,85,10,25,16,24,86,63,24,11],
+						fill: false,
+					}, {
+						label: '5-Books',
+						backgroundColor: 'rgba(255, 99, 33, 0.2)',
+			            borderColor: 'rgba(255, 99, 132, 1)',
+						fill: false,
+						data: [60,12,41,20,45,36,1,18,74,52,36,42]
+					},
+					{
+						label: '7-Books',
+						backgroundColor: 'rgba(45, 99, 132, 0.2)',
+			            borderColor: 'rgba(255, 99, 132, 1)',
+						fill: false,
+						data: [50,42,61,80,45,26,1,18,54,52,16,42]
+					}]
+				},
+				options: {
+					responsive: true,
+					tooltips: {
+						mode: 'index',
+						intersect: false
+					},
+					hover: {
+						mode: 'nearest',
+						intersect: false
+					},
+					scales: {
+						xAxes: [{
+							stacked: true,
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Month'
+							}
+						}],
+						yAxes: [{
+							stacked: true,
+							display: true,
+							scaleLabel: {
+								display: true,
+								labelString: 'Number of Patrons'
+							}
+						}]
+					}
+				}
+			};
+			
+	    	var myChart = new Chart(ctx, config);
+			
+	    </script>
+		
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
