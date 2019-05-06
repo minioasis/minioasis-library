@@ -24,10 +24,11 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PatronType implements Serializable {
 
-    private static final long serialVersionUID = 590403005;
+    private static final long serialVersionUID = 1240445348;
 
     private Long       id;
     private Integer    biblioLimit;
+    private Integer    code;
     private BigDecimal deposit;
     private Integer    duration;
     private Date       expiryDate;
@@ -48,6 +49,7 @@ public class PatronType implements Serializable {
     public PatronType(PatronType value) {
         this.id = value.id;
         this.biblioLimit = value.biblioLimit;
+        this.code = value.code;
         this.deposit = value.deposit;
         this.duration = value.duration;
         this.expiryDate = value.expiryDate;
@@ -67,6 +69,7 @@ public class PatronType implements Serializable {
     public PatronType(
         Long       id,
         Integer    biblioLimit,
+        Integer    code,
         BigDecimal deposit,
         Integer    duration,
         Date       expiryDate,
@@ -84,6 +87,7 @@ public class PatronType implements Serializable {
     ) {
         this.id = id;
         this.biblioLimit = biblioLimit;
+        this.code = code;
         this.deposit = deposit;
         this.duration = duration;
         this.expiryDate = expiryDate;
@@ -114,6 +118,14 @@ public class PatronType implements Serializable {
 
     public void setBiblioLimit(Integer biblioLimit) {
         this.biblioLimit = biblioLimit;
+    }
+
+    public Integer getCode() {
+        return this.code;
+    }
+
+    public void setCode(Integer code) {
+        this.code = code;
     }
 
     public BigDecimal getDeposit() {
@@ -234,6 +246,7 @@ public class PatronType implements Serializable {
 
         sb.append(id);
         sb.append(", ").append(biblioLimit);
+        sb.append(", ").append(code);
         sb.append(", ").append(deposit);
         sb.append(", ").append(duration);
         sb.append(", ").append(expiryDate);

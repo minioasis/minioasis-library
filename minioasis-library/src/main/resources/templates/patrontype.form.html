@@ -41,9 +41,16 @@
 				<div class="tab-content" id="myTabContent">
 					<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">
 						<div class="form-row pt-3">
+							<div class="form-group col-sm-4">
+								<label th:text="#{code}">Code</label>
+								<input type="text" class="form-control" th:field="*{code}" autofocus="autofocus" placeholder="int (unique)" />
+								<span class="text-danger" th:if="${#fields.hasErrors('code')}" th:errors="*{code}"></span>
+							</div>
+						</div>
+						<div class="form-row pt-3">
 							<div class="form-group col-sm-8">
 								<label th:text="#{name}">Name</label>
-								<input type="text" class="form-control" th:field="*{name}" autofocus="autofocus" id="inputName" placeholder="Unique Name" />
+								<input type="text" class="form-control" th:field="*{name}" />
 								<span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
 							</div>
 						</div>

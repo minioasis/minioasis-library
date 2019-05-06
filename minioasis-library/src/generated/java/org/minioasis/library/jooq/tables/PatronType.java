@@ -40,7 +40,7 @@ import org.minioasis.library.jooq.tables.records.PatronTypeRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PatronType extends TableImpl<PatronTypeRecord> {
 
-    private static final long serialVersionUID = 121293525;
+    private static final long serialVersionUID = 1628586589;
 
     /**
      * The reference instance of <code>PUBLIC.PATRON_TYPE</code>
@@ -64,6 +64,11 @@ public class PatronType extends TableImpl<PatronTypeRecord> {
      * The column <code>PUBLIC.PATRON_TYPE.BIBLIO_LIMIT</code>.
      */
     public final TableField<PatronTypeRecord, Integer> BIBLIO_LIMIT = createField("BIBLIO_LIMIT", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.PATRON_TYPE.CODE</code>.
+     */
+    public final TableField<PatronTypeRecord, Integer> CODE = createField("CODE", org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.PATRON_TYPE.DEPOSIT</code>.
@@ -177,7 +182,7 @@ public class PatronType extends TableImpl<PatronTypeRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_5, Indexes.UK_CGNTOFXBOMBE12SP4X8EN1UNL_INDEX_5);
+        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_5, Indexes.UK_T54V4235XB53JP0OYG9QXYBBM_INDEX_5);
     }
 
     /**
@@ -201,7 +206,7 @@ public class PatronType extends TableImpl<PatronTypeRecord> {
      */
     @Override
     public List<UniqueKey<PatronTypeRecord>> getKeys() {
-        return Arrays.<UniqueKey<PatronTypeRecord>>asList(Keys.CONSTRAINT_5, Keys.UK_CGNTOFXBOMBE12SP4X8EN1UNL);
+        return Arrays.<UniqueKey<PatronTypeRecord>>asList(Keys.CONSTRAINT_5, Keys.UK_T54V4235XB53JP0OYG9QXYBBM);
     }
 
     /**

@@ -73,6 +73,20 @@ public class PatronTypeDao extends DAOImpl<PatronTypeRecord, org.minioasis.libra
     }
 
     /**
+     * Fetch records that have <code>CODE IN (values)</code>
+     */
+    public List<org.minioasis.library.jooq.tables.pojos.PatronType> fetchByCode(Integer... values) {
+        return fetch(PatronType.PATRON_TYPE.CODE, values);
+    }
+
+    /**
+     * Fetch a unique record that has <code>CODE = value</code>
+     */
+    public org.minioasis.library.jooq.tables.pojos.PatronType fetchOneByCode(Integer value) {
+        return fetchOne(PatronType.PATRON_TYPE.CODE, value);
+    }
+
+    /**
      * Fetch records that have <code>DEPOSIT IN (values)</code>
      */
     public List<org.minioasis.library.jooq.tables.pojos.PatronType> fetchByDeposit(BigDecimal... values) {
@@ -154,13 +168,6 @@ public class PatronTypeDao extends DAOImpl<PatronTypeRecord, org.minioasis.libra
      */
     public List<org.minioasis.library.jooq.tables.pojos.PatronType> fetchByName(String... values) {
         return fetch(PatronType.PATRON_TYPE.NAME, values);
-    }
-
-    /**
-     * Fetch a unique record that has <code>NAME = value</code>
-     */
-    public org.minioasis.library.jooq.tables.pojos.PatronType fetchOneByName(String value) {
-        return fetchOne(PatronType.PATRON_TYPE.NAME, value);
     }
 
     /**

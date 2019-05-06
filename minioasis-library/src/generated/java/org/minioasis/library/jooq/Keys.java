@@ -112,7 +112,7 @@ public class Keys {
     public static final UniqueKey<PatronRecord> UK_E9FRUVR3H2998KELNJ73YM6CY = UniqueKeys0.UK_E9FRUVR3H2998KELNJ73YM6CY;
     public static final UniqueKey<PatronRecord> UK_6AO4MCHW281WTIXA2FT86ESFK = UniqueKeys0.UK_6AO4MCHW281WTIXA2FT86ESFK;
     public static final UniqueKey<PatronTypeRecord> CONSTRAINT_5 = UniqueKeys0.CONSTRAINT_5;
-    public static final UniqueKey<PatronTypeRecord> UK_CGNTOFXBOMBE12SP4X8EN1UNL = UniqueKeys0.UK_CGNTOFXBOMBE12SP4X8EN1UNL;
+    public static final UniqueKey<PatronTypeRecord> UK_T54V4235XB53JP0OYG9QXYBBM = UniqueKeys0.UK_T54V4235XB53JP0OYG9QXYBBM;
     public static final UniqueKey<PhotoRecord> CONSTRAINT_48 = UniqueKeys0.CONSTRAINT_48;
     public static final UniqueKey<PublisherRecord> CONSTRAINT_F = UniqueKeys0.CONSTRAINT_F;
     public static final UniqueKey<PublisherRecord> UK_H9TRV4XHMH6S68VBW9BA6TO70 = UniqueKeys0.UK_H9TRV4XHMH6S68VBW9BA6TO70;
@@ -196,7 +196,7 @@ public class Keys {
         public static final UniqueKey<PatronRecord> UK_E9FRUVR3H2998KELNJ73YM6CY = Internal.createUniqueKey(Patron.PATRON, "UK_E9FRUVR3H2998KELNJ73YM6CY", Patron.PATRON.ENTANGLED);
         public static final UniqueKey<PatronRecord> UK_6AO4MCHW281WTIXA2FT86ESFK = Internal.createUniqueKey(Patron.PATRON, "UK_6AO4MCHW281WTIXA2FT86ESFK", Patron.PATRON.PHOTO_ID);
         public static final UniqueKey<PatronTypeRecord> CONSTRAINT_5 = Internal.createUniqueKey(PatronType.PATRON_TYPE, "CONSTRAINT_5", PatronType.PATRON_TYPE.ID);
-        public static final UniqueKey<PatronTypeRecord> UK_CGNTOFXBOMBE12SP4X8EN1UNL = Internal.createUniqueKey(PatronType.PATRON_TYPE, "UK_CGNTOFXBOMBE12SP4X8EN1UNL", PatronType.PATRON_TYPE.NAME);
+        public static final UniqueKey<PatronTypeRecord> UK_T54V4235XB53JP0OYG9QXYBBM = Internal.createUniqueKey(PatronType.PATRON_TYPE, "UK_T54V4235XB53JP0OYG9QXYBBM", PatronType.PATRON_TYPE.CODE);
         public static final UniqueKey<PhotoRecord> CONSTRAINT_48 = Internal.createUniqueKey(Photo.PHOTO, "CONSTRAINT_48", Photo.PHOTO.ID);
         public static final UniqueKey<PublisherRecord> CONSTRAINT_F = Internal.createUniqueKey(Publisher.PUBLISHER, "CONSTRAINT_F", Publisher.PUBLISHER.ID);
         public static final UniqueKey<PublisherRecord> UK_H9TRV4XHMH6S68VBW9BA6TO70 = Internal.createUniqueKey(Publisher.PUBLISHER, "UK_H9TRV4XHMH6S68VBW9BA6TO70", Publisher.PUBLISHER.NAME);

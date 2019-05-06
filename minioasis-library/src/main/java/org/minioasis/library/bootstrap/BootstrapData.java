@@ -335,6 +335,7 @@ public class BootstrapData implements CommandLineRunner {
 		
 		// Patron Type
 		PatronType pt1 = new PatronType();
+		pt1.setCode(1);
 		pt1.setName("Student");
 		pt1.setStartDate(LocalDate.parse("2019-01-02"));
 		pt1.setExpiryDate(LocalDate.parse("2030-12-12"));
@@ -353,6 +354,7 @@ public class BootstrapData implements CommandLineRunner {
 		patronTypeRepository.save(pt1);
 
 		PatronType pt2 = new PatronType();
+		pt2.setCode(2);
 		pt2.setName("Teacher");
 		pt2.setStartDate(LocalDate.parse("2019-01-02"));
 		pt2.setExpiryDate(LocalDate.parse("2030-12-12"));

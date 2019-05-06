@@ -49,7 +49,7 @@ public class PatronTypeController {
 			}
 			catch (DataIntegrityViolationException eive) 
 			{
-				result.rejectValue("name","","not unique");
+				result.rejectValue("code","error.not.unique");
 				return "patrontype.form";				
 			}
 				
@@ -86,7 +86,7 @@ public class PatronTypeController {
 			}
 			catch (DataIntegrityViolationException eive)
 			{
-				result.rejectValue("name","","not unique");
+				result.rejectValue("code","error.not.unique");
 				
 				return "patrontype.form";
 			}

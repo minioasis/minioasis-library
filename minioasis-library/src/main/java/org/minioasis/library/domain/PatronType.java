@@ -46,7 +46,11 @@ public class PatronType implements Serializable {
 	private Long id;
 	
 	@NotNull
-	@Column(name = "name", unique = true , nullable = false)
+	@Column(name = "code", unique = true , nullable = false)
+	private Integer code;
+	
+	@NotNull
+	@Column(name = "name", nullable = false)
 	private String name;
 	
 	@NotNull
@@ -117,11 +121,12 @@ public class PatronType implements Serializable {
 	public PatronType() {
 	}
 
-	public PatronType(String name, LocalDate startDate, LocalDate expiryDate, Integer biblioLimit, Integer duration,
+	public PatronType(Integer code,String name, LocalDate startDate, LocalDate expiryDate, Integer biblioLimit, Integer duration,
 			Integer maxNoOfReservations, Integer maxCollectablePeriod,
 			Integer maxUncollectedNo, Integer maxCantReservePeriod, Integer maxNoOfRenew, Integer minRenewablePeriod,
 			Integer resumeBorrowablePeriod, BigDecimal fineRate, BigDecimal memberFee,
 			BigDecimal deposit) {
+		this.code = code;
 		this.name = name;
 		this.startDate = startDate;
 		this.expiryDate = expiryDate;
@@ -145,6 +150,14 @@ public class PatronType implements Serializable {
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public Integer getCode() {
+		return code;
+	}
+
+	public void setCode(Integer code) {
+		this.code = code;
 	}
 
 	public String getName() {

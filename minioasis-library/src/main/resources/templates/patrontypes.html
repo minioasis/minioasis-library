@@ -22,6 +22,7 @@
 				<thead>
 					<tr>
 						<th>#</th>
+						<th th:text="#{code}">Code</th>
 						<th th:text="#{name}">Name</th>
 						<th th:text="#{start.date}">Start Date</th>
 						<th th:text="#{expiry.date}">Expiry Date</th>
@@ -44,6 +45,7 @@
 				<tbody>
 					<tr th:each="e,iterator : ${patronTypes}">
 						<td th:text="${iterator.index + 1}">1</td>
+						<td th:text="${e.code}">1</td>
 						<td>
 							<a href="#" th:href="@{/patrontype/{id}(id=${e.id})}" th:text="${e.name}">Student</a>
 						</td>
