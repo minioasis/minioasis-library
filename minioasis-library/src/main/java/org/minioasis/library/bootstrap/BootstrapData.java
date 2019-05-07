@@ -336,7 +336,7 @@ public class BootstrapData implements CommandLineRunner {
 		// Patron Type
 		PatronType pt1 = new PatronType();
 		pt1.setCode(1);
-		pt1.setName("Student");
+		pt1.setName("3-books");
 		pt1.setStartDate(LocalDate.parse("2019-01-02"));
 		pt1.setExpiryDate(LocalDate.parse("2030-12-12"));
 		pt1.setMemberFee(new BigDecimal(100.00));
@@ -355,7 +355,7 @@ public class BootstrapData implements CommandLineRunner {
 
 		PatronType pt2 = new PatronType();
 		pt2.setCode(2);
-		pt2.setName("Teacher");
+		pt2.setName("5-books");
 		pt2.setStartDate(LocalDate.parse("2019-01-02"));
 		pt2.setExpiryDate(LocalDate.parse("2030-12-12"));
 		pt2.setMemberFee(new BigDecimal(100.00));
@@ -444,7 +444,7 @@ public class BootstrapData implements CommandLineRunner {
 		p2.setActive(YesNo.Y);
 		p2.setName("Moan Wai Loong");
 		p2.setName2("Mr. Loong");
-		p2.setStartDate(LocalDate.parse("2019-01-01"));
+		p2.setStartDate(LocalDate.parse("2019-05-01"));
 		p2.setEndDate(LocalDate.parse("2019-12-12"));
 		p2.setCardKey("22222");
 		p2.setEntangled("entangled2");
@@ -459,8 +459,8 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setActive(YesNo.N);
 		p3.setName("R.P. Feynman");
 		p3.setName2("Prof Feynman");
-		p3.setStartDate(LocalDate.parse("2019-01-15"));
-		p3.setEndDate(LocalDate.parse("2019-12-12"));
+		p3.setStartDate(LocalDate.parse("2018-07-15"));
+		p3.setEndDate(LocalDate.parse("2019-07-12"));
 		p3.setCardKey("33333");
 		p3.setEntangled("entangled3");
 		p3.setPatronType(pt2);
@@ -470,6 +470,21 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setContact(c3);
 		patronRepository.save(p3);
 		
+		Patron p4 = new Patron();
+		p4.setActive(YesNo.N);
+		p4.setName("R.P. Feynman2");
+		p4.setName2("Prof Feynman2");
+		p4.setStartDate(LocalDate.parse("2018-07-15"));
+		p4.setEndDate(LocalDate.parse("2019-07-12"));
+		p4.setCardKey("44444");
+		p4.setEntangled("entangled4");
+		p4.setPatronType(pt1);
+		p4.setGroup(g3);
+		p4.setGender("F");
+		p4.setIc("44415-10-8888");
+		p4.setContact(c3);
+		patronRepository.save(p4);
+		
 		//checkout
 		Checkout co1 = new Checkout(LocalDate.parse("2019-01-10"), LocalDate.parse("2019-02-10"), new Integer(0), CheckoutState.CHECKOUT, p1, i1);
 		checkoutRepository.save(co1);
@@ -477,7 +492,7 @@ public class BootstrapData implements CommandLineRunner {
 		Checkout co2 = new Checkout(LocalDate.parse("2019-04-20"), LocalDate.parse("2019-05-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
 		checkoutRepository.save(co2);
 		
-		Checkout co3 = new Checkout(LocalDate.parse("2019-04-25"), LocalDate.parse("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p3, i3);
+		Checkout co3 = new Checkout(LocalDate.parse("2019-04-25"), LocalDate.parse("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p4, i3);
 		checkoutRepository.save(co3);
 
 	}

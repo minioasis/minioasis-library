@@ -18,6 +18,7 @@ import org.jooq.impl.DSL;
 import org.jooq.DatePart;
 import org.jooq.Field;
 import org.jooq.Record3;
+import org.jooq.Record4;
 import org.jooq.Result;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Patron;
@@ -103,15 +104,45 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 	}
 
 	
-	public Result<Record3<Integer, String, Integer>> CountPatronsByTypes() {
+	public Result<Record4<Integer, Integer, String, Integer>> CountPatronsByTypes() {
+		
+		Field<Integer> year = p.START_DATE.extract(DatePart.YEAR);
+		Field<Integer> month = p.START_DATE.extract(DatePart.MONTH);
+/*		In MYSQL :
+		select extract(year from p.START_DATE) yr, extract(month from p.START_DATE) m, pt.NAME, count(*) 
+		from PATRON p join PATRON_TYPE pt on pt.ID = p.PATRONTYPE_ID 
+		group by pt.NAME, yr, m 
+		order by yr, m, pt.NAME
+
+*/
+		Result<Record4<Integer,Integer, String, Integer>> records = dsl.select(year, month, pt.NAME, DSL.count())
+									.from(p)
+									.join(pt).on(pt.ID.eq(p.PATRONTYPE_ID))
+									.groupBy(pt.CODE, year, month)
+									.orderBy(year, month, pt.CODE)
+									.fetch();
+		
+		return records;
+	}
+
+/*	
+	select extract(month from p.START_DATE) m, pt.NAME, count(*) 
+	from PATRON p join PATRON_TYPE pt on pt.ID = p.PATRONTYPE_ID 
+	where p.START_DATE between date '2019-01-01' and date '2019-12-31' 
+	group by pt.CODE, m 
+	order by pt.CODE
+*/
+
+	public Result<Record3<Integer, String, Integer>> CountPatronsByTypes3(int year) {
 		
 		Field<Integer> month = p.START_DATE.extract(DatePart.MONTH);
 
 		Result<Record3<Integer, String, Integer>> records = dsl.select(month, pt.NAME, DSL.count())
 									.from(p)
 									.join(pt).on(pt.ID.eq(p.PATRONTYPE_ID))
-									.groupBy(pt.NAME, month)
-									.orderBy(month, pt.NAME)
+									.where(p.START_DATE.between(java.sql.Date.valueOf(LocalDate.of(year, 1, 1)), java.sql.Date.valueOf(LocalDate.of(year, 12, 31))))
+									.groupBy(pt.CODE, month)
+									.orderBy(pt.CODE)
 									.fetch();
 		
 		return records;

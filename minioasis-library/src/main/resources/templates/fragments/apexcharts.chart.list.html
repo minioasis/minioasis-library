@@ -1,0 +1,82 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<title>Minioasis Library</title>
+	</head>
+<body>
+
+  	<!-- chart list -->
+	<div th:fragment="chartlist(index, title, series)">
+	
+		<div th:id="'chart' + ${index}"></div>
+		
+	    <script th:inline="javascript">
+	    
+		    var options[[${index}]] = {
+		    		
+		            chart: {
+		                height: 400,
+		                type: 'bar',
+		                stacked: true,
+		            },
+		            plotOptions: {
+		                bar: {
+		                    horizontal: false,
+		                },
+		                
+		            },
+		            stroke: {
+		                width: 1,
+		                colors: ['#fff']
+		            },
+		            series: /*[[${series}]]*/ [],
+		            title: {
+		                text: [[${title}]]
+		            },
+		            xaxis: {
+		                categories: ['JAN', 'FEB', 'MAR', 'APR', 'MAY', 'JUN', 'JUL', 'AUG', 'SEP', 'OCT', 'NOV', 'DEC'],
+		                labels: {
+		                    formatter: function(val) {
+		                        return val
+		                    }
+		                }
+		            },
+		            yaxis: {
+		                title: {
+		                    text: 'Number of Patrons'
+		                },
+		                
+		            },
+		            tooltip: {
+		                y: {
+		                    formatter: function(val) {
+		                    return val
+		                }
+		                }
+		            },
+		            fill: {
+		                opacity: 1
+		                
+		            },
+		            
+		            legend: {
+		                position: 'top',
+		                horizontalAlign: 'right',
+		                offsetX: 0
+		            }
+		        };
+	
+		       var chart[[${index}]] = new ApexCharts(
+		            document.querySelector("#chart[[${index}]]"),
+		            options[[${index}]]
+		        );
+		        
+		        chart[[${index}]].render();
+	        
+		</script>
+		
+	</div>
+
+</body>
+</html>

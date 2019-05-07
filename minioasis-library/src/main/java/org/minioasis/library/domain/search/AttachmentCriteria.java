@@ -2,7 +2,6 @@ package org.minioasis.library.domain.search;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.util.Date;
 import java.util.HashSet;
 import java.util.Set;
 
