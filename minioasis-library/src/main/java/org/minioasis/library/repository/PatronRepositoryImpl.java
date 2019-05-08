@@ -17,6 +17,7 @@ import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.jooq.DatePart;
 import org.jooq.Field;
+import org.jooq.Record1;
 import org.jooq.Record3;
 import org.jooq.Record4;
 import org.jooq.Result;
@@ -144,6 +145,18 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 									.groupBy(pt.CODE, month)
 									.orderBy(pt.CODE)
 									.fetch();
+		
+		return records;
+	}
+	
+	public Result<Record1<Integer>> getAllPatronsStartedYears(){
+		
+		Field<Integer> year = p.START_DATE.extract(DatePart.YEAR);
+		
+		Result<Record1<Integer>> records = dsl.selectDistinct(year)
+				.from(p)
+				.orderBy(year)
+				.fetch();
 		
 		return records;
 	}

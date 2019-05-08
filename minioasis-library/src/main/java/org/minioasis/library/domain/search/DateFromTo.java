@@ -3,7 +3,7 @@ package org.minioasis.library.domain.search;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class InBetweenCriteria implements Serializable {
+public class DateFromTo implements Serializable {
 
 	private static final long serialVersionUID = 3260168897015078309L;
 

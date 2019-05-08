@@ -22,7 +22,6 @@ import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
 @RequestMapping("/biblio")
-//@SessionAttributes("biblio")
 public class BiblioController {
 	
 	@Autowired

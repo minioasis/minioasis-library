@@ -1,21 +1,18 @@
 package org.minioasis.library.controller;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 
-import javax.validation.Valid;
-
+import org.jooq.Record1;
 import org.jooq.Record3;
 import org.jooq.Result;
-import org.minioasis.library.domain.search.InBetweenCriteria;
 import org.minioasis.library.service.ReportService;
 import org.minioasis.report.chart.ChartData;
 import org.minioasis.report.chart.Series;
 import org.springframework.beans.factory.annotation.Autowired;
-//import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -26,11 +23,24 @@ public class ReportPatronRestController {
 	@Autowired
 	ReportService service;
 	
-	@GetMapping(value = "/count.patrons.by.type", produces = "application/json")
-	public List<ChartData> CountPatronsByType(@ModelAttribute("criteria") @Valid InBetweenCriteria criteria, Model model) {
+	@GetMapping(value = "/all.patrons.started.years", produces = "application/json")
+	public List<Integer> getAllPatronStartedYears() {
 		
-		Integer from = criteria.getFrom().getYear() - 1;
-		Integer to = criteria.getTo().getYear();
+		Result<Record1<Integer>> result = this.service.getAllPatronsStartedYears();
+		
+		List<Integer> years = new ArrayList<Integer>();
+		
+		for (Record1<Integer> r : result) {
+			Integer year = r.value1();
+			years.add(year);
+		}
+		
+		return years;
+	}
+	
+	@GetMapping(value = "/count.patrons.by.type/{from}/{to}", produces = "application/json")
+	public List<ChartData> CountPatronsByType(@PathVariable(required = true) Integer from,
+			@PathVariable(required = true) Integer to) {
 
 		int period = 1;
 		period = to - from + period;
