@@ -8,21 +8,21 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container">
-	
-		<div th:replace="fragments/header :: header"></div>
+	<div class="container pt-3 pb-3">
 		
 		<div class="row"> <!-- row 1 -->
 			<div class="col">
-				<h5>
+				<h3>
 		      		<span class="text-success">
 						<i class="fas fa-cogs"></i>
 					</span>
 		      		<span th:text="#{config}">Configuration</span>
-				</h5>
+				</h3>
 			</div>
 		</div> <!-- row 1 -->
-		
+
+		<br>
+				
 		<div class="row"> <!-- row 2 -->
 		    <div class="col-sm-3">	    			      
 				<span th:text="#{patron.type}">Patron Type</span>

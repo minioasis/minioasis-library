@@ -20,7 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-@RequestMapping("/report")
+@RequestMapping("/api/report")
 public class ReportPatronRestController {
 
 	@Autowired
@@ -62,28 +62,41 @@ public class ReportPatronRestController {
 					String name = r.value2();
 					Integer count = r.value3();
 
-					// new series
+					String state = "";
+
+					// set state
 					if (s.getName() == null) {
-						
-						lastName = name;
-						s.setName(name);
-						s.getData()[month - 1] = count;
-						
+						state = "NEW_SERIES";		
 					}else {
 						if(name.equals(lastName)) {
-							
-							s.getData()[month - 1] = count;
-							
+							state = "IN_THE_SERIES";	
 						}else {
+							state = "ANOTHER_SERIES";
 							
+						}
+					}
+					
+					switch(state) {
+						case "NEW_SERIES":		
+							lastName = name;
+							s.setName(name);
+							s.getData()[month - 1] = count;		
+							break;
+							
+						case "IN_THE_SERIES":	
+							s.getData()[month - 1] = count;	
+							break;
+							
+						case "ANOTHER_SERIES":
 							lastName = name;
 							
 							series.add(s);
 							s = new Series();			
 							s.setName(name);
 							s.getData()[month - 1] = count;
-						}
+							break;				
 					}
+
 				}
 				
 				series.add(s);
@@ -91,10 +104,6 @@ public class ReportPatronRestController {
 				charts.add(chartData);
 			}
 		}
-
-		// model.addAttribute("result", result);
-
-		// return "report.count.patrons.by.type";
 
 		return charts;
 	}

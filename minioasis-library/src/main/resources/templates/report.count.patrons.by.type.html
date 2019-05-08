@@ -10,12 +10,14 @@
 
 	<div class="container pt-3 pb-3">
 
-		<h4>
-			<span>Report - Count Patron By Type</span>
-		</h4>
+		<h3>
+			<span class="text-success" th:text="#{report} + ' : ' + #{patrons.statistics.by.type}">Report - Count Patron By Type</span>
+		</h3>
 		
 		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
-
+		
+		<hr>
+		
 		<div th:each="chartData,iterator : ${chartDataList}">
 			<div th:replace="fragments/apexcharts.chart.list :: chartlist(${iterator.index}, ${chartData.getTitle()}, ${chartData.getSeries()})"></div>
 		</div>		

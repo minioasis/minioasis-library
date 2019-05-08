@@ -8,59 +8,77 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container">
-	
-		<div th:replace="fragments/header :: header"></div>
+	<div class="container pt-3 pb-3">
 		
 		<div class="row"> <!-- row 1 -->
 			<div class="col">
 				<!----------------- Reports ---------------------->
-				<h5>
+				<h3>
 		      		<span class="text-primary">
 						<i class="fas fa-chart-line"></i>
 					</span>
 		      		<span th:text="#{reports}">Reports</span>
-				</h5>
+				</h3>
 			</div>
 		</div> <!-- row 1 -->
 		
+		<br>
+		
 		<div class="row">
 		    <div class="col-md">	    	
-
-				<span th:text="#{checkout}">Check-Out Report</span> 
-				<br/>
-				<a class="btn btn-outline-primary text-primary">
-					<span>
-						<i class="fas fa-chart-pie"></i>
-					</span>
-				</a>
-				
+				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action">Report 1</a> 
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Report 2</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">Report 3</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Report 4</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Report 5</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Report 6</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-info">Report 7</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-light">Report 8</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Report 9</a>
+				</div>
+			</div>
+			
+		    <div class="col-md">  
+				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action" th:text="#{patrons.statistics.by.type}">patrons.statistics.by.type</a> 
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Report 2</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">Report 3</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Report 4</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Report 5</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Report 6</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-info">Report 7</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-light">Report 8</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Report 9</a>
+				</div>
 			</div>
 			
 		    <div class="col-md">
-		    
-				<span th:text="#{fine}">Fines</span> 
-				<br>
-				<a class="btn btn-outline-primary text-primary">
-					<span>
-						<i class="far fa-money-bill-alt"></i>
-					</span>
-				</a>
-
-			</div>
-			
-		    <div class="col-md">	    	
-				<span th:text="#{patron.type}">Patron Type Report</span>
-				<br>
-				<a class="btn btn-outline-primary text-primary" href="#" th:href="@{/report/count.patrons.by.type}">
-					<span>
-						<i class="far fa-chart-bar"></i>
-					</span>
-				</a>				
+				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action">Report 1</a> 
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Report 2</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">Report 3</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Report 4</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Report 5</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Report 6</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-info">Report 7</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-light">Report 8</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Report 9</a>
+				</div>	    					
 			</div>
 
 		    <div class="col-md">	    	
-		
+				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action">Report 1</a> 
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Report 2</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">Report 3</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Report 4</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Report 5</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Report 6</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-info">Report 7</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-light">Report 8</a>
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Report 9</a>
+				</div>		
 			</div>
 						
 		  </div> <!-- row -->
