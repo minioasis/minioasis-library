@@ -6,11 +6,13 @@ import javax.persistence.Query;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Record5;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutState;
 import org.minioasis.library.domain.search.CheckoutCriteria;
+import org.minioasis.library.domain.search.CheckoutSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -21,6 +23,7 @@ import static org.minioasis.library.jooq.tables.Patron.PATRON;
 import static org.minioasis.library.jooq.tables.Item.ITEM;
 import static org.minioasis.library.jooq.tables.Biblio.BIBLIO;
 
+import java.sql.Date;
 import java.time.LocalDate;
 import java.util.List;
 import java.util.Set;
@@ -37,7 +40,34 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	private org.minioasis.library.jooq.tables.Patron p = PATRON.as("p");
 	private org.minioasis.library.jooq.tables.Item i = ITEM.as("i");
 	private org.minioasis.library.jooq.tables.Biblio b = BIBLIO.as("b");
+
+	public List<CheckoutSummary> topListPatronsForCheckouts(){
+
+		Table<Record5<String, String, String, Date, Integer>> view =
+				dsl.select(p.CARD_KEY, p.NAME, p.NAME2, p.START_DATE, DSL.count().as("total"))
+					.from(c)
+					.join(p).on(c.PATRON_ID.eq(p.ID))
+					.groupBy(c.ID).asTable("view");
+
+		return dsl.select(view.fields())
+					.from(view)
+					.orderBy(view.field("total"))
+					.fetchInto(CheckoutSummary.class);
+
+	}
 	
+	public String topListPatronsForCheckouts_JSON(){
+		
+		String results = dsl.select(p.CARD_KEY, p.NAME, p.NAME2, p.START_DATE, DSL.count())
+																			.from(c)
+																			.join(p).on(c.PATRON_ID.eq(p.ID))
+																			.groupBy(c.ID)
+																			.orderBy(DSL.count(),p.START_DATE)
+																			.fetch().formatJSON();
+				
+		return results;
+	}
+
 	public Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable){
 
 		Table<?> table = createTable(criteria);

@@ -2,6 +2,7 @@ package org.minioasis.library.repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
 
@@ -25,6 +26,8 @@ import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.PatronCriteria;
+import org.minioasis.report.chart.ChartData;
+import org.minioasis.report.chart.Series;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -134,6 +137,84 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 	order by pt.CODE
 */
 
+	public List<ChartData> CountPatronsByTypes(int from, int to){
+		
+		int period = 1;
+		period = to - from + period;
+
+		Result<Record3<Integer, String, Integer>> result = null;
+
+		List<ChartData> list = new LinkedList<ChartData>();
+
+		for (int i = 0; i < period; i++) {
+
+			from = from + i;
+
+			result = CountPatronsByTypes3(from);
+
+			if (result.size() > 0) {
+				
+				ChartData chartData = new ChartData();
+				// set title
+				chartData.setTitle(new Integer(from).toString());
+
+				List<Series> series = chartData.getSeries();
+
+				Series s = new Series();
+				String lastName = "";
+				
+				for (Record3<Integer, String, Integer> r : result) {
+
+					Integer month = r.value1();
+					String name = r.value2();
+					Integer count = r.value3();
+
+					String state = "";
+
+					// set state
+					if (s.getName() == null) {
+						state = "NEW_SERIES";		
+					}else {
+						if(name.equals(lastName)) {
+							state = "IN_THE_SERIES";	
+						}else {
+							state = "ANOTHER_SERIES";
+							
+						}
+					}
+					
+					switch(state) {
+						case "NEW_SERIES":		
+							lastName = name;
+							s.setName(name);
+							s.getData()[month - 1] = count;		
+							break;
+							
+						case "IN_THE_SERIES":	
+							s.getData()[month - 1] = count;	
+							break;
+							
+						case "ANOTHER_SERIES":
+							lastName = name;
+							
+							series.add(s);
+							s = new Series();			
+							s.setName(name);
+							s.getData()[month - 1] = count;
+							break;				
+					}
+
+				}
+				
+				series.add(s);
+				chartData.setSeries(series);
+				list.add(chartData);
+			}
+		}
+		
+		return list;
+	}
+	
 	public Result<Record3<Integer, String, Integer>> CountPatronsByTypes3(int year) {
 		
 		Field<Integer> month = p.START_DATE.extract(DatePart.MONTH);

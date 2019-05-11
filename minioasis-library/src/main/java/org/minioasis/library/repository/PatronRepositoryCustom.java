@@ -10,6 +10,7 @@ import org.jooq.Result;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.search.PatronCriteria;
+import org.minioasis.report.chart.ChartData;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 
@@ -24,5 +25,7 @@ public interface PatronRepositoryCustom {
 	Result<Record3<Integer, String, Integer>> CountPatronsByTypes3(int year);
 	
 	Result<Record1<Integer>> getAllPatronsStartedYears();
+	
+	List<ChartData> CountPatronsByTypes(int from, int to);
 	
 }
