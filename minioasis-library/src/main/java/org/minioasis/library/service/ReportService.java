@@ -6,6 +6,7 @@ import org.jooq.Record1;
 import org.jooq.Record3;
 import org.jooq.Record4;
 import org.jooq.Result;
+import org.minioasis.library.domain.search.CheckoutPatronCriteria;
 import org.minioasis.library.domain.search.CheckoutSummary;
 import org.minioasis.report.chart.ChartData;
 
@@ -17,7 +18,7 @@ public interface ReportService {
 	
 	Result<Record1<Integer>> getAllPatronsStartedYears();
 	
-	List<CheckoutSummary> topListPatronsForCheckouts();
+	List<CheckoutSummary> topListPatronsForCheckouts(CheckoutPatronCriteria criteria);
 	
 	String topListPatronsForCheckouts_JSON();
 	

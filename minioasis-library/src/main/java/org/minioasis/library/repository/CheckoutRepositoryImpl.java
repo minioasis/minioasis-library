@@ -6,12 +6,15 @@ import javax.persistence.Query;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.Record5;
+import org.jooq.Record7;
+import org.jooq.Record9;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutState;
+import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.CheckoutCriteria;
+import org.minioasis.library.domain.search.CheckoutPatronCriteria;
 import org.minioasis.library.domain.search.CheckoutSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
@@ -20,8 +23,10 @@ import org.springframework.data.domain.Pageable;
 
 import static org.minioasis.library.jooq.tables.Checkout.CHECKOUT;
 import static org.minioasis.library.jooq.tables.Patron.PATRON;
+import static org.minioasis.library.jooq.tables.PatronType.PATRON_TYPE;
 import static org.minioasis.library.jooq.tables.Item.ITEM;
 import static org.minioasis.library.jooq.tables.Biblio.BIBLIO;
+import static org.minioasis.library.jooq.tables.Groups.GROUPS;
 
 import java.sql.Date;
 import java.time.LocalDate;
@@ -38,15 +43,20 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	
 	private org.minioasis.library.jooq.tables.Checkout c = CHECKOUT.as("c");
 	private org.minioasis.library.jooq.tables.Patron p = PATRON.as("p");
+	private org.minioasis.library.jooq.tables.PatronType pt = PATRON_TYPE.as("pt");
 	private org.minioasis.library.jooq.tables.Item i = ITEM.as("i");
 	private org.minioasis.library.jooq.tables.Biblio b = BIBLIO.as("b");
+	private org.minioasis.library.jooq.tables.Groups g = GROUPS.as("g");
 
-	public List<CheckoutSummary> topListPatronsForCheckouts(){
+	public List<CheckoutSummary> topListPatronsForCheckouts(CheckoutPatronCriteria criteria){	
 
-		Table<Record5<String, String, String, Date, Integer>> view =
-				dsl.select(p.CARD_KEY, p.NAME, p.NAME2, p.START_DATE, DSL.count().as("total"))
+		Table<Record9<String, String, String, String, String, String, Date, Date, Integer>> view =
+				dsl.select(p.CARD_KEY,p.ACTIVE, p.NAME, p.NAME2, pt.NAME.as("patronType"), g.CODE.as("group"), p.START_DATE, p.END_DATE, DSL.count().as("total"))
 					.from(c)
 					.join(p).on(c.PATRON_ID.eq(p.ID))
+					.join(g).on(p.GROUP_ID.eq(g.ID))
+					.join(pt).on(c.PATRONTYPE_ID.eq(pt.ID))
+					.where(topListCondition(criteria))
 					.groupBy(c.ID).asTable("view");
 
 		return dsl.select(view.fields())
@@ -54,6 +64,43 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 					.orderBy(view.field("total"))
 					.fetchInto(CheckoutSummary.class);
 
+	}
+	
+	private Condition topListCondition(CheckoutPatronCriteria criteria) {
+		
+	    Condition condition = DSL.trueCondition();
+	    
+		final LocalDate startDateFrom = criteria.getStartDateFrom();
+		final LocalDate startDateTo = criteria.getStartDateTo();
+		final LocalDate endDateFrom = criteria.getEndDateFrom();
+		final LocalDate endDateTo = criteria.getEndDateTo();
+		final Set<YesNo> actives = criteria.getActives();
+		final Set<Long> patronTypes = criteria.getPatronTypes();
+		final Set<Long> groups = criteria.getGroups();
+		final Set<CheckoutState> states = criteria.getStates();		
+		
+		if(startDateFrom != null && startDateTo != null){
+			condition = condition.and(p.START_DATE.ge(java.sql.Date.valueOf(startDateFrom))
+							.and(p.END_DATE.le(java.sql.Date.valueOf(startDateTo))));
+		}
+		if(endDateFrom != null && endDateTo != null){
+			condition = condition.and(p.END_DATE.ge(java.sql.Date.valueOf(endDateFrom))
+							.and(p.END_DATE.le(java.sql.Date.valueOf(endDateTo))));
+		}
+		if(patronTypes != null && patronTypes.size() > 0){
+			condition = condition.and(p.PATRONTYPE_ID.in(patronTypes));
+		}
+		if(groups != null && groups.size() > 0){
+			condition = condition.and(p.GROUP_ID.in(groups));
+		}
+		if(actives != null && actives.size() > 0){
+			condition = condition.and(p.ACTIVE.in(actives));
+		}
+		if(states != null && states.size() > 0){
+			condition = condition.and(c.STATE.in(states));
+		}
+		
+	    return condition;
 	}
 	
 	public String topListPatronsForCheckouts_JSON(){

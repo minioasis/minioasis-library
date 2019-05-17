@@ -2,10 +2,12 @@ package org.minioasis.library.controller;
 
 import java.util.List;
 
+import org.minioasis.library.domain.search.CheckoutPatronCriteria;
 import org.minioasis.library.domain.search.CheckoutSummary;
 import org.minioasis.library.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
@@ -16,10 +18,10 @@ public class ReportCheckoutRestController {
 	@Autowired
 	ReportService service;
 	
-	@GetMapping(value = "/top.list.patrons.for.checkouts", produces = "application/json")
-	public List<CheckoutSummary> topListPatronsForCheckouts() {
+	@PostMapping(value = "/top.list.patrons.for.checkouts", produces = "application/json")
+	public List<CheckoutSummary> topListPatronsForCheckouts(@RequestBody CheckoutPatronCriteria criteria) {
 		
-		List<CheckoutSummary> list= this.service.topListPatronsForCheckouts();	
+		List<CheckoutSummary> list= this.service.topListPatronsForCheckouts(criteria);	
 		
 		return list;
 

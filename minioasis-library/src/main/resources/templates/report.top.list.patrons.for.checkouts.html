@@ -22,9 +22,13 @@
 					<tr>
 						<th>#</th>
 						<th th:text="#{card.key}">Card Key</th>
+						<th th:text="#{active}">Active</th>
 						<th th:text="#{name}">Name</th>
 						<th th:text="#{name2}">Name2</th>
+						<th th:text="#{group}">Group</th>
+						<th th:text="#{patron.type}">Patron Type</th>
 						<th th:text="#{start.date}">Start</th>
+						<th th:text="#{end.date}">End</th>
 						<th th:text="#{total}">Total</th>
 					</tr>
 				</thead>
@@ -33,18 +37,27 @@
 					<tr th:each="e,iterator : ${list}">
 						<td th:text="${iterator.index + 1}">1</td>
 						<td th:text="${e.cardKey}">Card Key</td>
+						<td th:text="${e.active}">Active</td>
 						<td th:text="${e.name}">Name</td>
 						<td th:text="${e.name2}">Name2</td>
+						<td th:text="${e.group}">Group</td>
+						<td th:text="${e.patronType}">PT Name</td>
 						<td th:inline="text">
 							[[${#temporals.format(e.startDate,'yyyy-MM-dd')}]]
+						</td>
+						<td th:inline="text">
+							[[${#temporals.format(e.endDate,'yyyy-MM-dd')}]]
 						</td>
 						<td th:text="${e.total}">Count</td>
 					</tr>
 					<tr th:remove="all">
 						<td>2</td>
 						<td>Card Key</td>
+						<td>Active</td>
 						<td>Name</td>
 						<td>Name2</td>
+						<td>Group</td>
+						<td>PT Name</td>
 						<td>2019-01-01</td>
 						<td>456</td>
 					</tr>

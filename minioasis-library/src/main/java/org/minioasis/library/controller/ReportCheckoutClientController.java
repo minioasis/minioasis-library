@@ -3,16 +3,26 @@ package org.minioasis.library.controller;
 import java.net.URL;
 import java.util.List;
 
+import org.minioasis.library.domain.CheckoutState;
+import org.minioasis.library.domain.Group;
+import org.minioasis.library.domain.PatronType;
+import org.minioasis.library.domain.YesNo;
+import org.minioasis.library.domain.search.CheckoutPatronCriteria;
 import org.minioasis.library.domain.search.CheckoutSummary;
+import org.minioasis.library.service.LibraryService;
 import org.minioasis.library.service.RemoteAccessService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.core.ParameterizedTypeReference;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpMethod;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
 @RequestMapping("/report")
@@ -21,16 +31,47 @@ public class ReportCheckoutClientController {
 	@Autowired
 	private RemoteAccessService service;
 	
-	@RequestMapping(value = { "/top.list.patrons.for.checkouts" }, method = RequestMethod.GET)
-	public String topListPatronsForCheckouts(Model model) {
+	@Autowired
+	private LibraryService libraryService;
 
+	@ModelAttribute("ats")
+	public YesNo[] populateActives() {
+		return YesNo.values();
+	}
+	
+	@ModelAttribute("gps")
+	public List<Group> populateGroups() {
+		return this.libraryService.findAllGroups();	
+	}
+	
+	@ModelAttribute("pts")
+	public List<PatronType> populatePatronTypes() {
+		return this.libraryService.findAllPatronTypes(Sort.by("name").ascending());	
+	}
+	
+	@ModelAttribute("checkoutStatez")
+	public CheckoutState[] populateCheckoutState() {
+		return CheckoutState.values();	
+	}
+	
+	@GetMapping("/top.list.patrons.for.checkouts.form")
+	public String topListPatronsForCheckoutsForm(@ModelAttribute("criteria") CheckoutPatronCriteria criteria) {
+		return "report.top.list.patrons.for.checkouts.form";
+	}
+	
+	@PostMapping("/top.list.patrons.for.checkouts")
+	public String topListPatronsForCheckouts(@ModelAttribute("criteria") CheckoutPatronCriteria criteria, Model model) {
+		
+		HttpEntity<CheckoutPatronCriteria> request = new HttpEntity<>(criteria);
+		
 		URL url = service.getUrl();
 
 		ResponseEntity<List<CheckoutSummary>> response = this.service.getRestTemplate().exchange(
 				url.toString() + "/api/report/top.list.patrons.for.checkouts", 
-				HttpMethod.GET,
-				null, 
+				HttpMethod.POST,
+				request, 
 				new ParameterizedTypeReference<List<CheckoutSummary>>() {});
+
 
 		List<CheckoutSummary> list = response.getBody();
 		

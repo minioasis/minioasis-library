@@ -1,0 +1,125 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h3>
+			<span class="text-success" th:text="#{report} + ' : ' + #{top.list.patrons.for.checkouts}">Report - Top List Patrons For Checkouts</span>
+		</h3>
+		
+		<br>
+		
+		<div class="row">
+      		<div class="col">
+      
+				<ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="date-tab" data-toggle="tab" href="#date" role="tab" aria-controls="date" aria-selected="true">
+							<i class="fab fa-envira"></i>
+							<span th:text="#{date}">Date</span>
+						</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="type-tab" data-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">
+							<i class="fab fa-envira"></i>
+							<span th:text="#{type}">Type</span>
+						</a>
+					</li>
+				</ul>
+		
+				<form  action="#" th:action="@{/report/top.list.patrons.for.checkouts}" th:object="${criteria}" method="post">
+		
+					<input type="hidden" id="page" name="page" value="0" />
+					<input type="hidden" id="size" name="size" value="10" />
+					<input type="hidden" id="sort" name="sort" value="cardKey,desc" />
+								
+					<div class="tab-content" id="myTabContent">
+						
+						<div class="tab-pane fade show active" id="date" role="tabpanel" aria-labelledby="date-tab">	
+							<div class="form-row pt-3">
+								<div class="form-group col-md-2">
+							      <label>
+							      	<i class="far fa-calendar-plus"></i>
+							      	<span th:text="#{start.date}">Start Date</span>
+							      </label>
+							      <input type="text" class="form-control" th:field="*{startDateFrom}" placeholder="yyyy-MM-dd" />
+							    </div>
+							    <div class="form-group col-md-2">
+							      <label><i class="far fa-calendar-minus"></i></label>
+							      <input type="text" class="form-control" th:field="*{startDateTo}" placeholder="To" />
+							    </div>
+							    <div class="form-group col-md-2">
+							      	<label>
+								      	<i class="far fa-calendar-plus"></i>
+								      	<span th:text="#{end.date}">End Date</span>
+							      	</label>
+							      <input type="text" class="form-control" th:field="*{endDateFrom}" placeholder="From" />
+							    </div>
+							    <div class="form-group col-md-2">
+							      <label><i class="far fa-calendar-minus"></i></label>
+							      <input type="text" class="form-control" th:field="*{endDateTo}" placeholder="To" />
+							    </div>
+							</div>
+						</div>
+						
+						<div class="tab-pane fade" id="type" role="tabpanel"	aria-labelledby="type-tab">
+							<div class="form-row pt-3">
+							    <div class="form-group col-md-3">
+							    	<label th:text="#{patron.type}">Patron Type</label>
+									<select	class="form-control" th:field="*{patronTypes}" multiple="multiple">						
+										<option th:each="pt : ${pts}" th:value="${pt.id}" th:text="${pt.name}" />
+										<option th:remove="all" value="24121">SM1</option>
+										<option th:remove="all" value="12123">SM2</option>
+									</select>
+							    </div>
+							    <div class="form-group col-md-3">
+							    	<label th:text="#{group}">Group</label>
+									<select	class="form-control" th:field="*{groups}" multiple="multiple">						
+										<option th:each="g : ${gps}" th:value="${g.id}" th:text="${g.code}" />
+										<option th:remove="all" value="24121">SM1</option>
+										<option th:remove="all" value="12123">SM2</option>
+									</select>
+							    </div>
+							    <div class="form-group col-md-3">
+							    	<label th:text="#{active}">Active</label>
+									<select	class="form-control" th:field="*{actives}" multiple="multiple">
+										<option th:each="a : ${ats}" th:value="${a}" th:text="${a}" />						
+										<option th:remove="all" value="Y" th:text="${yes}">SM1</option>
+										<option th:remove="all" value="N" th:text="${no}">SM2</option>
+									</select>
+							    </div>
+							    <div class="form-group col-md-3">
+							    	<label th:text="#{state}">State</label>
+									<select	class="form-control" th:field="*{states}" multiple="multiple">						
+										<option th:each="s : ${checkoutStatez}" th:value="${s}" th:text="${s}" />
+										<option th:remove="all" value="CHECKOUT">CHECKOUT</option>
+										<option th:remove="all" value="RETURN">RETURN</option>
+									</select>
+							    </div>
+							</div>			
+						</div>
+						
+					</div>
+					
+		
+					<button type="submit" class="btn bg-info text-white float-right"  th:text="#{submit}">Submit</button>			
+		
+					
+				</form>
+		
+			</div> <!-- col -->	
+		</div>	<!-- row -->	
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
