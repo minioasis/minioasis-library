@@ -15,7 +15,9 @@ import org.minioasis.library.domain.CheckoutState;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.CheckoutPatronCriteria;
-import org.minioasis.library.domain.search.CheckoutSummary;
+import org.minioasis.library.domain.search.TopCheckoutPatronsSummary;
+import org.minioasis.library.domain.search.TopPopularBooksCriteria;
+import org.minioasis.library.domain.search.TopPopularBooksSummary;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -48,7 +50,70 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	private org.minioasis.library.jooq.tables.Biblio b = BIBLIO.as("b");
 	private org.minioasis.library.jooq.tables.Groups g = GROUPS.as("g");
 
-	public List<CheckoutSummary> topListPatronsForCheckouts(CheckoutPatronCriteria criteria){	
+	public List<TopPopularBooksSummary> topPopularBooks(TopPopularBooksCriteria criteria){
+		
+		Table<?> table = createTable2(criteria);
+		
+		Table<Record7<String, String, Date, String, String, String, Integer>> view =
+				dsl.select(b.TITLE, b.ISBN, i.FIRST_CHECKIN, p.ACTIVE,pt.NAME.as("patronType"), g.CODE.as("group"), DSL.count().as("total"))
+					.from(table)
+					.where(topPopularBooksCondition(criteria))
+					.groupBy(c.ID).asTable("view");
+
+		
+		return dsl.select(view.fields())
+				.from(view)
+				.orderBy(view.field("total"))
+				.fetchInto(TopPopularBooksSummary.class);
+
+	}
+	
+	private Table<?> createTable2(TopPopularBooksCriteria criteria) {
+
+		
+		Table<?> table = c;
+		
+		table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID))
+						.join(g).on(p.GROUP_ID.eq(g.ID))
+						.join(pt).on(c.PATRONTYPE_ID.eq(pt.ID))
+						.join(i).on(c.ITEM_ID.eq(i.ID))
+						.join(b).on(i.BIBLIO_ID.eq(b.ID));
+
+		return table;
+	}
+
+	private Condition topPopularBooksCondition(TopPopularBooksCriteria criteria) {
+		
+	    Condition condition = DSL.trueCondition();
+	    
+		final LocalDate firstCheckinFrom = criteria.getFirstCheckinFrom();
+		final LocalDate firstCheckinTo = criteria.getFirstCheckinTo();
+		final Set<YesNo> actives = criteria.getActives();
+		final Set<Long> patronTypes = criteria.getPatronTypes();
+		final Set<Long> groups = criteria.getGroups();
+		final Set<CheckoutState> states = criteria.getStates();		
+		
+		if(firstCheckinFrom != null && firstCheckinTo != null){
+			condition = condition.and(i.FIRST_CHECKIN.ge(java.sql.Date.valueOf(firstCheckinFrom))
+							.and(i.FIRST_CHECKIN.le(java.sql.Date.valueOf(firstCheckinTo))));
+		}
+		if(patronTypes != null && patronTypes.size() > 0){
+			condition = condition.and(p.PATRONTYPE_ID.in(patronTypes));
+		}
+		if(groups != null && groups.size() > 0){
+			condition = condition.and(p.GROUP_ID.in(groups));
+		}
+		if(actives != null && actives.size() > 0){
+			condition = condition.and(p.ACTIVE.in(actives));
+		}
+		if(states != null && states.size() > 0){
+			condition = condition.and(c.STATE.in(states));
+		}
+		
+	    return condition;
+	}
+
+	public List<TopCheckoutPatronsSummary> topListPatronsForCheckouts(CheckoutPatronCriteria criteria){	
 
 		Table<Record9<String, String, String, String, String, String, Date, Date, Integer>> view =
 				dsl.select(p.CARD_KEY,p.ACTIVE, p.NAME, p.NAME2, pt.NAME.as("patronType"), g.CODE.as("group"), p.START_DATE, p.END_DATE, DSL.count().as("total"))
@@ -62,7 +127,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		return dsl.select(view.fields())
 					.from(view)
 					.orderBy(view.field("total"))
-					.fetchInto(CheckoutSummary.class);
+					.fetchInto(TopCheckoutPatronsSummary.class);
 
 	}
 	

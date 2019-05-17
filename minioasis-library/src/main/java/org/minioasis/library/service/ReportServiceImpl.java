@@ -7,7 +7,9 @@ import org.jooq.Record3;
 import org.jooq.Record4;
 import org.jooq.Result;
 import org.minioasis.library.domain.search.CheckoutPatronCriteria;
-import org.minioasis.library.domain.search.CheckoutSummary;
+import org.minioasis.library.domain.search.TopCheckoutPatronsSummary;
+import org.minioasis.library.domain.search.TopPopularBooksCriteria;
+import org.minioasis.library.domain.search.TopPopularBooksSummary;
 import org.minioasis.library.repository.CheckoutRepository;
 import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.report.chart.ChartData;
@@ -34,8 +36,12 @@ public class ReportServiceImpl implements ReportService {
 		return patronRepository.getAllPatronsStartedYears();
 	}
 	
-	public List<CheckoutSummary> topListPatronsForCheckouts(CheckoutPatronCriteria criteria){
+	public List<TopCheckoutPatronsSummary> topListPatronsForCheckouts(CheckoutPatronCriteria criteria){
 		return checkoutRepository.topListPatronsForCheckouts(criteria);
+	}
+	
+	public List<TopPopularBooksSummary> topPopularBooks(TopPopularBooksCriteria criteria){
+		return checkoutRepository.topPopularBooks(criteria);
 	}
 	
 	public String topListPatronsForCheckouts_JSON() {

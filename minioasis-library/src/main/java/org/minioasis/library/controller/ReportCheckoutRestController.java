@@ -3,7 +3,9 @@ package org.minioasis.library.controller;
 import java.util.List;
 
 import org.minioasis.library.domain.search.CheckoutPatronCriteria;
-import org.minioasis.library.domain.search.CheckoutSummary;
+import org.minioasis.library.domain.search.TopCheckoutPatronsSummary;
+import org.minioasis.library.domain.search.TopPopularBooksCriteria;
+import org.minioasis.library.domain.search.TopPopularBooksSummary;
 import org.minioasis.library.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.PostMapping;
@@ -19,9 +21,18 @@ public class ReportCheckoutRestController {
 	ReportService service;
 	
 	@PostMapping(value = "/top.list.patrons.for.checkouts", produces = "application/json")
-	public List<CheckoutSummary> topListPatronsForCheckouts(@RequestBody CheckoutPatronCriteria criteria) {
+	public List<TopCheckoutPatronsSummary> topListPatronsForCheckouts(@RequestBody CheckoutPatronCriteria criteria) {
 		
-		List<CheckoutSummary> list= this.service.topListPatronsForCheckouts(criteria);	
+		List<TopCheckoutPatronsSummary> list= this.service.topListPatronsForCheckouts(criteria);	
+		
+		return list;
+
+	}
+	
+	@PostMapping(value = "/top.popular.books", produces = "application/json")
+	public List<TopPopularBooksSummary> TopPopularBooks(@RequestBody TopPopularBooksCriteria criteria) {
+		
+		List<TopPopularBooksSummary> list= this.service.topPopularBooks(criteria);	
 		
 		return list;
 

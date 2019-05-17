@@ -8,7 +8,9 @@ import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.CheckoutPatronCriteria;
-import org.minioasis.library.domain.search.CheckoutSummary;
+import org.minioasis.library.domain.search.TopCheckoutPatronsSummary;
+import org.minioasis.library.domain.search.TopPopularBooksCriteria;
+import org.minioasis.library.domain.search.TopPopularBooksSummary;
 import org.minioasis.library.service.LibraryService;
 import org.minioasis.library.service.RemoteAccessService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -66,17 +68,43 @@ public class ReportCheckoutClientController {
 		
 		URL url = service.getUrl();
 
-		ResponseEntity<List<CheckoutSummary>> response = this.service.getRestTemplate().exchange(
+		ResponseEntity<List<TopCheckoutPatronsSummary>> response = this.service.getRestTemplate().exchange(
 				url.toString() + "/api/report/top.list.patrons.for.checkouts", 
 				HttpMethod.POST,
 				request, 
-				new ParameterizedTypeReference<List<CheckoutSummary>>() {});
+				new ParameterizedTypeReference<List<TopCheckoutPatronsSummary>>() {});
 
 
-		List<CheckoutSummary> list = response.getBody();
+		List<TopCheckoutPatronsSummary> list = response.getBody();
 		
 		model.addAttribute("list", list);
 
 		return "report.top.list.patrons.for.checkouts";
+	}
+	
+	@GetMapping("/top.popular.books")
+	public String topPopularBooksForm(@ModelAttribute("criteria") TopPopularBooksCriteria criteria) {
+		return "report.top.popular.books.form";
+	}
+	
+	@PostMapping("/top.popular.books")
+	public String topPopularBooks(@ModelAttribute("criteria") TopPopularBooksCriteria criteria, Model model) {
+		
+		HttpEntity<TopPopularBooksCriteria> request = new HttpEntity<>(criteria);
+		
+		URL url = service.getUrl();
+
+		ResponseEntity<List<TopPopularBooksSummary>> response = this.service.getRestTemplate().exchange(
+				url.toString() + "/api/report/top.popular.books", 
+				HttpMethod.POST,
+				request, 
+				new ParameterizedTypeReference<List<TopPopularBooksSummary>>() {});
+
+
+		List<TopPopularBooksSummary> list = response.getBody();
+		
+		model.addAttribute("list", list);
+
+		return "report.top.popular.books";
 	}
 }

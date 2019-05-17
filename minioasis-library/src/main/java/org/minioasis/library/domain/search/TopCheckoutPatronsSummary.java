@@ -3,7 +3,7 @@ package org.minioasis.library.domain.search;
 import java.io.Serializable;
 import java.time.LocalDate;
 
-public class CheckoutSummary implements Serializable {
+public class TopCheckoutPatronsSummary implements Serializable {
 
 	private static final long serialVersionUID = -3300139513283797042L;
 
@@ -17,9 +17,9 @@ public class CheckoutSummary implements Serializable {
 	private LocalDate endDate;
 	private Integer total;
 
-	public CheckoutSummary() {}
+	public TopCheckoutPatronsSummary() {}
 			
-	public CheckoutSummary(Integer total, String cardKey) {
+	public TopCheckoutPatronsSummary(Integer total, String cardKey) {
 		this.total = total;
 		this.cardKey = cardKey;
 	}
