@@ -697,18 +697,18 @@ public class Patron implements Serializable {
 			 * 	0 	| 	1 	| RETURN_WITH_DAMAGE
 			 * 	0 	| 	0 	| RETURN
 			 */
-			System.out.println("*************************0");
+
 			// set checkout state
 			if (checkin.isOverDue(given)) {
-				System.out.println("*************************1");
+
 				if (damage) {
 					checkin.setState(CheckoutState.RETURN_WITH_DAMAGE_AND_FINE);
 				} else {
-					System.out.println("*************************2");
+
 					checkin.setState(CheckoutState.RETURN_WITH_FINE);
 				}
 			} else {
-				System.out.println("*************************3");
+
 				if (damage) {
 					checkin.setState(CheckoutState.RETURN_WITH_DAMAGE);
 				} else {
@@ -716,7 +716,7 @@ public class Patron implements Serializable {
 					removeCheckout(checkin);
 				}
 			}
-			System.out.println("*************************4");
+
 			checkin.setDone(given);
 			checkin.getItem().setLastCheckin(given.atTime(00, 00, 00));
 			checkin.getItem().setState(ItemState.IN_LIBRARY);

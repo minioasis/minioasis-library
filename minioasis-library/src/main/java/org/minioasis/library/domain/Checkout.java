@@ -329,24 +329,34 @@ public class Checkout implements Serializable {
 	
 	public int calculateDaysOfOverDue(LocalDate given, HolidayCalculationStrategy strategy) {
 	
-		int dues = 0;
+		int dueDays = 0;
+		
+		int due = 0;
 		int holidays = 0;
 
 		if(state.equals(CheckoutState.RETURN_WITH_FINE) ||
 				state.equals(CheckoutState.RETURN_WITH_DAMAGE_AND_FINE) ||
 				state.equals(CheckoutState.REPORTLOST_WITH_FINE)){
 			
-			dues = (int)ChronoUnit.DAYS.between(done, this.dueDate);
+			due = (int)ChronoUnit.DAYS.between(dueDate, done);
 			holidays = strategy.getNoOfHolidaysBetween(dueDate, done);
+			
+			dueDays = (int)ChronoUnit.DAYS.between(dueDate, done) + holidays;
 		}
 			
 		if(state.equals(CheckoutState.CHECKOUT) ||
 				state.equals(CheckoutState.RENEW)){
-			dues = (int)ChronoUnit.DAYS.between(given, this.dueDate);
-			holidays = strategy.getNoOfHolidaysBetween(dueDate, given);
+			
+			due = (int)ChronoUnit.DAYS.between(given, dueDate);
+			
+			if(due < 0) {
+				holidays = strategy.getNoOfHolidaysBetween(dueDate, given);
+				dueDays = holidays - due ;
+			}
+			
 		}
-		
-		return dues - holidays;
+
+		return dueDays;
 	}
 	
 	public BigDecimal calculateFineAmount() {
@@ -357,7 +367,7 @@ public class Checkout implements Serializable {
 		double fineAmount = daysOfOverDue * fineRate;
 			
 		totalFine =  new BigDecimal(round(fineAmount,1)).setScale(1,BigDecimal.ROUND_HALF_UP);
-		
+
 		return totalFine;
 	}
 	
