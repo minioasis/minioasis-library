@@ -110,8 +110,6 @@ public class Checkout implements Serializable {
     @Filter(name = "attachmentCheckoutStateFilter")
 	private List<AttachmentCheckout> attachmentCheckouts = new ArrayList<AttachmentCheckout>(0);
 	
-	@Transient private boolean overDue = false;
-	@Transient private boolean fine = false;
 	@Transient private boolean reachMinRenewableDate = false;
 	@Transient private int daysOfOverDue = -1;
 	@Transient private BigDecimal fineAmount = new BigDecimal(0);
@@ -165,14 +163,6 @@ public class Checkout implements Serializable {
 		this.daysOfOverDue = daysOfOverDue;
 	}
 
-	public boolean isFine() {
-		return fine;
-	}
-
-	public void setFine(boolean fine) {
-		this.fine = fine;
-	}
-
 	public BigDecimal getFineAmount() {
 		return fineAmount;
 	}
@@ -187,14 +177,6 @@ public class Checkout implements Serializable {
 
 	public void setReachMinRenewableDate(boolean reachMinRenewableDate) {
 		this.reachMinRenewableDate = reachMinRenewableDate;
-	}
-
-	public boolean isOverDue() {
-		return overDue;
-	}
-
-	public void setOverDue(boolean overDue) {
-		this.overDue = overDue;
 	}
 
 	public LocalDate getCheckoutDate() {
@@ -401,18 +383,9 @@ public class Checkout implements Serializable {
 	
 	public void calculateAllStates(LocalDate given, HolidayCalculationStrategy strategy) {
 		
-		this.overDue = isOverDue(given);
-		
-		if(overDue){
-
+		if(isOverDue(given)){
 			this.daysOfOverDue = calculateDaysOfOverDue(given, strategy);
-			this.fineAmount = calculateFineAmount();
-			
-			if(fineAmount.doubleValue() > 0){
-				this.fine = true;
-			}else{
-				this.fine = false;
-			}			
+			this.fineAmount = calculateFineAmount();			
 		}
 
 		this.reachMinRenewableDate = reachMinRenewableDate(given);

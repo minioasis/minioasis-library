@@ -337,7 +337,7 @@ public class Item implements Serializable {
 			*/
 						
 			// set checkout state
-			if (checkin.isFine()) {
+			if (checkin.isOverDue(given)) {
 				if (damage) {
 					checkin.setState(CheckoutState.RETURN_WITH_DAMAGE_AND_FINE);
 				} else {
