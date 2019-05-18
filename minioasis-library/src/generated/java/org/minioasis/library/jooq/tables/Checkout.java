@@ -41,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.CheckoutRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Checkout extends TableImpl<CheckoutRecord> {
 
-    private static final long serialVersionUID = 2140554483;
+    private static final long serialVersionUID = -1293674500;
 
     /**
      * The reference instance of <code>PUBLIC.CHECKOUT</code>
@@ -117,11 +117,6 @@ public class Checkout extends TableImpl<CheckoutRecord> {
     public final TableField<CheckoutRecord, Long> PATRON_ID = createField("PATRON_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.CHECKOUT.PATRONTYPE_ID</code>.
-     */
-    public final TableField<CheckoutRecord, Long> PATRONTYPE_ID = createField("PATRONTYPE_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
      * Create a <code>PUBLIC.CHECKOUT</code> table reference
      */
     public Checkout() {
@@ -163,7 +158,7 @@ public class Checkout extends TableImpl<CheckoutRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FK_CHECKOUT_ITEM_INDEX_8, Indexes.FK_CHECKOUT_PATRONTYPE_INDEX_8, Indexes.FK_CHECKOUT_PATRON_INDEX_8, Indexes.PRIMARY_KEY_8);
+        return Arrays.<Index>asList(Indexes.FK_CHECKOUT_ITEM_INDEX_8, Indexes.FK_CHECKOUT_PATRON_INDEX_8, Indexes.PRIMARY_KEY_8);
     }
 
     /**
@@ -195,7 +190,7 @@ public class Checkout extends TableImpl<CheckoutRecord> {
      */
     @Override
     public List<ForeignKey<CheckoutRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<CheckoutRecord, ?>>asList(Keys.FK_CHECKOUT_ITEM, Keys.FK_CHECKOUT_PATRON, Keys.FK_CHECKOUT_PATRONTYPE);
+        return Arrays.<ForeignKey<CheckoutRecord, ?>>asList(Keys.FK_CHECKOUT_ITEM, Keys.FK_CHECKOUT_PATRON);
     }
 
     /**

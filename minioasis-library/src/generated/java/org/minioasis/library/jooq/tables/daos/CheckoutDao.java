@@ -141,11 +141,4 @@ public class CheckoutDao extends DAOImpl<CheckoutRecord, org.minioasis.library.j
     public List<org.minioasis.library.jooq.tables.pojos.Checkout> fetchByPatronId(Long... values) {
         return fetch(Checkout.CHECKOUT.PATRON_ID, values);
     }
-
-    /**
-     * Fetch records that have <code>PATRONTYPE_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.Checkout> fetchByPatrontypeId(Long... values) {
-        return fetch(Checkout.CHECKOUT.PATRONTYPE_ID, values);
-    }
 }

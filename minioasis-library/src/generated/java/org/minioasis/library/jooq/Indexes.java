@@ -62,7 +62,6 @@ public class Indexes {
     public static final Index FK6WR2OUSD2B6D5E9EDOYA9C7OI_INDEX_3 = Indexes0.FK6WR2OUSD2B6D5E9EDOYA9C7OI_INDEX_3;
     public static final Index PRIMARY_KEY_3 = Indexes0.PRIMARY_KEY_3;
     public static final Index FK_CHECKOUT_ITEM_INDEX_8 = Indexes0.FK_CHECKOUT_ITEM_INDEX_8;
-    public static final Index FK_CHECKOUT_PATRONTYPE_INDEX_8 = Indexes0.FK_CHECKOUT_PATRONTYPE_INDEX_8;
     public static final Index FK_CHECKOUT_PATRON_INDEX_8 = Indexes0.FK_CHECKOUT_PATRON_INDEX_8;
     public static final Index PRIMARY_KEY_8 = Indexes0.PRIMARY_KEY_8;
     public static final Index PRIMARY_KEY_7D = Indexes0.PRIMARY_KEY_7D;
@@ -122,7 +121,6 @@ public class Indexes {
         public static Index FK6WR2OUSD2B6D5E9EDOYA9C7OI_INDEX_3 = Internal.createIndex("FK6WR2OUSD2B6D5E9EDOYA9C7OI_INDEX_3", BiblioTag.BIBLIO_TAG, new OrderField[] { BiblioTag.BIBLIO_TAG.TAG_ID }, false);
         public static Index PRIMARY_KEY_3 = Internal.createIndex("PRIMARY_KEY_3", BiblioTag.BIBLIO_TAG, new OrderField[] { BiblioTag.BIBLIO_TAG.BIBLIO_ID, BiblioTag.BIBLIO_TAG.TAG_ID }, true);
         public static Index FK_CHECKOUT_ITEM_INDEX_8 = Internal.createIndex("FK_CHECKOUT_ITEM_INDEX_8", Checkout.CHECKOUT, new OrderField[] { Checkout.CHECKOUT.ITEM_ID }, false);
-        public static Index FK_CHECKOUT_PATRONTYPE_INDEX_8 = Internal.createIndex("FK_CHECKOUT_PATRONTYPE_INDEX_8", Checkout.CHECKOUT, new OrderField[] { Checkout.CHECKOUT.PATRONTYPE_ID }, false);
         public static Index FK_CHECKOUT_PATRON_INDEX_8 = Internal.createIndex("FK_CHECKOUT_PATRON_INDEX_8", Checkout.CHECKOUT, new OrderField[] { Checkout.CHECKOUT.PATRON_ID }, false);
         public static Index PRIMARY_KEY_8 = Internal.createIndex("PRIMARY_KEY_8", Checkout.CHECKOUT, new OrderField[] { Checkout.CHECKOUT.ID }, true);
         public static Index PRIMARY_KEY_7D = Internal.createIndex("PRIMARY_KEY_7D", Groups.GROUPS, new OrderField[] { Groups.GROUPS.ID }, true);

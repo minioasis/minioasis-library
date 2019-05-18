@@ -137,7 +137,6 @@ public class Keys {
     public static final ForeignKey<BiblioTagRecord, TagRecord> FK6WR2OUSD2B6D5E9EDOYA9C7OI = ForeignKeys0.FK6WR2OUSD2B6D5E9EDOYA9C7OI;
     public static final ForeignKey<CheckoutRecord, ItemRecord> FK_CHECKOUT_ITEM = ForeignKeys0.FK_CHECKOUT_ITEM;
     public static final ForeignKey<CheckoutRecord, PatronRecord> FK_CHECKOUT_PATRON = ForeignKeys0.FK_CHECKOUT_PATRON;
-    public static final ForeignKey<CheckoutRecord, PatronTypeRecord> FK_CHECKOUT_PATRONTYPE = ForeignKeys0.FK_CHECKOUT_PATRONTYPE;
     public static final ForeignKey<ItemRecord, BiblioRecord> FK_ITEM_BIBLIO = ForeignKeys0.FK_ITEM_BIBLIO;
     public static final ForeignKey<ItemRecord, ItemDurationRecord> FK_ITEM_ITEMDURATION = ForeignKeys0.FK_ITEM_ITEMDURATION;
     public static final ForeignKey<ItemRecord, ItemStatusRecord> FK_ITEM_ITEMSTATUS = ForeignKeys0.FK_ITEM_ITEMSTATUS;
@@ -219,7 +218,6 @@ public class Keys {
         public static final ForeignKey<BiblioTagRecord, TagRecord> FK6WR2OUSD2B6D5E9EDOYA9C7OI = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_1, BiblioTag.BIBLIO_TAG, "FK6WR2OUSD2B6D5E9EDOYA9C7OI", BiblioTag.BIBLIO_TAG.TAG_ID);
         public static final ForeignKey<CheckoutRecord, ItemRecord> FK_CHECKOUT_ITEM = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_2, Checkout.CHECKOUT, "FK_CHECKOUT_ITEM", Checkout.CHECKOUT.ITEM_ID);
         public static final ForeignKey<CheckoutRecord, PatronRecord> FK_CHECKOUT_PATRON = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8C, Checkout.CHECKOUT, "FK_CHECKOUT_PATRON", Checkout.CHECKOUT.PATRON_ID);
-        public static final ForeignKey<CheckoutRecord, PatronTypeRecord> FK_CHECKOUT_PATRONTYPE = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_5, Checkout.CHECKOUT, "FK_CHECKOUT_PATRONTYPE", Checkout.CHECKOUT.PATRONTYPE_ID);
         public static final ForeignKey<ItemRecord, BiblioRecord> FK_ITEM_BIBLIO = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, Item.ITEM, "FK_ITEM_BIBLIO", Item.ITEM.BIBLIO_ID);
         public static final ForeignKey<ItemRecord, ItemDurationRecord> FK_ITEM_ITEMDURATION = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, Item.ITEM, "FK_ITEM_ITEMDURATION", Item.ITEM.ITEM_DURATION_ID);
         public static final ForeignKey<ItemRecord, ItemStatusRecord> FK_ITEM_ITEMSTATUS = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_64, Item.ITEM, "FK_ITEM_ITEMSTATUS", Item.ITEM.ITEM_STATUS_ID);

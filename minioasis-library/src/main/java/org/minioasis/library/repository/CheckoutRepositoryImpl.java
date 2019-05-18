@@ -74,8 +74,8 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		Table<?> table = c;
 		
 		table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID))
+						.join(pt).on(p.PATRONTYPE_ID.eq(pt.ID))
 						.join(g).on(p.GROUP_ID.eq(g.ID))
-						.join(pt).on(c.PATRONTYPE_ID.eq(pt.ID))
 						.join(i).on(c.ITEM_ID.eq(i.ID))
 						.join(b).on(i.BIBLIO_ID.eq(b.ID));
 
@@ -119,8 +119,8 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 				dsl.select(p.CARD_KEY,p.ACTIVE, p.NAME, p.NAME2, pt.NAME.as("patronType"), g.CODE.as("group"), p.START_DATE, p.END_DATE, DSL.count().as("total"))
 					.from(c)
 					.join(p).on(c.PATRON_ID.eq(p.ID))
+					.join(pt).on(p.PATRONTYPE_ID.eq(pt.ID))
 					.join(g).on(p.GROUP_ID.eq(g.ID))
-					.join(pt).on(c.PATRONTYPE_ID.eq(pt.ID))
 					.where(topListCondition(criteria))
 					.groupBy(c.ID).asTable("view");
 

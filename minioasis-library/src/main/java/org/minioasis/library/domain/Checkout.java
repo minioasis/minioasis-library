@@ -103,11 +103,6 @@ public class Checkout implements Serializable {
     
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="patrontype_id" , nullable = false , updatable = false , foreignKey = @ForeignKey(name = "fk_checkout_patrontype"))
-	private PatronType patronType;
-    
-    @NotNull
-    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="item_id", nullable = false , foreignKey = @ForeignKey(name = "fk_checkout_item"))
 	private Item item;
 	
@@ -134,15 +129,13 @@ public class Checkout implements Serializable {
 		this.renewedNo = renewedNo;
 		this.state = state;
 		this.patron = patron;
-		this.patronType = patron.getPatronType();
 		this.item = item;
 	}
 
 	public Checkout(LocalDate checkoutDate, LocalDate newDueDate, LocalDate done,
 			LocalDate finePaidDate, LocalDate lostOrDamagePaidDate,
 			BigDecimal finePaidAmount, BigDecimal lostOrDamageFineAmount,
-			Integer renewedNo, CheckoutState state, Patron patron,
-			PatronType patronType, Item item) {
+			Integer renewedNo, CheckoutState state, Patron patron, Item item) {
 		this.checkoutDate = checkoutDate;
 		this.dueDate = newDueDate;
 		this.done = done;
@@ -153,7 +146,6 @@ public class Checkout implements Serializable {
 		this.renewedNo = renewedNo;
 		this.state = state;
 		this.patron = patron;
-		this.patronType = patron.getPatronType();
 		this.item = item;
 	}
 
@@ -285,14 +277,6 @@ public class Checkout implements Serializable {
 		this.patron = patron;
 	}
 
-	public PatronType getPatronType() {
-		return this.patronType;
-	}
-
-	public void setPatronType(PatronType patronType) {
-		this.patronType = patronType;
-	}
-
 	public Item getItem() {
 		return this.item;
 	}
@@ -322,7 +306,7 @@ public class Checkout implements Serializable {
 
 	public LocalDate calculateDueDate(){
 		
-		long duration = this.patronType.getDuration().longValue();
+		long duration = this.patron.getPatronType().getDuration().longValue();
 		long itemDuration = item.getItemDuration().getValue().longValue();
 		
 		return checkoutDate.plusDays(duration + itemDuration);
@@ -331,7 +315,7 @@ public class Checkout implements Serializable {
 	
 	public boolean reachMinRenewableDate(LocalDate given) {
 
-		long duration = this.patronType.getMinRenewablePeriod();
+		long duration = this.patron.getPatronType().getMinRenewablePeriod();
 		
 
 		LocalDate minDate = this.checkoutDate.plusDays(duration);
@@ -387,7 +371,7 @@ public class Checkout implements Serializable {
 		
 		BigDecimal totalFine = new BigDecimal(0);
 		
-		double fineRate = this.patronType.getFineRate().doubleValue();
+		double fineRate = this.patron.getPatronType().getFineRate().doubleValue();
 		double fineAmount = daysOfOverDue * fineRate;
 			
 		totalFine =  new BigDecimal(round(fineAmount,1)).setScale(1,BigDecimal.ROUND_HALF_UP);

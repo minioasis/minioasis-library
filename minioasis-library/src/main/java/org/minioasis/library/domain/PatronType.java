@@ -113,9 +113,6 @@ public class PatronType implements Serializable {
 	private List<Patron> patrons = new ArrayList<Patron>(0);
     
     @OneToMany(mappedBy="patronType")
-	private List<Checkout> checkouts = new ArrayList<Checkout>(0);
-    
-    @OneToMany(mappedBy="patronType")
 	private List<Reservation> reservations = new ArrayList<Reservation>(0);
 
 	public PatronType() {
