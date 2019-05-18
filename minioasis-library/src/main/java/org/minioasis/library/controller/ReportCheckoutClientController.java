@@ -82,7 +82,7 @@ public class ReportCheckoutClientController {
 		return "report.top.list.patrons.for.checkouts";
 	}
 	
-	@GetMapping("/top.popular.books")
+	@GetMapping("/top.popular.books.form")
 	public String topPopularBooksForm(@ModelAttribute("criteria") TopPopularBooksCriteria criteria) {
 		return "report.top.popular.books.form";
 	}

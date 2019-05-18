@@ -288,14 +288,6 @@ public class PatronType implements Serializable {
 		this.patrons = patrons;
 	}
 
-	public List<Checkout> getCheckouts() {
-		return this.checkouts;
-	}
-
-	public void setCheckouts(List<Checkout> checkouts) {
-		this.checkouts = checkouts;
-	}
-
 	public List<Reservation> getReservations() {
 		return this.reservations;
 	}

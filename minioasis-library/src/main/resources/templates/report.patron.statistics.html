@@ -12,6 +12,9 @@
 
 		<h3>
 			<span class="text-success" th:text="#{report} + ' : ' + #{patron.statistics.by.type}">Report - Patron Statistics By Type</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/report/patron.statistics.form}">
+		    	<i class="fas fa-search"></i>
+	      	</a>
 		</h3>
 		
 		<script src="https://cdn.jsdelivr.net/npm/apexcharts"></script>
