@@ -139,10 +139,10 @@ public interface LibraryService {
 	Holiday getHolidayByDueDate(LocalDate dueDate);
 	Holiday getHolidayByStartAndEndDate(LocalDate start, LocalDate end);
 	List<Holiday> findByInBetween(LocalDate start , LocalDate end);
-	List<Holiday> findByInBetweenWithFines(LocalDate start, LocalDate end, Boolean fine);
+	List<Holiday> findByInBetweenAndFine(LocalDate start, LocalDate end, Boolean fine);
+	List<Holiday> findByStartDateAfterAndFine(LocalDate dueDate, Boolean fine);
 	List<Holiday> findByExcluded(LocalDate start , LocalDate end);
 	List<Holiday> findAllHolidays(Sort sort);
-	List<Holiday> findAllHolidaysByGivenDate(LocalDate given);
 	Page<Holiday> findAllHolidays(Pageable pageable);
 	Page<Holiday> findByCriteria(HolidayCriteria criteria, Pageable pageable);
 	
@@ -216,7 +216,7 @@ public interface LibraryService {
 	Page<Patron> findAllPatrons(Pageable pageable);
 	Page<Patron> findByCriteria(PatronCriteria criteria, Pageable pageable);
 	
-	Patron getPatronByCardKeyForCirculation(String cardKey,LocalDate given);
+	Patron getCirculationPatronByCardKey(String cardKey,LocalDate given);
 	
 	// PatronType	
 	void save(PatronType entity);

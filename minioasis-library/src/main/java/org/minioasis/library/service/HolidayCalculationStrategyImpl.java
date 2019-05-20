@@ -19,7 +19,7 @@ public class HolidayCalculationStrategyImpl implements HolidayCalculationStrateg
 		
 		int days = 0;
 		
-		List<Holiday> holidays = this.holidayRepository.findByInBetweenWithFines(start, end, Boolean.FALSE);
+		List<Holiday> holidays = this.holidayRepository.findByInBetweenAndFine(start, end, Boolean.FALSE);
 
 		for(Holiday h : holidays){
 			

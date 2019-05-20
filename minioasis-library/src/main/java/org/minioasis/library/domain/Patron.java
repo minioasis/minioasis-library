@@ -123,7 +123,7 @@ public class Patron implements Serializable {
 	@OneToMany(mappedBy = "patron", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@Filter(name = "attachmentCheckoutStateFilter")
 	private List<AttachmentCheckout> attachmentCheckouts = new ArrayList<AttachmentCheckout>(0);
-
+	
 	// global variable
 	@Transient
 	private long oneDay = 86400000;
@@ -397,18 +397,18 @@ public class Patron implements Serializable {
 
 	// ******************** checkout *********************************
 
-	public void checkout(Item item, LocalDate given, LocalDate newDueDate, int holidays, HolidayCalculationStrategy strategy) {
+	public void checkout(Item item, LocalDate given, LocalDate newDueDate) {
 
-		Notification notification = checkoutValidation(item, given, holidays, strategy);
+		Notification notification = checkoutValidation(item, given);
 
 		if (notification.hasErrors())
 			throw new LibraryException(notification.getAllMessages());
 
-		Checkout b = new Checkout(given, null, new Integer(0), CheckoutState.CHECKOUT, this, item);
+		Checkout c = new Checkout(given, null, new Integer(0), CheckoutState.CHECKOUT, this, item);
 
-		b.setDueDate(whichDueDate(b.calculateDueDate(), newDueDate));
+		c.setDueDate(newDueDate);
 
-		addCheckout(b);
+		addCheckout(c);
 
 		item.setState(ItemState.CHECKOUT);
 
@@ -418,17 +418,8 @@ public class Patron implements Serializable {
 
 	}
 
-	// ********************* checkout's helping methods ***************
-
-	private LocalDate whichDueDate(LocalDate one, LocalDate two) {
-		if (one.equals(two))
-			return one;
-
-		return two;
-	}
-
 	// A
-	private Notification checkoutValidation(Item item, LocalDate given, int holidays, HolidayCalculationStrategy strategy) {
+	private Notification checkoutValidation(Item item, LocalDate given) {
 
 		Notification notification = new Notification();
 
@@ -439,7 +430,7 @@ public class Patron implements Serializable {
 		itemValidation(item, given, notification);
 
 		// 3. validation - patronType
-		patronTypeValidation(given, holidays, strategy, notification);
+		patronTypeValidation(given, notification);
 
 		return notification;
 	}
@@ -595,7 +586,7 @@ public class Patron implements Serializable {
 
 	// A.4 the states must be ACTIVE , otherwise the code bellow is not
 	// true !!
-	private void patronTypeValidation(LocalDate given, int holidays, HolidayCalculationStrategy strategy, Notification notifications) {
+	private void patronTypeValidation(LocalDate given, Notification notifications) {
 
 		// A.4.1
 		if (isBiblioLimitOver(patronType))
@@ -686,7 +677,7 @@ public class Patron implements Serializable {
 				throw new LibraryException(notification.getAllMessages());
 
 			// prepare
-			checkin.calculateAllStates(given,strategy);
+			checkin.calculateAllStates(given);
 
 			// check returnDate , it cannot < checkoutDate
 
@@ -890,21 +881,22 @@ public class Patron implements Serializable {
 	}
 
 	// ******************* renew (item) **********************************
-
-	public boolean isThisInCheckouts(Item item){
-		for(Checkout c : this.checkouts){
-			if(c.getItem().equals(item)){
-				return true;
+	
+	private Checkout getRenewCheckout(Item item) {
+		for(Checkout c : checkouts){
+			if(c.getItem().equals(item) && 
+					(c.getState().equals(CheckoutState.CHECKOUT) || c.getState().equals(CheckoutState.RENEW))){
+				return c;
 			}
 		}
-		return false;		
+		return null;
 	}
 	
-	public void renew(Item item, LocalDate given, LocalDate newDueDate, int holidays, HolidayCalculationStrategy strategy) {
-
-		boolean aRenew = true;
+	public void renew(Item item, LocalDate given, LocalDate newDueDate) {
 		
-		if(!isThisInCheckouts(item)){
+		Checkout renew = getRenewCheckout(item);
+		
+		if(renew == null) {
 			throw new LibraryException(CirculationCode.ITEM_NOT_BELONG_TO_THIS_USER);
 		}
 		
@@ -917,41 +909,26 @@ public class Patron implements Serializable {
 				throw new LibraryException(CirculationCode.NOT_REACHED_RESUME_CHECKOUT_PERIOD);
 		}
 
-		// checkin
-		CheckoutResult result = checkin(item, given, false, aRenew, strategy);
-		Checkout renew = result.getCheckout();
-
 		// renew validation
 		Notification renewError = renewValidation(renew, given);
 		if (renewError.hasErrors())
 			throw new LibraryException(renewError.getAllMessages());
 
-		// checkout validation
-		Notification checkoutError = checkoutValidation(item, given, holidays,strategy);
-		if (checkoutError.hasErrors())
-			throw new LibraryException(checkoutError.getAllMessages());
+		// given date validation
+		givenDateValidation(given, renewError);
+		if (renewError.hasErrors())
+			throw new LibraryException(renewError.getAllMessages());
 
-		// start checking out
-		Checkout b = new Checkout(given, null, renew.getRenewedNo() + 1, CheckoutState.RENEW, this, item);
-
-		b.setDueDate(whichDueDate(b.calculateDueDate(), newDueDate));
-
-		addCheckout(b);
+		// renew
+		renew.setState(CheckoutState.RENEW);
+		renew.setRenewedNo(renew.getRenewedNo() + 1);
+		renew.setDueDate(newDueDate);
 
 		item.setState(ItemState.CHECKOUT);
 
 		// set lastFullRenewPerson
-		if (b.getRenewedNo().equals(patronType.getMaxNoOfRenew())) {
+		if (renew.getRenewedNo().equals(patronType.getMaxNoOfRenew())) {
 			item.setLastFullRenewPerson(this.entangled);
-		}
-
-		// there is no clear reservation code here , because the patron
-		// simply cannot have reservation to the book he lend.
-
-		// renew attachmentcheckout automatically for this item
-		for (AttachmentCheckout e : attachmentCheckouts) {
-			if (e.getCheckout().getItem().equals(item))
-				e.setCheckoutDate(given);
 		}
 
 	}
@@ -959,16 +936,11 @@ public class Patron implements Serializable {
 	private Notification renewValidation(Checkout renew, LocalDate given) {
 
 		Notification notification = new Notification();
-		
-		// this validation is almost impossible to happened because when
-		// the patron renew book, no checkbox "damage" for them, so
-		// the only CheckoutState state will be RETURN, l still put the
-		// validation here to avoid somebody else changing the GUI accidentally
-		// without notice this.
-		if (!(renew.getState().equals(CheckoutState.RETURN))) {
-			throw new LibraryException(CirculationCode.WRONG_CHECKOUTSTATES);
-		}
 
+		if(renew.isOverDue(given)) {
+			notification.addError(CirculationCode.HAS_FINES);
+		}
+		
 		if (!renew.reachMinRenewableDate(given)) {
 			notification.addError(CirculationCode.CANNOT_RENEW_SO_EARLIER);
 		}
@@ -1211,7 +1183,7 @@ public class Patron implements Serializable {
 					throw new LibraryException(CirculationCode.INVALID_GIVENDATE);
 				}
 
-				c.calculateAllStates(given, strategy);
+				c.calculateAllStates(given);
 				Long cid = c.getId();
 				CheckoutState cstate = c.getState();
 
@@ -1338,20 +1310,20 @@ public class Patron implements Serializable {
 	 * 
 	 * @param given
 	 */
-	public void calculateAllStates(LocalDate given, HolidayCalculationStrategy strategy) {
+	public void calculateAllStates(LocalDate given) {
 
 		// TODO : dateExpired has never been used in the code !!!
 		this.dateExpired = this.getEndDate().isBefore(given);
 		// TODO: cannot do the following code now !
 		// currentLut.calculateState(given);
-		calculateCheckoutsState(given,strategy);
+		calculateCheckoutsState(given);
 		this.noOfOverdueBiblios = calculateNoOfBioblioOverDue(given);
 		this.totalAmountOfFines = calculateFine();
 	}
 
-	private void calculateCheckoutsState(LocalDate given,  HolidayCalculationStrategy strategy) {
+	private void calculateCheckoutsState(LocalDate given) {
 		for (Checkout c : checkouts) {
-			c.calculateAllStates(given, strategy);
+			c.calculateAllStates(given);
 		}
 	}
 

@@ -45,7 +45,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
-import org.minioasis.library.service.HolidayCalculationStrategy;
 
 @Entity
 @FilterDef(
@@ -109,8 +108,10 @@ public class Checkout implements Serializable {
     @OneToMany(mappedBy = "checkout" , cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Filter(name = "attachmentCheckoutStateFilter")
 	private List<AttachmentCheckout> attachmentCheckouts = new ArrayList<AttachmentCheckout>(0);
+
+	@Transient
+	private List<Holiday> holidays = new ArrayList<Holiday>(0);
 	
-	@Transient private boolean reachMinRenewableDate = false;
 	@Transient private int daysOfOverDue = -1;
 	@Transient private BigDecimal fineAmount = new BigDecimal(0);
 	
@@ -146,13 +147,119 @@ public class Checkout implements Serializable {
 		this.patron = patron;
 		this.item = item;
 	}
+	
+	// *********************************  Domain Logic  **************************************
 
 	public Long getId() {
-		return this.id;
+		return id;
 	}
 
 	public void setId(Long id) {
 		this.id = id;
+	}
+
+	public LocalDate getCheckoutDate() {
+		return checkoutDate;
+	}
+
+	public void setCheckoutDate(LocalDate checkoutDate) {
+		this.checkoutDate = checkoutDate;
+	}
+
+	public LocalDate getDueDate() {
+		return dueDate;
+	}
+
+	public void setDueDate(LocalDate dueDate) {
+		this.dueDate = dueDate;
+	}
+
+	public LocalDate getDone() {
+		return done;
+	}
+
+	public void setDone(LocalDate done) {
+		this.done = done;
+	}
+
+	public LocalDate getFinePaidDate() {
+		return finePaidDate;
+	}
+
+	public void setFinePaidDate(LocalDate finePaidDate) {
+		this.finePaidDate = finePaidDate;
+	}
+
+	public LocalDate getLostOrDamagePaidDate() {
+		return lostOrDamagePaidDate;
+	}
+
+	public void setLostOrDamagePaidDate(LocalDate lostOrDamagePaidDate) {
+		this.lostOrDamagePaidDate = lostOrDamagePaidDate;
+	}
+
+	public BigDecimal getFinePaidAmount() {
+		return finePaidAmount;
+	}
+
+	public void setFinePaidAmount(BigDecimal finePaidAmount) {
+		this.finePaidAmount = finePaidAmount;
+	}
+
+	public BigDecimal getLostOrDamageFineAmount() {
+		return lostOrDamageFineAmount;
+	}
+
+	public void setLostOrDamageFineAmount(BigDecimal lostOrDamageFineAmount) {
+		this.lostOrDamageFineAmount = lostOrDamageFineAmount;
+	}
+
+	public Integer getRenewedNo() {
+		return renewedNo;
+	}
+
+	public void setRenewedNo(Integer renewedNo) {
+		this.renewedNo = renewedNo;
+	}
+
+	public CheckoutState getState() {
+		return state;
+	}
+
+	public void setState(CheckoutState state) {
+		this.state = state;
+	}
+
+	public Patron getPatron() {
+		return patron;
+	}
+
+	public void setPatron(Patron patron) {
+		this.patron = patron;
+	}
+
+	public Item getItem() {
+		return item;
+	}
+
+	public void setItem(Item item) {
+		this.item = item;
+	}
+
+	public List<AttachmentCheckout> getAttachmentCheckouts() {
+		return attachmentCheckouts;
+	}
+
+	public void setAttachmentCheckouts(List<AttachmentCheckout> attachmentCheckouts) {
+		this.attachmentCheckouts = attachmentCheckouts;
+	}
+
+	public List<Holiday> getHolidays() {
+		return holidays;
+	}
+
+	public void setHolidays(List<Holiday> holidays) {
+		this.holidays = holidays;
 	}
 
 	public int getDaysOfOverDue() {
@@ -171,111 +278,13 @@ public class Checkout implements Serializable {
 		this.fineAmount = fineAmount;
 	}
 
-	public boolean isReachMinRenewableDate() {
-		return reachMinRenewableDate;
+	public long getOneDay() {
+		return oneDay;
 	}
 
-	public void setReachMinRenewableDate(boolean reachMinRenewableDate) {
-		this.reachMinRenewableDate = reachMinRenewableDate;
+	public void setOneDay(long oneDay) {
+		this.oneDay = oneDay;
 	}
-
-	public LocalDate getCheckoutDate() {
-		return this.checkoutDate;
-	}
-
-	public void setCheckoutDate(LocalDate checkoutDate) {
-		this.checkoutDate = checkoutDate;
-	}
-
-	public LocalDate getDueDate() {
-		return this.dueDate;
-	}
-
-	public void setDueDate(LocalDate dueDate) {
-		this.dueDate = dueDate;
-	}
-
-	public LocalDate getDone() {
-		return this.done;
-	}
-
-	public void setDone(LocalDate done) {
-		this.done = done;
-	}
-
-	public LocalDate getFinePaidDate() {
-		return this.finePaidDate;
-	}
-
-	public void setFinePaidDate(LocalDate finePaidDate) {
-		this.finePaidDate = finePaidDate;
-	}
-
-	public LocalDate getLostOrDamagePaidDate() {
-		return this.lostOrDamagePaidDate;
-	}
-
-	public void setLostOrDamagePaidDate(LocalDate lostOrDamagePaidDate) {
-		this.lostOrDamagePaidDate = lostOrDamagePaidDate;
-	}
-
-	public BigDecimal getFinePaidAmount() {
-		return this.finePaidAmount;
-	}
-
-	public void setFinePaidAmount(BigDecimal finePaidAmount) {
-		this.finePaidAmount = finePaidAmount;
-	}
-
-	public BigDecimal getLostOrDamageFineAmount() {
-		return this.lostOrDamageFineAmount;
-	}
-
-	public void setLostOrDamageFineAmount(BigDecimal lostOrDamageFineAmount) {
-		this.lostOrDamageFineAmount = lostOrDamageFineAmount;
-	}
-
-	public Integer getRenewedNo() {
-		return this.renewedNo;
-	}
-
-	public void setRenewedNo(Integer renewedNo) {
-		this.renewedNo = renewedNo;
-	}
-
-	public CheckoutState getState() {
-		return this.state;
-	}
-
-	public void setState(CheckoutState state) {
-		this.state = state;
-	}
-
-	public Patron getPatron() {
-		return patron;
-	}
-
-	public void setPatron(Patron patron) {
-		this.patron = patron;
-	}
-
-	public Item getItem() {
-		return this.item;
-	}
-
-	public void setItem(Item item) {
-		this.item = item;
-	}
-	
-	public List<AttachmentCheckout> getAttachmentCheckouts() {
-		return attachmentCheckouts;
-	}
-
-	public void setAttachmentCheckouts(List<AttachmentCheckout> attachmentCheckouts) {
-		this.attachmentCheckouts = attachmentCheckouts;
-	}
-	
-	// *********************************  Domain Logic  **************************************
 
 	public boolean isInLostOrDamageState() {
 		if (this.state.equals(CheckoutState.REPORTLOST) 
@@ -299,14 +308,12 @@ public class Checkout implements Serializable {
 
 		long duration = this.patron.getPatronType().getMinRenewablePeriod();
 		
-
 		LocalDate minDate = this.checkoutDate.plusDays(duration);
 
 		if (given.isAfter(minDate))
 			return true;
 
 		return false;
-
 	}
 
     public boolean isOverDue(LocalDate given) {
@@ -327,21 +334,22 @@ public class Checkout implements Serializable {
 
     }
 	
-	public int calculateDaysOfOverDue(LocalDate given, HolidayCalculationStrategy strategy) {
+	public int getOverDueDays(LocalDate given) {
 	
 		int dueDays = 0;
-		
 		int due = 0;
-		int holidays = 0;
-
+		int noOfHolidays = 0;
+		
 		if(state.equals(CheckoutState.RETURN_WITH_FINE) ||
 				state.equals(CheckoutState.RETURN_WITH_DAMAGE_AND_FINE) ||
 				state.equals(CheckoutState.REPORTLOST_WITH_FINE)){
 			
 			due = (int)ChronoUnit.DAYS.between(dueDate, done);
-			holidays = strategy.getNoOfHolidaysBetween(dueDate, done);
+			noOfHolidays = getNoOfHolidaysBetween(dueDate, done);
 			
-			dueDays = (int)ChronoUnit.DAYS.between(dueDate, done) + holidays;
+			dueDays = due - noOfHolidays;
+			
+			if(dueDays < 0)	return 0;
 		}
 			
 		if(state.equals(CheckoutState.CHECKOUT) ||
@@ -349,14 +357,30 @@ public class Checkout implements Serializable {
 			
 			due = (int)ChronoUnit.DAYS.between(given, dueDate);
 			
+			// due
 			if(due < 0) {
-				holidays = strategy.getNoOfHolidaysBetween(dueDate, given);
-				dueDays = holidays - due ;
+				noOfHolidays = getNoOfHolidaysBetween(dueDate, given);
+				dueDays = - due - noOfHolidays  ;
+				
+				return dueDays;
 			}
 			
 		}
-
+		
 		return dueDays;
+	}
+	
+	private int getNoOfHolidaysBetween(LocalDate due, LocalDate given) {
+		
+		int days = 0;
+		
+		for(Holiday h : holidays) {
+			if(!h.getStartDate().isBefore(due) && !h.getEndDate().isAfter(given)) {	
+				days = days + h.getHolidays();
+			}
+		}
+
+		return days;
 	}
 	
 	public BigDecimal calculateFineAmount() {
@@ -391,14 +415,12 @@ public class Checkout implements Serializable {
 
 	}
 	
-	public void calculateAllStates(LocalDate given, HolidayCalculationStrategy strategy) {
+	public void calculateAllStates(LocalDate given) {
 		
 		if(isOverDue(given)){
-			this.daysOfOverDue = calculateDaysOfOverDue(given, strategy);
+			this.daysOfOverDue = getOverDueDays(given);
 			this.fineAmount = calculateFineAmount();			
 		}
-
-		this.reachMinRenewableDate = reachMinRenewableDate(given);
 
 	}
 

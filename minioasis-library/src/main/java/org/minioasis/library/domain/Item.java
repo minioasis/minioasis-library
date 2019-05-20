@@ -48,7 +48,6 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Filter;
 import org.hibernate.validator.constraints.Length;
 import org.minioasis.library.exception.LibraryException;
-import org.minioasis.library.service.HolidayCalculationStrategy;
 import org.minioasis.validation.Notification;
 
 @Entity
@@ -301,7 +300,7 @@ public class Item implements Serializable {
 	
     // ***************************** Domain Logic ******************************
  
-	public CheckoutResult checkIn(LocalDate given, boolean damage, HolidayCalculationStrategy strategy) {
+	public CheckoutResult checkIn(LocalDate given, boolean damage) {
 
 		CheckoutResult result = new CheckoutResult();
 		
@@ -326,7 +325,7 @@ public class Item implements Serializable {
 				throw new LibraryException(notification.getAllMessages());
 
 			// prepare
-			checkin.calculateAllStates(given,strategy);
+			checkin.calculateAllStates(given);
 					
 			/*
 				  fine | damage | state

@@ -7,7 +7,6 @@ public enum CirculationCode implements ErrorCode {
 	ATTACHMENTCHECKOUT_NOT_FOUND(5,"attachmentcheckout.not.found"),
 	SAME_BIBLIO_ARE_NOT_ALLOWED(10,"same.biblio.are.not.allowed"),
 	CHECKOUT_NOT_FOUND(15,"checkout.not.found"),
-	HAS_BLOCKS(20,"has.blocks"),
 	INVALID_GIVENDATE(25,"invalid.given.date"),
 	INVALID_GIVENDATE_PATRON(30,"invalid.given.date.patron"),
 	INVALID_GIVENDATE_PATRONTYPE(35,"invalid.given.date.patrontype"),
@@ -40,7 +39,8 @@ public enum CirculationCode implements ErrorCode {
 	
 	// renew
 	CANNOT_RENEW_SO_EARLIER(145,"cannot.renew.so.earlier"),	
-	REACHED_MAX_RENEWNO(105,"reached.max.renew.no"),
+	REACHED_MAX_RENEWNO(146,"reached.max.renew.no"),
+	HAS_FINES(147,"has.fines"),
 	
 	// reservation
 	ALL_ITEMS_NOT_RESERVABLE(150,"all.items.not.reservable"),

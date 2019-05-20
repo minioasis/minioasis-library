@@ -98,21 +98,17 @@ public class LibraryServiceImpl implements LibraryService {
 	private SeriesRepository seriesRepository;
 	@Autowired
 	private HolidayCalculationStrategy holidayStrategy;
-	
-/*	@Autowired
-	private LibraryReportRepository libraryReportRepository;*/
 
 	/****************************************  Business Logic **************************************/	
 	
 	public void checkout(Patron patron, Item item, LocalDate given) throws LibraryException {
-
+	
 		// holidays calculation
 		LocalDate dueDate = patron.calculateDueDate(given, item);
 		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
-		int holidays = holidayStrategy.getNoOfHolidaysBetween(given, dueDate);
 		
-		patron.calculateAllStates(given,holidayStrategy);
-		patron.checkout(item, given, newDueDate, holidays, holidayStrategy);
+		patron.calculateAllStates(given);
+		patron.checkout(item, given, newDueDate);
 
 		this.patronRepository.save(patron);
 
@@ -149,12 +145,11 @@ public class LibraryServiceImpl implements LibraryService {
 		// holidays calculation
 		LocalDate dueDate = patron.calculateDueDate(given,item);
 		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
-		int holidays = holidayStrategy.getNoOfHolidaysBetween(given, dueDate);
 		
-		patron.calculateAllStates(given, holidayStrategy);
+		patron.calculateAllStates(given);
 		
 		// checkout book
-		patron.renew(item, given, newDueDate, holidays, holidayStrategy);
+		patron.renew(item, given, newDueDate);
 		this.patronRepository.save(patron);
 		
 	}
@@ -182,7 +177,7 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	public CheckoutResult returnItem(Item item, LocalDate given, boolean damage) throws LibraryException {
 		
-		CheckoutResult result = item.checkIn(given, damage, holidayStrategy);
+		CheckoutResult result = item.checkIn(given, damage);
 		this.itemRepository.save(item);
 		
 		return result;
@@ -410,10 +405,12 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<Checkout> findAllCheckouts(Pageable pageable){
 		
-		Page<Checkout> checkoutsPage = this.checkoutRepository.findAll(pageable);
+		final LocalDate now = LocalDate.now();
 
+		Page<Checkout> checkoutsPage = this.checkoutRepository.findAll(pageable);
+		
 		for(Checkout c : checkoutsPage.getContent()){
-			c.calculateAllStates(LocalDate.now(), holidayStrategy);
+			c.calculateAllStates(now);
 		}
 		
 		return checkoutsPage;
@@ -480,8 +477,11 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<Holiday> findByInBetween(LocalDate start , LocalDate end){
 		return this.holidayRepository.findByInBetween(start, end);
 	}
-	public List<Holiday> findByInBetweenWithFines(LocalDate start, LocalDate end, Boolean fine){
-		return this.holidayRepository.findByInBetweenWithFines(start, end, fine);
+	public List<Holiday> findByStartDateAfterAndFine(LocalDate dueDate, Boolean fine){
+		return this.holidayRepository.findByStartDateAfterAndFine(dueDate, fine);
+	}
+	public List<Holiday> findByInBetweenAndFine(LocalDate start, LocalDate end, Boolean fine){
+		return this.holidayRepository.findByInBetweenAndFine(start, end, fine);
 	}
 	public List<Holiday> findByExcluded(LocalDate start , LocalDate end){
 		return this.holidayRepository.findByExcluded(start, end);
@@ -491,9 +491,6 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<Holiday> findAllHolidays(Pageable pageable){
 		return this.holidayRepository.findAll(pageable);
-	}
-	public List<Holiday> findAllHolidaysByGivenDate(LocalDate given){
-		return this.holidayRepository.findAllHolidaysByGivenDate(given);
 	}
 	public Page<Holiday> findByCriteria(HolidayCriteria criteria, Pageable pageable){
 		return this.holidayRepository.findByCriteria(criteria, pageable);
@@ -759,12 +756,17 @@ public class LibraryServiceImpl implements LibraryService {
 		return this.patronRepository.findByCriteria(criteria, pageable);
 	}
 	
-	public Patron getPatronByCardKeyForCirculation(String cardKey, LocalDate given){
+	public Patron getCirculationPatronByCardKey(String cardKey, LocalDate given){
 
 		Patron patron = this.patronRepository.findByCardKeyFetchPatronType(cardKey);	
 		if(patron == null) return null;
-
+		
 		List<Checkout> checkouts = this.checkoutRepository.findByCardKeyAndFilterByStates(cardKey, CheckoutState.getActives());
+		List<Holiday> holidays = this.holidayRepository.findByStartDateAfterAndFine(findEarliestDueDate(checkouts), Boolean.FALSE);
+
+		for(Checkout c : checkouts) {
+			c.setHolidays(holidays);
+		}
 		patron.setCheckouts(checkouts);
 	
 		List<Reservation> reservations = this.reservationRepository.findByCardKeyAndFilterByStates(cardKey, ReservationState.getActives());
@@ -773,9 +775,21 @@ public class LibraryServiceImpl implements LibraryService {
 		List<AttachmentCheckout> attachmentCheckouts = this.attachmentCheckoutRepository.findByCardKeyAndFilterByStates(cardKey, AttachmentCheckoutState.CHECKOUT);
 		patron.setAttachmentCheckouts(attachmentCheckouts);
 		
-		patron.calculateAllStates(given,holidayStrategy);
+		patron.calculateAllStates(given);
 		
 		return patron;
+	}
+	
+	private LocalDate findEarliestDueDate(List<Checkout> checkouts) {
+		
+		LocalDate dueDate = LocalDate.MAX;
+		
+		for(Checkout c : checkouts) {
+			if(c.getDueDate().isBefore(dueDate)) {
+				dueDate = c.getDueDate();
+			}	
+		}
+		return dueDate;
 	}
 	
 	public int bulkUpdateGroup(List<Long> ids , Group group, LocalDateTime now){

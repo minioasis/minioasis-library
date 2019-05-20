@@ -29,6 +29,6 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>,
 	List<Reservation> findFilteredReservationsByCardKeyFetchBiblioReservations(String cardKey);
 	
 	@Query("SELECT r FROM Reservation r WHERE r.biblio.id = ?1 AND r.state in ?2")
-	List<Reservation> findReservationsByBiblioIdAndStates(long id,List<ReservationState> states);
+	List<Reservation> findReservationsByBiblioIdAndStates(long id, List<ReservationState> states);
 	
 }

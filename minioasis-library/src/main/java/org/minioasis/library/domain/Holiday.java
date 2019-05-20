@@ -20,6 +20,7 @@ package org.minioasis.library.domain;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.temporal.ChronoUnit;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
@@ -103,6 +104,10 @@ public class Holiday implements Serializable {
 
 	public void setFine(Boolean fine) {
 		this.fine = fine;
+	}
+	
+	public int getHolidays() {
+		return (int)ChronoUnit.DAYS.between(startDate, endDate) + 1;
 	}
 
     @Override

@@ -2,6 +2,9 @@ package org.minioasis.library.controller;
 
 import java.math.BigDecimal;
 import java.time.LocalDate;
+import java.util.List;
+
+import javax.validation.Valid;
 
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.CheckoutResult;
@@ -45,7 +48,7 @@ public class CirculationController {
 	public String checkout(@RequestParam(value = "pid", required = true) String cardKey, 
 							@ModelAttribute("dto") CirculationDTO dto, Model model) {
 		
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, LocalDate.now());
 
 		if (patron == null) {
 			model.addAttribute("exist", "no");
@@ -62,7 +65,7 @@ public class CirculationController {
 	public String checkin(@RequestParam(value = "pid", required = true) String cardKey, 
 							@ModelAttribute("dto") CirculationDTO dto) {
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, LocalDate.now());
 		preparingCirculation(patron, dto, cardKey);
 		
 		return "circ.checkin.form";
@@ -73,7 +76,7 @@ public class CirculationController {
 	public String renew(@RequestParam(value = "pid", required = true) String cardKey, 
 							@ModelAttribute("dto") CirculationDTO dto) {
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, LocalDate.now());
 		preparingCirculation(patron, dto, cardKey);
 		
 		return "circ.renew.form";
@@ -84,7 +87,7 @@ public class CirculationController {
 	public String reportLost(@RequestParam(value = "pid", required = true) String cardKey, 
 								@ModelAttribute("dto") CirculationDTO dto) {
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, LocalDate.now());
 		preparingCirculation(patron, dto, cardKey);
 		
 		return "circ.reportlost.form";
@@ -95,7 +98,7 @@ public class CirculationController {
 	public String payFine(@RequestParam(value = "pid", required = true) String cardKey, 
 							@ModelAttribute("dto") CirculationDTO dto) {
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, LocalDate.now());
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, LocalDate.now());
 		preparingCirculation(patron, dto, cardKey);
 		
 		return "circ.payfine.form";
@@ -118,7 +121,7 @@ public class CirculationController {
 		String cardKey = dto.getCardKey();
 		String barcode = dto.getBarcode();
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, given);
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, given);
 		
 		// for web gui
 		dto.setPatron(patron);
@@ -184,7 +187,7 @@ public class CirculationController {
 		String cardKey = dto.getCardKey();
 		String barcode = dto.getBarcode();
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, given);
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, given);
 
 		// for web gui
 		dto.setPatron(patron);
@@ -194,7 +197,6 @@ public class CirculationController {
 
 		Item item = this.service.getItemForCheckout(barcode);
 		if (item != null) {
-
 			// checkin item
 			boolean aCheckout = false;
 			CheckoutResult checkoutResult = null;
@@ -231,7 +233,7 @@ public class CirculationController {
 
 			} else {
 
-				model.addAttribute("CHECKIN_ERRORS", new Notification(CirculationCode.ITEM_NOT_FOUND));
+				model.addAttribute("CHECKIN_ERRORS", new Notification(CirculationCode.ITEM_NOT_FOUND).getAllMessages());
 				return "circ.checkin.form";
 
 			}
@@ -260,7 +262,7 @@ public class CirculationController {
 		String cardKey = dto.getCardKey();
 		String barcode = dto.getBarcode();
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, given);
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, given);
 
 		// for web gui
 		dto.setPatron(patron);
@@ -268,9 +270,18 @@ public class CirculationController {
 		
 		Item item = this.service.getItemForCheckout(barcode);
 		if (item == null) {
-			model.addAttribute("error", new Notification(CirculationCode.ITEM_NOT_FOUND));
+			model.addAttribute("RENEW_ERRORS", new Notification(CirculationCode.ITEM_NOT_FOUND).getAllMessages());
 			return "circ.renew.form";
 		}
+		
+		Long bid = item.getBiblio().getId();		
+		List<Reservation> reservations = this.service.findReservationsByBiblioIdAndActiveStates(bid);
+		
+		if(reservations.size() > 0) {
+			model.addAttribute("RENEW_ERRORS", new Notification(CirculationCode.HAS_RESERVATIONS).getAllMessages());
+			return "circ.renew.form";
+		}
+			
 
 		try {
 
@@ -302,7 +313,7 @@ public class CirculationController {
 		String cardKey = dto.getCardKey();
 		String barcode = dto.getBarcode();
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, given);
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, given);
 		
 		// for web gui
 		dto.setPatron(patron);
@@ -336,7 +347,9 @@ public class CirculationController {
 					return "circ.reportlost.form";
 				}
 
-				model.addAttribute("REPORTLOST_ERRORS", new Notification(CirculationCode.ITEM_NOT_FOUND));
+			}else {
+
+				model.addAttribute("REPORTLOST_ERRORS", new Notification(CirculationCode.ITEM_NOT_FOUND).getAllMessages());
 				return "circ.reportlost.form";
 
 			}
@@ -348,10 +361,13 @@ public class CirculationController {
 	}
 
 	@RequestMapping(value = { "/payfine" }, method = RequestMethod.POST)
-	public String payFine(@ModelAttribute("dto") CirculationDTO dto, BindingResult result, Model model) {
+	public String payFine(@Valid @ModelAttribute("dto") CirculationDTO dto,  BindingResult result, Model model) {
 
-		if (result.hasErrors())
+		if (result.hasErrors()) {
+			Patron patron = this.service.getCirculationPatronByCardKey(dto.getCardKey(), LocalDate.now());
+			preparingCirculation(patron, dto, dto.getCardKey());
 			return "circ.payfine.form";
+		}
 
 		// given Date
 		LocalDate given = dto.getGiven();
@@ -363,7 +379,7 @@ public class CirculationController {
 		// patron & item
 		String cardKey = dto.getCardKey();
 
-		Patron patron = this.service.getPatronByCardKeyForCirculation(cardKey, given);
+		Patron patron = this.service.getCirculationPatronByCardKey(cardKey, given);
 
 		// for web gui
 		dto.setPatron(patron);

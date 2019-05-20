@@ -139,12 +139,4 @@ public class AttachmentController {
 			
 	}
 	
-	@InitBinder
-	public void initBinder(WebDataBinder binder, WebRequest request) {
-
-		Locale locale = request.getLocale();
-		binder.registerCustomEditor(BigDecimal.class, new CustomNumberEditor(BigDecimal.class, DecimalFormat.getInstance(locale), true));
-
-	}
-	
 }

@@ -23,13 +23,12 @@ public interface HolidayRepository extends JpaRepository<Holiday, Long>, Holiday
 	List<Holiday> findByInBetween(LocalDate start, LocalDate end);
 	
 	@Query("SELECT h FROM Holiday h WHERE ?1 < h.startDate AND h.endDate < ?2 AND h.fine = ?3")
-	List<Holiday> findByInBetweenWithFines(LocalDate start, LocalDate end, Boolean fine);
+	List<Holiday> findByInBetweenAndFine(LocalDate start, LocalDate end, Boolean fine);
+	
+	List<Holiday> findByStartDateAfterAndFine(LocalDate dueDate, Boolean fine);
 	
 	@Query("SELECT h FROM Holiday h WHERE NOT ((?2 < h.startDate AND ?2 < h.endDate) OR (h.startDate < ?1 AND h.endDate < ?1))")
-	List<Holiday> findByExcluded(LocalDate start , LocalDate end);
-	
-	@Query("SELECT h FROM Holiday h WHERE h.startDate <= ?1 AND ?1 <= h.endDate")
-	List<Holiday> findAllHolidaysByGivenDate(LocalDate given);
+	List<Holiday> findByExcluded(LocalDate start, LocalDate end);
 	
 	Page<Holiday> findByNameContaining(String name , Pageable pageable);
 	

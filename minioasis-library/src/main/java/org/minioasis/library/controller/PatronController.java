@@ -175,17 +175,6 @@ public class PatronController {
 		
 		binder.registerCustomEditor(Group.class, new GroupEditor(service));
 		binder.registerCustomEditor(byte[].class,new ByteArrayMultipartFileEditor());
-/*		binder.registerCustomEditor(Set.class,"patronTypes", new CustomCollectionEditor(Set.class) {
-	           protected Object convertElement(Object element) {
-	               if (element != null) {
-	                   String id = (String) element;
-	                   PatronType patronType = service.getPatronType(id);
-	                   return patronType;
-	               }
-	               return null;
-	           }
-
-		});*/
 
 	}
 	
