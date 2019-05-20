@@ -101,19 +101,38 @@ public class LibraryServiceImpl implements LibraryService {
 
 	/****************************************  Business Logic **************************************/	
 	
+	private LocalDate calculateDueDate(Patron patron, Item item, LocalDate given) {
+		
+		long duration = patron.getPatronType().getDuration().longValue();
+		long itemDuration = item.getItemDuration().getValue().longValue();
+		
+		return given.plusDays(duration + itemDuration);
+	}
+	
 	public void checkout(Patron patron, Item item, LocalDate given) throws LibraryException {
 	
-		// holidays calculation
-		LocalDate dueDate = patron.calculateDueDate(given, item);
+		LocalDate dueDate = calculateDueDate(patron, item, given);
 		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
 		
-		patron.calculateAllStates(given);
+		patron.preparingCheckoutsOn(given);
 		patron.checkout(item, given, newDueDate);
 
 		this.patronRepository.save(patron);
 
 	}
 
+	public void renew(Patron patron, Item item, LocalDate given) throws LibraryException {
+		
+		LocalDate dueDate = calculateDueDate(patron,item,given);
+		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
+		
+		patron.preparingCheckoutsOn(given);
+		patron.renew(item, given, newDueDate);
+		
+		this.patronRepository.save(patron);
+		
+	}
+	
 	public void checkoutAttachment(Patron patron, Attachment attachment, LocalDate given){
 
 		patron.checkout(attachment, given);
@@ -123,7 +142,6 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	public CheckoutResult checkin(Patron patron, Item item, LocalDate given, boolean damage, boolean renew) throws LibraryException {
 		
-		// checkin Book
 		CheckoutResult result = patron.checkin(item, given, damage, renew, holidayStrategy);
 		this.patronRepository.save(patron);
 
@@ -138,20 +156,6 @@ public class LibraryServiceImpl implements LibraryService {
 		patron.checkin(attachment, given, damageBadly);
 		this.patronRepository.save(patron);
 
-	}
-
-	public void renew(Patron patron, Item item, LocalDate given) throws LibraryException {
-		
-		// holidays calculation
-		LocalDate dueDate = patron.calculateDueDate(given,item);
-		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
-		
-		patron.calculateAllStates(given);
-		
-		// checkout book
-		patron.renew(item, given, newDueDate);
-		this.patronRepository.save(patron);
-		
 	}
 	
 	public void reportlost(Patron patron, Item item, LocalDate given) throws LibraryException {
@@ -410,7 +414,7 @@ public class LibraryServiceImpl implements LibraryService {
 		Page<Checkout> checkoutsPage = this.checkoutRepository.findAll(pageable);
 		
 		for(Checkout c : checkoutsPage.getContent()){
-			c.calculateAllStates(now);
+			c.preparingCheckoutOn(now);
 		}
 		
 		return checkoutsPage;
@@ -756,7 +760,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return this.patronRepository.findByCriteria(criteria, pageable);
 	}
 	
-	public Patron getCirculationPatronByCardKey(String cardKey, LocalDate given){
+	public Patron preparingPatronForCirculation(String cardKey, LocalDate given){
 
 		Patron patron = this.patronRepository.findByCardKeyFetchPatronType(cardKey);	
 		if(patron == null) return null;
@@ -775,7 +779,7 @@ public class LibraryServiceImpl implements LibraryService {
 		List<AttachmentCheckout> attachmentCheckouts = this.attachmentCheckoutRepository.findByCardKeyAndFilterByStates(cardKey, AttachmentCheckoutState.CHECKOUT);
 		patron.setAttachmentCheckouts(attachmentCheckouts);
 		
-		patron.calculateAllStates(given);
+		patron.preparingCheckoutsOn(given);
 		
 		return patron;
 	}

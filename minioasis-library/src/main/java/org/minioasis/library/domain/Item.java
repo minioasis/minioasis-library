@@ -325,7 +325,7 @@ public class Item implements Serializable {
 				throw new LibraryException(notification.getAllMessages());
 
 			// prepare
-			checkin.calculateAllStates(given);
+			checkin.preparingCheckoutOn(given);
 					
 			/*
 				  fine | damage | state

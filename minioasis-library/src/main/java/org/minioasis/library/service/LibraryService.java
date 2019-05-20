@@ -216,7 +216,7 @@ public interface LibraryService {
 	Page<Patron> findAllPatrons(Pageable pageable);
 	Page<Patron> findByCriteria(PatronCriteria criteria, Pageable pageable);
 	
-	Patron getCirculationPatronByCardKey(String cardKey,LocalDate given);
+	Patron preparingPatronForCirculation(String cardKey,LocalDate given);
 	
 	// PatronType	
 	void save(PatronType entity);

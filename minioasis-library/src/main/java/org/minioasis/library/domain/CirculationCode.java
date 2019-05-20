@@ -26,10 +26,6 @@ public enum CirculationCode implements ErrorCode {
 	
 	// patron type
 	REACHED_BOOKLIMIT(100,"reached.book.limit"),	
-	REACHED_MAX_NO_OF_OVERDUE_BIBLIOS(105,"reached.max.no.of.overdue.biblios"),
-	REACHED_MAX_ARREARAGE(110,"reached.max.arrearage"),
-	REACHED_MAX_OVERDUE_PERIOD_FOR_ONE_BIBLIO(115,"reached.max.overdue.period.for.one.biblio"),
-	REACHED_MAX_OWING_FINES_PERIOD_FOR_ONE_BIBLIO(120,"reached.max.owing.fines.period.for.one.biblio"),
 	NOT_REACHED_RESUME_CHECKOUT_PERIOD(125,"not.reached.resume.checkout.period"),
 	
 	// pay fines
@@ -45,7 +41,6 @@ public enum CirculationCode implements ErrorCode {
 	// reservation
 	ALL_ITEMS_NOT_RESERVABLE(150,"all.items.not.reservable"),
 	CANNOT_RESERVE_SAME_BIBLIO(155,"cannot.reserve.same.biblio"),
-	CANNOT_RESERVE_SAME_VOLUME(160,"cannot.reserve.same.volume"),
 	HAS_RESERVATIONS(165,"has.reservations"),
 	ITEM_NOT_IN_RESERVABLE_STATE(167,"item.not.in.reservable.state"),
 	ITEM_NOT_RESERVED_BY_THIS_USER(168,"item.not.reserved.by.this.user"),

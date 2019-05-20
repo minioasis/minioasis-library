@@ -127,15 +127,8 @@ public class Patron implements Serializable {
 	// global variable
 	@Transient
 	private long oneDay = 86400000;
-	@Transient
-	private boolean dateExpired = false;
-	@Transient
-	private int noOfOverdueBiblios = 0;
-	@Transient
-	private BigDecimal totalAmountOfFines = new BigDecimal(0);
 
-	public Patron() {
-	}
+	public Patron() {}
 
 	public Long getId() {
 		return id;
@@ -321,30 +314,6 @@ public class Patron implements Serializable {
 		this.oneDay = oneDay;
 	}
 
-	public boolean isDateExpired() {
-		return dateExpired;
-	}
-
-	public void setDateExpired(boolean dateExpired) {
-		this.dateExpired = dateExpired;
-	}
-
-	public int getNoOfOverdueBiblios() {
-		return noOfOverdueBiblios;
-	}
-
-	public void setNoOfOverdueBiblios(int noOfOverdueBiblios) {
-		this.noOfOverdueBiblios = noOfOverdueBiblios;
-	}
-
-	public BigDecimal getTotalAmountOfFines() {
-		return totalAmountOfFines;
-	}
-
-	public void setTotalAmountOfFines(BigDecimal totalAmountOfFines) {
-		this.totalAmountOfFines = totalAmountOfFines;
-	}
-
 	public void addCheckout(Checkout checkout) {
 		if (checkout == null)
 			throw new IllegalArgumentException("Can't add a null checkout.");
@@ -385,14 +354,6 @@ public class Patron implements Serializable {
 			throw new IllegalArgumentException("Can't remove a null reservation.");
 
 		this.reservations.remove(reservation);
-	}
-
-	public LocalDate calculateDueDate(LocalDate checkoutDate, Item item) {
-
-		long duration = this.patronType.getDuration().longValue();
-		long itemDuration = item.getItemDuration().getValue().longValue();
-		
-		return checkoutDate.plusDays(duration + itemDuration);
 	}
 
 	// ******************** checkout *********************************
@@ -677,7 +638,7 @@ public class Patron implements Serializable {
 				throw new LibraryException(notification.getAllMessages());
 
 			// prepare
-			checkin.calculateAllStates(given);
+			checkin.preparingCheckoutOn(given);
 
 			// check returnDate , it cannot < checkoutDate
 
@@ -1183,7 +1144,7 @@ public class Patron implements Serializable {
 					throw new LibraryException(CirculationCode.INVALID_GIVENDATE);
 				}
 
-				c.calculateAllStates(given);
+				c.preparingCheckoutOn(given);
 				Long cid = c.getId();
 				CheckoutState cstate = c.getState();
 
@@ -1310,47 +1271,10 @@ public class Patron implements Serializable {
 	 * 
 	 * @param given
 	 */
-	public void calculateAllStates(LocalDate given) {
-
-		// TODO : dateExpired has never been used in the code !!!
-		this.dateExpired = this.getEndDate().isBefore(given);
-		// TODO: cannot do the following code now !
-		// currentLut.calculateState(given);
-		calculateCheckoutsState(given);
-		this.noOfOverdueBiblios = calculateNoOfBioblioOverDue(given);
-		this.totalAmountOfFines = calculateFine();
-	}
-
-	private void calculateCheckoutsState(LocalDate given) {
+	public void preparingCheckoutsOn(LocalDate given) {
 		for (Checkout c : checkouts) {
-			c.calculateAllStates(given);
+			c.preparingCheckoutOn(given);
 		}
-	}
-
-	private int calculateNoOfBioblioOverDue(LocalDate given) {
-
-		int count = 0;
-		for (Checkout c : checkouts) {
-			if (c.isOverDue(given)) {
-				count = count + 1;
-			}
-		}
-
-		return count;
-	}
-
-	private BigDecimal calculateFine() {
-
-		double totalFine = 0;
-
-		for (Checkout c : checkouts) {
-			if (c.getFineAmount() != null) {
-				double fineAmount = c.getFineAmount().doubleValue();
-				totalFine = totalFine + fineAmount;
-			}
-		}
-
-		return new BigDecimal(totalFine);
 	}
 
     @Override

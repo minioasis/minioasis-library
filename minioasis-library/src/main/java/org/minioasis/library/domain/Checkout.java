@@ -112,7 +112,7 @@ public class Checkout implements Serializable {
 	@Transient
 	private List<Holiday> holidays = new ArrayList<Holiday>(0);
 	
-	@Transient private int daysOfOverDue = -1;
+	@Transient private int daysOfOverDue = 0;
 	@Transient private BigDecimal fineAmount = new BigDecimal(0);
 	
     // global variable
@@ -294,15 +294,6 @@ public class Checkout implements Serializable {
 			return true;
 		return false;
 	}
-
-	public LocalDate calculateDueDate(){
-		
-		long duration = this.patron.getPatronType().getDuration().longValue();
-		long itemDuration = item.getItemDuration().getValue().longValue();
-		
-		return checkoutDate.plusDays(duration + itemDuration);
-		
-	}
 	
 	public boolean reachMinRenewableDate(LocalDate given) {
 
@@ -360,7 +351,7 @@ public class Checkout implements Serializable {
 			// due
 			if(due < 0) {
 				noOfHolidays = getNoOfHolidaysBetween(dueDate, given);
-				dueDays = - due - noOfHolidays  ;
+				dueDays = - due - noOfHolidays;
 				
 				return dueDays;
 			}
@@ -415,7 +406,7 @@ public class Checkout implements Serializable {
 
 	}
 	
-	public void calculateAllStates(LocalDate given) {
+	public void preparingCheckoutOn(LocalDate given) {
 		
 		if(isOverDue(given)){
 			this.daysOfOverDue = getOverDueDays(given);
