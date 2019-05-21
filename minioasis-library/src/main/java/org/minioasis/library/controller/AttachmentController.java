@@ -1,9 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.math.BigDecimal;
-import java.text.DecimalFormat;
-import java.util.Locale;
-
 import javax.validation.Valid;
 
 import org.minioasis.library.domain.Attachment;
@@ -12,19 +8,15 @@ import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.beans.propertyeditors.CustomNumberEditor;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.WebDataBinder;
-import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
-import org.springframework.web.context.request.WebRequest;
 
 @Controller
 @RequestMapping("/attachment")

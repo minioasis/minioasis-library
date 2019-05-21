@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+	<div th:fragment="checkouts">
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive-sm">
+			<table class="table table-striped table-sm">				
+				<thead>
+					<tr>
+						<th>#</th>
+						<th th:text="#{patron}">Patron</th>
+						<th th:text="#{barcode} + '(i)'">Barcode(i)</th>
+						<th th:text="#{title}">Title</th>
+						<th th:text="#{biblio}">Biblio</th>
+						<th th:text="#{checkout.date}">Checkout Date</th>
+						<th th:text="#{due.date}">Due Date</th>
+						<th th:text="#{done}">Done</th>
+						<th th:text="#{ld.fine}">L/D fines</th>
+						<th th:text="#{fine}">Fine</th>
+						<th th:text="#{fine.paid}">Last In</th>
+						<th th:text="#{state}">State</th>
+						<th th:text="#{actions}">Action</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
+						<td th:text="${e.item.barcode}">121212</td>
+						<td th:text="${e.item.biblio.title}"></td>
+						<td><a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
+						<td th:text="${e.checkoutDate != null ? #temporals.format(e.checkoutDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
+						<td th:text="${e.dueDate != null ? #temporals.format(e.dueDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.done != null ? #temporals.format(e.done,'yyyy-MM-dd') : ''}">2015-09-30</td>
+						<td th:text="${e.lostOrDamageFineAmount}">15.00</td>
+						<td th:text="${e.finePaidAmount}">12.00</td>
+						<td th:text="${e.finePaidDate != null ? #temporals.format(e.finePaidDate,'yyyy-MM-dd') : ''}">2015-09-30</td>
+						<td th:text="${e.state}">CHECKOUT</td>
+						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/circ/checkout/edit?id={id}(id=${e.id})}">Set L/D Fine</a></td>
+					</tr>
+					<tr th:remove="all">
+						<td>2</td>
+						<td>cardKey</td>
+						<td>213213</td>
+						<td>title</td>
+						<td>biblio</td>
+						<td>2015-07-31</td>
+						<td>2015-08-31</td>
+						<td>2015-08-31</td>
+						<td>15.00</td>
+						<td>12.00</td>
+						<td>2015-09-30</td>
+						<td>CHECKOUT</td>
+						<td><a href="#">Set L/D Fine</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+	</div>
+
+</body>
+</html>

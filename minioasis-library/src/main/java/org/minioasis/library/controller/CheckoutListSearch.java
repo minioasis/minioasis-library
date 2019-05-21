@@ -1,16 +1,21 @@
 package org.minioasis.library.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutState;
+import org.minioasis.library.domain.Group;
+import org.minioasis.library.domain.PatronType;
+import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
@@ -29,6 +34,21 @@ public class CheckoutListSearch {
 	@ModelAttribute("checkoutStatez")
 	public CheckoutState[] populateCheckoutState() {
 		return CheckoutState.values();	
+	}
+	
+	@ModelAttribute("ats")
+	public YesNo[] populateActives() {
+		return YesNo.values();
+	}
+	
+	@ModelAttribute("gps")
+	public List<Group> populateGroups() {
+		return this.service.findAllGroups();	
+	}
+	
+	@ModelAttribute("pts")
+	public List<PatronType> populatePatronTypes() {
+		return this.service.findAllPatronTypes(Sort.by("name").ascending());	
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)

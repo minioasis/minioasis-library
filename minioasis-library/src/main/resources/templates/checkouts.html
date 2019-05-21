@@ -111,7 +111,31 @@
 								<option th:remove="all" value="RETURN">RETURN</option>
 							</select>
 					    </div>
-					</div>			
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{patron.type}">Patron Type</label>
+							<select	class="form-control" th:field="*{patronTypes}" multiple="multiple">						
+								<option th:each="pt : ${pts}" th:value="${pt.id}" th:text="${pt.name}" />
+								<option th:remove="all" value="24121">SM1</option>
+								<option th:remove="all" value="12123">SM2</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{group}">Group</label>
+							<select	class="form-control" th:field="*{groups}" multiple="multiple">						
+								<option th:each="g : ${gps}" th:value="${g.id}" th:text="${g.code}" />
+								<option th:remove="all" value="24121">SM1</option>
+								<option th:remove="all" value="12123">SM2</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{active}">Active</label>
+							<select	class="form-control" th:field="*{actives}" multiple="multiple">
+								<option th:each="a : ${ats}" th:value="${a}" th:text="${a}" />						
+								<option th:remove="all" value="Y" th:text="${yes}">SM1</option>
+								<option th:remove="all" value="N" th:text="${no}">SM2</option>
+							</select>
+					    </div>
+					</div>				
 				</div>
 				
 			</div>
@@ -149,7 +173,10 @@
 				<thead>
 					<tr>
 						<th>#</th>
+						<th th:text="#{active}">Active</th>
+						<th th:text="#{group}">Group</th>
 						<th th:text="#{patron}">Patron</th>
+						<th th:text="#{patron.type}">Patron Type</th>
 						<th th:text="#{barcode} + '(i)'">Barcode(i)</th>
 						<th th:text="#{title}">Title</th>
 						<th th:text="#{biblio}">Biblio</th>
@@ -167,7 +194,10 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td th:text="${e.patron.active}">Y</td>
+						<td th:text="${e.patron.group.code}">4S1</td>
 						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
+						<td th:text="${e.patron.patronType.name}">3-books</td>
 						<td th:text="${e.item.barcode}">121212</td>
 						<td th:text="${e.item.biblio.title}"></td>
 						<td><a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
@@ -181,8 +211,11 @@
 						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/circ/checkout/edit?id={id}(id=${e.id})}">Set L/D Fine</a></td>
 					</tr>
 					<tr th:remove="all">
-						<td>2</td>
+						<td>1</td>
+						<td>Y</td>
+						<td>4S1</td>
 						<td>cardKey</td>
+						<td>3-books</td>
 						<td>213213</td>
 						<td>2015-07-31</td>
 						<td>2015-08-31</td>

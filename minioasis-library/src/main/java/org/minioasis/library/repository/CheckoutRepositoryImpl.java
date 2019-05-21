@@ -121,7 +121,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 					.join(p).on(c.PATRON_ID.eq(p.ID))
 					.join(pt).on(p.PATRONTYPE_ID.eq(pt.ID))
 					.join(g).on(p.GROUP_ID.eq(g.ID))
-					.where(topListCondition(criteria))
+					.where(topListPatronsCondition(criteria))
 					.groupBy(c.ID).asTable("view");
 
 		return dsl.select(view.fields())
@@ -131,7 +131,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 
 	}
 	
-	private Condition topListCondition(CheckoutPatronCriteria criteria) {
+	private Condition topListPatronsCondition(CheckoutPatronCriteria criteria) {
 		
 	    Condition condition = DSL.trueCondition();
 	    
@@ -219,7 +219,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	        hibernateQuery.setParameter(i + 1, values.get(i));
 	    }
 	}
-	
+
 	private Table<?> createTable(CheckoutCriteria criteria) {
 
 		final String cardkey = criteria.getCardkey();
@@ -228,13 +228,31 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		
 		Table<?> table = c;
 		
-		if(cardkey != null) {
-			table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID)).and(p.CARD_KEY.eq(cardkey));
+		if(cardkey == null) {
+			table = table.join(p).on(c.PATRON_ID.eq(p.ID))
+						.join(pt).on(pt.ID.eq(p.PATRONTYPE_ID))
+						.join(g).on(g.ID.eq(p.GROUP_ID));
+		}else {
+			table = table.join(p).on(c.PATRON_ID.eq(p.ID)).and(p.CARD_KEY.eq(cardkey))
+						.join(pt).on(pt.ID.eq(p.PATRONTYPE_ID))
+						.join(g).on(g.ID.eq(p.GROUP_ID));
 		}
-		if(barcode != null) {
-			table = table.innerJoin(i).on(c.ITEM_ID.eq(i.ID)).and(i.BARCODE.eq(barcode));
-			if(title != null) {
-				table.innerJoin(b).on(i.BIBLIO_ID.eq(b.ID)).and(b.TITLE.likeIgnoreCase("%" + title + "%"));
+
+		if(title != null) {
+			if(barcode != null) {
+				table = table.join(i).on(c.ITEM_ID.eq(i.ID)).and(i.BARCODE.eq(barcode))
+								.join(b).on(i.BIBLIO_ID.eq(b.ID)).and(b.TITLE.likeIgnoreCase("%" + title + "%"));
+			}else {
+				table = table.join(i).on(c.ITEM_ID.eq(i.ID))
+						.join(b).on(i.BIBLIO_ID.eq(b.ID)).and(b.TITLE.likeIgnoreCase("%" + title + "%"));
+			}
+		}else {
+			if(barcode != null) {
+				table = table.join(i).on(c.ITEM_ID.eq(i.ID)).and(i.BARCODE.eq(barcode))
+						.join(b).on(i.BIBLIO_ID.eq(b.ID));
+			}else {
+				table = table.join(i).on(c.ITEM_ID.eq(i.ID))
+						.join(b).on(i.BIBLIO_ID.eq(b.ID));
 			}
 		}
 		
@@ -251,7 +269,10 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		final LocalDate dueDateTo = criteria.getDueDateTo();
 		final LocalDate doneFrom = criteria.getDoneFrom();
 		final LocalDate doneTo = criteria.getDoneTo();
-		final Set<CheckoutState> states = criteria.getStates();		
+		final Set<CheckoutState> states = criteria.getStates();	
+		final Set<YesNo> actives = criteria.getActives();
+		final Set<Long> patronTypes = criteria.getPatronTypes();
+		final Set<Long> groups = criteria.getGroups();
 		
 		if(checkoutFrom != null && checkoutTo != null){
 			condition = condition.and(c.CHECKOUT_DATE.ge(java.sql.Date.valueOf(checkoutFrom))
@@ -268,8 +289,17 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		if(states != null && states.size() > 0){
 			condition = condition.and(c.STATE.in(states));
 		}
+		if(patronTypes != null && patronTypes.size() > 0){
+			condition = condition.and(p.PATRONTYPE_ID.in(patronTypes));
+		}
+		if(groups != null && groups.size() > 0){
+			condition = condition.and(p.GROUP_ID.in(groups));
+		}
+		if(actives != null && actives.size() > 0){
+			condition = condition.and(p.ACTIVE.in(actives));
+		}
 		
 	    return condition;
 	}
-	
+
 }

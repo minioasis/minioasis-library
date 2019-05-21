@@ -6,7 +6,6 @@ import java.time.LocalDate;
 
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Reservation;
-import org.springframework.format.annotation.NumberFormat;
 
 public class CirculationDTO implements Serializable {
 

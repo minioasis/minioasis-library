@@ -51,7 +51,7 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 
 	private Condition condition(PatronCriteria criteria) {
 		
-	    Condition result = DSL.trueCondition();
+	    Condition condition = DSL.trueCondition();
 	    
 		final String cardkey = criteria.getCardKey();
 		final String keyword = criteria.getKeyword();
@@ -67,11 +67,11 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		final Set<Long> groups = criteria.getGroups();		
 	    
 	    if (cardkey != null) {
-	    	result = result.and(p.CARD_KEY.eq(cardkey));
+	    	condition = condition.and(p.CARD_KEY.eq(cardkey));
 	    }
 	        
 	    if (keyword != null) {
-	    	result = result.and(p.NAME.likeIgnoreCase("%" + keyword + "%")
+	    	condition = condition.and(p.NAME.likeIgnoreCase("%" + keyword + "%")
     						.or(p.NAME2.likeIgnoreCase("%" + keyword + "%")
     						.or(p.MOBILE.likeIgnoreCase("%" + keyword + "%")
     						.or(p.IC.likeIgnoreCase("%" + keyword + "%")))));
@@ -79,32 +79,32 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 
 		if(note != null) {
 			if(note.equals("isNotEmpty()")) {
-				result = result.and(p.NOTE.isNotNull());
+				condition = condition.and(p.NOTE.isNotNull());
 			}else {
-				result = result.and(p.NOTE.likeIgnoreCase("%" + note + "%"));
+				condition = condition.and(p.NOTE.likeIgnoreCase("%" + note + "%"));
 			}			
 		}
 	    
 	    if(createdFrom != null || createdTo != null) {
-	    	result = result.and(p.CREATED.between(java.sql.Timestamp.valueOf(createdFrom), java.sql.Timestamp.valueOf(createdTo)));
+	    	condition = condition.and(p.CREATED.between(java.sql.Timestamp.valueOf(createdFrom), java.sql.Timestamp.valueOf(createdTo)));
 	    }
 		if(startDateFrom != null || startDateTo != null){
-			result = result.and(p.START_DATE.between(java.sql.Date.valueOf(startDateFrom),java.sql.Date.valueOf(startDateTo)));
+			condition = condition.and(p.START_DATE.between(java.sql.Date.valueOf(startDateFrom),java.sql.Date.valueOf(startDateTo)));
 		}
 		if(endDateFrom != null || endDateTo != null){
-			result = result.and(p.START_DATE.between(java.sql.Date.valueOf(endDateFrom), java.sql.Date.valueOf(endDateTo)));
+			condition = condition.and(p.START_DATE.between(java.sql.Date.valueOf(endDateFrom), java.sql.Date.valueOf(endDateTo)));
 		}
 		if(patronTypes != null && patronTypes.size() > 0){
-			result = result.and(p.PATRONTYPE_ID.in(patronTypes));
+			condition = condition.and(p.PATRONTYPE_ID.in(patronTypes));
 		}
 		if(groups != null && groups.size() > 0){
-			result = result.and(p.GROUP_ID.in(groups));
+			condition = condition.and(p.GROUP_ID.in(groups));
 		}
 		if(actives != null && actives.size() > 0){
-			result = result.and(p.ACTIVE.in(actives));
+			condition = condition.and(p.ACTIVE.in(actives));
 		}
 	    
-	    return result;
+	    return condition;
 	}
 
 	
