@@ -11,7 +11,7 @@
 	<div class="container pt-3 pb-3">
 
 		<h3>
-			<span th:text="#{overdue.list}">Overdue List</span>
+			<span th:text="#{fines.pending.list}">Fines Pending List</span>
 			<a class="btn btn-outline-primary text-primary" href="#" th:href="@{/reports}">
 				<i class="fas fa-chart-line"></i>
 			</a>	
@@ -19,10 +19,10 @@
 
 		<div class="float-right">
 
-			<a th:if="${page.hasPrevious()}" th:href="@{/report/overdue(page=${page.number - 1},size=${page.size})}">
+			<a th:if="${page.hasPrevious()}" th:href="@{/report/fines.pending(page=${page.number - 1},size=${page.size})}">
 				<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 			</a>
-			<a th:if="${page.hasNext()}" th:href="@{/report/overdue(page=${page.number + 1},size=${page.size})}">
+			<a th:if="${page.hasNext()}" th:href="@{/report/fines.pending(page=${page.number + 1},size=${page.size})}">
 				<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 			</a>
 		

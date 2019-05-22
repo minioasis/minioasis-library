@@ -50,7 +50,16 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long>, Check
 			+ " JOIN i.volume v"
 			+ " WHERE c.state in (?1) AND c.dueDate < ?2"
 			+ " ORDER BY c.dueDate asc, p.cardKey asc")
-	public Page<Checkout> findAllOverDue(List<CheckoutState> cStates, LocalDate given, Pageable pageable); 
+	public Page<Checkout> findAllOverDueOrderByDueDateCardKey(List<CheckoutState> cStates, LocalDate given, Pageable pageable); 
+
+	@Query("SELECT c FROM Checkout c"
+			+ " JOIN c.patron p"
+			+ " JOIN c.item i"
+			+ " JOIN i.biblio b"
+			+ " JOIN i.volume v"
+			+ " WHERE c.state in (?1) AND c.dueDate < ?2"
+			+ " ORDER BY p.group.id asc, p.patronType.code asc, c.dueDate asc, p.cardKey asc")
+	public Page<Checkout> findAllOverDueOrderByGroupPatronTypeDueDateCardKey(List<CheckoutState> cStates, LocalDate given, Pageable pageable);
 	
 	@Query("SELECT c FROM Checkout c"
 			+ " JOIN c.patron p"

@@ -27,12 +27,23 @@
 		<div class="row">
 		    <div class="col-md">	    	
 				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+				  	<i class="fas fa-shopping-cart"></i> <span th:text="#{checkout}"></span>
+				  </a> 
 				  <a href="#" th:href="@{/report/top.list.patrons.for.checkouts.form}" class="list-group-item list-group-item-action" th:text="#{top.list.patrons.for.checkouts}">Top List Patrons For Checkouts</a> 
-				  <a href="#" th:href="@{/report/top.popular.books.form}" class="list-group-item list-group-item-action list-group-item-primary" th:text="#{top.popular.books}">Top Popular Books</a>
-				  <a href="#" th:href="@{/report/overdue(page=0,size=30)}" class="list-group-item list-group-item-action list-group-item-secondary" th:text="#{overdue.list}">Overdue List</a>
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Report 4</a>
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Report 5</a>
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-warning">Report 6</a>
+				  <a href="#" th:href="@{/report/top.popular.books.form}" class="list-group-item list-group-item-action" th:text="#{top.popular.books}">Top Popular Books</a>
+				  <a href="#" th:href="@{/report/overdue(page=0,size=30)}" class="list-group-item list-group-item-action list-group-item-info" th:text="#{overdue.list}">Overdue List</a>
+				  <a href="#" th:href="@{/report/overdue.orderby.group.patrontype(page=0,size=30)}" class="list-group-item list-group-item-action list-group-item-info">
+				  	<span th:text="#{overdue.list}"></span>
+				  	<br>
+				  	<span th:text="#{orderby.group.patrontype}"></span>
+				  </a>
+				  <a href="#" th:href="@{/report/fines.pending(page=0,size=30)}" class="list-group-item list-group-item-action" th:text="#{fines.pending.list}">Fines Pending List</a>
+				  <a href="#" th:href="@{/report/fines.pending.orderby.group.patrontype(page=0,size=30)}" class="list-group-item list-group-item-action">
+				  	<span th:text="#{fines.pending.list}"></span>
+				  	<br>
+				  	<span th:text="#{orderby.group.patrontype}"></span>				  
+				  </a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-info">Report 7</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-light">Report 8</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Report 9</a>
@@ -41,8 +52,11 @@
 			
 		    <div class="col-md">  
 				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+				  	<i class="fas fa-user"></i> <span th:text="#{patron}"></span>
+				  </a> 
 				  <a href="#" th:href="@{/report/patron.statistics.form}" class="list-group-item list-group-item-action" th:text="#{patron.statistics.by.type}">patrons.statistics.by.type</a> 
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Report 2</a>
+				  <a href="#" class="list-group-item list-group-item-action">Report 2</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">Report 3</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Report 4</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Report 5</a>
@@ -55,8 +69,11 @@
 			
 		    <div class="col-md">
 				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+				  	<i class="fas fa-user"></i> <span th:text="#{patron}"></span>
+				  </a>
 				  <a href="#" class="list-group-item list-group-item-action">Report 1</a> 
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Report 2</a>
+				  <a href="#" class="list-group-item list-group-item-action">Report 2</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">Report 3</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Report 4</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Report 5</a>
@@ -69,8 +86,11 @@
 
 		    <div class="col-md">	    	
 				<div class="list-group">
+				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">
+				  	<i class="fas fa-user"></i> <span th:text="#{patron}"></span>
+				  </a>
 				  <a href="#" class="list-group-item list-group-item-action">Report 1</a> 
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-primary">Report 2</a>
+				  <a href="#" class="list-group-item list-group-item-action">Report 2</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-secondary">Report 3</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-success">Report 4</a>
 				  <a href="#" class="list-group-item list-group-item-action list-group-item-danger">Report 5</a>

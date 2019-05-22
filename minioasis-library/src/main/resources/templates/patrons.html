@@ -208,7 +208,7 @@
 						<td th:text="${e.active}">Student</td>
 						<td th:text="${e.patronType.name}">Student</td>
 						<td>
-							<a href="#" th:href="@{/patron/checkout/entry?cardKey={cardKey}(cardKey=${e.cardKey})}" th:text="${e.cardKey}">cardKey</a>
+							<a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.cardKey})}" th:text="${e.cardKey}">cardKey</a>
 						</td>
 						<td th:text="${e.group.code}">SM1</td>
 						<td th:inline="text">

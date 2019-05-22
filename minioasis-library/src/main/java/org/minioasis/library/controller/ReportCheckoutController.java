@@ -5,7 +5,7 @@ import java.util.List;
 
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutState;
-import org.minioasis.library.service.LibraryService;
+import org.minioasis.library.service.ReportService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 public class ReportCheckoutController {
 	
 	@Autowired
-	LibraryService service;
+	ReportService service;
 	
 	@RequestMapping(value = "/overdue", method = RequestMethod.GET)
 	public String overdue(Model model, Pageable pageable) {
@@ -27,7 +27,7 @@ public class ReportCheckoutController {
 		LocalDate now = LocalDate.now();
 		List<CheckoutState> states = CheckoutState.getCheckouts();
 		
-		Page<Checkout> page = this.service.findAllOverDue(states, now, pageable);
+		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, now, pageable);
 		
 		List<Checkout> checkouts = page.getContent();
 		for(Checkout c : checkouts) {
@@ -39,16 +39,61 @@ public class ReportCheckoutController {
 		return "report.overdue";
 		
 	}
-
-	@RequestMapping(value = "/return.with.fine", method = RequestMethod.GET)
-	public String returnWithFines(Model model, Pageable pageable) {
+	
+	@RequestMapping(value = "/overdue.orderby.group.patrontype", method = RequestMethod.GET)
+	public String overdueOrderByGroupPatronType(Model model, Pageable pageable) {
 		
-		List<CheckoutState> states = CheckoutState.getReturnWithFines();
-		Page<Checkout> page = this.service.findAllOverDue(states, LocalDate.now(), pageable);
+		LocalDate now = LocalDate.now();
+		List<CheckoutState> states = CheckoutState.getCheckouts();
+		
+		Page<Checkout> page = this.service.findAllOverDueOrderByGroupPatronTypeDueDateCardKey(states, now, pageable);
+		
+		List<Checkout> checkouts = page.getContent();
+		for(Checkout c : checkouts) {
+			c.preparingCheckoutOn(now);
+		}
 		
 		model.addAttribute("page", page);
 
-		return "report.return.with.fine";
+		return "report.overdue.orderby.group.patrontype";
+		
+	}
+
+	@RequestMapping(value = "/fines.pending", method = RequestMethod.GET)
+	public String returnWithFines(Model model, Pageable pageable) {
+		
+		LocalDate now = LocalDate.now();	
+		List<CheckoutState> states = CheckoutState.getReturnWithFines();
+		
+		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, now, pageable);
+		
+		List<Checkout> checkouts = page.getContent();
+		for(Checkout c : checkouts) {
+			c.preparingCheckoutOn(now);
+		}
+
+		model.addAttribute("page", page);
+
+		return "report.fines.pending";
+		
+	}
+	
+	@RequestMapping(value = "/fines.pending.orderby.group.patrontype", method = RequestMethod.GET)
+	public String returnWithFinesOrderByGroupPatronType(Model model, Pageable pageable) {
+		
+		LocalDate now = LocalDate.now();	
+		List<CheckoutState> states = CheckoutState.getReturnWithFines();
+		
+		Page<Checkout> page = this.service.findAllOverDueOrderByGroupPatronTypeDueDateCardKey(states, now, pageable);
+		
+		List<Checkout> checkouts = page.getContent();
+		for(Checkout c : checkouts) {
+			c.preparingCheckoutOn(now);
+		}
+
+		model.addAttribute("page", page);
+
+		return "report.fines.pending.orderby.group.patrontype";
 		
 	}
 	
@@ -56,7 +101,7 @@ public class ReportCheckoutController {
 	public String returnWithDamageAndFines(Model model, Pageable pageable) {
 		
 		List<CheckoutState> states = CheckoutState.getDamageAndFine();
-		Page<Checkout> page = this.service.findAllOverDue(states, LocalDate.now(), pageable);
+		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, LocalDate.now(), pageable);
 		
 		model.addAttribute("page", page);
 
@@ -68,7 +113,7 @@ public class ReportCheckoutController {
 	public String reportLostWithFines(Model model, Pageable pageable) {
 		
 		List<CheckoutState> states = CheckoutState.getReportLostWithFine();
-		Page<Checkout> page = this.service.findAllOverDue(states, LocalDate.now(), pageable);
+		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, LocalDate.now(), pageable);
 		
 		model.addAttribute("page", page);
 
@@ -80,7 +125,7 @@ public class ReportCheckoutController {
 	public String returnWithDamage(Model model, Pageable pageable) {
 		
 		List<CheckoutState> states = CheckoutState.getDamage();
-		Page<Checkout> page = this.service.findAllOverDue(states, LocalDate.now(), pageable);
+		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, LocalDate.now(), pageable);
 		
 		model.addAttribute("page", page);
 
@@ -92,7 +137,7 @@ public class ReportCheckoutController {
 	public String reportLost(Model model, Pageable pageable) {
 		
 		List<CheckoutState> states = CheckoutState.getReportLost();
-		Page<Checkout> page = this.service.findAllOverDue(states, LocalDate.now(), pageable);
+		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, LocalDate.now(), pageable);
 		
 		model.addAttribute("page", page);
 

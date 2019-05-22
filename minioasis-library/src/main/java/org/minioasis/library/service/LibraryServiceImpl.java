@@ -422,12 +422,6 @@ public class LibraryServiceImpl implements LibraryService {
 	public Page<Checkout> findAllCheckouts(String username, List<CheckoutState> cStates, Pageable pageable){		
 		return this.checkoutRepository.findAllCheckouts(username, cStates, pageable);
 	}
-	// Report
-	public Page<Checkout> findAllOverDue(List<CheckoutState> cStates, LocalDate given, Pageable pageable){
-		
-		Page<Checkout> page = this.checkoutRepository.findAllOverDue(cStates, given, pageable);
-		return page;
-	}
 	
 	public Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable){
 		return this.checkoutRepository.findByCriteria(criteria, pageable);
