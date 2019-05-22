@@ -59,23 +59,10 @@ public enum CheckoutState {
 	}
 	
 	public static List<CheckoutState> getReturnWithFines(){
-		return new ArrayList<CheckoutState>(
-				EnumSet.of(CheckoutState.RETURN_WITH_FINE));
-	}
-	
-	public static List<CheckoutState> getDamageAndFine(){
-		return new ArrayList<CheckoutState>(
-				EnumSet.of(CheckoutState.RETURN_WITH_DAMAGE_AND_FINE));
-	}
-	
-	public static List<CheckoutState> getReportLostWithFine(){
-		return new ArrayList<CheckoutState>(
-				EnumSet.of(CheckoutState.REPORTLOST_WITH_FINE));
-	}
-	
-	public static List<CheckoutState> getDamage(){
-		return new ArrayList<CheckoutState>(
-				EnumSet.of(CheckoutState.RETURN_WITH_DAMAGE));
+		return new ArrayList<CheckoutState>(EnumSet.of(CheckoutState.RETURN_WITH_FINE,
+														CheckoutState.RETURN_WITH_DAMAGE,
+														CheckoutState.RETURN_WITH_DAMAGE_AND_FINE,
+														CheckoutState.REPORTLOST_WITH_FINE));
 	}
 
 	public static List<CheckoutState> getReportLost(){

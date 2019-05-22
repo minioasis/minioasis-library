@@ -44,9 +44,12 @@
 				  	<br>
 				  	<span th:text="#{orderby.group.patrontype}"></span>				  
 				  </a>
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-info">Report 7</a>
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-light">Report 8</a>
-				  <a href="#" class="list-group-item list-group-item-action list-group-item-dark">Report 9</a>
+				  <a href="#" th:href="@{/report/reportlost(page=0,size=30)}" class="list-group-item list-group-item-action list-group-item-info" th:text="#{reportlost.list}">Report Lost List</a>
+				  <a href="#" th:href="@{/report/reportlost.orderby.group.patrontype(page=0,size=30)}" class="list-group-item list-group-item-action list-group-item-info">
+				  	<span th:text="#{reportlost.list}"></span>
+				  	<br>
+				  	<span th:text="#{orderby.group.patrontype}"></span>					  
+				  </a>
 				</div>
 			</div>
 			

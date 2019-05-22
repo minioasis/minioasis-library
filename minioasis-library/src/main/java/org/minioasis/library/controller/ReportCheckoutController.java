@@ -97,42 +97,6 @@ public class ReportCheckoutController {
 		
 	}
 	
-	@RequestMapping(value = "/return.with.damage.fine", method = RequestMethod.GET)
-	public String returnWithDamageAndFines(Model model, Pageable pageable) {
-		
-		List<CheckoutState> states = CheckoutState.getDamageAndFine();
-		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, LocalDate.now(), pageable);
-		
-		model.addAttribute("page", page);
-
-		return "report.return.with.damage.fine";
-		
-	}
-	
-	@RequestMapping(value = "/reportlost.with.fine", method = RequestMethod.GET)
-	public String reportLostWithFines(Model model, Pageable pageable) {
-		
-		List<CheckoutState> states = CheckoutState.getReportLostWithFine();
-		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, LocalDate.now(), pageable);
-		
-		model.addAttribute("page", page);
-
-		return "report.reportlost.with.fine";
-		
-	}
-	
-	@RequestMapping(value = "/return.with.damage", method = RequestMethod.GET)
-	public String returnWithDamage(Model model, Pageable pageable) {
-		
-		List<CheckoutState> states = CheckoutState.getDamage();
-		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, LocalDate.now(), pageable);
-		
-		model.addAttribute("page", page);
-
-		return "report.return.with.damage";
-		
-	}
-	
 	@RequestMapping(value = "/reportlost", method = RequestMethod.GET)
 	public String reportLost(Model model, Pageable pageable) {
 		
@@ -144,4 +108,17 @@ public class ReportCheckoutController {
 		return "report.reportlost";
 		
 	}
+	
+	@RequestMapping(value = "/reportlost.orderby.group.patrontype", method = RequestMethod.GET)
+	public String reportLostOrderByGroupPatronType(Model model, Pageable pageable) {
+		
+		List<CheckoutState> states = CheckoutState.getReportLost();
+		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, LocalDate.now(), pageable);
+		
+		model.addAttribute("page", page);
+
+		return "report.reportlost.orderby.group.patrontype";
+		
+	}
+	
 }
