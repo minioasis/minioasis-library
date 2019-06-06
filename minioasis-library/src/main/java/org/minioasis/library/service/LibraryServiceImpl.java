@@ -7,6 +7,7 @@ import java.util.Arrays;
 import java.util.Collection;
 import java.util.List;
 
+import org.minioasis.library.domain.Account;
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.AttachmentCheckout;
 import org.minioasis.library.domain.AttachmentCheckoutState;
@@ -30,6 +31,7 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.AccountCriteria;
 import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
 import org.minioasis.library.domain.search.AttachmentCriteria;
 import org.minioasis.library.domain.search.BiblioCriteria;
@@ -39,6 +41,7 @@ import org.minioasis.library.domain.search.ItemCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.domain.search.ReservationCriteria;
 import org.minioasis.library.exception.LibraryException;
+import org.minioasis.library.repository.AccountRepository;
 import org.minioasis.library.repository.AttachmentCheckoutRepository;
 import org.minioasis.library.repository.AttachmentRepository;
 import org.minioasis.library.repository.BiblioRepository;
@@ -65,7 +68,9 @@ import org.springframework.transaction.annotation.Transactional;
 @Service
 @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 public class LibraryServiceImpl implements LibraryService {
-	
+
+	@Autowired
+	private AccountRepository accountRepository;
 	@Autowired
 	private AttachmentRepository attachmentRepository;
 	@Autowired
@@ -208,6 +213,35 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	public void cancelReservation(Patron patron, long reservationId, LocalDate cancelDate) throws LibraryException {
 		patron.cancelReservation(cancelDate, reservationId);
+	}
+	
+	// Account
+	public void save(Account entity) {
+		this.accountRepository.save(entity);
+	}
+
+	public void edit(Account entity) {
+		this.accountRepository.save(entity);
+	}
+	
+	public void delete(Account entity) {
+		this.accountRepository.delete(entity);
+	}
+	
+	public void deleteAccount(long id) {
+		this.accountRepository.deleteById(id);
+	}
+	public Account getAccount(long id) {
+		return this.accountRepository.getOne(id);
+	}
+	public List<Account> findAllAccount(Sort sort){
+		return this.accountRepository.findAll(sort);
+	}
+	public Page<Account> findAllAccount(Pageable pageable){
+		return this.accountRepository.findAll(pageable);
+	}
+	public Page<Account> findByCriteria(AccountCriteria criteria, Pageable pageable) {
+		return this.accountRepository.findByCriteria(criteria, pageable);
 	}
 	
 	// Attachment

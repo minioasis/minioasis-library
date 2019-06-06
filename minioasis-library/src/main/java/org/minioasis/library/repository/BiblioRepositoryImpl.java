@@ -93,7 +93,7 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 			table = table.innerJoin(s).on(b.SERIES_ID.eq(s.ID)).and(s.NAME.likeIgnoreCase("%" + series + "%"));
 		}
 		
-		return b;
+		return table;
 	}
 
 	private Condition condition(BiblioCriteria criteria) {

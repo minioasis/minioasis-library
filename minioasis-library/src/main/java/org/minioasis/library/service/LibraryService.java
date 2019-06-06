@@ -6,6 +6,7 @@ import java.time.LocalDateTime;
 import java.util.Collection;
 import java.util.List;
 
+import org.minioasis.library.domain.Account;
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.AttachmentCheckout;
 import org.minioasis.library.domain.AttachmentCheckoutState;
@@ -25,6 +26,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.search.AccountCriteria;
 import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
 import org.minioasis.library.domain.search.AttachmentCriteria;
 import org.minioasis.library.domain.search.BiblioCriteria;
@@ -67,6 +69,15 @@ public interface LibraryService {
 	ReservationResult reserve(Patron patron, Biblio biblio, LocalDateTime given, LocalDate expiryDate) throws LibraryException;
 	void cancelReservation(Patron patron, long reservationId, LocalDate cancelDate) throws LibraryException;
 	
+	// Account
+	void save(Account entity);
+	void edit(Account entity);	
+	void delete(Account entity);
+	void deleteAccount(long id);
+	Account getAccount(long id);
+	List<Account> findAllAccount(Sort sort);
+	Page<Account> findAllAccount(Pageable pageable);
+	Page<Account> findByCriteria(AccountCriteria criteria, Pageable pageable);
 	
 	// Attachment
 	void save(Attachment entity);

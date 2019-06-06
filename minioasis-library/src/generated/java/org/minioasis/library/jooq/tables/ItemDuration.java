@@ -38,7 +38,7 @@ import org.minioasis.library.jooq.tables.records.ItemDurationRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ItemDuration extends TableImpl<ItemDurationRecord> {
 
-    private static final long serialVersionUID = 1934980953;
+    private static final long serialVersionUID = -684826593;
 
     /**
      * The reference instance of <code>PUBLIC.ITEM_DURATION</code>
@@ -110,7 +110,7 @@ public class ItemDuration extends TableImpl<ItemDurationRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_E, Indexes.UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E);
+        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_E2, Indexes.UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E);
     }
 
     /**
@@ -126,7 +126,7 @@ public class ItemDuration extends TableImpl<ItemDurationRecord> {
      */
     @Override
     public UniqueKey<ItemDurationRecord> getPrimaryKey() {
-        return Keys.CONSTRAINT_E;
+        return Keys.CONSTRAINT_E2;
     }
 
     /**
@@ -134,7 +134,7 @@ public class ItemDuration extends TableImpl<ItemDurationRecord> {
      */
     @Override
     public List<UniqueKey<ItemDurationRecord>> getKeys() {
-        return Arrays.<UniqueKey<ItemDurationRecord>>asList(Keys.CONSTRAINT_E, Keys.UK_EUJ6H91X1IYUL76UX181OQL98);
+        return Arrays.<UniqueKey<ItemDurationRecord>>asList(Keys.CONSTRAINT_E2, Keys.UK_EUJ6H91X1IYUL76UX181OQL98);
     }
 
     /**

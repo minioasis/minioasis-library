@@ -10,6 +10,7 @@ import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
+import org.minioasis.library.jooq.tables.Account;
 import org.minioasis.library.jooq.tables.Attachment;
 import org.minioasis.library.jooq.tables.AttachmentCheckout;
 import org.minioasis.library.jooq.tables.Biblio;
@@ -29,6 +30,8 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
+import org.minioasis.library.jooq.tables.Txn;
+import org.minioasis.library.jooq.tables.records.AccountRecord;
 import org.minioasis.library.jooq.tables.records.AttachmentCheckoutRecord;
 import org.minioasis.library.jooq.tables.records.AttachmentRecord;
 import org.minioasis.library.jooq.tables.records.BiblioRecord;
@@ -48,6 +51,7 @@ import org.minioasis.library.jooq.tables.records.PublisherRecord;
 import org.minioasis.library.jooq.tables.records.ReservationRecord;
 import org.minioasis.library.jooq.tables.records.SeriesRecord;
 import org.minioasis.library.jooq.tables.records.TagRecord;
+import org.minioasis.library.jooq.tables.records.TxnRecord;
 
 
 /**
@@ -68,6 +72,7 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<AccountRecord, Long> IDENTITY_ACCOUNT = Identities0.IDENTITY_ACCOUNT;
     public static final Identity<AttachmentRecord, Long> IDENTITY_ATTACHMENT = Identities0.IDENTITY_ATTACHMENT;
     public static final Identity<AttachmentCheckoutRecord, Long> IDENTITY_ATTACHMENT_CHECKOUT = Identities0.IDENTITY_ATTACHMENT_CHECKOUT;
     public static final Identity<BiblioRecord, Long> IDENTITY_BIBLIO = Identities0.IDENTITY_BIBLIO;
@@ -83,11 +88,14 @@ public class Keys {
     public static final Identity<ReservationRecord, Long> IDENTITY_RESERVATION = Identities0.IDENTITY_RESERVATION;
     public static final Identity<SeriesRecord, Long> IDENTITY_SERIES = Identities0.IDENTITY_SERIES;
     public static final Identity<TagRecord, Long> IDENTITY_TAG = Identities0.IDENTITY_TAG;
+    public static final Identity<TxnRecord, Long> IDENTITY_TXN = Identities0.IDENTITY_TXN;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
     // -------------------------------------------------------------------------
 
+    public static final UniqueKey<AccountRecord> CONSTRAINT_E = UniqueKeys0.CONSTRAINT_E;
+    public static final UniqueKey<AccountRecord> UK_K9QLQIJT38KMRYAFDHHQ04LON = UniqueKeys0.UK_K9QLQIJT38KMRYAFDHHQ04LON;
     public static final UniqueKey<AttachmentRecord> CONSTRAINT_A = UniqueKeys0.CONSTRAINT_A;
     public static final UniqueKey<AttachmentRecord> UK_ODYTD07MTGMJLAEF9T1WGKVPC = UniqueKeys0.UK_ODYTD07MTGMJLAEF9T1WGKVPC;
     public static final UniqueKey<AttachmentCheckoutRecord> CONSTRAINT_6 = UniqueKeys0.CONSTRAINT_6;
@@ -101,7 +109,7 @@ public class Keys {
     public static final UniqueKey<ImageRecord> CONSTRAINT_4 = UniqueKeys0.CONSTRAINT_4;
     public static final UniqueKey<ItemRecord> CONSTRAINT_2 = UniqueKeys0.CONSTRAINT_2;
     public static final UniqueKey<ItemRecord> UK_BFO0NHIH8F3JL9M9UBLNXR4UY = UniqueKeys0.UK_BFO0NHIH8F3JL9M9UBLNXR4UY;
-    public static final UniqueKey<ItemDurationRecord> CONSTRAINT_E = UniqueKeys0.CONSTRAINT_E;
+    public static final UniqueKey<ItemDurationRecord> CONSTRAINT_E2 = UniqueKeys0.CONSTRAINT_E2;
     public static final UniqueKey<ItemDurationRecord> UK_EUJ6H91X1IYUL76UX181OQL98 = UniqueKeys0.UK_EUJ6H91X1IYUL76UX181OQL98;
     public static final UniqueKey<ItemStatusRecord> CONSTRAINT_64 = UniqueKeys0.CONSTRAINT_64;
     public static final UniqueKey<ItemStatusRecord> UK_GW69EG5BWDJ2BC6GJ8GYXT9AD = UniqueKeys0.UK_GW69EG5BWDJ2BC6GJ8GYXT9AD;
@@ -121,6 +129,7 @@ public class Keys {
     public static final UniqueKey<SeriesRecord> UK_S4JD0PRFGED1PUCSTGAOH8QJ4 = UniqueKeys0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4;
     public static final UniqueKey<TagRecord> CONSTRAINT_1 = UniqueKeys0.CONSTRAINT_1;
     public static final UniqueKey<TagRecord> UK_1WDPSED5KNA2Y38HNBGRNHI5B = UniqueKeys0.UK_1WDPSED5KNA2Y38HNBGRNHI5B;
+    public static final UniqueKey<TxnRecord> CONSTRAINT_14 = UniqueKeys0.CONSTRAINT_14;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -147,12 +156,15 @@ public class Keys {
     public static final ForeignKey<ReservationRecord, BiblioRecord> FK_RESERVATION_BIBLIO = ForeignKeys0.FK_RESERVATION_BIBLIO;
     public static final ForeignKey<ReservationRecord, PatronRecord> FK_RESERVATION_PATRON = ForeignKeys0.FK_RESERVATION_PATRON;
     public static final ForeignKey<ReservationRecord, PatronTypeRecord> FK_RESERVATION_PATRONTYPE = ForeignKeys0.FK_RESERVATION_PATRONTYPE;
+    public static final ForeignKey<TxnRecord, AccountRecord> FK_TXN_ACCOUNT = ForeignKeys0.FK_TXN_ACCOUNT;
+    public static final ForeignKey<TxnRecord, AccountRecord> FK_TXN_TOACCOUNT = ForeignKeys0.FK_TXN_TOACCOUNT;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Identities0 {
+        public static Identity<AccountRecord, Long> IDENTITY_ACCOUNT = Internal.createIdentity(Account.ACCOUNT, Account.ACCOUNT.ID);
         public static Identity<AttachmentRecord, Long> IDENTITY_ATTACHMENT = Internal.createIdentity(Attachment.ATTACHMENT, Attachment.ATTACHMENT.ID);
         public static Identity<AttachmentCheckoutRecord, Long> IDENTITY_ATTACHMENT_CHECKOUT = Internal.createIdentity(AttachmentCheckout.ATTACHMENT_CHECKOUT, AttachmentCheckout.ATTACHMENT_CHECKOUT.ID);
         public static Identity<BiblioRecord, Long> IDENTITY_BIBLIO = Internal.createIdentity(Biblio.BIBLIO, Biblio.BIBLIO.ID);
@@ -168,9 +180,12 @@ public class Keys {
         public static Identity<ReservationRecord, Long> IDENTITY_RESERVATION = Internal.createIdentity(Reservation.RESERVATION, Reservation.RESERVATION.ID);
         public static Identity<SeriesRecord, Long> IDENTITY_SERIES = Internal.createIdentity(Series.SERIES, Series.SERIES.ID);
         public static Identity<TagRecord, Long> IDENTITY_TAG = Internal.createIdentity(Tag.TAG, Tag.TAG.ID);
+        public static Identity<TxnRecord, Long> IDENTITY_TXN = Internal.createIdentity(Txn.TXN, Txn.TXN.ID);
     }
 
     private static class UniqueKeys0 {
+        public static final UniqueKey<AccountRecord> CONSTRAINT_E = Internal.createUniqueKey(Account.ACCOUNT, "CONSTRAINT_E", Account.ACCOUNT.ID);
+        public static final UniqueKey<AccountRecord> UK_K9QLQIJT38KMRYAFDHHQ04LON = Internal.createUniqueKey(Account.ACCOUNT, "UK_K9QLQIJT38KMRYAFDHHQ04LON", Account.ACCOUNT.CODE);
         public static final UniqueKey<AttachmentRecord> CONSTRAINT_A = Internal.createUniqueKey(Attachment.ATTACHMENT, "CONSTRAINT_A", Attachment.ATTACHMENT.ID);
         public static final UniqueKey<AttachmentRecord> UK_ODYTD07MTGMJLAEF9T1WGKVPC = Internal.createUniqueKey(Attachment.ATTACHMENT, "UK_ODYTD07MTGMJLAEF9T1WGKVPC", Attachment.ATTACHMENT.BARCODE);
         public static final UniqueKey<AttachmentCheckoutRecord> CONSTRAINT_6 = Internal.createUniqueKey(AttachmentCheckout.ATTACHMENT_CHECKOUT, "CONSTRAINT_6", AttachmentCheckout.ATTACHMENT_CHECKOUT.ID);
@@ -184,7 +199,7 @@ public class Keys {
         public static final UniqueKey<ImageRecord> CONSTRAINT_4 = Internal.createUniqueKey(Image.IMAGE, "CONSTRAINT_4", Image.IMAGE.ID);
         public static final UniqueKey<ItemRecord> CONSTRAINT_2 = Internal.createUniqueKey(Item.ITEM, "CONSTRAINT_2", Item.ITEM.ID);
         public static final UniqueKey<ItemRecord> UK_BFO0NHIH8F3JL9M9UBLNXR4UY = Internal.createUniqueKey(Item.ITEM, "UK_BFO0NHIH8F3JL9M9UBLNXR4UY", Item.ITEM.BARCODE);
-        public static final UniqueKey<ItemDurationRecord> CONSTRAINT_E = Internal.createUniqueKey(ItemDuration.ITEM_DURATION, "CONSTRAINT_E", ItemDuration.ITEM_DURATION.ID);
+        public static final UniqueKey<ItemDurationRecord> CONSTRAINT_E2 = Internal.createUniqueKey(ItemDuration.ITEM_DURATION, "CONSTRAINT_E2", ItemDuration.ITEM_DURATION.ID);
         public static final UniqueKey<ItemDurationRecord> UK_EUJ6H91X1IYUL76UX181OQL98 = Internal.createUniqueKey(ItemDuration.ITEM_DURATION, "UK_EUJ6H91X1IYUL76UX181OQL98", ItemDuration.ITEM_DURATION.NAME);
         public static final UniqueKey<ItemStatusRecord> CONSTRAINT_64 = Internal.createUniqueKey(ItemStatus.ITEM_STATUS, "CONSTRAINT_64", ItemStatus.ITEM_STATUS.ID);
         public static final UniqueKey<ItemStatusRecord> UK_GW69EG5BWDJ2BC6GJ8GYXT9AD = Internal.createUniqueKey(ItemStatus.ITEM_STATUS, "UK_GW69EG5BWDJ2BC6GJ8GYXT9AD", ItemStatus.ITEM_STATUS.NAME);
@@ -204,6 +219,7 @@ public class Keys {
         public static final UniqueKey<SeriesRecord> UK_S4JD0PRFGED1PUCSTGAOH8QJ4 = Internal.createUniqueKey(Series.SERIES, "UK_S4JD0PRFGED1PUCSTGAOH8QJ4", Series.SERIES.NAME);
         public static final UniqueKey<TagRecord> CONSTRAINT_1 = Internal.createUniqueKey(Tag.TAG, "CONSTRAINT_1", Tag.TAG.ID);
         public static final UniqueKey<TagRecord> UK_1WDPSED5KNA2Y38HNBGRNHI5B = Internal.createUniqueKey(Tag.TAG, "UK_1WDPSED5KNA2Y38HNBGRNHI5B", Tag.TAG.NAME);
+        public static final UniqueKey<TxnRecord> CONSTRAINT_14 = Internal.createUniqueKey(Txn.TXN, "CONSTRAINT_14", Txn.TXN.ID);
     }
 
     private static class ForeignKeys0 {
@@ -219,7 +235,7 @@ public class Keys {
         public static final ForeignKey<CheckoutRecord, ItemRecord> FK_CHECKOUT_ITEM = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_2, Checkout.CHECKOUT, "FK_CHECKOUT_ITEM", Checkout.CHECKOUT.ITEM_ID);
         public static final ForeignKey<CheckoutRecord, PatronRecord> FK_CHECKOUT_PATRON = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8C, Checkout.CHECKOUT, "FK_CHECKOUT_PATRON", Checkout.CHECKOUT.PATRON_ID);
         public static final ForeignKey<ItemRecord, BiblioRecord> FK_ITEM_BIBLIO = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, Item.ITEM, "FK_ITEM_BIBLIO", Item.ITEM.BIBLIO_ID);
-        public static final ForeignKey<ItemRecord, ItemDurationRecord> FK_ITEM_ITEMDURATION = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, Item.ITEM, "FK_ITEM_ITEMDURATION", Item.ITEM.ITEM_DURATION_ID);
+        public static final ForeignKey<ItemRecord, ItemDurationRecord> FK_ITEM_ITEMDURATION = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E2, Item.ITEM, "FK_ITEM_ITEMDURATION", Item.ITEM.ITEM_DURATION_ID);
         public static final ForeignKey<ItemRecord, ItemStatusRecord> FK_ITEM_ITEMSTATUS = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_64, Item.ITEM, "FK_ITEM_ITEMSTATUS", Item.ITEM.ITEM_STATUS_ID);
         public static final ForeignKey<ItemRecord, LocationRecord> FK_ITEM_LOCATION = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_9, Item.ITEM, "FK_ITEM_LOCATION", Item.ITEM.LOCATION_ID);
         public static final ForeignKey<PatronRecord, GroupsRecord> FK_PATRON_GROUP = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7D, Patron.PATRON, "FK_PATRON_GROUP", Patron.PATRON.GROUP_ID);
@@ -228,5 +244,7 @@ public class Keys {
         public static final ForeignKey<ReservationRecord, BiblioRecord> FK_RESERVATION_BIBLIO = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, Reservation.RESERVATION, "FK_RESERVATION_BIBLIO", Reservation.RESERVATION.BIBLIO_ID);
         public static final ForeignKey<ReservationRecord, PatronRecord> FK_RESERVATION_PATRON = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8C, Reservation.RESERVATION, "FK_RESERVATION_PATRON", Reservation.RESERVATION.PATRON_ID);
         public static final ForeignKey<ReservationRecord, PatronTypeRecord> FK_RESERVATION_PATRONTYPE = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_5, Reservation.RESERVATION, "FK_RESERVATION_PATRONTYPE", Reservation.RESERVATION.PATRONTYPE_ID);
+        public static final ForeignKey<TxnRecord, AccountRecord> FK_TXN_ACCOUNT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, Txn.TXN, "FK_TXN_ACCOUNT", Txn.TXN.ACCOUNT_ID);
+        public static final ForeignKey<TxnRecord, AccountRecord> FK_TXN_TOACCOUNT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, Txn.TXN, "FK_TXN_TOACCOUNT", Txn.TXN.TO_ACCOUNT_ID);
     }
 }

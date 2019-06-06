@@ -9,6 +9,7 @@ import javax.annotation.Generated;
 import org.jooq.Index;
 import org.jooq.OrderField;
 import org.jooq.impl.Internal;
+import org.minioasis.library.jooq.tables.Account;
 import org.minioasis.library.jooq.tables.Attachment;
 import org.minioasis.library.jooq.tables.AttachmentCheckout;
 import org.minioasis.library.jooq.tables.Biblio;
@@ -28,6 +29,7 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
+import org.minioasis.library.jooq.tables.Txn;
 
 
 /**
@@ -47,6 +49,8 @@ public class Indexes {
     // INDEX definitions
     // -------------------------------------------------------------------------
 
+    public static final Index PRIMARY_KEY_E = Indexes0.PRIMARY_KEY_E;
+    public static final Index UK_K9QLQIJT38KMRYAFDHHQ04LON_INDEX_E = Indexes0.UK_K9QLQIJT38KMRYAFDHHQ04LON_INDEX_E;
     public static final Index FK_ATTACHMENT_ITEM_INDEX_A = Indexes0.FK_ATTACHMENT_ITEM_INDEX_A;
     public static final Index PRIMARY_KEY_A = Indexes0.PRIMARY_KEY_A;
     public static final Index UK_ODYTD07MTGMJLAEF9T1WGKVPC_INDEX_A = Indexes0.UK_ODYTD07MTGMJLAEF9T1WGKVPC_INDEX_A;
@@ -75,7 +79,7 @@ public class Indexes {
     public static final Index FK_ITEM_LOCATION_INDEX_2 = Indexes0.FK_ITEM_LOCATION_INDEX_2;
     public static final Index PRIMARY_KEY_2 = Indexes0.PRIMARY_KEY_2;
     public static final Index UK_BFO0NHIH8F3JL9M9UBLNXR4UY_INDEX_2 = Indexes0.UK_BFO0NHIH8F3JL9M9UBLNXR4UY_INDEX_2;
-    public static final Index PRIMARY_KEY_E = Indexes0.PRIMARY_KEY_E;
+    public static final Index PRIMARY_KEY_E2 = Indexes0.PRIMARY_KEY_E2;
     public static final Index UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E = Indexes0.UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E;
     public static final Index PRIMARY_KEY_64 = Indexes0.PRIMARY_KEY_64;
     public static final Index UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6 = Indexes0.UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6;
@@ -100,12 +104,17 @@ public class Indexes {
     public static final Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Indexes0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9;
     public static final Index PRIMARY_KEY_1 = Indexes0.PRIMARY_KEY_1;
     public static final Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Indexes0.UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1;
+    public static final Index FK_TXN_ACCOUNT_INDEX_1 = Indexes0.FK_TXN_ACCOUNT_INDEX_1;
+    public static final Index FK_TXN_TOACCOUNT_INDEX_1 = Indexes0.FK_TXN_TOACCOUNT_INDEX_1;
+    public static final Index PRIMARY_KEY_14 = Indexes0.PRIMARY_KEY_14;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
 
     private static class Indexes0 {
+        public static Index PRIMARY_KEY_E = Internal.createIndex("PRIMARY_KEY_E", Account.ACCOUNT, new OrderField[] { Account.ACCOUNT.ID }, true);
+        public static Index UK_K9QLQIJT38KMRYAFDHHQ04LON_INDEX_E = Internal.createIndex("UK_K9QLQIJT38KMRYAFDHHQ04LON_INDEX_E", Account.ACCOUNT, new OrderField[] { Account.ACCOUNT.CODE }, true);
         public static Index FK_ATTACHMENT_ITEM_INDEX_A = Internal.createIndex("FK_ATTACHMENT_ITEM_INDEX_A", Attachment.ATTACHMENT, new OrderField[] { Attachment.ATTACHMENT.ITEM_ID }, false);
         public static Index PRIMARY_KEY_A = Internal.createIndex("PRIMARY_KEY_A", Attachment.ATTACHMENT, new OrderField[] { Attachment.ATTACHMENT.ID }, true);
         public static Index UK_ODYTD07MTGMJLAEF9T1WGKVPC_INDEX_A = Internal.createIndex("UK_ODYTD07MTGMJLAEF9T1WGKVPC_INDEX_A", Attachment.ATTACHMENT, new OrderField[] { Attachment.ATTACHMENT.BARCODE }, true);
@@ -134,7 +143,7 @@ public class Indexes {
         public static Index FK_ITEM_LOCATION_INDEX_2 = Internal.createIndex("FK_ITEM_LOCATION_INDEX_2", Item.ITEM, new OrderField[] { Item.ITEM.LOCATION_ID }, false);
         public static Index PRIMARY_KEY_2 = Internal.createIndex("PRIMARY_KEY_2", Item.ITEM, new OrderField[] { Item.ITEM.ID }, true);
         public static Index UK_BFO0NHIH8F3JL9M9UBLNXR4UY_INDEX_2 = Internal.createIndex("UK_BFO0NHIH8F3JL9M9UBLNXR4UY_INDEX_2", Item.ITEM, new OrderField[] { Item.ITEM.BARCODE }, true);
-        public static Index PRIMARY_KEY_E = Internal.createIndex("PRIMARY_KEY_E", ItemDuration.ITEM_DURATION, new OrderField[] { ItemDuration.ITEM_DURATION.ID }, true);
+        public static Index PRIMARY_KEY_E2 = Internal.createIndex("PRIMARY_KEY_E2", ItemDuration.ITEM_DURATION, new OrderField[] { ItemDuration.ITEM_DURATION.ID }, true);
         public static Index UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E = Internal.createIndex("UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E", ItemDuration.ITEM_DURATION, new OrderField[] { ItemDuration.ITEM_DURATION.NAME }, true);
         public static Index PRIMARY_KEY_64 = Internal.createIndex("PRIMARY_KEY_64", ItemStatus.ITEM_STATUS, new OrderField[] { ItemStatus.ITEM_STATUS.ID }, true);
         public static Index UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6 = Internal.createIndex("UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6", ItemStatus.ITEM_STATUS, new OrderField[] { ItemStatus.ITEM_STATUS.NAME }, true);
@@ -159,5 +168,8 @@ public class Indexes {
         public static Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Internal.createIndex("UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9", Series.SERIES, new OrderField[] { Series.SERIES.NAME }, true);
         public static Index PRIMARY_KEY_1 = Internal.createIndex("PRIMARY_KEY_1", Tag.TAG, new OrderField[] { Tag.TAG.ID }, true);
         public static Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Internal.createIndex("UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1", Tag.TAG, new OrderField[] { Tag.TAG.NAME }, true);
+        public static Index FK_TXN_ACCOUNT_INDEX_1 = Internal.createIndex("FK_TXN_ACCOUNT_INDEX_1", Txn.TXN, new OrderField[] { Txn.TXN.ACCOUNT_ID }, false);
+        public static Index FK_TXN_TOACCOUNT_INDEX_1 = Internal.createIndex("FK_TXN_TOACCOUNT_INDEX_1", Txn.TXN, new OrderField[] { Txn.TXN.TO_ACCOUNT_ID }, false);
+        public static Index PRIMARY_KEY_14 = Internal.createIndex("PRIMARY_KEY_14", Txn.TXN, new OrderField[] { Txn.TXN.ID }, true);
     }
 }

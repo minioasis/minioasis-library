@@ -6,6 +6,7 @@ package org.minioasis.library.jooq;
 
 import javax.annotation.Generated;
 
+import org.minioasis.library.jooq.tables.Account;
 import org.minioasis.library.jooq.tables.Attachment;
 import org.minioasis.library.jooq.tables.AttachmentCheckout;
 import org.minioasis.library.jooq.tables.Biblio;
@@ -25,6 +26,7 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
+import org.minioasis.library.jooq.tables.Txn;
 
 
 /**
@@ -39,6 +41,11 @@ import org.minioasis.library.jooq.tables.Tag;
 )
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tables {
+
+    /**
+     * The table <code>PUBLIC.ACCOUNT</code>.
+     */
+    public static final Account ACCOUNT = org.minioasis.library.jooq.tables.Account.ACCOUNT;
 
     /**
      * The table <code>PUBLIC.ATTACHMENT</code>.
@@ -134,4 +141,9 @@ public class Tables {
      * The table <code>PUBLIC.TAG</code>.
      */
     public static final Tag TAG = org.minioasis.library.jooq.tables.Tag.TAG;
+
+    /**
+     * The table <code>PUBLIC.TXN</code>.
+     */
+    public static final Txn TXN = org.minioasis.library.jooq.tables.Txn.TXN;
 }

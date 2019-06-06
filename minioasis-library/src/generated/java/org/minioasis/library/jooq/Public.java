@@ -14,6 +14,7 @@ import org.jooq.Catalog;
 import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
+import org.minioasis.library.jooq.tables.Account;
 import org.minioasis.library.jooq.tables.Attachment;
 import org.minioasis.library.jooq.tables.AttachmentCheckout;
 import org.minioasis.library.jooq.tables.Biblio;
@@ -33,6 +34,7 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
+import org.minioasis.library.jooq.tables.Txn;
 
 
 /**
@@ -48,12 +50,17 @@ import org.minioasis.library.jooq.tables.Tag;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 211862901;
+    private static final long serialVersionUID = -1068860563;
 
     /**
      * The reference instance of <code>PUBLIC</code>
      */
     public static final Public PUBLIC = new Public();
+
+    /**
+     * The table <code>PUBLIC.ACCOUNT</code>.
+     */
+    public final Account ACCOUNT = org.minioasis.library.jooq.tables.Account.ACCOUNT;
 
     /**
      * The table <code>PUBLIC.ATTACHMENT</code>.
@@ -151,6 +158,11 @@ public class Public extends SchemaImpl {
     public final Tag TAG = org.minioasis.library.jooq.tables.Tag.TAG;
 
     /**
+     * The table <code>PUBLIC.TXN</code>.
+     */
+    public final Txn TXN = org.minioasis.library.jooq.tables.Txn.TXN;
+
+    /**
      * No further instances allowed
      */
     private Public() {
@@ -187,6 +199,7 @@ public class Public extends SchemaImpl {
 
     private final List<Table<?>> getTables0() {
         return Arrays.<Table<?>>asList(
+            Account.ACCOUNT,
             Attachment.ATTACHMENT,
             AttachmentCheckout.ATTACHMENT_CHECKOUT,
             Biblio.BIBLIO,
@@ -205,6 +218,7 @@ public class Public extends SchemaImpl {
             Publisher.PUBLISHER,
             Reservation.RESERVATION,
             Series.SERIES,
-            Tag.TAG);
+            Tag.TAG,
+            Txn.TXN);
     }
 }

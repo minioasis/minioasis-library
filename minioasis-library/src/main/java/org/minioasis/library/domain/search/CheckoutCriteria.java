@@ -22,7 +22,7 @@ public class CheckoutCriteria implements Serializable {
 	private LocalDate doneFrom;
 	private LocalDate doneTo;
 	
-	Set<CheckoutState> states = new HashSet<CheckoutState>();
+	private Set<CheckoutState> states = new HashSet<CheckoutState>();
 	private Set<YesNo> actives = new HashSet<YesNo>();
 	private Set<Long> patronTypes = new HashSet<Long>();
 	private Set<Long> groups = new HashSet<Long>();
