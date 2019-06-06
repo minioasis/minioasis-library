@@ -18,6 +18,8 @@ import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
 import org.minioasis.library.jooq.tables.ItemDuration;
 import org.minioasis.library.jooq.tables.ItemStatus;
+import org.minioasis.library.jooq.tables.JournalEntry;
+import org.minioasis.library.jooq.tables.JournalEntryLine;
 import org.minioasis.library.jooq.tables.Location;
 import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
@@ -26,7 +28,6 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
-import org.minioasis.library.jooq.tables.Txn;
 
 
 /**
@@ -103,6 +104,16 @@ public class Tables {
     public static final ItemStatus ITEM_STATUS = org.minioasis.library.jooq.tables.ItemStatus.ITEM_STATUS;
 
     /**
+     * The table <code>PUBLIC.JOURNAL_ENTRY</code>.
+     */
+    public static final JournalEntry JOURNAL_ENTRY = org.minioasis.library.jooq.tables.JournalEntry.JOURNAL_ENTRY;
+
+    /**
+     * The table <code>PUBLIC.JOURNAL_ENTRY_LINE</code>.
+     */
+    public static final JournalEntryLine JOURNAL_ENTRY_LINE = org.minioasis.library.jooq.tables.JournalEntryLine.JOURNAL_ENTRY_LINE;
+
+    /**
      * The table <code>PUBLIC.LOCATION</code>.
      */
     public static final Location LOCATION = org.minioasis.library.jooq.tables.Location.LOCATION;
@@ -141,9 +152,4 @@ public class Tables {
      * The table <code>PUBLIC.TAG</code>.
      */
     public static final Tag TAG = org.minioasis.library.jooq.tables.Tag.TAG;
-
-    /**
-     * The table <code>PUBLIC.TXN</code>.
-     */
-    public static final Txn TXN = org.minioasis.library.jooq.tables.Txn.TXN;
 }

@@ -26,6 +26,8 @@ import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
 import org.minioasis.library.jooq.tables.ItemDuration;
 import org.minioasis.library.jooq.tables.ItemStatus;
+import org.minioasis.library.jooq.tables.JournalEntry;
+import org.minioasis.library.jooq.tables.JournalEntryLine;
 import org.minioasis.library.jooq.tables.Location;
 import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
@@ -34,7 +36,6 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
-import org.minioasis.library.jooq.tables.Txn;
 
 
 /**
@@ -50,7 +51,7 @@ import org.minioasis.library.jooq.tables.Txn;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -1068860563;
+    private static final long serialVersionUID = 1056823489;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -118,6 +119,16 @@ public class Public extends SchemaImpl {
     public final ItemStatus ITEM_STATUS = org.minioasis.library.jooq.tables.ItemStatus.ITEM_STATUS;
 
     /**
+     * The table <code>PUBLIC.JOURNAL_ENTRY</code>.
+     */
+    public final JournalEntry JOURNAL_ENTRY = org.minioasis.library.jooq.tables.JournalEntry.JOURNAL_ENTRY;
+
+    /**
+     * The table <code>PUBLIC.JOURNAL_ENTRY_LINE</code>.
+     */
+    public final JournalEntryLine JOURNAL_ENTRY_LINE = org.minioasis.library.jooq.tables.JournalEntryLine.JOURNAL_ENTRY_LINE;
+
+    /**
      * The table <code>PUBLIC.LOCATION</code>.
      */
     public final Location LOCATION = org.minioasis.library.jooq.tables.Location.LOCATION;
@@ -156,11 +167,6 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.TAG</code>.
      */
     public final Tag TAG = org.minioasis.library.jooq.tables.Tag.TAG;
-
-    /**
-     * The table <code>PUBLIC.TXN</code>.
-     */
-    public final Txn TXN = org.minioasis.library.jooq.tables.Txn.TXN;
 
     /**
      * No further instances allowed
@@ -211,6 +217,8 @@ public class Public extends SchemaImpl {
             Item.ITEM,
             ItemDuration.ITEM_DURATION,
             ItemStatus.ITEM_STATUS,
+            JournalEntry.JOURNAL_ENTRY,
+            JournalEntryLine.JOURNAL_ENTRY_LINE,
             Location.LOCATION,
             Patron.PATRON,
             PatronType.PATRON_TYPE,
@@ -218,7 +226,6 @@ public class Public extends SchemaImpl {
             Publisher.PUBLISHER,
             Reservation.RESERVATION,
             Series.SERIES,
-            Tag.TAG,
-            Txn.TXN);
+            Tag.TAG);
     }
 }

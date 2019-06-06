@@ -24,8 +24,8 @@ import org.springframework.data.annotation.CreatedDate;
 import org.springframework.data.annotation.LastModifiedDate;
 
 @Entity
-@Table(name = "txn")
-public class Txn implements Serializable {
+@Table(name = "journal_entry")
+public class JournalEntry implements Serializable {
 
 	private static final long serialVersionUID = 862965136161416526L;
 
@@ -38,11 +38,6 @@ public class Txn implements Serializable {
 	@Length(max = 128)
 	@Column(name = "description", nullable = false)
 	private String description;
-	
-	@NotNull
-	@Length(max = 128)
-	@Column(name = "txn_pair", nullable = false)
-    private String txnPair;
 	
 	@Column(name = "txn_date")
     private LocalDate txnDate;
@@ -88,12 +83,6 @@ public class Txn implements Serializable {
 	}
 	public void setDescription(String description) {
 		this.description = description;
-	}
-	public String getTxnPair() {
-		return txnPair;
-	}
-	public void setTxnPair(String txnPair) {
-		this.txnPair = txnPair;
 	}
 	public LocalDate getTxnDate() {
 		return txnDate;

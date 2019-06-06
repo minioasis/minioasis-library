@@ -21,6 +21,8 @@ import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
 import org.minioasis.library.jooq.tables.ItemDuration;
 import org.minioasis.library.jooq.tables.ItemStatus;
+import org.minioasis.library.jooq.tables.JournalEntry;
+import org.minioasis.library.jooq.tables.JournalEntryLine;
 import org.minioasis.library.jooq.tables.Location;
 import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
@@ -29,7 +31,6 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
-import org.minioasis.library.jooq.tables.Txn;
 
 
 /**
@@ -83,6 +84,10 @@ public class Indexes {
     public static final Index UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E = Indexes0.UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E;
     public static final Index PRIMARY_KEY_64 = Indexes0.PRIMARY_KEY_64;
     public static final Index UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6 = Indexes0.UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6;
+    public static final Index FK_TXN_ACCOUNT_INDEX_E = Indexes0.FK_TXN_ACCOUNT_INDEX_E;
+    public static final Index FK_TXN_TOACCOUNT_INDEX_E = Indexes0.FK_TXN_TOACCOUNT_INDEX_E;
+    public static final Index PRIMARY_KEY_E8 = Indexes0.PRIMARY_KEY_E8;
+    public static final Index PRIMARY_KEY_F = Indexes0.PRIMARY_KEY_F;
     public static final Index PRIMARY_KEY_9 = Indexes0.PRIMARY_KEY_9;
     public static final Index UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9 = Indexes0.UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9;
     public static final Index FK_PATRON_GROUP_INDEX_8 = Indexes0.FK_PATRON_GROUP_INDEX_8;
@@ -94,7 +99,7 @@ public class Indexes {
     public static final Index PRIMARY_KEY_5 = Indexes0.PRIMARY_KEY_5;
     public static final Index UK_T54V4235XB53JP0OYG9QXYBBM_INDEX_5 = Indexes0.UK_T54V4235XB53JP0OYG9QXYBBM_INDEX_5;
     public static final Index PRIMARY_KEY_48 = Indexes0.PRIMARY_KEY_48;
-    public static final Index PRIMARY_KEY_F = Indexes0.PRIMARY_KEY_F;
+    public static final Index PRIMARY_KEY_FC = Indexes0.PRIMARY_KEY_FC;
     public static final Index UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F = Indexes0.UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F;
     public static final Index FK_RESERVATION_BIBLIO_INDEX_2 = Indexes0.FK_RESERVATION_BIBLIO_INDEX_2;
     public static final Index FK_RESERVATION_PATRONTYPE_INDEX_2 = Indexes0.FK_RESERVATION_PATRONTYPE_INDEX_2;
@@ -104,9 +109,6 @@ public class Indexes {
     public static final Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Indexes0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9;
     public static final Index PRIMARY_KEY_1 = Indexes0.PRIMARY_KEY_1;
     public static final Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Indexes0.UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1;
-    public static final Index FK_TXN_ACCOUNT_INDEX_1 = Indexes0.FK_TXN_ACCOUNT_INDEX_1;
-    public static final Index FK_TXN_TOACCOUNT_INDEX_1 = Indexes0.FK_TXN_TOACCOUNT_INDEX_1;
-    public static final Index PRIMARY_KEY_14 = Indexes0.PRIMARY_KEY_14;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -147,6 +149,10 @@ public class Indexes {
         public static Index UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E = Internal.createIndex("UK_EUJ6H91X1IYUL76UX181OQL98_INDEX_E", ItemDuration.ITEM_DURATION, new OrderField[] { ItemDuration.ITEM_DURATION.NAME }, true);
         public static Index PRIMARY_KEY_64 = Internal.createIndex("PRIMARY_KEY_64", ItemStatus.ITEM_STATUS, new OrderField[] { ItemStatus.ITEM_STATUS.ID }, true);
         public static Index UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6 = Internal.createIndex("UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6", ItemStatus.ITEM_STATUS, new OrderField[] { ItemStatus.ITEM_STATUS.NAME }, true);
+        public static Index FK_TXN_ACCOUNT_INDEX_E = Internal.createIndex("FK_TXN_ACCOUNT_INDEX_E", JournalEntry.JOURNAL_ENTRY, new OrderField[] { JournalEntry.JOURNAL_ENTRY.ACCOUNT_ID }, false);
+        public static Index FK_TXN_TOACCOUNT_INDEX_E = Internal.createIndex("FK_TXN_TOACCOUNT_INDEX_E", JournalEntry.JOURNAL_ENTRY, new OrderField[] { JournalEntry.JOURNAL_ENTRY.TO_ACCOUNT_ID }, false);
+        public static Index PRIMARY_KEY_E8 = Internal.createIndex("PRIMARY_KEY_E8", JournalEntry.JOURNAL_ENTRY, new OrderField[] { JournalEntry.JOURNAL_ENTRY.ID }, true);
+        public static Index PRIMARY_KEY_F = Internal.createIndex("PRIMARY_KEY_F", JournalEntryLine.JOURNAL_ENTRY_LINE, new OrderField[] { JournalEntryLine.JOURNAL_ENTRY_LINE.ID }, true);
         public static Index PRIMARY_KEY_9 = Internal.createIndex("PRIMARY_KEY_9", Location.LOCATION, new OrderField[] { Location.LOCATION.ID }, true);
         public static Index UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9 = Internal.createIndex("UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9", Location.LOCATION, new OrderField[] { Location.LOCATION.NAME }, true);
         public static Index FK_PATRON_GROUP_INDEX_8 = Internal.createIndex("FK_PATRON_GROUP_INDEX_8", Patron.PATRON, new OrderField[] { Patron.PATRON.GROUP_ID }, false);
@@ -158,7 +164,7 @@ public class Indexes {
         public static Index PRIMARY_KEY_5 = Internal.createIndex("PRIMARY_KEY_5", PatronType.PATRON_TYPE, new OrderField[] { PatronType.PATRON_TYPE.ID }, true);
         public static Index UK_T54V4235XB53JP0OYG9QXYBBM_INDEX_5 = Internal.createIndex("UK_T54V4235XB53JP0OYG9QXYBBM_INDEX_5", PatronType.PATRON_TYPE, new OrderField[] { PatronType.PATRON_TYPE.CODE }, true);
         public static Index PRIMARY_KEY_48 = Internal.createIndex("PRIMARY_KEY_48", Photo.PHOTO, new OrderField[] { Photo.PHOTO.ID }, true);
-        public static Index PRIMARY_KEY_F = Internal.createIndex("PRIMARY_KEY_F", Publisher.PUBLISHER, new OrderField[] { Publisher.PUBLISHER.ID }, true);
+        public static Index PRIMARY_KEY_FC = Internal.createIndex("PRIMARY_KEY_FC", Publisher.PUBLISHER, new OrderField[] { Publisher.PUBLISHER.ID }, true);
         public static Index UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F = Internal.createIndex("UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F", Publisher.PUBLISHER, new OrderField[] { Publisher.PUBLISHER.NAME }, true);
         public static Index FK_RESERVATION_BIBLIO_INDEX_2 = Internal.createIndex("FK_RESERVATION_BIBLIO_INDEX_2", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.BIBLIO_ID }, false);
         public static Index FK_RESERVATION_PATRONTYPE_INDEX_2 = Internal.createIndex("FK_RESERVATION_PATRONTYPE_INDEX_2", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.PATRONTYPE_ID }, false);
@@ -168,8 +174,5 @@ public class Indexes {
         public static Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Internal.createIndex("UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9", Series.SERIES, new OrderField[] { Series.SERIES.NAME }, true);
         public static Index PRIMARY_KEY_1 = Internal.createIndex("PRIMARY_KEY_1", Tag.TAG, new OrderField[] { Tag.TAG.ID }, true);
         public static Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Internal.createIndex("UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1", Tag.TAG, new OrderField[] { Tag.TAG.NAME }, true);
-        public static Index FK_TXN_ACCOUNT_INDEX_1 = Internal.createIndex("FK_TXN_ACCOUNT_INDEX_1", Txn.TXN, new OrderField[] { Txn.TXN.ACCOUNT_ID }, false);
-        public static Index FK_TXN_TOACCOUNT_INDEX_1 = Internal.createIndex("FK_TXN_TOACCOUNT_INDEX_1", Txn.TXN, new OrderField[] { Txn.TXN.TO_ACCOUNT_ID }, false);
-        public static Index PRIMARY_KEY_14 = Internal.createIndex("PRIMARY_KEY_14", Txn.TXN, new OrderField[] { Txn.TXN.ID }, true);
     }
 }

@@ -1,7 +1,7 @@
 package org.minioasis.library.repository;
 
 import static org.minioasis.library.jooq.tables.Account.ACCOUNT;
-import static org.minioasis.library.jooq.tables.Txn.TXN;
+import static org.minioasis.library.jooq.tables.JournalEntry.JOURNAL_ENTRY;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,14 +16,14 @@ import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
 import org.minioasis.library.domain.AccountType;
-import org.minioasis.library.domain.Txn;
-import org.minioasis.library.domain.search.TxnCriteria;
+import org.minioasis.library.domain.JournalEntry;
+import org.minioasis.library.domain.search.JournalEntryCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-public class TxnRepositoryImpl implements TxnRepositoryCustom {
+public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -31,11 +31,11 @@ public class TxnRepositoryImpl implements TxnRepositoryCustom {
 	@Autowired
 	private DSLContext dsl;
 	
-	private org.minioasis.library.jooq.tables.Txn t = TXN.as("t");
+	private org.minioasis.library.jooq.tables.JournalEntry j = JOURNAL_ENTRY.as("j");
 	private org.minioasis.library.jooq.tables.Account a = ACCOUNT.as("a");
 	private org.minioasis.library.jooq.tables.Account b = ACCOUNT.as("b");
 	
-	public Page<Txn> findByCriteria(TxnCriteria criteria, Pageable pageable){
+	public Page<JournalEntry> findByCriteria(JournalEntryCriteria criteria, Pageable pageable){
 		
 		Table<?> table = createTable();
 		
@@ -45,22 +45,22 @@ public class TxnRepositoryImpl implements TxnRepositoryCustom {
 									.limit(pageable.getPageSize())
 									.offset((int)pageable.getOffset());
 		
-		Query q = em.createNativeQuery(jooqQuery.getSQL(), Txn.class);
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), JournalEntry.class);
 		setBindParameterValues(q, jooqQuery);
 		
-		List<Txn> txns = q.getResultList();
+		List<JournalEntry> txns = q.getResultList();
 		
 		long total = findCountByCriteriaLikeExpression(criteria);
 		
 		return new PageImpl<>(txns, pageable, total);
 	}
 	
-	private long findCountByCriteriaLikeExpression(TxnCriteria criteria) {
+	private long findCountByCriteriaLikeExpression(JournalEntryCriteria criteria) {
 
 		Table<?> table = createTable();
 		
         long total = dsl.fetchCount(
-        						dsl.select(t.ID)
+        						dsl.select(j.ID)
         						.from(table)
         						.where(condition(criteria))
         );
@@ -70,10 +70,10 @@ public class TxnRepositoryImpl implements TxnRepositoryCustom {
 	
 	private Table<?> createTable() {
 		
-		Table<?> table = t;
+		Table<?> table = j;
 		
-		table = table.innerJoin(a).on(t.ACCOUNT_ID.eq(a.ID))
-				 .innerJoin(b).on(t.ACCOUNT_ID.eq(b.ID));
+		table = table.innerJoin(a).on(j.ACCOUNT_ID.eq(a.ID))
+				 .innerJoin(b).on(j.ACCOUNT_ID.eq(b.ID));
 		
 		return table;
 		
@@ -86,7 +86,7 @@ public class TxnRepositoryImpl implements TxnRepositoryCustom {
 	    }
 	}
 	
-	private Condition condition(TxnCriteria criteria) {
+	private Condition condition(JournalEntryCriteria criteria) {
 		
 	    Condition condition = DSL.trueCondition();
 	    
@@ -98,7 +98,7 @@ public class TxnRepositoryImpl implements TxnRepositoryCustom {
 		final LocalDate txnDateTo = criteria.getTxnDateTo();
 		
 		if(description != null) {
-			condition = condition.and(t.DESCRIPTION.likeIgnoreCase("%" + description + "%"));
+			condition = condition.and(j.DESCRIPTION.likeIgnoreCase("%" + description + "%"));
 		}
 		if(code1 != null) {
 			condition = condition.and(a.CODE.eq(code1));
@@ -107,8 +107,8 @@ public class TxnRepositoryImpl implements TxnRepositoryCustom {
 			condition = condition.and(b.CODE.eq(code2));
 		}
 		if(txnDateFrom != null && txnDateTo != null){
-			condition = condition.and(t.TXN_DATE.ge(java.sql.Date.valueOf(txnDateFrom))
-								 .and(t.TXN_DATE.le(java.sql.Date.valueOf(txnDateTo))));
+			condition = condition.and(j.TXN_DATE.ge(java.sql.Date.valueOf(txnDateFrom))
+								 .and(j.TXN_DATE.le(java.sql.Date.valueOf(txnDateTo))));
 		}
 		if(types1 != null && types1.size() > 0){
 			condition = condition.and(a.TYPE.in(types1));

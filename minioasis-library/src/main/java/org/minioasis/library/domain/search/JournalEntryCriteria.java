@@ -8,7 +8,7 @@ import java.util.Set;
 
 import org.minioasis.library.domain.AccountType;
 
-public class TxnCriteria implements Serializable {
+public class JournalEntryCriteria implements Serializable {
 
 	private static final long serialVersionUID = 390473093715431619L;
 

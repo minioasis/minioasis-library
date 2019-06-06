@@ -38,7 +38,7 @@ import org.minioasis.library.jooq.tables.records.PublisherRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Publisher extends TableImpl<PublisherRecord> {
 
-    private static final long serialVersionUID = -1318837700;
+    private static final long serialVersionUID = -747062999;
 
     /**
      * The reference instance of <code>PUBLIC.PUBLISHER</code>
@@ -105,7 +105,7 @@ public class Publisher extends TableImpl<PublisherRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_F, Indexes.UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F);
+        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_FC, Indexes.UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F);
     }
 
     /**
@@ -121,7 +121,7 @@ public class Publisher extends TableImpl<PublisherRecord> {
      */
     @Override
     public UniqueKey<PublisherRecord> getPrimaryKey() {
-        return Keys.CONSTRAINT_F;
+        return Keys.CONSTRAINT_FC;
     }
 
     /**
@@ -129,7 +129,7 @@ public class Publisher extends TableImpl<PublisherRecord> {
      */
     @Override
     public List<UniqueKey<PublisherRecord>> getKeys() {
-        return Arrays.<UniqueKey<PublisherRecord>>asList(Keys.CONSTRAINT_F, Keys.UK_H9TRV4XHMH6S68VBW9BA6TO70);
+        return Arrays.<UniqueKey<PublisherRecord>>asList(Keys.CONSTRAINT_FC, Keys.UK_H9TRV4XHMH6S68VBW9BA6TO70);
     }
 
     /**
