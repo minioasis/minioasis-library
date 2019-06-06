@@ -154,8 +154,9 @@ public class Keys {
     public static final ForeignKey<ItemRecord, ItemDurationRecord> FK_ITEM_ITEMDURATION = ForeignKeys0.FK_ITEM_ITEMDURATION;
     public static final ForeignKey<ItemRecord, ItemStatusRecord> FK_ITEM_ITEMSTATUS = ForeignKeys0.FK_ITEM_ITEMSTATUS;
     public static final ForeignKey<ItemRecord, LocationRecord> FK_ITEM_LOCATION = ForeignKeys0.FK_ITEM_LOCATION;
-    public static final ForeignKey<JournalEntryRecord, AccountRecord> FK_TXN_ACCOUNT = ForeignKeys0.FK_TXN_ACCOUNT;
-    public static final ForeignKey<JournalEntryRecord, AccountRecord> FK_TXN_TOACCOUNT = ForeignKeys0.FK_TXN_TOACCOUNT;
+    public static final ForeignKey<JournalEntryLineRecord, AccountRecord> FK_JOURNALENTRYLINE_ACCOUNT = ForeignKeys0.FK_JOURNALENTRYLINE_ACCOUNT;
+    public static final ForeignKey<JournalEntryLineRecord, JournalEntryRecord> FK_JOURNALENTRYLINE_JOURNALENTRY = ForeignKeys0.FK_JOURNALENTRYLINE_JOURNALENTRY;
+    public static final ForeignKey<JournalEntryLineRecord, AccountRecord> FK_JOURNALENTRYLINE_TOACCOUNT = ForeignKeys0.FK_JOURNALENTRYLINE_TOACCOUNT;
     public static final ForeignKey<PatronRecord, GroupsRecord> FK_PATRON_GROUP = ForeignKeys0.FK_PATRON_GROUP;
     public static final ForeignKey<PatronRecord, PatronTypeRecord> FK_PATRON_PATRONTYPE = ForeignKeys0.FK_PATRON_PATRONTYPE;
     public static final ForeignKey<PatronRecord, PhotoRecord> FKF9H2JWFDUY0AKISOPKRLPI37D = ForeignKeys0.FKF9H2JWFDUY0AKISOPKRLPI37D;
@@ -244,8 +245,9 @@ public class Keys {
         public static final ForeignKey<ItemRecord, ItemDurationRecord> FK_ITEM_ITEMDURATION = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E2, Item.ITEM, "FK_ITEM_ITEMDURATION", Item.ITEM.ITEM_DURATION_ID);
         public static final ForeignKey<ItemRecord, ItemStatusRecord> FK_ITEM_ITEMSTATUS = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_64, Item.ITEM, "FK_ITEM_ITEMSTATUS", Item.ITEM.ITEM_STATUS_ID);
         public static final ForeignKey<ItemRecord, LocationRecord> FK_ITEM_LOCATION = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_9, Item.ITEM, "FK_ITEM_LOCATION", Item.ITEM.LOCATION_ID);
-        public static final ForeignKey<JournalEntryRecord, AccountRecord> FK_TXN_ACCOUNT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, JournalEntry.JOURNAL_ENTRY, "FK_TXN_ACCOUNT", JournalEntry.JOURNAL_ENTRY.ACCOUNT_ID);
-        public static final ForeignKey<JournalEntryRecord, AccountRecord> FK_TXN_TOACCOUNT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, JournalEntry.JOURNAL_ENTRY, "FK_TXN_TOACCOUNT", JournalEntry.JOURNAL_ENTRY.TO_ACCOUNT_ID);
+        public static final ForeignKey<JournalEntryLineRecord, AccountRecord> FK_JOURNALENTRYLINE_ACCOUNT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, JournalEntryLine.JOURNAL_ENTRY_LINE, "FK_JOURNALENTRYLINE_ACCOUNT", JournalEntryLine.JOURNAL_ENTRY_LINE.ACCOUNT_ID);
+        public static final ForeignKey<JournalEntryLineRecord, JournalEntryRecord> FK_JOURNALENTRYLINE_JOURNALENTRY = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E8, JournalEntryLine.JOURNAL_ENTRY_LINE, "FK_JOURNALENTRYLINE_JOURNALENTRY", JournalEntryLine.JOURNAL_ENTRY_LINE.JOURNALENTRY_ID);
+        public static final ForeignKey<JournalEntryLineRecord, AccountRecord> FK_JOURNALENTRYLINE_TOACCOUNT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, JournalEntryLine.JOURNAL_ENTRY_LINE, "FK_JOURNALENTRYLINE_TOACCOUNT", JournalEntryLine.JOURNAL_ENTRY_LINE.TO_ACCOUNT_ID);
         public static final ForeignKey<PatronRecord, GroupsRecord> FK_PATRON_GROUP = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7D, Patron.PATRON, "FK_PATRON_GROUP", Patron.PATRON.GROUP_ID);
         public static final ForeignKey<PatronRecord, PatronTypeRecord> FK_PATRON_PATRONTYPE = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_5, Patron.PATRON, "FK_PATRON_PATRONTYPE", Patron.PATRON.PATRONTYPE_ID);
         public static final ForeignKey<PatronRecord, PhotoRecord> FKF9H2JWFDUY0AKISOPKRLPI37D = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_48, Patron.PATRON, "FKF9H2JWFDUY0AKISOPKRLPI37D", Patron.PATRON.PHOTO_ID);

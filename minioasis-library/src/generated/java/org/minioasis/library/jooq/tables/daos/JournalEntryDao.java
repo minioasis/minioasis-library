@@ -74,17 +74,10 @@ public class JournalEntryDao extends DAOImpl<JournalEntryRecord, org.minioasis.l
     }
 
     /**
-     * Fetch records that have <code>CREDIT IN (values)</code>
+     * Fetch records that have <code>CREATED_BY IN (values)</code>
      */
-    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByCredit(BigDecimal... values) {
-        return fetch(JournalEntry.JOURNAL_ENTRY.CREDIT, values);
-    }
-
-    /**
-     * Fetch records that have <code>DEBIT IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByDebit(BigDecimal... values) {
-        return fetch(JournalEntry.JOURNAL_ENTRY.DEBIT, values);
+    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByCreatedBy(String... values) {
+        return fetch(JournalEntry.JOURNAL_ENTRY.CREATED_BY, values);
     }
 
     /**
@@ -95,10 +88,10 @@ public class JournalEntryDao extends DAOImpl<JournalEntryRecord, org.minioasis.l
     }
 
     /**
-     * Fetch records that have <code>RECORD_BY IN (values)</code>
+     * Fetch records that have <code>TOTAL IN (values)</code>
      */
-    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByRecordBy(String... values) {
-        return fetch(JournalEntry.JOURNAL_ENTRY.RECORD_BY, values);
+    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByTotal(BigDecimal... values) {
+        return fetch(JournalEntry.JOURNAL_ENTRY.TOTAL, values);
     }
 
     /**
@@ -120,19 +113,5 @@ public class JournalEntryDao extends DAOImpl<JournalEntryRecord, org.minioasis.l
      */
     public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByUpdatedBy(String... values) {
         return fetch(JournalEntry.JOURNAL_ENTRY.UPDATED_BY, values);
-    }
-
-    /**
-     * Fetch records that have <code>ACCOUNT_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByAccountId(Long... values) {
-        return fetch(JournalEntry.JOURNAL_ENTRY.ACCOUNT_ID, values);
-    }
-
-    /**
-     * Fetch records that have <code>TO_ACCOUNT_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByToAccountId(Long... values) {
-        return fetch(JournalEntry.JOURNAL_ENTRY.TO_ACCOUNT_ID, values);
     }
 }

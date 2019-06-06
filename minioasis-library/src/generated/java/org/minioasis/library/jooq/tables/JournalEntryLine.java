@@ -4,12 +4,14 @@
 package org.minioasis.library.jooq.tables;
 
 
+import java.math.BigDecimal;
 import java.util.Arrays;
 import java.util.List;
 
 import javax.annotation.Generated;
 
 import org.jooq.Field;
+import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -38,7 +40,7 @@ import org.minioasis.library.jooq.tables.records.JournalEntryLineRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntryLine extends TableImpl<JournalEntryLineRecord> {
 
-    private static final long serialVersionUID = 1381545627;
+    private static final long serialVersionUID = 1281429615;
 
     /**
      * The reference instance of <code>PUBLIC.JOURNAL_ENTRY_LINE</code>
@@ -57,6 +59,41 @@ public class JournalEntryLine extends TableImpl<JournalEntryLineRecord> {
      * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.ID</code>.
      */
     public final TableField<JournalEntryLineRecord, Long> ID = createField("ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+
+    /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.CREDIT</code>.
+     */
+    public final TableField<JournalEntryLineRecord, BigDecimal> CREDIT = createField("CREDIT", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.DEBIT</code>.
+     */
+    public final TableField<JournalEntryLineRecord, BigDecimal> DEBIT = createField("DEBIT", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.DESCRIPTION</code>.
+     */
+    public final TableField<JournalEntryLineRecord, String> DESCRIPTION = createField("DESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.REFERENCE</code>.
+     */
+    public final TableField<JournalEntryLineRecord, String> REFERENCE = createField("REFERENCE", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.ACCOUNT_ID</code>.
+     */
+    public final TableField<JournalEntryLineRecord, Long> ACCOUNT_ID = createField("ACCOUNT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.JOURNALENTRY_ID</code>.
+     */
+    public final TableField<JournalEntryLineRecord, Long> JOURNALENTRY_ID = createField("JOURNALENTRY_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.TO_ACCOUNT_ID</code>.
+     */
+    public final TableField<JournalEntryLineRecord, Long> TO_ACCOUNT_ID = createField("TO_ACCOUNT_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * Create a <code>PUBLIC.JOURNAL_ENTRY_LINE</code> table reference
@@ -100,7 +137,7 @@ public class JournalEntryLine extends TableImpl<JournalEntryLineRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_F);
+        return Arrays.<Index>asList(Indexes.FK_JOURNALENTRYLINE_ACCOUNT_INDEX_F, Indexes.FK_JOURNALENTRYLINE_JOURNALENTRY_INDEX_F, Indexes.FK_JOURNALENTRYLINE_TOACCOUNT_INDEX_F, Indexes.PRIMARY_KEY_F);
     }
 
     /**
@@ -125,6 +162,14 @@ public class JournalEntryLine extends TableImpl<JournalEntryLineRecord> {
     @Override
     public List<UniqueKey<JournalEntryLineRecord>> getKeys() {
         return Arrays.<UniqueKey<JournalEntryLineRecord>>asList(Keys.CONSTRAINT_F);
+    }
+
+    /**
+     * {@inheritDoc}
+     */
+    @Override
+    public List<ForeignKey<JournalEntryLineRecord, ?>> getReferences() {
+        return Arrays.<ForeignKey<JournalEntryLineRecord, ?>>asList(Keys.FK_JOURNALENTRYLINE_ACCOUNT, Keys.FK_JOURNALENTRYLINE_JOURNALENTRY, Keys.FK_JOURNALENTRYLINE_TOACCOUNT);
     }
 
     /**

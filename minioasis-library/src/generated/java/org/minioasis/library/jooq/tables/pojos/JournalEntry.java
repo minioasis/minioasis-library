@@ -25,60 +25,48 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntry implements Serializable {
 
-    private static final long serialVersionUID = 354211374;
+    private static final long serialVersionUID = -1135506473;
 
     private Long       id;
     private Timestamp  created;
-    private BigDecimal credit;
-    private BigDecimal debit;
+    private String     createdBy;
     private String     description;
-    private String     recordBy;
+    private BigDecimal total;
     private Date       txnDate;
     private Timestamp  updated;
     private String     updatedBy;
-    private Long       accountId;
-    private Long       toAccountId;
 
     public JournalEntry() {}
 
     public JournalEntry(JournalEntry value) {
         this.id = value.id;
         this.created = value.created;
-        this.credit = value.credit;
-        this.debit = value.debit;
+        this.createdBy = value.createdBy;
         this.description = value.description;
-        this.recordBy = value.recordBy;
+        this.total = value.total;
         this.txnDate = value.txnDate;
         this.updated = value.updated;
         this.updatedBy = value.updatedBy;
-        this.accountId = value.accountId;
-        this.toAccountId = value.toAccountId;
     }
 
     public JournalEntry(
         Long       id,
         Timestamp  created,
-        BigDecimal credit,
-        BigDecimal debit,
+        String     createdBy,
         String     description,
-        String     recordBy,
+        BigDecimal total,
         Date       txnDate,
         Timestamp  updated,
-        String     updatedBy,
-        Long       accountId,
-        Long       toAccountId
+        String     updatedBy
     ) {
         this.id = id;
         this.created = created;
-        this.credit = credit;
-        this.debit = debit;
+        this.createdBy = createdBy;
         this.description = description;
-        this.recordBy = recordBy;
+        this.total = total;
         this.txnDate = txnDate;
         this.updated = updated;
         this.updatedBy = updatedBy;
-        this.accountId = accountId;
-        this.toAccountId = toAccountId;
     }
 
     public Long getId() {
@@ -97,20 +85,12 @@ public class JournalEntry implements Serializable {
         this.created = created;
     }
 
-    public BigDecimal getCredit() {
-        return this.credit;
+    public String getCreatedBy() {
+        return this.createdBy;
     }
 
-    public void setCredit(BigDecimal credit) {
-        this.credit = credit;
-    }
-
-    public BigDecimal getDebit() {
-        return this.debit;
-    }
-
-    public void setDebit(BigDecimal debit) {
-        this.debit = debit;
+    public void setCreatedBy(String createdBy) {
+        this.createdBy = createdBy;
     }
 
     public String getDescription() {
@@ -121,12 +101,12 @@ public class JournalEntry implements Serializable {
         this.description = description;
     }
 
-    public String getRecordBy() {
-        return this.recordBy;
+    public BigDecimal getTotal() {
+        return this.total;
     }
 
-    public void setRecordBy(String recordBy) {
-        this.recordBy = recordBy;
+    public void setTotal(BigDecimal total) {
+        this.total = total;
     }
 
     public Date getTxnDate() {
@@ -153,37 +133,18 @@ public class JournalEntry implements Serializable {
         this.updatedBy = updatedBy;
     }
 
-    public Long getAccountId() {
-        return this.accountId;
-    }
-
-    public void setAccountId(Long accountId) {
-        this.accountId = accountId;
-    }
-
-    public Long getToAccountId() {
-        return this.toAccountId;
-    }
-
-    public void setToAccountId(Long toAccountId) {
-        this.toAccountId = toAccountId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("JournalEntry (");
 
         sb.append(id);
         sb.append(", ").append(created);
-        sb.append(", ").append(credit);
-        sb.append(", ").append(debit);
+        sb.append(", ").append(createdBy);
         sb.append(", ").append(description);
-        sb.append(", ").append(recordBy);
+        sb.append(", ").append(total);
         sb.append(", ").append(txnDate);
         sb.append(", ").append(updated);
         sb.append(", ").append(updatedBy);
-        sb.append(", ").append(accountId);
-        sb.append(", ").append(toAccountId);
 
         sb.append(")");
         return sb.toString();

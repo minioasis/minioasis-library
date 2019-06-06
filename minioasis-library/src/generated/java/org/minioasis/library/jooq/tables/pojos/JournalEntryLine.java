@@ -5,6 +5,7 @@ package org.minioasis.library.jooq.tables.pojos;
 
 
 import java.io.Serializable;
+import java.math.BigDecimal;
 
 import javax.annotation.Generated;
 
@@ -22,20 +23,48 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntryLine implements Serializable {
 
-    private static final long serialVersionUID = 1949153540;
+    private static final long serialVersionUID = 1912849366;
 
-    private Long id;
+    private Long       id;
+    private BigDecimal credit;
+    private BigDecimal debit;
+    private String     description;
+    private String     reference;
+    private Long       accountId;
+    private Long       journalentryId;
+    private Long       toAccountId;
 
     public JournalEntryLine() {}
 
     public JournalEntryLine(JournalEntryLine value) {
         this.id = value.id;
+        this.credit = value.credit;
+        this.debit = value.debit;
+        this.description = value.description;
+        this.reference = value.reference;
+        this.accountId = value.accountId;
+        this.journalentryId = value.journalentryId;
+        this.toAccountId = value.toAccountId;
     }
 
     public JournalEntryLine(
-        Long id
+        Long       id,
+        BigDecimal credit,
+        BigDecimal debit,
+        String     description,
+        String     reference,
+        Long       accountId,
+        Long       journalentryId,
+        Long       toAccountId
     ) {
         this.id = id;
+        this.credit = credit;
+        this.debit = debit;
+        this.description = description;
+        this.reference = reference;
+        this.accountId = accountId;
+        this.journalentryId = journalentryId;
+        this.toAccountId = toAccountId;
     }
 
     public Long getId() {
@@ -46,11 +75,74 @@ public class JournalEntryLine implements Serializable {
         this.id = id;
     }
 
+    public BigDecimal getCredit() {
+        return this.credit;
+    }
+
+    public void setCredit(BigDecimal credit) {
+        this.credit = credit;
+    }
+
+    public BigDecimal getDebit() {
+        return this.debit;
+    }
+
+    public void setDebit(BigDecimal debit) {
+        this.debit = debit;
+    }
+
+    public String getDescription() {
+        return this.description;
+    }
+
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    public String getReference() {
+        return this.reference;
+    }
+
+    public void setReference(String reference) {
+        this.reference = reference;
+    }
+
+    public Long getAccountId() {
+        return this.accountId;
+    }
+
+    public void setAccountId(Long accountId) {
+        this.accountId = accountId;
+    }
+
+    public Long getJournalentryId() {
+        return this.journalentryId;
+    }
+
+    public void setJournalentryId(Long journalentryId) {
+        this.journalentryId = journalentryId;
+    }
+
+    public Long getToAccountId() {
+        return this.toAccountId;
+    }
+
+    public void setToAccountId(Long toAccountId) {
+        this.toAccountId = toAccountId;
+    }
+
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("JournalEntryLine (");
 
         sb.append(id);
+        sb.append(", ").append(credit);
+        sb.append(", ").append(debit);
+        sb.append(", ").append(description);
+        sb.append(", ").append(reference);
+        sb.append(", ").append(accountId);
+        sb.append(", ").append(journalentryId);
+        sb.append(", ").append(toAccountId);
 
         sb.append(")");
         return sb.toString();

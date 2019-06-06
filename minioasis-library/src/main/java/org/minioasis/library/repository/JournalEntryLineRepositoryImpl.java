@@ -2,6 +2,7 @@ package org.minioasis.library.repository;
 
 import static org.minioasis.library.jooq.tables.Account.ACCOUNT;
 import static org.minioasis.library.jooq.tables.JournalEntry.JOURNAL_ENTRY;
+import static org.minioasis.library.jooq.tables.JournalEntryLine.JOURNAL_ENTRY_LINE;
 
 import java.time.LocalDate;
 import java.util.List;
@@ -16,14 +17,14 @@ import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
 import org.minioasis.library.domain.AccountType;
-import org.minioasis.library.domain.JournalEntry;
-import org.minioasis.library.domain.search.JournalEntryCriteria;
+import org.minioasis.library.domain.JournalEntryLine;
+import org.minioasis.library.domain.search.JournalEntryLineCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
 
-public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom {
+public class JournalEntryLineRepositoryImpl implements JournalEntryLineRepositoryCustom {
 
 	@PersistenceContext
 	private EntityManager em;
@@ -32,10 +33,11 @@ public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom 
 	private DSLContext dsl;
 	
 	private org.minioasis.library.jooq.tables.JournalEntry j = JOURNAL_ENTRY.as("j");
+	private org.minioasis.library.jooq.tables.JournalEntryLine jl = JOURNAL_ENTRY_LINE.as("jl");
 	private org.minioasis.library.jooq.tables.Account a = ACCOUNT.as("a");
 	private org.minioasis.library.jooq.tables.Account b = ACCOUNT.as("b");
 	
-	public Page<JournalEntry> findByCriteria(JournalEntryCriteria criteria, Pageable pageable){
+	public Page<JournalEntryLine> findByCriteria(JournalEntryLineCriteria criteria, Pageable pageable){
 		
 		Table<?> table = createTable();
 		
@@ -45,22 +47,22 @@ public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom 
 									.limit(pageable.getPageSize())
 									.offset((int)pageable.getOffset());
 		
-		Query q = em.createNativeQuery(jooqQuery.getSQL(), JournalEntry.class);
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), JournalEntryLine.class);
 		setBindParameterValues(q, jooqQuery);
 		
-		List<JournalEntry> txns = q.getResultList();
+		List<JournalEntryLine> lines = q.getResultList();
 		
 		long total = findCountByCriteriaLikeExpression(criteria);
 		
-		return new PageImpl<>(txns, pageable, total);
+		return new PageImpl<>(lines, pageable, total);
 	}
 	
-	private long findCountByCriteriaLikeExpression(JournalEntryCriteria criteria) {
+	private long findCountByCriteriaLikeExpression(JournalEntryLineCriteria criteria) {
 
 		Table<?> table = createTable();
 		
         long total = dsl.fetchCount(
-        						dsl.select(j.ID)
+        						dsl.select(jl.ID)
         						.from(table)
         						.where(condition(criteria))
         );
@@ -70,10 +72,11 @@ public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom 
 	
 	private Table<?> createTable() {
 		
-		Table<?> table = j;
+		Table<?> table = jl;
 		
-		table = table.innerJoin(a).on(j.ACCOUNT_ID.eq(a.ID))
-				 .innerJoin(b).on(j.ACCOUNT_ID.eq(b.ID));
+		table = table.innerJoin(j).on(jl.JOURNALENTRY_ID.eq(j.ID))
+					 .innerJoin(a).on(jl.ACCOUNT_ID.eq(a.ID))
+				 	 .innerJoin(b).on(jl.ACCOUNT_ID.eq(b.ID));
 		
 		return table;
 		
@@ -86,7 +89,7 @@ public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom 
 	    }
 	}
 	
-	private Condition condition(JournalEntryCriteria criteria) {
+	private Condition condition(JournalEntryLineCriteria criteria) {
 		
 	    Condition condition = DSL.trueCondition();
 	    
@@ -98,7 +101,7 @@ public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom 
 		final LocalDate txnDateTo = criteria.getTxnDateTo();
 		
 		if(description != null) {
-			condition = condition.and(j.DESCRIPTION.likeIgnoreCase("%" + description + "%"));
+			condition = condition.and(jl.DESCRIPTION.likeIgnoreCase("%" + description + "%"));
 		}
 		if(code1 != null) {
 			condition = condition.and(a.CODE.eq(code1));

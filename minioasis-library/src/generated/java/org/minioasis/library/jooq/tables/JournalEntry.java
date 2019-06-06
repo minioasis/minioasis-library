@@ -13,7 +13,6 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Field;
-import org.jooq.ForeignKey;
 import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
@@ -42,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.JournalEntryRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntry extends TableImpl<JournalEntryRecord> {
 
-    private static final long serialVersionUID = -1439982134;
+    private static final long serialVersionUID = 709377887;
 
     /**
      * The reference instance of <code>PUBLIC.JOURNAL_ENTRY</code>
@@ -68,14 +67,9 @@ public class JournalEntry extends TableImpl<JournalEntryRecord> {
     public final TableField<JournalEntryRecord, Timestamp> CREATED = createField("CREATED", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
-     * The column <code>PUBLIC.JOURNAL_ENTRY.CREDIT</code>.
+     * The column <code>PUBLIC.JOURNAL_ENTRY.CREATED_BY</code>.
      */
-    public final TableField<JournalEntryRecord, BigDecimal> CREDIT = createField("CREDIT", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
-
-    /**
-     * The column <code>PUBLIC.JOURNAL_ENTRY.DEBIT</code>.
-     */
-    public final TableField<JournalEntryRecord, BigDecimal> DEBIT = createField("DEBIT", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
+    public final TableField<JournalEntryRecord, String> CREATED_BY = createField("CREATED_BY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>PUBLIC.JOURNAL_ENTRY.DESCRIPTION</code>.
@@ -83,9 +77,9 @@ public class JournalEntry extends TableImpl<JournalEntryRecord> {
     public final TableField<JournalEntryRecord, String> DESCRIPTION = createField("DESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.JOURNAL_ENTRY.RECORD_BY</code>.
+     * The column <code>PUBLIC.JOURNAL_ENTRY.TOTAL</code>.
      */
-    public final TableField<JournalEntryRecord, String> RECORD_BY = createField("RECORD_BY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<JournalEntryRecord, BigDecimal> TOTAL = createField("TOTAL", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.JOURNAL_ENTRY.TXN_DATE</code>.
@@ -101,16 +95,6 @@ public class JournalEntry extends TableImpl<JournalEntryRecord> {
      * The column <code>PUBLIC.JOURNAL_ENTRY.UPDATED_BY</code>.
      */
     public final TableField<JournalEntryRecord, String> UPDATED_BY = createField("UPDATED_BY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
-
-    /**
-     * The column <code>PUBLIC.JOURNAL_ENTRY.ACCOUNT_ID</code>.
-     */
-    public final TableField<JournalEntryRecord, Long> ACCOUNT_ID = createField("ACCOUNT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
-     * The column <code>PUBLIC.JOURNAL_ENTRY.TO_ACCOUNT_ID</code>.
-     */
-    public final TableField<JournalEntryRecord, Long> TO_ACCOUNT_ID = createField("TO_ACCOUNT_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * Create a <code>PUBLIC.JOURNAL_ENTRY</code> table reference
@@ -154,7 +138,7 @@ public class JournalEntry extends TableImpl<JournalEntryRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FK_TXN_ACCOUNT_INDEX_E, Indexes.FK_TXN_TOACCOUNT_INDEX_E, Indexes.PRIMARY_KEY_E8);
+        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_E8);
     }
 
     /**
@@ -179,14 +163,6 @@ public class JournalEntry extends TableImpl<JournalEntryRecord> {
     @Override
     public List<UniqueKey<JournalEntryRecord>> getKeys() {
         return Arrays.<UniqueKey<JournalEntryRecord>>asList(Keys.CONSTRAINT_E8);
-    }
-
-    /**
-     * {@inheritDoc}
-     */
-    @Override
-    public List<ForeignKey<JournalEntryRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<JournalEntryRecord, ?>>asList(Keys.FK_TXN_ACCOUNT, Keys.FK_TXN_TOACCOUNT);
     }
 
     /**
