@@ -31,7 +31,9 @@ public class Account implements Serializable {
 	@NotNull
 	@Length(max = 128)
 	private String name;
-	
+
+	@NotNull
+	@Length(max = 64)
 	private AccountType type;
 	
 	private Account parent;

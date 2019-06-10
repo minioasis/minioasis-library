@@ -19,6 +19,7 @@ import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemStatus;
+import org.minioasis.library.domain.JournalEntryLine;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.Location;
@@ -33,6 +34,7 @@ import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
+import org.minioasis.library.domain.search.JournalEntryLineCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.domain.search.ReservationCriteria;
 import org.minioasis.library.exception.LibraryException;
@@ -196,6 +198,16 @@ public interface LibraryService {
 	List<ItemStatus> findAllItemStatus();
 	List<ItemStatus> findAllItemStatus(Sort sort);
 	Page<ItemStatus> findAllItemStatusByName(String name, Pageable pageable);
+	
+	// JournalEntryLine
+	void save(JournalEntryLine entity);
+	void delete(JournalEntryLine entity);
+	void deleteJournalEntryLine(long id);
+	JournalEntryLine getJournalEntryLine(long id);
+	List<JournalEntryLine> findAllJournalEntryLines();
+	List<JournalEntryLine> findAllJournalEntryLines(Sort sort);
+	Page<JournalEntryLine> findAllJournalEntryLines(Pageable pageable);
+	Page<JournalEntryLine> findByCriteria(JournalEntryLineCriteria criteria, Pageable pageable);
 	
 	// Location
 	void save(Location entity);

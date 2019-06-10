@@ -220,26 +220,29 @@
 				<!----------------- Patron ---------------------->
 				<h5>
 					<i class="fas fa-cash-register text-warning"></i>
-					<span th:text="#{patron}">Patron</span>
+					<span th:text="#{account}">Account</span>
 				</h5>
 				
 				<p><p/>
 				
-				<span th:text="#{patron}">Patron</span>
+				<span th:text="#{account}">Account</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/save}">
-					<i class="fas fa-user-plus"></i>
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/account/save}">
+					<i class="fas fa-inbox"></i>
 				</a>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/account/list(page=0,size=10,sort='code,desc')}">
 					<i class="fas fa-search"></i>
 				</a>
 				
 				<p><p/>
 				
-				<span th:text="#{patron.change.group}">Change Group</span>
+				<span th:text="#{journalentry.line}">Journal Entry Line</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
-					<i class="fas fa-random"></i>
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry.line/save}">
+					<i class="fas fa-list"></i>
+				</a>
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+					<i class="fas fa-search"></i>
 				</a>
 
 		    </div>

@@ -23,6 +23,7 @@ import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
+import org.minioasis.library.domain.JournalEntryLine;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.Location;
@@ -38,6 +39,7 @@ import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
+import org.minioasis.library.domain.search.JournalEntryLineCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.domain.search.ReservationCriteria;
 import org.minioasis.library.exception.LibraryException;
@@ -51,6 +53,7 @@ import org.minioasis.library.repository.HolidayRepository;
 import org.minioasis.library.repository.ItemDurationRepository;
 import org.minioasis.library.repository.ItemRepository;
 import org.minioasis.library.repository.ItemStatusRepository;
+import org.minioasis.library.repository.JournalEntryLineRepository;
 import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.library.repository.PatronTypeRepository;
 import org.minioasis.library.repository.LocationRepository;
@@ -89,6 +92,8 @@ public class LibraryServiceImpl implements LibraryService {
 	private ItemDurationRepository itemDurationRepository;
 	@Autowired
 	private ItemStatusRepository itemStatusRepository;
+	@Autowired
+	private JournalEntryLineRepository journalEntryLineRepository;
 	@Autowired
 	private LocationRepository locationRepository;
 	@Autowired
@@ -676,6 +681,32 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<ItemStatus> findAllItemStatusByName(String name, Pageable pageable){
 		return this.itemStatusRepository.findAllByName(name, pageable);
+	}
+	
+	/*************************************  JournalEntryLine  ************************************/
+	public void save(JournalEntryLine entity) {
+		this.journalEntryLineRepository.save(entity);
+	}
+	public void delete(JournalEntryLine entity){
+		this.journalEntryLineRepository.delete(entity);
+	}
+	public void deleteJournalEntryLine(long id){
+		this.journalEntryLineRepository.deleteById(id);
+	}
+	public JournalEntryLine getJournalEntryLine(long id){
+		return this.journalEntryLineRepository.getOne(id);
+	}
+	public List<JournalEntryLine> findAllJournalEntryLines(){
+		return this.journalEntryLineRepository.findAll();
+	}
+	public List<JournalEntryLine> findAllJournalEntryLines(Sort sort){
+		return this.journalEntryLineRepository.findAll(sort);
+	}
+	public Page<JournalEntryLine> findAllJournalEntryLines(Pageable pageable){
+		return this.journalEntryLineRepository.findAll(pageable);
+	}
+	public Page<JournalEntryLine> findByCriteria(JournalEntryLineCriteria criteria, Pageable pageable){
+		return this.journalEntryLineRepository.findByCriteria(criteria, pageable);
 	}
 	
 	/****************************************  Location  ****************************************/
