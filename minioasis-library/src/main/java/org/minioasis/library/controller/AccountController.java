@@ -6,6 +6,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
 import org.minioasis.library.domain.Account;
+import org.minioasis.library.domain.AccountType;
 import org.minioasis.library.domain.search.AccountCriteria;
 import org.minioasis.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +30,11 @@ public class AccountController {
 
 	@Autowired
 	private LibraryService service;
+
+	@ModelAttribute("accountTypez")
+	public AccountType[] populateAccountTypes() {
+		return AccountType.values();	
+	}
 	
 	@RequestMapping("/save")
 	public String create(Model model) {

@@ -227,10 +227,10 @@
 				
 				<span th:text="#{account}">Account</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/account/save}">
-					<i class="fas fa-inbox"></i>
+				<a class="btn btn-outline-warning text-warning" href="#" th:href="@{/account/save}">
+					<i class="far fa-copy"></i>
 				</a>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/account/list(page=0,size=10,sort='code,desc')}">
+				<a class="btn btn-outline-warning text-warning" href="#" th:href="@{/account/list(page=0,size=10,sort='code,desc')}">
 					<i class="fas fa-search"></i>
 				</a>
 				
@@ -238,10 +238,10 @@
 				
 				<span th:text="#{journalentry.line}">Journal Entry Line</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry.line/save}">
+				<a class="btn btn-outline-warning text-warning" href="#" th:href="@{/journalentry.line/save}">
 					<i class="fas fa-list"></i>
 				</a>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+				<a class="btn btn-outline-warning text-warning" href="#" th:href="@{/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
 					<i class="fas fa-search"></i>
 				</a>
 

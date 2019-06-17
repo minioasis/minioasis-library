@@ -33,10 +33,9 @@ public class Account implements Serializable {
 	private String name;
 
 	@NotNull
-	@Length(max = 64)
 	private AccountType type;
 	
-	private Account parent;
+	//private Account parent;
 
 	public Long getId() {
 		return id;
@@ -68,14 +67,6 @@ public class Account implements Serializable {
 
 	public void setType(AccountType type) {
 		this.type = type;
-	}
-
-	public Account getParent() {
-		return parent;
-	}
-
-	public void setParent(Account parent) {
-		this.parent = parent;
 	}
 
 }
