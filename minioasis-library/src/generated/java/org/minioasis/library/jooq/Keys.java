@@ -16,6 +16,7 @@ import org.minioasis.library.jooq.tables.AttachmentCheckout;
 import org.minioasis.library.jooq.tables.Biblio;
 import org.minioasis.library.jooq.tables.BiblioTag;
 import org.minioasis.library.jooq.tables.Checkout;
+import org.minioasis.library.jooq.tables.FormData;
 import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
 import org.minioasis.library.jooq.tables.Image;
@@ -38,6 +39,7 @@ import org.minioasis.library.jooq.tables.records.AttachmentRecord;
 import org.minioasis.library.jooq.tables.records.BiblioRecord;
 import org.minioasis.library.jooq.tables.records.BiblioTagRecord;
 import org.minioasis.library.jooq.tables.records.CheckoutRecord;
+import org.minioasis.library.jooq.tables.records.FormDataRecord;
 import org.minioasis.library.jooq.tables.records.GroupsRecord;
 import org.minioasis.library.jooq.tables.records.HolidayRecord;
 import org.minioasis.library.jooq.tables.records.ImageRecord;
@@ -79,6 +81,7 @@ public class Keys {
     public static final Identity<AttachmentCheckoutRecord, Long> IDENTITY_ATTACHMENT_CHECKOUT = Identities0.IDENTITY_ATTACHMENT_CHECKOUT;
     public static final Identity<BiblioRecord, Long> IDENTITY_BIBLIO = Identities0.IDENTITY_BIBLIO;
     public static final Identity<CheckoutRecord, Long> IDENTITY_CHECKOUT = Identities0.IDENTITY_CHECKOUT;
+    public static final Identity<FormDataRecord, Long> IDENTITY_FORM_DATA = Identities0.IDENTITY_FORM_DATA;
     public static final Identity<GroupsRecord, Long> IDENTITY_GROUPS = Identities0.IDENTITY_GROUPS;
     public static final Identity<HolidayRecord, Long> IDENTITY_HOLIDAY = Identities0.IDENTITY_HOLIDAY;
     public static final Identity<ItemRecord, Long> IDENTITY_ITEM = Identities0.IDENTITY_ITEM;
@@ -105,6 +108,7 @@ public class Keys {
     public static final UniqueKey<BiblioRecord> CONSTRAINT_7 = UniqueKeys0.CONSTRAINT_7;
     public static final UniqueKey<BiblioTagRecord> CONSTRAINT_3 = UniqueKeys0.CONSTRAINT_3;
     public static final UniqueKey<CheckoutRecord> CONSTRAINT_8 = UniqueKeys0.CONSTRAINT_8;
+    public static final UniqueKey<FormDataRecord> CONSTRAINT_1 = UniqueKeys0.CONSTRAINT_1;
     public static final UniqueKey<GroupsRecord> CONSTRAINT_7D = UniqueKeys0.CONSTRAINT_7D;
     public static final UniqueKey<GroupsRecord> UK_16FAME6JE5OYJNCQMBL1N5177 = UniqueKeys0.UK_16FAME6JE5OYJNCQMBL1N5177;
     public static final UniqueKey<HolidayRecord> CONSTRAINT_6B = UniqueKeys0.CONSTRAINT_6B;
@@ -132,7 +136,7 @@ public class Keys {
     public static final UniqueKey<ReservationRecord> CONSTRAINT_23 = UniqueKeys0.CONSTRAINT_23;
     public static final UniqueKey<SeriesRecord> CONSTRAINT_91 = UniqueKeys0.CONSTRAINT_91;
     public static final UniqueKey<SeriesRecord> UK_S4JD0PRFGED1PUCSTGAOH8QJ4 = UniqueKeys0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4;
-    public static final UniqueKey<TagRecord> CONSTRAINT_1 = UniqueKeys0.CONSTRAINT_1;
+    public static final UniqueKey<TagRecord> CONSTRAINT_14 = UniqueKeys0.CONSTRAINT_14;
     public static final UniqueKey<TagRecord> UK_1WDPSED5KNA2Y38HNBGRNHI5B = UniqueKeys0.UK_1WDPSED5KNA2Y38HNBGRNHI5B;
 
     // -------------------------------------------------------------------------
@@ -174,6 +178,7 @@ public class Keys {
         public static Identity<AttachmentCheckoutRecord, Long> IDENTITY_ATTACHMENT_CHECKOUT = Internal.createIdentity(AttachmentCheckout.ATTACHMENT_CHECKOUT, AttachmentCheckout.ATTACHMENT_CHECKOUT.ID);
         public static Identity<BiblioRecord, Long> IDENTITY_BIBLIO = Internal.createIdentity(Biblio.BIBLIO, Biblio.BIBLIO.ID);
         public static Identity<CheckoutRecord, Long> IDENTITY_CHECKOUT = Internal.createIdentity(Checkout.CHECKOUT, Checkout.CHECKOUT.ID);
+        public static Identity<FormDataRecord, Long> IDENTITY_FORM_DATA = Internal.createIdentity(FormData.FORM_DATA, FormData.FORM_DATA.ID);
         public static Identity<GroupsRecord, Long> IDENTITY_GROUPS = Internal.createIdentity(Groups.GROUPS, Groups.GROUPS.ID);
         public static Identity<HolidayRecord, Long> IDENTITY_HOLIDAY = Internal.createIdentity(Holiday.HOLIDAY, Holiday.HOLIDAY.ID);
         public static Identity<ItemRecord, Long> IDENTITY_ITEM = Internal.createIdentity(Item.ITEM, Item.ITEM.ID);
@@ -198,6 +203,7 @@ public class Keys {
         public static final UniqueKey<BiblioRecord> CONSTRAINT_7 = Internal.createUniqueKey(Biblio.BIBLIO, "CONSTRAINT_7", Biblio.BIBLIO.ID);
         public static final UniqueKey<BiblioTagRecord> CONSTRAINT_3 = Internal.createUniqueKey(BiblioTag.BIBLIO_TAG, "CONSTRAINT_3", BiblioTag.BIBLIO_TAG.BIBLIO_ID, BiblioTag.BIBLIO_TAG.TAG_ID);
         public static final UniqueKey<CheckoutRecord> CONSTRAINT_8 = Internal.createUniqueKey(Checkout.CHECKOUT, "CONSTRAINT_8", Checkout.CHECKOUT.ID);
+        public static final UniqueKey<FormDataRecord> CONSTRAINT_1 = Internal.createUniqueKey(FormData.FORM_DATA, "CONSTRAINT_1", FormData.FORM_DATA.ID);
         public static final UniqueKey<GroupsRecord> CONSTRAINT_7D = Internal.createUniqueKey(Groups.GROUPS, "CONSTRAINT_7D", Groups.GROUPS.ID);
         public static final UniqueKey<GroupsRecord> UK_16FAME6JE5OYJNCQMBL1N5177 = Internal.createUniqueKey(Groups.GROUPS, "UK_16FAME6JE5OYJNCQMBL1N5177", Groups.GROUPS.CODE);
         public static final UniqueKey<HolidayRecord> CONSTRAINT_6B = Internal.createUniqueKey(Holiday.HOLIDAY, "CONSTRAINT_6B", Holiday.HOLIDAY.ID);
@@ -225,7 +231,7 @@ public class Keys {
         public static final UniqueKey<ReservationRecord> CONSTRAINT_23 = Internal.createUniqueKey(Reservation.RESERVATION, "CONSTRAINT_23", Reservation.RESERVATION.ID);
         public static final UniqueKey<SeriesRecord> CONSTRAINT_91 = Internal.createUniqueKey(Series.SERIES, "CONSTRAINT_91", Series.SERIES.ID);
         public static final UniqueKey<SeriesRecord> UK_S4JD0PRFGED1PUCSTGAOH8QJ4 = Internal.createUniqueKey(Series.SERIES, "UK_S4JD0PRFGED1PUCSTGAOH8QJ4", Series.SERIES.NAME);
-        public static final UniqueKey<TagRecord> CONSTRAINT_1 = Internal.createUniqueKey(Tag.TAG, "CONSTRAINT_1", Tag.TAG.ID);
+        public static final UniqueKey<TagRecord> CONSTRAINT_14 = Internal.createUniqueKey(Tag.TAG, "CONSTRAINT_14", Tag.TAG.ID);
         public static final UniqueKey<TagRecord> UK_1WDPSED5KNA2Y38HNBGRNHI5B = Internal.createUniqueKey(Tag.TAG, "UK_1WDPSED5KNA2Y38HNBGRNHI5B", Tag.TAG.NAME);
     }
 
@@ -238,7 +244,7 @@ public class Keys {
         public static final ForeignKey<BiblioRecord, PublisherRecord> FK_BIBLIO_PUBLISHER = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_FC, Biblio.BIBLIO, "FK_BIBLIO_PUBLISHER", Biblio.BIBLIO.PUBLISHER_ID);
         public static final ForeignKey<BiblioRecord, SeriesRecord> FK_BIBLIO_SERIES = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_91, Biblio.BIBLIO, "FK_BIBLIO_SERIES", Biblio.BIBLIO.SERIES_ID);
         public static final ForeignKey<BiblioTagRecord, BiblioRecord> FK2Y040I75GSYULS6MEGB8PEOLK = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, BiblioTag.BIBLIO_TAG, "FK2Y040I75GSYULS6MEGB8PEOLK", BiblioTag.BIBLIO_TAG.BIBLIO_ID);
-        public static final ForeignKey<BiblioTagRecord, TagRecord> FK6WR2OUSD2B6D5E9EDOYA9C7OI = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_1, BiblioTag.BIBLIO_TAG, "FK6WR2OUSD2B6D5E9EDOYA9C7OI", BiblioTag.BIBLIO_TAG.TAG_ID);
+        public static final ForeignKey<BiblioTagRecord, TagRecord> FK6WR2OUSD2B6D5E9EDOYA9C7OI = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_14, BiblioTag.BIBLIO_TAG, "FK6WR2OUSD2B6D5E9EDOYA9C7OI", BiblioTag.BIBLIO_TAG.TAG_ID);
         public static final ForeignKey<CheckoutRecord, ItemRecord> FK_CHECKOUT_ITEM = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_2, Checkout.CHECKOUT, "FK_CHECKOUT_ITEM", Checkout.CHECKOUT.ITEM_ID);
         public static final ForeignKey<CheckoutRecord, PatronRecord> FK_CHECKOUT_PATRON = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8C, Checkout.CHECKOUT, "FK_CHECKOUT_PATRON", Checkout.CHECKOUT.PATRON_ID);
         public static final ForeignKey<ItemRecord, BiblioRecord> FK_ITEM_BIBLIO = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, Item.ITEM, "FK_ITEM_BIBLIO", Item.ITEM.BIBLIO_ID);

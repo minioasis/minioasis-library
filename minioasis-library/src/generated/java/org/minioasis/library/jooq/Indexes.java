@@ -15,6 +15,7 @@ import org.minioasis.library.jooq.tables.AttachmentCheckout;
 import org.minioasis.library.jooq.tables.Biblio;
 import org.minioasis.library.jooq.tables.BiblioTag;
 import org.minioasis.library.jooq.tables.Checkout;
+import org.minioasis.library.jooq.tables.FormData;
 import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
 import org.minioasis.library.jooq.tables.Image;
@@ -69,6 +70,7 @@ public class Indexes {
     public static final Index FK_CHECKOUT_ITEM_INDEX_8 = Indexes0.FK_CHECKOUT_ITEM_INDEX_8;
     public static final Index FK_CHECKOUT_PATRON_INDEX_8 = Indexes0.FK_CHECKOUT_PATRON_INDEX_8;
     public static final Index PRIMARY_KEY_8 = Indexes0.PRIMARY_KEY_8;
+    public static final Index PRIMARY_KEY_1 = Indexes0.PRIMARY_KEY_1;
     public static final Index PRIMARY_KEY_7D = Indexes0.PRIMARY_KEY_7D;
     public static final Index UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7 = Indexes0.UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7;
     public static final Index PRIMARY_KEY_6B = Indexes0.PRIMARY_KEY_6B;
@@ -108,7 +110,7 @@ public class Indexes {
     public static final Index PRIMARY_KEY_23 = Indexes0.PRIMARY_KEY_23;
     public static final Index PRIMARY_KEY_91 = Indexes0.PRIMARY_KEY_91;
     public static final Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Indexes0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9;
-    public static final Index PRIMARY_KEY_1 = Indexes0.PRIMARY_KEY_1;
+    public static final Index PRIMARY_KEY_14 = Indexes0.PRIMARY_KEY_14;
     public static final Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Indexes0.UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1;
 
     // -------------------------------------------------------------------------
@@ -135,6 +137,7 @@ public class Indexes {
         public static Index FK_CHECKOUT_ITEM_INDEX_8 = Internal.createIndex("FK_CHECKOUT_ITEM_INDEX_8", Checkout.CHECKOUT, new OrderField[] { Checkout.CHECKOUT.ITEM_ID }, false);
         public static Index FK_CHECKOUT_PATRON_INDEX_8 = Internal.createIndex("FK_CHECKOUT_PATRON_INDEX_8", Checkout.CHECKOUT, new OrderField[] { Checkout.CHECKOUT.PATRON_ID }, false);
         public static Index PRIMARY_KEY_8 = Internal.createIndex("PRIMARY_KEY_8", Checkout.CHECKOUT, new OrderField[] { Checkout.CHECKOUT.ID }, true);
+        public static Index PRIMARY_KEY_1 = Internal.createIndex("PRIMARY_KEY_1", FormData.FORM_DATA, new OrderField[] { FormData.FORM_DATA.ID }, true);
         public static Index PRIMARY_KEY_7D = Internal.createIndex("PRIMARY_KEY_7D", Groups.GROUPS, new OrderField[] { Groups.GROUPS.ID }, true);
         public static Index UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7 = Internal.createIndex("UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7", Groups.GROUPS, new OrderField[] { Groups.GROUPS.CODE }, true);
         public static Index PRIMARY_KEY_6B = Internal.createIndex("PRIMARY_KEY_6B", Holiday.HOLIDAY, new OrderField[] { Holiday.HOLIDAY.ID }, true);
@@ -174,7 +177,7 @@ public class Indexes {
         public static Index PRIMARY_KEY_23 = Internal.createIndex("PRIMARY_KEY_23", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.ID }, true);
         public static Index PRIMARY_KEY_91 = Internal.createIndex("PRIMARY_KEY_91", Series.SERIES, new OrderField[] { Series.SERIES.ID }, true);
         public static Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Internal.createIndex("UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9", Series.SERIES, new OrderField[] { Series.SERIES.NAME }, true);
-        public static Index PRIMARY_KEY_1 = Internal.createIndex("PRIMARY_KEY_1", Tag.TAG, new OrderField[] { Tag.TAG.ID }, true);
+        public static Index PRIMARY_KEY_14 = Internal.createIndex("PRIMARY_KEY_14", Tag.TAG, new OrderField[] { Tag.TAG.ID }, true);
         public static Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Internal.createIndex("UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1", Tag.TAG, new OrderField[] { Tag.TAG.NAME }, true);
     }
 }

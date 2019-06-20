@@ -20,6 +20,7 @@ import org.minioasis.library.jooq.tables.AttachmentCheckout;
 import org.minioasis.library.jooq.tables.Biblio;
 import org.minioasis.library.jooq.tables.BiblioTag;
 import org.minioasis.library.jooq.tables.Checkout;
+import org.minioasis.library.jooq.tables.FormData;
 import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
 import org.minioasis.library.jooq.tables.Image;
@@ -51,7 +52,7 @@ import org.minioasis.library.jooq.tables.Tag;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 1056823489;
+    private static final long serialVersionUID = 1743649625;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -87,6 +88,11 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.CHECKOUT</code>.
      */
     public final Checkout CHECKOUT = org.minioasis.library.jooq.tables.Checkout.CHECKOUT;
+
+    /**
+     * The table <code>PUBLIC.FORM_DATA</code>.
+     */
+    public final FormData FORM_DATA = org.minioasis.library.jooq.tables.FormData.FORM_DATA;
 
     /**
      * The table <code>PUBLIC.GROUPS</code>.
@@ -211,6 +217,7 @@ public class Public extends SchemaImpl {
             Biblio.BIBLIO,
             BiblioTag.BIBLIO_TAG,
             Checkout.CHECKOUT,
+            FormData.FORM_DATA,
             Groups.GROUPS,
             Holiday.HOLIDAY,
             Image.IMAGE,

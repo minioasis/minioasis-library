@@ -38,7 +38,7 @@ import org.minioasis.library.jooq.tables.records.TagRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Tag extends TableImpl<TagRecord> {
 
-    private static final long serialVersionUID = 97729994;
+    private static final long serialVersionUID = 550026636;
 
     /**
      * The reference instance of <code>PUBLIC.TAG</code>
@@ -105,7 +105,7 @@ public class Tag extends TableImpl<TagRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_1, Indexes.UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1);
+        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_14, Indexes.UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1);
     }
 
     /**
@@ -121,7 +121,7 @@ public class Tag extends TableImpl<TagRecord> {
      */
     @Override
     public UniqueKey<TagRecord> getPrimaryKey() {
-        return Keys.CONSTRAINT_1;
+        return Keys.CONSTRAINT_14;
     }
 
     /**
@@ -129,7 +129,7 @@ public class Tag extends TableImpl<TagRecord> {
      */
     @Override
     public List<UniqueKey<TagRecord>> getKeys() {
-        return Arrays.<UniqueKey<TagRecord>>asList(Keys.CONSTRAINT_1, Keys.UK_1WDPSED5KNA2Y38HNBGRNHI5B);
+        return Arrays.<UniqueKey<TagRecord>>asList(Keys.CONSTRAINT_14, Keys.UK_1WDPSED5KNA2Y38HNBGRNHI5B);
     }
 
     /**

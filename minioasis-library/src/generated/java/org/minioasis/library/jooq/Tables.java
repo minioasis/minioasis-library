@@ -12,6 +12,7 @@ import org.minioasis.library.jooq.tables.AttachmentCheckout;
 import org.minioasis.library.jooq.tables.Biblio;
 import org.minioasis.library.jooq.tables.BiblioTag;
 import org.minioasis.library.jooq.tables.Checkout;
+import org.minioasis.library.jooq.tables.FormData;
 import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
 import org.minioasis.library.jooq.tables.Image;
@@ -72,6 +73,11 @@ public class Tables {
      * The table <code>PUBLIC.CHECKOUT</code>.
      */
     public static final Checkout CHECKOUT = org.minioasis.library.jooq.tables.Checkout.CHECKOUT;
+
+    /**
+     * The table <code>PUBLIC.FORM_DATA</code>.
+     */
+    public static final FormData FORM_DATA = org.minioasis.library.jooq.tables.FormData.FORM_DATA;
 
     /**
      * The table <code>PUBLIC.GROUPS</code>.
