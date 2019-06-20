@@ -156,7 +156,7 @@ public class PublisherController {
 	public @ResponseBody List<Publisher> findPublishers(@RequestParam("phase") String phase) {
 
 		if(phase != null && !phase.isEmpty()) {
-			List<Publisher> publishers = service.findPublishersyNameContaining(phase);
+			List<Publisher> publishers = service.findPublishersByNameContaining(phase);
 			return publishers;
 		}
 	

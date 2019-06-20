@@ -38,7 +38,7 @@ import org.minioasis.library.jooq.tables.records.AccountRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account extends TableImpl<AccountRecord> {
 
-    private static final long serialVersionUID = -58397789;
+    private static final long serialVersionUID = -242499712;
 
     /**
      * The reference instance of <code>PUBLIC.ACCOUNT</code>
@@ -67,11 +67,6 @@ public class Account extends TableImpl<AccountRecord> {
      * The column <code>PUBLIC.ACCOUNT.NAME</code>.
      */
     public final TableField<AccountRecord, String> NAME = createField("NAME", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
-
-    /**
-     * The column <code>PUBLIC.ACCOUNT.PARENT</code>.
-     */
-    public final TableField<AccountRecord, byte[]> PARENT = createField("PARENT", org.jooq.impl.SQLDataType.VARBINARY, this, "");
 
     /**
      * The column <code>PUBLIC.ACCOUNT.TYPE</code>.

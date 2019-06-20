@@ -14,11 +14,14 @@ import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutResult;
 import org.minioasis.library.domain.CheckoutState;
+import org.minioasis.library.domain.DataType;
+import org.minioasis.library.domain.FormData;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemStatus;
+import org.minioasis.library.domain.JournalEntry;
 import org.minioasis.library.domain.JournalEntryLine;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
@@ -34,6 +37,7 @@ import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
+import org.minioasis.library.domain.search.JournalEntryCriteria;
 import org.minioasis.library.domain.search.JournalEntryLineCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.domain.search.ReservationCriteria;
@@ -133,6 +137,17 @@ public interface LibraryService {
 	Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable);
 	//Page<Checkout> findAllCheckoutsByName(String name, Pageable pageable);
 
+	// FormData
+	void save(FormData entity);
+	void delete(FormData entity);
+	void deleteFormData(long id);
+	FormData getFormData(long id);
+	List<FormData> findAllFormDatas();
+	List<FormData> findAllFormDatas(Sort sort);
+	List<FormData> findByDataContainingAndType(String data, DataType type);
+	Page<FormData> findAllFormDatas(Pageable pageable);
+	Page<FormData> findByDataContainingAndType(String keyword, DataType type, Pageable pageable);
+	
 	// Group
 	void save(Group entity);
 	void delete(Group entity);
@@ -198,6 +213,16 @@ public interface LibraryService {
 	List<ItemStatus> findAllItemStatus();
 	List<ItemStatus> findAllItemStatus(Sort sort);
 	Page<ItemStatus> findAllItemStatusByName(String name, Pageable pageable);
+
+	// JournalEntry
+	void save(JournalEntry entity);
+	void delete(JournalEntry entity);
+	void deleteJournalEntry(long id);
+	JournalEntry getJournalEntry(long id);
+	List<JournalEntry> findAllJournalEntries();
+	List<JournalEntry> findAllJournalEntries(Sort sort);
+	Page<JournalEntry> findAllJournalEntries(Pageable pageable);
+	Page<JournalEntry> findByCriteria(JournalEntryCriteria criteria, Pageable pageable);
 	
 	// JournalEntryLine
 	void save(JournalEntryLine entity);
@@ -255,7 +280,7 @@ public interface LibraryService {
 	Publisher getPublisher(long id);
 	Publisher findPublisherByName(String name);
 	List<Publisher> findAllPublishers(Sort sort);
-	List<Publisher> findPublishersyNameContaining(String name);
+	List<Publisher> findPublishersByNameContaining(String name);
 	Page<Publisher> findAllPublishers(Pageable pageable);
 	Page<Publisher> findPublishersByNameContaining(String name, Pageable pageable);
 

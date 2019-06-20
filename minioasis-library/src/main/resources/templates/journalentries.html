@@ -11,8 +11,8 @@
 	<div class="container pt-3 pb-3">
 
 		<h4>
-			<span th:text="#{search.journalentry.line}">Journal Entry Lines</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry.line/list(page=0,size=10,sort='journalEntry.txnDate,desc')}">
+			<span th:text="#{search.journalentry}">Journal Entries</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/list(page=0,size=10,sort='txnDate,desc')}">
 				<i class="fas fa-search"></i>
 			</a>
 		</h4>
@@ -38,27 +38,27 @@
 			</li>
 		</ul>
 		
-		<form action="#" th:action="@{/journalentry.line/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/journalentry/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
-			<input type="hidden" id="sort" name="sort" value="journalEntry.txnDate,desc" />
+			<input type="hidden" id="sort" name="sort" value="txnDate,desc" />
 						
 			<div class="tab-content" id="myTabContent">
 			
 				<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">			
 					<div class="form-row pt-3">
 					    <div class="form-group col-md-3">
-					    	<label th:text="#{account} + ' 1'">Account 1</label>
-					      	<input type="text" class="form-control" th:field="*{code1}" autofocus="autofocus"/>
-					    </div>
-					    <div class="form-group col-md-3">
-					    	<label th:text="#{account} + ' 2'">Account 2</label>
-					      	<input type="text" class="form-control" th:field="*{code2}"/>
-					    </div>
-					    <div class="form-group col-md-3">
 					    	<label th:text="#{description}">Description</label>
-					      	<input type="text" class="form-control" th:field="*{description}"/>
+					      	<input type="text" class="form-control" th:field="*{description}" autofocus="autofocus"/>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{created.by}">Created By</label>
+					      	<input type="text" class="form-control" th:field="*{createdBy}"/>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{updated.by}">Updated By</label>
+					      	<input type="text" class="form-control" th:field="*{updatedBy}"/>
 					    </div>
 					</div>								
 				</div>
@@ -81,15 +81,18 @@
 				
 				<div class="tab-pane fade" id="type" role="tabpanel" aria-labelledby="type-tab">
 					<div class="form-row pt-3">
-					    <div class="form-group col-md-3">
-					    	<label th:text="#{account.type}">Account Type</label>
-							<select	class="form-control" th:field="*{accountTypes}" multiple="multiple">						
-								<option th:each="s : ${accountTypez}" th:value="${s}" th:text="${s}" />
-								<option th:remove="all" value="CASH">CASH</option>
-								<option th:remove="all" value="SALE">SALE</option>
-							</select>
+					    <div class="form-group col-md-2">
+					    	<label>
+						      	<i class="fas fa-dollar-sign"></i>
+						      	<span th:text="#{total}">Total</span>
+					      	</label>
+					      <input type="text" class="form-control" th:field="*{fromTotal}" placeholder="From"/>
 					    </div>
-					</div>				
+					    <div class="form-group col-md-2">
+							<label>.</label>
+					      	<input type="text" class="form-control" th:field="*{toTotal}" placeholder="To" />
+					    </div>
+					</div>			
 				</div>
 				
 			</div>
@@ -102,10 +105,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/journalentry.line/list(page=${page.number - 1},size=${page.size},sort='txnDate,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/journalentry/list(page=${page.number - 1},size=${page.size},sort='txnDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/journalentry.line/list(page=${page.number + 1},size=${page.size},sort='txnDate,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/journalentry/list(page=${page.number + 1},size=${page.size},sort='txnDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -128,13 +131,12 @@
 					<tr>
 						<th>#</th>
 						<th th:text="#{date}">Date</th>
-						<th th:text="#{account}">Account1</th>
-						<th th:text="#{account.type}">Account Type</th>
-						<th th:text="#{account}">Account2</th>
 						<th th:text="#{description}">Description</th>
-						<th th:text="#{ref}">Ref</th>
-						<th th:text="#{debit}">Debit</th>
-						<th th:text="#{credit}">Credit</th>
+						<th th:text="#{total}">Total</th>
+						<th th:text="#{created}">2019-01-01</th>
+						<th th:text="#{created.by}">Moon</th>
+						<th th:text="#{updated}">2019-02-01</th>
+						<th th:text="#{updated.by}">Mynn</th>
 					</tr>
 				</thead>
 	
@@ -142,24 +144,22 @@
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td th:text="${e.journalEntry.txnDate != null ? #temporals.format(e.journalEntry.txnDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
-						<td th:text="${e.account.code}">CASH</td>
-						<td th:text="${e.account.type}">CASH</td>
-						<td th:text="${e.toAccount.code}">CASH</td>
 						<td th:text="${e.description}">desp</td>
-						<td th:text="${e.ref}">Ref</td>
-						<td th:text="${e.debit}">0</td>
-						<td th:text="${e.credit}">12.00</td>
+						<td th:text="${e.total}">12.00</td>
+						<td th:text="${e.journalEntry.created != null ? #temporals.format(e.created,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.createdBy}">Moon</td>
+						<td th:text="${e.journalEntry.updated != null ? #temporals.format(e.updated,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.updatedBy}">Mynn</td>
 					</tr>
 					<tr th:remove="all">
 						<td>1</td>
 						<td>Date</td>
-						<td>Account1</td>
-						<td>Account Type</td>
-						<td>Account2</td>
 						<td>Description</td>
-						<td>Ref</td>
-						<td>debit</td>
-						<td>credit</td>
+						<td>11.00</td>
+						<td>2019-02-01</td>
+						<td>Moon</td>
+						<td>2019-02-01</td>
+						<td>Mynn</td>
 					</tr>
 				</tbody>
 			</table>

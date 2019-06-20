@@ -15,6 +15,8 @@ import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutResult;
 import org.minioasis.library.domain.CheckoutState;
+import org.minioasis.library.domain.DataType;
+import org.minioasis.library.domain.FormData;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Image;
@@ -23,6 +25,7 @@ import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
+import org.minioasis.library.domain.JournalEntry;
 import org.minioasis.library.domain.JournalEntryLine;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
@@ -39,6 +42,7 @@ import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.domain.search.CheckoutCriteria;
 import org.minioasis.library.domain.search.HolidayCriteria;
 import org.minioasis.library.domain.search.ItemCriteria;
+import org.minioasis.library.domain.search.JournalEntryCriteria;
 import org.minioasis.library.domain.search.JournalEntryLineCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.domain.search.ReservationCriteria;
@@ -48,12 +52,14 @@ import org.minioasis.library.repository.AttachmentCheckoutRepository;
 import org.minioasis.library.repository.AttachmentRepository;
 import org.minioasis.library.repository.BiblioRepository;
 import org.minioasis.library.repository.CheckoutRepository;
+import org.minioasis.library.repository.FormDataRepository;
 import org.minioasis.library.repository.GroupRepository;
 import org.minioasis.library.repository.HolidayRepository;
 import org.minioasis.library.repository.ItemDurationRepository;
 import org.minioasis.library.repository.ItemRepository;
 import org.minioasis.library.repository.ItemStatusRepository;
 import org.minioasis.library.repository.JournalEntryLineRepository;
+import org.minioasis.library.repository.JournalEntryRepository;
 import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.library.repository.PatronTypeRepository;
 import org.minioasis.library.repository.LocationRepository;
@@ -83,6 +89,8 @@ public class LibraryServiceImpl implements LibraryService {
 	@Autowired
 	private CheckoutRepository checkoutRepository;
 	@Autowired
+	private FormDataRepository formDataRepository;
+	@Autowired
 	private GroupRepository groupRepository;	
 	@Autowired
 	private HolidayRepository holidayRepository;
@@ -92,6 +100,8 @@ public class LibraryServiceImpl implements LibraryService {
 	private ItemDurationRepository itemDurationRepository;
 	@Autowired
 	private ItemStatusRepository itemStatusRepository;
+	@Autowired
+	private JournalEntryRepository journalEntryRepository;
 	@Autowired
 	private JournalEntryLineRepository journalEntryLineRepository;
 	@Autowired
@@ -465,8 +475,38 @@ public class LibraryServiceImpl implements LibraryService {
 	public Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable){
 		return this.checkoutRepository.findByCriteria(criteria, pageable);
 	}
+
+	/************************************  FormData  *************************************/
 	
-	/****************************************  Group  *****************************************/
+	public void save(FormData entity) {
+		this.formDataRepository.save(entity);
+	}
+	public void delete(FormData entity){
+		this.formDataRepository.delete(entity);
+	}
+	public void deleteFormData(long id){
+		this.formDataRepository.deleteById(id);
+	}
+	public FormData getFormData(long id){
+		return this.formDataRepository.getOne(id);
+	}
+	public List<FormData> findAllFormDatas(){
+		return this.formDataRepository.findAll();
+	}
+	public List<FormData> findAllFormDatas(Sort sort){
+		return this.formDataRepository.findAll(sort);
+	}
+	public List<FormData> findByDataContainingAndType(String data, DataType type){
+		return this.formDataRepository.findByDataContainingAndType(data,type);
+	}
+	public Page<FormData> findAllFormDatas(Pageable pageable){
+		return this.formDataRepository.findAll(pageable);
+	}
+	public Page<FormData> findByDataContainingAndType(String data, DataType type, Pageable pageable){
+		return this.formDataRepository.findByDataContainingAndType(data, type, pageable);
+	}
+	
+	/************************************  Group  *************************************/
 	
 	public void save(Group entity){
 		this.groupRepository.save(entity);
@@ -681,6 +721,33 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<ItemStatus> findAllItemStatusByName(String name, Pageable pageable){
 		return this.itemStatusRepository.findAllByName(name, pageable);
+	}
+
+	/*************************************  JournalEntry  ************************************/
+	
+	public void save(JournalEntry entity) {
+		this.journalEntryRepository.save(entity);
+	}
+	public void delete(JournalEntry entity){
+		this.journalEntryRepository.delete(entity);
+	}
+	public void deleteJournalEntry(long id){
+		this.journalEntryRepository.deleteById(id);
+	}
+	public JournalEntry getJournalEntry(long id){
+		return this.journalEntryRepository.getOne(id);
+	}
+	public List<JournalEntry> findAllJournalEntries(){
+		return this.journalEntryRepository.findAll();
+	}
+	public List<JournalEntry> findAllJournalEntries(Sort sort){
+		return this.journalEntryRepository.findAll(sort);
+	}
+	public Page<JournalEntry> findAllJournalEntries(Pageable pageable){
+		return this.journalEntryRepository.findAll(pageable);
+	}
+	public Page<JournalEntry> findByCriteria(JournalEntryCriteria criteria, Pageable pageable){
+		return this.journalEntryRepository.findByCriteria(criteria, pageable);
 	}
 	
 	/*************************************  JournalEntryLine  ************************************/
@@ -905,7 +972,7 @@ public class LibraryServiceImpl implements LibraryService {
 	public Page<Publisher> findAllPublishers(Pageable pageable){
 		return this.publisherRepository.findAll(pageable);
 	}
-	public List<Publisher> findPublishersyNameContaining(String name){
+	public List<Publisher> findPublishersByNameContaining(String name){
 		return this.publisherRepository.findByNameContainingIgnoreCase(name);
 	}
 	public Page<Publisher> findPublishersByNameContaining(String name, Pageable pageable){

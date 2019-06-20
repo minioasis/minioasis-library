@@ -85,13 +85,6 @@ public class AccountDao extends DAOImpl<AccountRecord, org.minioasis.library.joo
     }
 
     /**
-     * Fetch records that have <code>PARENT IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.Account> fetchByParent(byte[]... values) {
-        return fetch(Account.ACCOUNT.PARENT, values);
-    }
-
-    /**
      * Fetch records that have <code>TYPE IN (values)</code>
      */
     public List<org.minioasis.library.jooq.tables.pojos.Account> fetchByType(Integer... values) {

@@ -1,0 +1,119 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+	
+		<h4>
+			<span th:text="#{search.formdata}">Search From Data</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/formdata/list(page=0,size=10,sort='data,asc')}">
+				<i class="fas fa-search"></i>
+			</a>	
+		</h4>
+	
+		<div class="row">
+		    <div class="col-sm-8">
+				<form action="#" th:action="@{/formdata/search}" th:object="${criteria}" method="get">
+					<input type="hidden" id="page" name="page" value="0" />
+					<input type="hidden" id="size" name="size" value="10" />
+					<input type="hidden" id="sort" name="sort" value="data,asc" />
+					
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-6">
+					    	<label th:text="#{data}">Data</label>
+							<input name="data" class="form-control" autofocus="autofocus" placeholder="Search Data"/>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{type}">Data Type</label>
+							<select	class="form-control" th:field="*{type}">						
+								<option th:each="d : ${dataTypes}" th:value="${d}" th:text="${d}" />
+								<option th:remove="all" value="JOURNAL_ENTRY">JOURNAL_ENTRY</option>
+								<option th:remove="all" value="PUBLISHER">PUBLISHER</option>
+							</select>
+						<input hidden="hidden" type="submit" name="search" value="Submit"/>	
+					    </div>
+					</div>
+					
+				</form>
+				
+				<hr/>
+				
+		    </div> 
+		</div>
+
+			
+
+
+		<div class="row">
+		
+			<div class="col-sm-8">	
+				<div class="float-right">
+					<div th:if="${pagingType eq 'list'}">
+						<a th:if="${page.hasPrevious()}" th:href="@{/formdata/list(page=${page.number - 1},size=${page.size},sort='data,asc')}">
+							<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+						</a>
+						<a th:if="${page.hasNext()}" th:href="@{/formdata/list(page=${page.number + 1},size=${page.size},sort='data,asc')}">
+							<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+						</a>	
+					</div>
+							
+					<div th:if="${pagingType eq 'search'}">
+						<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+							<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+						</a>
+						<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+							<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+						</a>	
+					</div>		
+				</div>
+				
+				Total : <span th:text="${page.totalElements}">105</span>
+			
+		
+				<div class="table-responsive">					
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th th:text="#{type}">Type</th>
+								<th th:text="#{data}">Data</th>
+								<th th:text="#{actions}">Actions</th>
+							</tr>
+						</thead>
+			
+						<tbody>
+							<tr th:each="e,iterator : ${page.content}">
+								<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+								<td th:text="${e.type}">JOURNAL_ENTRY</td>
+								<td th:text="${e.data}">3-Books</td>
+								<td>
+									<a href="#" th:href="@{/formdata/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+									| <a href="#" th:href="@{/formdata/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+								</td>
+							</tr>
+							<tr th:remove="all">
+								<td>2</td>
+								<td>l love you</td>
+								<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+							</tr>
+						</tbody>
+					</table>
+				
+				</div>
+			</div>
+
+		</div>
+		  		  
+		<div th:replace="fragments/script :: script"></div>	  
+		<div th:replace="fragments/footer :: footer"></div>
+  
+	</div>
+	
+</body>
+</html>

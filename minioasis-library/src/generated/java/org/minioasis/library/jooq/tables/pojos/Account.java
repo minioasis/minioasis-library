@@ -22,12 +22,11 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account implements Serializable {
 
-    private static final long serialVersionUID = -2099950781;
+    private static final long serialVersionUID = 1755405518;
 
     private Long    id;
     private String  code;
     private String  name;
-    private byte[]  parent;
     private Integer type;
 
     public Account() {}
@@ -36,7 +35,6 @@ public class Account implements Serializable {
         this.id = value.id;
         this.code = value.code;
         this.name = value.name;
-        this.parent = value.parent;
         this.type = value.type;
     }
 
@@ -44,13 +42,11 @@ public class Account implements Serializable {
         Long    id,
         String  code,
         String  name,
-        byte[]  parent,
         Integer type
     ) {
         this.id = id;
         this.code = code;
         this.name = name;
-        this.parent = parent;
         this.type = type;
     }
 
@@ -78,14 +74,6 @@ public class Account implements Serializable {
         this.name = name;
     }
 
-    public byte[] getParent() {
-        return this.parent;
-    }
-
-    public void setParent(byte... parent) {
-        this.parent = parent;
-    }
-
     public Integer getType() {
         return this.type;
     }
@@ -101,7 +89,6 @@ public class Account implements Serializable {
         sb.append(id);
         sb.append(", ").append(code);
         sb.append(", ").append(name);
-        sb.append(", ").append("[binary...]");
         sb.append(", ").append(type);
 
         sb.append(")");
