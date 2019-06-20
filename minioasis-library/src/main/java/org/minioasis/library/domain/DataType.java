@@ -1,5 +1,5 @@
 package org.minioasis.library.domain;
 
 public enum DataType {
-	JOURNAL_ENTRY
+	JOURNAL_ENTRY_DESP
 }
