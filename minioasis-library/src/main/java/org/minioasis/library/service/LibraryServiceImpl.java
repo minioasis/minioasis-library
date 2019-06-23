@@ -249,6 +249,9 @@ public class LibraryServiceImpl implements LibraryService {
 	public Account getAccount(long id) {
 		return this.accountRepository.getOne(id);
 	}
+	public Account findByCode(String code) {
+		return this.accountRepository.findByCode(code);
+	}
 	public List<Account> findAllAccount(Sort sort){
 		return this.accountRepository.findAll(sort);
 	}

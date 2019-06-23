@@ -1,6 +1,6 @@
 package org.minioasis.library.controller;
 
-import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -12,19 +12,17 @@ public class HomeController {
 
 	@GetMapping("/")
     public String home(Model model) {
-		model.addAttribute("now", LocalDate.now());
+		model.addAttribute("now", LocalDateTime.now());
         return "index";
     }
 	
 	@GetMapping("/config")
     public String config(Model model) {
-		model.addAttribute("now", LocalDate.now());
         return "config";
     }
 	
 	@GetMapping("/reports")
     public String report(Model model) {
-		model.addAttribute("now", LocalDate.now());
         return "reports";
     }
 	

@@ -7,6 +7,7 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.FetchType;
@@ -44,7 +45,7 @@ public class JournalEntry implements Serializable {
 	@Column(name = "total" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
     private BigDecimal total = BigDecimal.ZERO;
 	
-	@OneToMany(mappedBy="journalEntry" , fetch = FetchType.LAZY)
+	@OneToMany(mappedBy="journalEntry", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<JournalEntryLine> lines = new ArrayList<JournalEntryLine>();
     
 	@Column(name = "created_by")
@@ -100,6 +101,14 @@ public class JournalEntry implements Serializable {
 	public void setLines(List<JournalEntryLine> lines) {
 		this.lines = lines;
 	}
+	
+	public void addLine(JournalEntryLine line) {
+		this.lines.add(line);
+	}
+	
+	public void remove(JournalEntryLine line) {
+		this.lines.remove(line);
+	}
 
 	public String getCreatedBy() {
 		return createdBy;
@@ -132,5 +141,24 @@ public class JournalEntry implements Serializable {
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
 	}
+	
+    @Override
+	public boolean equals(Object other) {
+		
+		if(this == other) 
+			return true;
+		if(other == null)	
+			return false;
+		if(!(other instanceof JournalEntry))	
+			return false;
+		final JournalEntry that = (JournalEntry) other;
+		return id != null && id.equals(that.getId());
+		
+	}
+
+    @Override
+    public int hashCode() {
+        return 45;
+    }
 	
 }

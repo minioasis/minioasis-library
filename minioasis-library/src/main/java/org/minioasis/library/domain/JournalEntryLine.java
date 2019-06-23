@@ -121,4 +121,23 @@ public class JournalEntryLine implements Serializable {
 		this.credit = credit;
 	}
 	
+    @Override
+	public boolean equals(Object other) {
+		
+		if(this == other) 
+			return true;
+		if(other == null)	
+			return false;
+		if(!(other instanceof JournalEntryLine))	
+			return false;
+		final JournalEntryLine that = (JournalEntryLine) other;
+		return id != null && id.equals(that.getId());
+		
+	}
+
+    @Override
+    public int hashCode() {
+        return 45;
+    }
+	
 }

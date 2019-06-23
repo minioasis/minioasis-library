@@ -13,11 +13,9 @@
 		<div class="col-6">
 			<div class="card inf-content">
 				<div class="card-body">
-					<h1 class="display-5 text-success">
-						<i class="fas fa-shopping-cart"></i> <span th:text="#{checkout}">Checkout</span>
-						<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/return}">
-							<i class="fas fa-arrow-down"></i>
-						</a>
+					<h1 class="display-5 text-secondary">
+						<i class="fas fa-file-invoice-dollar"></i>
+						<span th:text="#{journalentry}">Journal Entry</span>
 					</h1>
 					
 					<hr></hr>
@@ -28,7 +26,7 @@
 					<p class="text-danger" th:if="${exist == 'no'}"
 						th:text="#{error.no.patron}">No Patron Found</p>
 	
-					<form action="#" th:action="@{/circ/checkout}" method="get">
+					<form action="#" th:action="@{/journalentry/double.entry}" method="get">
 						<div class="form-group">
 							<input name="pid"
 								class="form-control form-control-lg col-sm"

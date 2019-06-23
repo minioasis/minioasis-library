@@ -81,6 +81,7 @@ public interface LibraryService {
 	void delete(Account entity);
 	void deleteAccount(long id);
 	Account getAccount(long id);
+	Account findByCode(String code);
 	List<Account> findAllAccount(Sort sort);
 	Page<Account> findAllAccount(Pageable pageable);
 	Page<Account> findByCriteria(AccountCriteria criteria, Pageable pageable);

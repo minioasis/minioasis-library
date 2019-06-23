@@ -4,6 +4,8 @@ import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 
+import org.minioasis.library.domain.Account;
+import org.minioasis.library.domain.AccountType;
 import org.minioasis.library.domain.Address;
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.AttachmentState;
@@ -27,6 +29,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.Volume;
 import org.minioasis.library.domain.YesNo;
+import org.minioasis.library.repository.AccountRepository;
 import org.minioasis.library.repository.AttachmentRepository;
 import org.minioasis.library.repository.BiblioRepository;
 import org.minioasis.library.repository.CheckoutRepository;
@@ -47,6 +50,8 @@ import org.springframework.stereotype.Service;
 @Service
 public class BootstrapData implements CommandLineRunner {
 
+	@Autowired
+	private AccountRepository accountRepository;
 	@Autowired
 	private AttachmentRepository attachmentRepository;
 	@Autowired
@@ -494,6 +499,31 @@ public class BootstrapData implements CommandLineRunner {
 		
 		Checkout co3 = new Checkout(LocalDate.parse("2019-04-25"), LocalDate.parse("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p4, i3);
 		checkoutRepository.save(co3);
+		
+		// Account
+		Account ac1 = new Account();
+		ac1.setCode("11111");
+		ac1.setName("Moan Ah Meng");
+		ac1.setType(AccountType.PATRON);
+		accountRepository.save(ac1);
+		
+		Account ac2 = new Account();
+		ac2.setCode("22222");
+		ac2.setName("Moan Wai Loong");
+		ac2.setType(AccountType.PATRON);
+		accountRepository.save(ac2);
+		
+		Account ac3 = new Account();
+		ac3.setCode("33333");
+		ac3.setName("R.P. Feynman");
+		ac3.setType(AccountType.PATRON);
+		accountRepository.save(ac3);
+		
+		Account ac4 = new Account();
+		ac4.setCode("44444");
+		ac4.setName("R.P. Feynman2");
+		ac4.setType(AccountType.PATRON);
+		accountRepository.save(ac4);		
 
 	}
 	

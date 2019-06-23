@@ -1,0 +1,105 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	<title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{journalentry}">Journal Entry</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/double.entry?pid={id}(id=${pid})}">
+				<i class="fas fa-redo"></i>
+			</a>
+		</h4>
+		
+		<br>
+		
+		<form action="#" th:action="@{/journalentry/double.entry}" th:object="${jedto}" method="get">
+			<div class="form-row">
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Account">
+				</div>
+				<div class="col-6">
+					<input type="text" class="form-control" placeholder="Description">
+					<input type="text" class="form-control col-6" placeholder="Ref">
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Debit">
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Credit">
+				</div>
+			</div>
+			<br>
+			<div class="form-row">
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Account">
+				</div>
+				<div class="col-6">
+					<input type="text" class="form-control" placeholder="Description">
+					<input type="text" class="form-control col-6" placeholder="Ref">
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Debit">
+				</div>
+				<div class="col">
+					<input type="text" class="form-control" placeholder="Credit">
+				</div>
+			</div>
+		</form>
+
+		<hr/>
+		
+		Total : <span th:text="${jedto.je.lines.size()}">105</span>
+
+		<div class="table-responsive-sm">
+			<table class="table table-striped table-sm">				
+				<thead>
+					<tr>
+						<th>#</th>
+						<th th:text="#{date}">Date</th>
+						<th th:text="#{account}">Account1</th>
+						<th th:text="#{account}">Account2</th>
+						<th th:text="#{description}">Description</th>
+						<th th:text="#{ref}">Ref</th>
+						<th th:text="#{debit}">Debit</th>
+						<th th:text="#{credit}">Credit</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${jedto.je.lines}">
+						<td th:text="${iterator.index + 1}">1</td>
+						<td th:text="${e.journalEntry.txnDate != null ? #temporals.format(e.journalEntry.txnDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.account.code}">CASH</td>
+						<td th:text="${e.toAccount.code}">CASH</td>
+						<td th:text="${e.description}">desp</td>
+						<td th:text="${e.ref}">Ref</td>
+						<td th:text="${e.debit}">0</td>
+						<td th:text="${e.credit}">12.00</td>
+					</tr>
+					<tr th:remove="all">
+						<td>1</td>
+						<td>Date</td>
+						<td>Account1</td>
+						<td>Account2</td>
+						<td>Description</td>
+						<td>Ref</td>
+						<td>debit</td>
+						<td>credit</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>
