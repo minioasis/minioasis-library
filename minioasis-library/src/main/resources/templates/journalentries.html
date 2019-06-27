@@ -12,8 +12,14 @@
 
 		<h4>
 			<span th:text="#{search.journalentry}">Journal Entries</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/list(page=0,size=10,sort='txnDate,desc')}">
-				<i class="fas fa-search"></i>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/patronid.form}">
+				<i class="fas fa-file-invoice-dollar"></i>
+			</a>
+			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
+				<i class="fas fa-search"></i> je
+			</a>
+			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+				<i class="fas fa-search"></i> l
 			</a>
 		</h4>
 
@@ -143,12 +149,12 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td th:text="${e.journalEntry.txnDate != null ? #temporals.format(e.journalEntry.txnDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.txnDate != null ? #temporals.format(e.txnDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.description}">desp</td>
 						<td th:text="${e.total}">12.00</td>
-						<td th:text="${e.journalEntry.created != null ? #temporals.format(e.created,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.created != null ? #temporals.format(e.created,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.createdBy}">Moon</td>
-						<td th:text="${e.journalEntry.updated != null ? #temporals.format(e.updated,'yyyy-MM-dd') : ''}">2015-08-31</td>
+						<td th:text="${e.updated != null ? #temporals.format(e.updated,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.updatedBy}">Mynn</td>
 					</tr>
 					<tr th:remove="all">

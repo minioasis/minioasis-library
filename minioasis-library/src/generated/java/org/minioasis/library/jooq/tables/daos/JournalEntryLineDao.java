@@ -105,11 +105,4 @@ public class JournalEntryLineDao extends DAOImpl<JournalEntryLineRecord, org.min
     public List<org.minioasis.library.jooq.tables.pojos.JournalEntryLine> fetchByJournalentryId(Long... values) {
         return fetch(JournalEntryLine.JOURNAL_ENTRY_LINE.JOURNALENTRY_ID, values);
     }
-
-    /**
-     * Fetch records that have <code>TO_ACCOUNT_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.JournalEntryLine> fetchByToAccountId(Long... values) {
-        return fetch(JournalEntryLine.JOURNAL_ENTRY_LINE.TO_ACCOUNT_ID, values);
-    }
 }

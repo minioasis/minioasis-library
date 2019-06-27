@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntryLine implements Serializable {
 
-    private static final long serialVersionUID = 1912849366;
+    private static final long serialVersionUID = 1922492705;
 
     private Long       id;
     private BigDecimal credit;
@@ -32,7 +32,6 @@ public class JournalEntryLine implements Serializable {
     private String     reference;
     private Long       accountId;
     private Long       journalentryId;
-    private Long       toAccountId;
 
     public JournalEntryLine() {}
 
@@ -44,7 +43,6 @@ public class JournalEntryLine implements Serializable {
         this.reference = value.reference;
         this.accountId = value.accountId;
         this.journalentryId = value.journalentryId;
-        this.toAccountId = value.toAccountId;
     }
 
     public JournalEntryLine(
@@ -54,8 +52,7 @@ public class JournalEntryLine implements Serializable {
         String     description,
         String     reference,
         Long       accountId,
-        Long       journalentryId,
-        Long       toAccountId
+        Long       journalentryId
     ) {
         this.id = id;
         this.credit = credit;
@@ -64,7 +61,6 @@ public class JournalEntryLine implements Serializable {
         this.reference = reference;
         this.accountId = accountId;
         this.journalentryId = journalentryId;
-        this.toAccountId = toAccountId;
     }
 
     public Long getId() {
@@ -123,14 +119,6 @@ public class JournalEntryLine implements Serializable {
         this.journalentryId = journalentryId;
     }
 
-    public Long getToAccountId() {
-        return this.toAccountId;
-    }
-
-    public void setToAccountId(Long toAccountId) {
-        this.toAccountId = toAccountId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("JournalEntryLine (");
@@ -142,7 +130,6 @@ public class JournalEntryLine implements Serializable {
         sb.append(", ").append(reference);
         sb.append(", ").append(accountId);
         sb.append(", ").append(journalentryId);
-        sb.append(", ").append(toAccountId);
 
         sb.append(")");
         return sb.toString();

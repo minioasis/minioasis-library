@@ -103,7 +103,12 @@ public class JournalEntry implements Serializable {
 	}
 	
 	public void addLine(JournalEntryLine line) {
+		line.setJournalEntry(this);
 		this.lines.add(line);
+	}
+	
+	public void removeLines() {
+		this.lines = new ArrayList<JournalEntryLine>();
 	}
 	
 	public void remove(JournalEntryLine line) {

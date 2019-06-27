@@ -35,10 +35,6 @@ public class JournalEntryLine implements Serializable {
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="account_id" , nullable = false, foreignKey = @ForeignKey(name = "fk_journalentryline_account"))
     private Account account;
-
-    @ManyToOne(fetch = FetchType.EAGER)
-    @JoinColumn(name="to_account_id" , foreignKey = @ForeignKey(name = "fk_journalentryline_toaccount"))
-    private Account toAccount;
     
 	@NotNull
 	@Length(max = 128)
@@ -79,14 +75,6 @@ public class JournalEntryLine implements Serializable {
 
 	public void setAccount(Account account) {
 		this.account = account;
-	}
-
-	public Account getToAccount() {
-		return toAccount;
-	}
-
-	public void setToAccount(Account toAccount) {
-		this.toAccount = toAccount;
 	}
 
 	public String getDescription() {

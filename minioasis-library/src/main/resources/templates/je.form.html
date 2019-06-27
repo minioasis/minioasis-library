@@ -1,8 +1,24 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="fragments/head :: head(Minioasis)">
-	<title>Minioasis Library</title>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+			integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+			crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/css/minioasis.css" th:href="@{/css/minioasis.css}"/>
+		<link rel="stylesheet" type="text/css" href="/css/dropzone.min.css" th:href="@{/css/dropzone.min.css}"/>
+		<link rel="stylesheet" type="text/css" href="/css/easy-autocomplete.min.css" th:href="@{/css/easy-autocomplete.min.css}">
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
+		<script src="/js/jquery.easy-autocomplete.min.js" th:src="@{/js/jquery.easy-autocomplete.min.js}"></script>
+			
+		<title th:text="${title}">Page Title</title>
 	</head>
 <body>
 
@@ -12,93 +28,206 @@
 
 		<h4>
 			<span th:text="#{journalentry}">Journal Entry</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/double.entry?pid={id}(id=${pid})}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/form?pid={id}(id=${jedto.pid})}">
 				<i class="fas fa-redo"></i>
+			</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/patronid.form}">
+				<i class="fas fa-file-invoice-dollar"></i>
+			</a>
+			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
+				<i class="fas fa-search"></i> je
+			</a>
+			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+				<i class="fas fa-search"></i> l
 			</a>
 		</h4>
 		
 		<br>
 		
-		<form action="#" th:action="@{/journalentry/double.entry}" th:object="${jedto}" method="get">
+		<form action="#" th:action="@{/journalentry/add.entry}" th:object="${jedto}" method="post">
 			<div class="form-row">
-				<div class="col">
-					<input type="text" class="form-control" placeholder="Account">
+				<div class="col-2">
+					<input type="text" id="auto_formdata" class="form-control" th:field="*{je.txnDate}" autofocus = "autofocus" placeholder="Date">
+					<span class="text-danger" th:if="${#fields.hasErrors('je.txnDate')}" th:errors="*{je.txnDate}"></span>
 				</div>
 				<div class="col-6">
-					<input type="text" class="form-control" placeholder="Description">
-					<input type="text" class="form-control col-6" placeholder="Ref">
+					<input type="text" class="form-control" th:field="*{je.description}" placeholder="Description">
+					<span class="text-danger" th:if="${#fields.hasErrors('je.description')}" th:errors="*{je.description}"></span>
 				</div>
-				<div class="col">
-					<input type="text" class="form-control" placeholder="Debit">
-				</div>
-				<div class="col">
-					<input type="text" class="form-control" placeholder="Credit">
-				</div>
+				<script>								
+					var options = {
+
+						url : function(code) {
+							return "/formdata/like?data=" + data;
+						},
+						
+						getValue: function(e) {
+							return e.data;
+						},
+
+						list : {
+							maxNumberOfElements: 10,
+							match : {
+								enabled : true
+							}
+						}
+					};
+
+					$('#auto_formdata').easyAutocomplete(options);						
+				</script>
 			</div>
 			<br>
 			<div class="form-row">
-				<div class="col">
-					<input type="text" class="form-control" placeholder="Account">
+				<div class="col-2">
+					<input type="text" id="auto_account" class="form-control" th:field="*{line.account.code}" placeholder="Account">
+					<span class="text-danger" th:if="${#fields.hasErrors('line.account.code')}" th:errors="*{line.account.code}"></span>
 				</div>
 				<div class="col-6">
-					<input type="text" class="form-control" placeholder="Description">
-					<input type="text" class="form-control col-6" placeholder="Ref">
+					<input type="text" class="form-control" th:field="*{line.description}" autofocus = "autofocus" placeholder="Description">
+					<span class="text-danger" th:if="${#fields.hasErrors('line.description')}" th:errors="*{line.description}"></span>
+					<input type="text" class="form-control col-6" th:field="*{line.reference}" placeholder="Reference">	
+					<span class="text-danger" th:if="${#fields.hasErrors('line.reference')}" th:errors="*{line.reference}"></span>
 				</div>
 				<div class="col">
-					<input type="text" class="form-control" placeholder="Debit">
+					<input type="text" class="form-control" th:field="*{line.debit}" placeholder="Debit">
+					<span class="text-danger" th:if="${#fields.hasErrors('line.debit')}" th:errors="*{line.debit}"></span>
 				</div>
 				<div class="col">
-					<input type="text" class="form-control" placeholder="Credit">
+					<input type="text" class="form-control" th:field="*{line.credit}" placeholder="Credit">
+					<span class="text-danger" th:if="${#fields.hasErrors('line.credit')}" th:errors="*{line.credit}"></span>
+				</div>
+				<script>								
+					var options = {
+
+						url : function(code) {
+							return "/account/like?code=" + code;
+						},
+						
+						getValue: function(e) {
+							return e.code + " : " + e.name;
+						},
+
+						list : {
+							maxNumberOfElements: 10,
+							match : {
+								enabled : true
+							}
+						}
+					};
+
+					$('#auto_account').easyAutocomplete(options);						
+				</script>
+			</div>
+			<div class="form-row">
+				<div class="col">
+					<button type="submit" class="btn bg-info text-white float-right"  th:text="#{insert}">Insert</button>
 				</div>
 			</div>
 		</form>
 
 		<hr/>
 		
-		Total : <span th:text="${jedto.je.lines.size()}">105</span>
+		<form action="#" th:action="@{/journalentry/form}" th:object="${jedto}" method="post">
+			<div class="form-row">
+				<div class="col">
+					<button type="submit" class="btn bg-info text-white float-right"  th:text="#{submit}">Submit</button>
+				</div>
+			</div>
+		</form>
 
-		<div class="table-responsive-sm">
-			<table class="table table-striped table-sm">				
-				<thead>
-					<tr>
-						<th>#</th>
-						<th th:text="#{date}">Date</th>
-						<th th:text="#{account}">Account1</th>
-						<th th:text="#{account}">Account2</th>
-						<th th:text="#{description}">Description</th>
-						<th th:text="#{ref}">Ref</th>
-						<th th:text="#{debit}">Debit</th>
-						<th th:text="#{credit}">Credit</th>
-					</tr>
-				</thead>
+		<div th:if="${jedto.done == null}">
+			
+			Total : <span th:text="${jedto.je.lines.size()}">105</span>
 	
-				<tbody>
-					<tr th:each="e,iterator : ${jedto.je.lines}">
-						<td th:text="${iterator.index + 1}">1</td>
-						<td th:text="${e.journalEntry.txnDate != null ? #temporals.format(e.journalEntry.txnDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
-						<td th:text="${e.account.code}">CASH</td>
-						<td th:text="${e.toAccount.code}">CASH</td>
-						<td th:text="${e.description}">desp</td>
-						<td th:text="${e.ref}">Ref</td>
-						<td th:text="${e.debit}">0</td>
-						<td th:text="${e.credit}">12.00</td>
-					</tr>
-					<tr th:remove="all">
-						<td>1</td>
-						<td>Date</td>
-						<td>Account1</td>
-						<td>Account2</td>
-						<td>Description</td>
-						<td>Ref</td>
-						<td>debit</td>
-						<td>credit</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+			<div class="table-responsive-sm">
+				<table class="table table-striped table-sm">				
+					<thead>
+						<tr>
+							<th>#</th>
+							<th th:text="#{date}">Date</th>
+							<th th:text="#{account}">Account1</th>
+							<th th:text="#{description}">Description</th>
+							<th th:text="#{reference}">Ref</th>
+							<th th:text="#{debit}">Debit</th>
+							<th th:text="#{credit}">Credit</th>
+						</tr>
+					</thead>
 		
+					<tbody>
+						<tr th:each="e,iterator : ${jedto.je.lines}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.journalEntry.txnDate != null ? #temporals.format(e.journalEntry.txnDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.account != null ? e.account.code : ''}">CASH</td>
+							<td th:text="${e.description}">desp</td>
+							<td th:text="${e.reference}">Ref</td>
+							<td th:text="${e.debit}">0</td>
+							<td th:text="${e.credit}">12.00</td>
+						</tr>
+						<tr th:remove="all">
+							<td>1</td>
+							<td>Date</td>
+							<td>Account1</td>
+							<td>Description</td>
+							<td>Ref</td>
+							<td>debit</td>
+							<td>credit</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		
+		</div>
+
+		<div th:if="${jedto.done != null}">
+	
+			Total : <span th:text="${jedto.done.lines.size()}">105</span>
+			
+			<div class="table-responsive-sm">
+				<table class="table table-striped table-sm">				
+					<thead>
+						<tr class="table-success">
+							<th>#</th>
+							<th th:text="#{date}">Date</th>
+							<th th:text="#{account}">Account1</th>
+							<th th:text="#{description}">Description</th>
+							<th th:text="#{reference}">Ref</th>
+							<th th:text="#{debit}">Debit</th>
+							<th th:text="#{credit}">Credit</th>
+						</tr>
+					</thead>
+		
+					<tbody>
+						<tr th:each="e,iterator : ${jedto.done.lines}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.journalEntry.txnDate != null ? #temporals.format(e.journalEntry.txnDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.account != null ? e.account.code : ''}">CASH</td>
+							<td th:text="${e.description}">desp</td>
+							<td th:text="${e.reference}">Ref</td>
+							<td th:text="${e.debit}">0</td>
+							<td th:text="${e.credit}">12.00</td>
+						</tr>
+						<tr th:remove="all">
+							<td>1</td>
+							<td>Date</td>
+							<td>Account1</td>
+							<td>Description</td>
+							<td>Ref</td>
+							<td>debit</td>
+							<td>credit</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		
+		</div>
+				
 		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>
+		<!-- to prevent 2 version of jquery conflict -->
+		<script>
+		   var $y = jQuery.noConflict();
+		</script>
+
 	</div>
 
 </body>

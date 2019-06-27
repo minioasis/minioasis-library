@@ -40,7 +40,7 @@ import org.minioasis.library.jooq.tables.records.JournalEntryLineRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntryLine extends TableImpl<JournalEntryLineRecord> {
 
-    private static final long serialVersionUID = 1281429615;
+    private static final long serialVersionUID = 728626296;
 
     /**
      * The reference instance of <code>PUBLIC.JOURNAL_ENTRY_LINE</code>
@@ -91,11 +91,6 @@ public class JournalEntryLine extends TableImpl<JournalEntryLineRecord> {
     public final TableField<JournalEntryLineRecord, Long> JOURNALENTRY_ID = createField("JOURNALENTRY_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.JOURNAL_ENTRY_LINE.TO_ACCOUNT_ID</code>.
-     */
-    public final TableField<JournalEntryLineRecord, Long> TO_ACCOUNT_ID = createField("TO_ACCOUNT_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
-
-    /**
      * Create a <code>PUBLIC.JOURNAL_ENTRY_LINE</code> table reference
      */
     public JournalEntryLine() {
@@ -137,7 +132,7 @@ public class JournalEntryLine extends TableImpl<JournalEntryLineRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FK_JOURNALENTRYLINE_ACCOUNT_INDEX_F, Indexes.FK_JOURNALENTRYLINE_JOURNALENTRY_INDEX_F, Indexes.FK_JOURNALENTRYLINE_TOACCOUNT_INDEX_F, Indexes.PRIMARY_KEY_F);
+        return Arrays.<Index>asList(Indexes.FK_JOURNALENTRYLINE_ACCOUNT_INDEX_F, Indexes.FK_JOURNALENTRYLINE_JOURNALENTRY_INDEX_F, Indexes.PRIMARY_KEY_F);
     }
 
     /**
@@ -169,7 +164,7 @@ public class JournalEntryLine extends TableImpl<JournalEntryLineRecord> {
      */
     @Override
     public List<ForeignKey<JournalEntryLineRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<JournalEntryLineRecord, ?>>asList(Keys.FK_JOURNALENTRYLINE_ACCOUNT, Keys.FK_JOURNALENTRYLINE_JOURNALENTRY, Keys.FK_JOURNALENTRYLINE_TOACCOUNT);
+        return Arrays.<ForeignKey<JournalEntryLineRecord, ?>>asList(Keys.FK_JOURNALENTRYLINE_ACCOUNT, Keys.FK_JOURNALENTRYLINE_JOURNALENTRY);
     }
 
     /**

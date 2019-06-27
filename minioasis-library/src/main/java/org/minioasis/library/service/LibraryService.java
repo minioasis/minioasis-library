@@ -82,6 +82,7 @@ public interface LibraryService {
 	void deleteAccount(long id);
 	Account getAccount(long id);
 	Account findByCode(String code);
+	List<Account> findByCodeContaining(String code);
 	List<Account> findAllAccount(Sort sort);
 	Page<Account> findAllAccount(Pageable pageable);
 	Page<Account> findByCriteria(AccountCriteria criteria, Pageable pageable);
@@ -145,7 +146,6 @@ public interface LibraryService {
 	FormData getFormData(long id);
 	List<FormData> findAllFormDatas();
 	List<FormData> findAllFormDatas(Sort sort);
-	List<FormData> findByDataContainingAndType(String data, DataType type);
 	Page<FormData> findAllFormDatas(Pageable pageable);
 	Page<FormData> findByDataContainingAndType(String keyword, DataType type, Pageable pageable);
 	
@@ -281,7 +281,6 @@ public interface LibraryService {
 	Publisher getPublisher(long id);
 	Publisher findPublisherByName(String name);
 	List<Publisher> findAllPublishers(Sort sort);
-	List<Publisher> findPublishersByNameContaining(String name);
 	Page<Publisher> findAllPublishers(Pageable pageable);
 	Page<Publisher> findPublishersByNameContaining(String name, Pageable pageable);
 

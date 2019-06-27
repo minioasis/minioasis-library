@@ -252,6 +252,9 @@ public class LibraryServiceImpl implements LibraryService {
 	public Account findByCode(String code) {
 		return this.accountRepository.findByCode(code);
 	}
+	public List<Account> findByCodeContaining(String code) {
+		return this.accountRepository.findByCodeContaining(code);
+	}
 	public List<Account> findAllAccount(Sort sort){
 		return this.accountRepository.findAll(sort);
 	}
@@ -498,9 +501,6 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public List<FormData> findAllFormDatas(Sort sort){
 		return this.formDataRepository.findAll(sort);
-	}
-	public List<FormData> findByDataContainingAndType(String data, DataType type){
-		return this.formDataRepository.findByDataContainingAndType(data,type);
 	}
 	public Page<FormData> findAllFormDatas(Pageable pageable){
 		return this.formDataRepository.findAll(pageable);
@@ -974,9 +974,6 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<Publisher> findAllPublishers(Pageable pageable){
 		return this.publisherRepository.findAll(pageable);
-	}
-	public List<Publisher> findPublishersByNameContaining(String name){
-		return this.publisherRepository.findByNameContainingIgnoreCase(name);
 	}
 	public Page<Publisher> findPublishersByNameContaining(String name, Pageable pageable){
 		return this.publisherRepository.findByNameContainingIgnoreCase(name, pageable);

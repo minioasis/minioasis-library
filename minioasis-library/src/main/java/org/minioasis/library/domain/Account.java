@@ -24,7 +24,7 @@ public class Account implements Serializable {
 	private Long id;
 	
 	@NotNull
-	@Length(max = 64)
+	@Length(max = 128)
 	@Column(name = "code", unique = true)
 	private String code;
 	

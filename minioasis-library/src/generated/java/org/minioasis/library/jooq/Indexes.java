@@ -89,7 +89,6 @@ public class Indexes {
     public static final Index PRIMARY_KEY_E8 = Indexes0.PRIMARY_KEY_E8;
     public static final Index FK_JOURNALENTRYLINE_ACCOUNT_INDEX_F = Indexes0.FK_JOURNALENTRYLINE_ACCOUNT_INDEX_F;
     public static final Index FK_JOURNALENTRYLINE_JOURNALENTRY_INDEX_F = Indexes0.FK_JOURNALENTRYLINE_JOURNALENTRY_INDEX_F;
-    public static final Index FK_JOURNALENTRYLINE_TOACCOUNT_INDEX_F = Indexes0.FK_JOURNALENTRYLINE_TOACCOUNT_INDEX_F;
     public static final Index PRIMARY_KEY_F = Indexes0.PRIMARY_KEY_F;
     public static final Index PRIMARY_KEY_9 = Indexes0.PRIMARY_KEY_9;
     public static final Index UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9 = Indexes0.UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9;
@@ -156,7 +155,6 @@ public class Indexes {
         public static Index PRIMARY_KEY_E8 = Internal.createIndex("PRIMARY_KEY_E8", JournalEntry.JOURNAL_ENTRY, new OrderField[] { JournalEntry.JOURNAL_ENTRY.ID }, true);
         public static Index FK_JOURNALENTRYLINE_ACCOUNT_INDEX_F = Internal.createIndex("FK_JOURNALENTRYLINE_ACCOUNT_INDEX_F", JournalEntryLine.JOURNAL_ENTRY_LINE, new OrderField[] { JournalEntryLine.JOURNAL_ENTRY_LINE.ACCOUNT_ID }, false);
         public static Index FK_JOURNALENTRYLINE_JOURNALENTRY_INDEX_F = Internal.createIndex("FK_JOURNALENTRYLINE_JOURNALENTRY_INDEX_F", JournalEntryLine.JOURNAL_ENTRY_LINE, new OrderField[] { JournalEntryLine.JOURNAL_ENTRY_LINE.JOURNALENTRY_ID }, false);
-        public static Index FK_JOURNALENTRYLINE_TOACCOUNT_INDEX_F = Internal.createIndex("FK_JOURNALENTRYLINE_TOACCOUNT_INDEX_F", JournalEntryLine.JOURNAL_ENTRY_LINE, new OrderField[] { JournalEntryLine.JOURNAL_ENTRY_LINE.TO_ACCOUNT_ID }, false);
         public static Index PRIMARY_KEY_F = Internal.createIndex("PRIMARY_KEY_F", JournalEntryLine.JOURNAL_ENTRY_LINE, new OrderField[] { JournalEntryLine.JOURNAL_ENTRY_LINE.ID }, true);
         public static Index PRIMARY_KEY_9 = Internal.createIndex("PRIMARY_KEY_9", Location.LOCATION, new OrderField[] { Location.LOCATION.ID }, true);
         public static Index UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9 = Internal.createIndex("UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9", Location.LOCATION, new OrderField[] { Location.LOCATION.NAME }, true);
