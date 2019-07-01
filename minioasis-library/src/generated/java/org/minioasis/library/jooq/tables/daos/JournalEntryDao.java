@@ -81,17 +81,24 @@ public class JournalEntryDao extends DAOImpl<JournalEntryRecord, org.minioasis.l
     }
 
     /**
+     * Fetch records that have <code>CREDIT IN (values)</code>
+     */
+    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByCredit(BigDecimal... values) {
+        return fetch(JournalEntry.JOURNAL_ENTRY.CREDIT, values);
+    }
+
+    /**
+     * Fetch records that have <code>DEBIT IN (values)</code>
+     */
+    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByDebit(BigDecimal... values) {
+        return fetch(JournalEntry.JOURNAL_ENTRY.DEBIT, values);
+    }
+
+    /**
      * Fetch records that have <code>DESCRIPTION IN (values)</code>
      */
     public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByDescription(String... values) {
         return fetch(JournalEntry.JOURNAL_ENTRY.DESCRIPTION, values);
-    }
-
-    /**
-     * Fetch records that have <code>TOTAL IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.JournalEntry> fetchByTotal(BigDecimal... values) {
-        return fetch(JournalEntry.JOURNAL_ENTRY.TOTAL, values);
     }
 
     /**

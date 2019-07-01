@@ -143,6 +143,7 @@
 						<th th:text="#{created.by}">Moon</th>
 						<th th:text="#{updated}">2019-02-01</th>
 						<th th:text="#{updated.by}">Mynn</th>
+						<th th:text="#{actions}">Action</th>
 					</tr>
 				</thead>
 	
@@ -151,11 +152,15 @@
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td th:text="${e.txnDate != null ? #temporals.format(e.txnDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.description}">desp</td>
-						<td th:text="${e.total}">12.00</td>
+						<td th:text="${e.credit}">12.00</td>
 						<td th:text="${e.created != null ? #temporals.format(e.created,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.createdBy}">Moon</td>
 						<td th:text="${e.updated != null ? #temporals.format(e.updated,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.updatedBy}">Mynn</td>
+						<td>
+							<a href="#" th:href="@{/journalentry/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/journalentry/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+						</td>
 					</tr>
 					<tr th:remove="all">
 						<td>1</td>
@@ -166,6 +171,7 @@
 						<td>Moon</td>
 						<td>2019-02-01</td>
 						<td>Mynn</td>
+						<td>Actions</td>	
 					</tr>
 				</tbody>
 			</table>

@@ -25,13 +25,14 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntry implements Serializable {
 
-    private static final long serialVersionUID = -1135506473;
+    private static final long serialVersionUID = -927269556;
 
     private Long       id;
     private Timestamp  created;
     private String     createdBy;
+    private BigDecimal credit;
+    private BigDecimal debit;
     private String     description;
-    private BigDecimal total;
     private Date       txnDate;
     private Timestamp  updated;
     private String     updatedBy;
@@ -42,8 +43,9 @@ public class JournalEntry implements Serializable {
         this.id = value.id;
         this.created = value.created;
         this.createdBy = value.createdBy;
+        this.credit = value.credit;
+        this.debit = value.debit;
         this.description = value.description;
-        this.total = value.total;
         this.txnDate = value.txnDate;
         this.updated = value.updated;
         this.updatedBy = value.updatedBy;
@@ -53,8 +55,9 @@ public class JournalEntry implements Serializable {
         Long       id,
         Timestamp  created,
         String     createdBy,
+        BigDecimal credit,
+        BigDecimal debit,
         String     description,
-        BigDecimal total,
         Date       txnDate,
         Timestamp  updated,
         String     updatedBy
@@ -62,8 +65,9 @@ public class JournalEntry implements Serializable {
         this.id = id;
         this.created = created;
         this.createdBy = createdBy;
+        this.credit = credit;
+        this.debit = debit;
         this.description = description;
-        this.total = total;
         this.txnDate = txnDate;
         this.updated = updated;
         this.updatedBy = updatedBy;
@@ -93,20 +97,28 @@ public class JournalEntry implements Serializable {
         this.createdBy = createdBy;
     }
 
+    public BigDecimal getCredit() {
+        return this.credit;
+    }
+
+    public void setCredit(BigDecimal credit) {
+        this.credit = credit;
+    }
+
+    public BigDecimal getDebit() {
+        return this.debit;
+    }
+
+    public void setDebit(BigDecimal debit) {
+        this.debit = debit;
+    }
+
     public String getDescription() {
         return this.description;
     }
 
     public void setDescription(String description) {
         this.description = description;
-    }
-
-    public BigDecimal getTotal() {
-        return this.total;
-    }
-
-    public void setTotal(BigDecimal total) {
-        this.total = total;
     }
 
     public Date getTxnDate() {
@@ -140,8 +152,9 @@ public class JournalEntry implements Serializable {
         sb.append(id);
         sb.append(", ").append(created);
         sb.append(", ").append(createdBy);
+        sb.append(", ").append(credit);
+        sb.append(", ").append(debit);
         sb.append(", ").append(description);
-        sb.append(", ").append(total);
         sb.append(", ").append(txnDate);
         sb.append(", ").append(updated);
         sb.append(", ").append(updatedBy);

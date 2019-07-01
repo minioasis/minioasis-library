@@ -41,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.JournalEntryRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntry extends TableImpl<JournalEntryRecord> {
 
-    private static final long serialVersionUID = 709377887;
+    private static final long serialVersionUID = 807784667;
 
     /**
      * The reference instance of <code>PUBLIC.JOURNAL_ENTRY</code>
@@ -72,14 +72,19 @@ public class JournalEntry extends TableImpl<JournalEntryRecord> {
     public final TableField<JournalEntryRecord, String> CREATED_BY = createField("CREATED_BY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY.CREDIT</code>.
+     */
+    public final TableField<JournalEntryRecord, BigDecimal> CREDIT = createField("CREDIT", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
+
+    /**
+     * The column <code>PUBLIC.JOURNAL_ENTRY.DEBIT</code>.
+     */
+    public final TableField<JournalEntryRecord, BigDecimal> DEBIT = createField("DEBIT", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
+
+    /**
      * The column <code>PUBLIC.JOURNAL_ENTRY.DESCRIPTION</code>.
      */
     public final TableField<JournalEntryRecord, String> DESCRIPTION = createField("DESCRIPTION", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
-
-    /**
-     * The column <code>PUBLIC.JOURNAL_ENTRY.TOTAL</code>.
-     */
-    public final TableField<JournalEntryRecord, BigDecimal> TOTAL = createField("TOTAL", org.jooq.impl.SQLDataType.DECIMAL(12, 2).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.JOURNAL_ENTRY.TXN_DATE</code>.

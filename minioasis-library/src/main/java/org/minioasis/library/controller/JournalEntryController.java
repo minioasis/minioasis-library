@@ -3,14 +3,20 @@ package org.minioasis.library.controller;
 import java.time.LocalDate;
 
 import org.minioasis.library.domain.Account;
+import org.minioasis.library.domain.DataType;
+import org.minioasis.library.domain.FormData;
 import org.minioasis.library.domain.JournalEntry;
 import org.minioasis.library.domain.JournalEntryLine;
 import org.minioasis.library.domain.search.JournalEntryDTO;
+import org.minioasis.library.domain.validator.JournalEntryLineValidator;
+import org.minioasis.library.domain.validator.JournalEntryValidator;
 import org.minioasis.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.SessionAttributes;
@@ -30,7 +36,7 @@ public class JournalEntryController {
 		model.addAttribute("jedto", jedto);
 		
 		return "je.patronid.form";
-	}	
+	}
 	
 	@RequestMapping(value = { "/form" }, method = RequestMethod.GET)
 	public String form(@ModelAttribute("jedto") JournalEntryDTO jedto, Model model) {
@@ -55,42 +61,8 @@ public class JournalEntryController {
 
 	}
 	
-	@RequestMapping(value = { "/form" }, method = RequestMethod.POST)
-	public String submitForm(@ModelAttribute("jedto") JournalEntryDTO jedto, Model model) {
-		
-		String cardKey = jedto.getPid();
-		Account account = this.service.findByCode(cardKey);
-		
-		if (account == null) {
-			model.addAttribute("exist", "no");
-			return "je.patronid.form";
-		}
-		
-		JournalEntry je = jedto.getJe();
-		this.service.save(je);
-		Long id = je.getId();
-		System.out.println("*********id***********" + id);
-		
-		JournalEntry done = this.service.getJournalEntry(id);
-		System.out.println("*********done***********" + done);
-		
-		// new JournalEntry
-		jedto.setJe(new JournalEntry());
-		
-		JournalEntryLine line = new JournalEntryLine();
-		line.setAccount(account);
-		jedto.setLine(line);
-		
-		jedto.setDone(done);
-
-		model.addAttribute("jedto",jedto);
-		
-		return "je.form";
-
-	}
-	
 	@RequestMapping(value = { "/add.entry" }, method = RequestMethod.POST)
-	public String doubleEntry(@ModelAttribute("jedto") JournalEntryDTO jedto, Model model) {
+	public String doubleEntry(@ModelAttribute("jedto") JournalEntryDTO jedto, BindingResult result, Model model) {
 		
 		JournalEntry je = jedto.getJe();
 		
@@ -110,12 +82,69 @@ public class JournalEntryController {
 		
 		line.setAccount(account);
 		
+		new JournalEntryLineValidator().validate(line, result);
+		if(result.hasErrors()) {
+			return "je.form";
+		}
+		
 		jedto.addLines();
 		jedto.setDone(null);
 		model.addAttribute("jedto",jedto);
 		
 		return "je.form";
 
+	}
+	
+	
+	
+	@RequestMapping(value = { "/form" }, method = RequestMethod.POST)
+	public String submitForm(@ModelAttribute("jedto") JournalEntryDTO jedto, BindingResult result, Model model) {
+		
+		String cardKey = jedto.getPid();
+		Account account = this.service.findByCode(cardKey);
+		
+		if (account == null) {
+			model.addAttribute("exist", "no");
+			return "je.patronid.form";
+		}
+		
+		JournalEntry je = jedto.getJe();
+		
+		new JournalEntryValidator().validate(je, result);
+		if(result.hasErrors()) {
+			return "je.form";
+		}
+		
+		this.service.save(je);
+		this.service.save(new FormData(je.getDescription(), DataType.JOURNAL_ENTRY_DESP));
+		Long id = je.getId();
+		
+		JournalEntry done = this.service.getJournalEntry(id);
+		
+		// new JournalEntry
+		jedto.setJe(new JournalEntry());
+		
+		JournalEntryLine line = new JournalEntryLine();
+		line.setAccount(account);
+		jedto.setLine(line);
+		
+		jedto.setDone(done);
+
+		model.addAttribute("jedto",jedto);
+		
+		return "je.form";
+
+	}
+	
+	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
+	public String delete(@PathVariable("id") long id, Model model) {
+
+		JournalEntry je = this.service.getJournalEntry(id);
+		if(je != null)
+			this.service.deleteJournalEntry(id);
+		
+		return "redirect:/journalentry/list?page=0&size=60&sort=txnDate,desc";
+		
 	}
 	
 	private String extractCode(String o) {

@@ -4,8 +4,6 @@ import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Set;
-import java.sql.Date;
-import java.sql.Timestamp;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;

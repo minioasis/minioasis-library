@@ -1,5 +1,6 @@
 package org.minioasis.library.controller;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
@@ -44,9 +45,9 @@ public class JournalEntryListSearch {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String biblios(Model model, Pageable pageable) {
+	public String journalEntries(Model model, Pageable pageable) {
 
-		Page<JournalEntry> page = this.service.findAllJournalEntries(pageable);
+		Page<JournalEntry> page = this.service.findAllJournalEntries(pageable);		
 		
 		model.addAttribute("page", page);
 		model.addAttribute("criteria", new JournalEntryCriteria());

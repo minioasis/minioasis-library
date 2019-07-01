@@ -98,8 +98,8 @@ public class JournalEntryRepositoryImpl implements JournalEntryRepositoryCustom{
 								 .and(j.TXN_DATE.le(java.sql.Date.valueOf(txnDateTo))));
 		}
 		if(fromTotal != null && toTotal != null){
-			condition = condition.and(j.TOTAL.ge(fromTotal)
-								 .and(j.TOTAL.le(toTotal)));
+			condition = condition.and(j.CREDIT.ge(fromTotal)
+								 .and(j.CREDIT.le(toTotal)));
 		}
 		
 	    return condition;

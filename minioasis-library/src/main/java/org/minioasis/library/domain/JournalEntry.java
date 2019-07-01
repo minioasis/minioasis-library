@@ -42,8 +42,12 @@ public class JournalEntry implements Serializable {
     private LocalDate txnDate;
 	
 	@NotNull
-	@Column(name = "total" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
-    private BigDecimal total = BigDecimal.ZERO;
+	@Column(name = "debit" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
+    private BigDecimal debit = BigDecimal.ZERO;
+	
+	@NotNull
+	@Column(name = "credit" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
+    private BigDecimal credit = BigDecimal.ZERO;
 	
 	@OneToMany(mappedBy="journalEntry", fetch = FetchType.EAGER, cascade = CascadeType.ALL)
 	private List<JournalEntryLine> lines = new ArrayList<JournalEntryLine>();
@@ -86,33 +90,37 @@ public class JournalEntry implements Serializable {
 		this.txnDate = txnDate;
 	}
 
-	public BigDecimal getTotal() {
-		return total;
-	}
-
-	public void setTotal(BigDecimal total) {
-		this.total = total;
-	}
-
 	public List<JournalEntryLine> getLines() {
 		return lines;
 	}
 
 	public void setLines(List<JournalEntryLine> lines) {
 		this.lines = lines;
+		calculateCreditAndDebit();
 	}
 	
+	public BigDecimal getDebit() {
+		return debit;
+	}
+
+	public BigDecimal getCredit() {
+		return credit;
+	}
+
 	public void addLine(JournalEntryLine line) {
 		line.setJournalEntry(this);
 		this.lines.add(line);
+		calculateCreditAndDebit();
 	}
 	
 	public void removeLines() {
 		this.lines = new ArrayList<JournalEntryLine>();
+		calculateCreditAndDebit();
 	}
 	
 	public void remove(JournalEntryLine line) {
 		this.lines.remove(line);
+		calculateCreditAndDebit();
 	}
 
 	public String getCreatedBy() {
@@ -145,6 +153,31 @@ public class JournalEntry implements Serializable {
 
 	public void setUpdated(LocalDateTime updated) {
 		this.updated = updated;
+	}
+	
+	public boolean isBalance() {
+		if(credit.subtract(debit).equals(BigDecimal.ZERO))
+			return true;
+		
+		return false;
+	}
+	
+	private void calculateCreditAndDebit() {
+
+		BigDecimal c = BigDecimal.ZERO;
+		BigDecimal d = BigDecimal.ZERO;
+		
+		if(lines.size() > 0) {
+
+			for(JournalEntryLine l : this.lines) {
+				c = c.add(l.getCredit());
+				d = d.add(l.getDebit());
+			}
+		}
+		
+		this.credit = c;
+		this.debit = d;
+
 	}
 	
     @Override

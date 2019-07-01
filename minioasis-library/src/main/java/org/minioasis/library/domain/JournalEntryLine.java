@@ -109,6 +109,10 @@ public class JournalEntryLine implements Serializable {
 		this.credit = credit;
 	}
 	
+	public BigDecimal sum() {
+		return credit.subtract(debit);
+	}
+	
     @Override
 	public boolean equals(Object other) {
 		

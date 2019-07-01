@@ -32,7 +32,14 @@ public class FormData implements Serializable {
 	@Column(name = "data", nullable = false)
 	private String data;
 	
-    public Long getId() {
+	 public FormData() {}
+			 
+    public FormData( @NotNull String data, @NotNull DataType type) {
+		this.data = data;
+		this.type = type;
+	}
+
+	public Long getId() {
 		return id;
 	}
 

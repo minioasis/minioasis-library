@@ -15,6 +15,8 @@ import org.minioasis.library.domain.Binding;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutState;
 import org.minioasis.library.domain.Contact;
+import org.minioasis.library.domain.DataType;
+import org.minioasis.library.domain.FormData;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Item;
@@ -33,6 +35,7 @@ import org.minioasis.library.repository.AccountRepository;
 import org.minioasis.library.repository.AttachmentRepository;
 import org.minioasis.library.repository.BiblioRepository;
 import org.minioasis.library.repository.CheckoutRepository;
+import org.minioasis.library.repository.FormDataRepository;
 import org.minioasis.library.repository.GroupRepository;
 import org.minioasis.library.repository.HolidayRepository;
 import org.minioasis.library.repository.ItemDurationRepository;
@@ -58,6 +61,8 @@ public class BootstrapData implements CommandLineRunner {
 	private BiblioRepository biblioRepository;
 	@Autowired
 	private CheckoutRepository checkoutRepository;
+	@Autowired
+	FormDataRepository formDataRepository;
 	@Autowired
 	private GroupRepository groupRepository;
 	@Autowired
@@ -523,7 +528,17 @@ public class BootstrapData implements CommandLineRunner {
 		ac4.setCode("44444");
 		ac4.setName("R.P. Feynman2");
 		ac4.setType(AccountType.PATRON);
-		accountRepository.save(ac4);		
+		accountRepository.save(ac4);
+		
+		// FormData
+		FormData fd1 = new FormData("l love you", DataType.JOURNAL_ENTRY_DESP);
+		formDataRepository.save(fd1);
+		
+		FormData fd2 = new FormData("new member", DataType.JOURNAL_ENTRY_DESP);
+		formDataRepository.save(fd2);
+		
+		FormData fd3 = new FormData("renew", DataType.JOURNAL_ENTRY_DESP);
+		formDataRepository.save(fd3);
 
 	}
 	
