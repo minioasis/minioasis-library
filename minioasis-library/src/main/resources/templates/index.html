@@ -217,7 +217,7 @@
 		    </div>
 
 		    <div class="col-6 col-md-2">	    	
-				<!----------------- Patron ---------------------->
+				<!----------------- Account ---------------------->
 				<h5>
 					<i class="fas fa-cash-register text-secondary"></i>
 					<span th:text="#{account}">Account</span>
@@ -259,6 +259,23 @@
 				<br>
 				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/formdata/list(page=0,size=60,sort='data,asc')}">
 					<i class="fas fa-search"></i>
+				</a>
+
+		    </div>
+		    
+		    <div class="col-6 col-md-2">	    	
+				<!----------------- Telegram ---------------------->
+				<h5>
+					<i class="fab fa-telegram text-info"></i>
+					<span th:text="#{telegram}">Telegram</span>
+				</h5>
+				
+				<p><p/>
+				
+				<span th:text="#{telegram}">Telegram</span>
+				<br>
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
+					<i class="fas fa-search text-info"></i>
 				</a>
 
 		    </div>

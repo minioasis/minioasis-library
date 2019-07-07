@@ -33,6 +33,7 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
+import org.minioasis.library.jooq.tables.TelegramUser;
 import org.minioasis.library.jooq.tables.records.AccountRecord;
 import org.minioasis.library.jooq.tables.records.AttachmentCheckoutRecord;
 import org.minioasis.library.jooq.tables.records.AttachmentRecord;
@@ -56,6 +57,7 @@ import org.minioasis.library.jooq.tables.records.PublisherRecord;
 import org.minioasis.library.jooq.tables.records.ReservationRecord;
 import org.minioasis.library.jooq.tables.records.SeriesRecord;
 import org.minioasis.library.jooq.tables.records.TagRecord;
+import org.minioasis.library.jooq.tables.records.TelegramUserRecord;
 
 
 /**
@@ -95,6 +97,7 @@ public class Keys {
     public static final Identity<ReservationRecord, Long> IDENTITY_RESERVATION = Identities0.IDENTITY_RESERVATION;
     public static final Identity<SeriesRecord, Long> IDENTITY_SERIES = Identities0.IDENTITY_SERIES;
     public static final Identity<TagRecord, Long> IDENTITY_TAG = Identities0.IDENTITY_TAG;
+    public static final Identity<TelegramUserRecord, Long> IDENTITY_TELEGRAM_USER = Identities0.IDENTITY_TELEGRAM_USER;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -138,6 +141,7 @@ public class Keys {
     public static final UniqueKey<SeriesRecord> UK_S4JD0PRFGED1PUCSTGAOH8QJ4 = UniqueKeys0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4;
     public static final UniqueKey<TagRecord> CONSTRAINT_14 = UniqueKeys0.CONSTRAINT_14;
     public static final UniqueKey<TagRecord> UK_1WDPSED5KNA2Y38HNBGRNHI5B = UniqueKeys0.UK_1WDPSED5KNA2Y38HNBGRNHI5B;
+    public static final UniqueKey<TelegramUserRecord> CONSTRAINT_B = UniqueKeys0.CONSTRAINT_B;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -191,6 +195,7 @@ public class Keys {
         public static Identity<ReservationRecord, Long> IDENTITY_RESERVATION = Internal.createIdentity(Reservation.RESERVATION, Reservation.RESERVATION.ID);
         public static Identity<SeriesRecord, Long> IDENTITY_SERIES = Internal.createIdentity(Series.SERIES, Series.SERIES.ID);
         public static Identity<TagRecord, Long> IDENTITY_TAG = Internal.createIdentity(Tag.TAG, Tag.TAG.ID);
+        public static Identity<TelegramUserRecord, Long> IDENTITY_TELEGRAM_USER = Internal.createIdentity(TelegramUser.TELEGRAM_USER, TelegramUser.TELEGRAM_USER.ID);
     }
 
     private static class UniqueKeys0 {
@@ -232,6 +237,7 @@ public class Keys {
         public static final UniqueKey<SeriesRecord> UK_S4JD0PRFGED1PUCSTGAOH8QJ4 = Internal.createUniqueKey(Series.SERIES, "UK_S4JD0PRFGED1PUCSTGAOH8QJ4", Series.SERIES.NAME);
         public static final UniqueKey<TagRecord> CONSTRAINT_14 = Internal.createUniqueKey(Tag.TAG, "CONSTRAINT_14", Tag.TAG.ID);
         public static final UniqueKey<TagRecord> UK_1WDPSED5KNA2Y38HNBGRNHI5B = Internal.createUniqueKey(Tag.TAG, "UK_1WDPSED5KNA2Y38HNBGRNHI5B", Tag.TAG.NAME);
+        public static final UniqueKey<TelegramUserRecord> CONSTRAINT_B = Internal.createUniqueKey(TelegramUser.TELEGRAM_USER, "CONSTRAINT_B", TelegramUser.TELEGRAM_USER.ID);
     }
 
     private static class ForeignKeys0 {

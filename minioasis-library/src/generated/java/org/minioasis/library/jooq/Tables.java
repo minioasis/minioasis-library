@@ -29,6 +29,7 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
+import org.minioasis.library.jooq.tables.TelegramUser;
 
 
 /**
@@ -158,4 +159,9 @@ public class Tables {
      * The table <code>PUBLIC.TAG</code>.
      */
     public static final Tag TAG = org.minioasis.library.jooq.tables.Tag.TAG;
+
+    /**
+     * The table <code>PUBLIC.TELEGRAM_USER</code>.
+     */
+    public static final TelegramUser TELEGRAM_USER = org.minioasis.library.jooq.tables.TelegramUser.TELEGRAM_USER;
 }

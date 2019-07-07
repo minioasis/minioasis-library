@@ -35,6 +35,7 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.AccountCriteria;
 import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
 import org.minioasis.library.domain.search.AttachmentCriteria;
@@ -46,6 +47,7 @@ import org.minioasis.library.domain.search.JournalEntryCriteria;
 import org.minioasis.library.domain.search.JournalEntryLineCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.domain.search.ReservationCriteria;
+import org.minioasis.library.domain.search.TelegramUserCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.AccountRepository;
 import org.minioasis.library.repository.AttachmentCheckoutRepository;
@@ -66,6 +68,7 @@ import org.minioasis.library.repository.LocationRepository;
 import org.minioasis.library.repository.PublisherRepository;
 import org.minioasis.library.repository.ReservationRepository;
 import org.minioasis.library.repository.SeriesRepository;
+import org.minioasis.library.repository.TelegramUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -116,6 +119,8 @@ public class LibraryServiceImpl implements LibraryService {
 	private ReservationRepository reservationRepository;
 	@Autowired
 	private SeriesRepository seriesRepository;
+	@Autowired
+	private TelegramUserRepository telegramUserRepository;
 	@Autowired
 	private HolidayCalculationStrategy holidayStrategy;
 
@@ -1076,6 +1081,23 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Page<Series> findSeriesByNameContaining(String name, Pageable pageable){
 		return this.seriesRepository.findByNameContainingIgnoreCase(name, pageable);
+	}
+	
+	/****************************************  Telegram  *******************************************/
+	public TelegramUser getTelegramUser(long id) {
+		return this.telegramUserRepository.getOne(id);
+	}
+	public void delete(TelegramUser entity) {
+		this.telegramUserRepository.delete(entity);
+	}
+	public void deleteTelegramUser(long id) {
+		this.telegramUserRepository.deleteById(id);
+	}
+	public Page<TelegramUser> findAllTelegramUsers(Pageable pageable){
+		return this.telegramUserRepository.findAll(pageable);
+	}
+	public Page<TelegramUser> findByCriteria(TelegramUserCriteria criteria, Pageable pageable){
+		return this.telegramUserRepository.findByCriteria(criteria, pageable);
 	}
 	
 }

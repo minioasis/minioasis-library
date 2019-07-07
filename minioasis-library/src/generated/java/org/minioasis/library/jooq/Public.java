@@ -37,6 +37,7 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
+import org.minioasis.library.jooq.tables.TelegramUser;
 
 
 /**
@@ -52,7 +53,7 @@ import org.minioasis.library.jooq.tables.Tag;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 1743649625;
+    private static final long serialVersionUID = -741387581;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -175,6 +176,11 @@ public class Public extends SchemaImpl {
     public final Tag TAG = org.minioasis.library.jooq.tables.Tag.TAG;
 
     /**
+     * The table <code>PUBLIC.TELEGRAM_USER</code>.
+     */
+    public final TelegramUser TELEGRAM_USER = org.minioasis.library.jooq.tables.TelegramUser.TELEGRAM_USER;
+
+    /**
      * No further instances allowed
      */
     private Public() {
@@ -233,6 +239,7 @@ public class Public extends SchemaImpl {
             Publisher.PUBLISHER,
             Reservation.RESERVATION,
             Series.SERIES,
-            Tag.TAG);
+            Tag.TAG,
+            TelegramUser.TELEGRAM_USER);
     }
 }

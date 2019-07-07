@@ -32,6 +32,7 @@ import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
+import org.minioasis.library.jooq.tables.TelegramUser;
 
 
 /**
@@ -111,6 +112,7 @@ public class Indexes {
     public static final Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Indexes0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9;
     public static final Index PRIMARY_KEY_14 = Indexes0.PRIMARY_KEY_14;
     public static final Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Indexes0.UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1;
+    public static final Index PRIMARY_KEY_B = Indexes0.PRIMARY_KEY_B;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -177,5 +179,6 @@ public class Indexes {
         public static Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Internal.createIndex("UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9", Series.SERIES, new OrderField[] { Series.SERIES.NAME }, true);
         public static Index PRIMARY_KEY_14 = Internal.createIndex("PRIMARY_KEY_14", Tag.TAG, new OrderField[] { Tag.TAG.ID }, true);
         public static Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Internal.createIndex("UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1", Tag.TAG, new OrderField[] { Tag.TAG.NAME }, true);
+        public static Index PRIMARY_KEY_B = Internal.createIndex("PRIMARY_KEY_B", TelegramUser.TELEGRAM_USER, new OrderField[] { TelegramUser.TELEGRAM_USER.ID }, true);
     }
 }

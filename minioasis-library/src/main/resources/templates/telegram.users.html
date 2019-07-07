@@ -1,0 +1,216 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(Minioasis)">
+<title>Minioasis Library</title>
+</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{search.telegram.user}">Search Telegram User</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
+				<i class="fas fa-search"></i>
+			</a>	
+		</h4>
+					
+		<ul class="nav nav-tabs pt-3" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="general-tab" data-toggle="tab" href="#general" role="tab" aria-controls="general" aria-selected="true">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{general}">General</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="date-tab" data-toggle="tab" href="#date" role="tab" aria-controls="date" aria-selected="false">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{setting} + ' A'">Setting</span>
+				</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="type-tab" data-toggle="tab" href="#type" role="tab" aria-controls="type" aria-selected="false">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{setting} + ' B'">Setting</span>
+				</a>
+			</li>
+		</ul>
+
+		<form  action="#" th:action="@{/telegram.user/search}" th:object="${criteria}" method="get">
+
+			<input type="hidden" id="page" name="page" value="0" />
+			<input type="hidden" id="size" name="size" value="10" />
+			<input type="hidden" id="sort" name="sort" value="cardKey,desc" />
+						
+			<div class="tab-content" id="myTabContent">
+			
+				<div class="tab-pane fade show active" id="general" role="tabpanel" aria-labelledby="general-tab">			
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{card.key}">Card Key</label>
+					      	<input type="text" class="form-control"	th:field="*{cardKey}" autofocus="autofocus"/>
+					    </div>
+					    <div class="form-group col-md-3">
+							<label th:text="#{telegram.id}">Telegram Id</label>
+					      	<input type="text" class="form-control"	th:field="*{telegramId}"/>
+					    </div>
+					</div>								
+				</div>
+				
+				<div class="tab-pane fade" id="date" role="tabpanel" aria-labelledby="date-tab">	
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{reminder}">Reminder</label>
+							<select	class="form-control" th:field="*{reminders}" multiple="multiple">						
+								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
+								<option th:remove="all" value="true">TRUE</option>
+								<option th:remove="all" value="false">FALSE</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{dont.remind.again}">Don't Remind Again</label>
+							<select	class="form-control" th:field="*{dontRemindAgains}" multiple="multiple">						
+								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
+								<option th:remove="all" value="true">TRUE</option>
+								<option th:remove="all" value="false">FALSE</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{remind.again.in.the.last.day}">Remind Again In The Last Day</label>
+							<select	class="form-control" th:field="*{remindAgainInTheLastDays}" multiple="multiple">						
+								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
+								<option th:remove="all" value="true">TRUE</option>
+								<option th:remove="all" value="false">FALSE</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{sendme.events}">Send Me Events</label>
+							<select	class="form-control" th:field="*{sendMeEvents}" multiple="multiple">						
+								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
+								<option th:remove="all" value="true">TRUE</option>
+								<option th:remove="all" value="false">FALSE</option>
+							</select>
+					    </div>
+					</div>	
+				</div>
+				
+				<div class="tab-pane fade" id="type" role="tabpanel"	aria-labelledby="type-tab">
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{sendme.new.release}">Send Me New Release</label>
+							<select	class="form-control" th:field="*{sendMeNewReleases}" multiple="multiple">						
+								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
+								<option th:remove="all" value="true">TRUE</option>
+								<option th:remove="all" value="false">FALSE</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{sendme.announcement}">Send Me announcement</label>
+							<select	class="form-control" th:field="*{sendMeAnnouncements}" multiple="multiple">						
+								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
+								<option th:remove="all" value="true">TRUE</option>
+								<option th:remove="all" value="false">FALSE</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{sendme.article}">Send Me Article</label>
+							<select	class="form-control" th:field="*{sendMeArticles}" multiple="multiple">						
+								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
+								<option th:remove="all" value="true">TRUE</option>
+								<option th:remove="all" value="false">FALSE</option>
+							</select>
+					    </div>
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{sendme.promotion}">Send Me Promotion</label>
+							<select	class="form-control" th:field="*{sendMePromotions}" multiple="multiple">						
+								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
+								<option th:remove="all" value="true">TRUE</option>
+								<option th:remove="all" value="false">FALSE</option>
+							</select>
+					    </div>		
+				</div>
+				
+			</div>
+			
+			<input hidden="hidden" type="submit" name="search" value="Submit"/>	
+			
+		</form>			
+			
+		<hr/>
+
+		<div class="float-right">
+			<div th:if="${pagingType eq 'list'}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/telegram.user/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="@{/telegram.user/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>
+					
+			<div th:if="${pagingType eq 'search'}">
+				<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>		
+		</div>
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive-sm">					
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th th:text="#{card.key}">Card Key</th>
+						<th th:text="#{telegram.id}">Telegram Id</th>
+						<th th:text="#{reminder}">Active</th>
+						<th th:text="#{dont.remind.again}">P.Type</th>
+						<th th:text="#{remind.again.in.the.last.day}">remind.again.in.the.last.day</th>
+						<th th:text="#{sendme.events}">sendme.events.automatically</th>
+						<th th:text="#{sendme.new.release}">sendme.new.release</th>
+						<th th:text="#{sendme.announcement}">sendme.announcement</th>
+						<th th:text="#{sendme.article}">sendme.article</th>
+						<th th:text="#{sendme.promotion}">sendme.promotion</th>
+						<th th:text="#{actions}">Actions</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td th:text="${e.active}">Student</td>
+						<td>
+							<a href="#" th:href="@{/telegram.user/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+						</td>
+					</tr>
+					<tr th:remove="all">
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td>2</td>
+						<td><a href="#">Delete</a></td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+		
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

@@ -99,6 +99,7 @@ jooq {
                 pojos = true
                 daos = true
            }
+           
            target {
                packageName = 'org.minioasis.library.jooq'
                directory = 'src/generated/java'
