@@ -35,6 +35,15 @@ public class TelegramUser implements Serializable {
 	public TelegramUser() {
 	}
 
+	public TelegramUser(@NotNull(message = "{notnull}") Integer telegramId,
+			@NotNull(message = "{notnull}") String cardKey, @Valid Preference preference) {
+		super();
+		this.telegramId = telegramId;
+		this.cardKey = cardKey;
+		this.preference = preference;
+	}
+
+
 	public Long getId() {
 		return id;
 	}

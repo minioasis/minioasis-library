@@ -40,6 +40,22 @@ public class Preference implements Serializable {
 	@Column(name = "sendme_promotion")
 	private boolean sendMePromotion = false;
 	
+	public Preference() {
+	}
+	
+	public Preference(boolean reminder, boolean dontRemindAgain, boolean remindAgainInTheLastDay, boolean sendMeEvent,
+			boolean sendMeNewRelease, boolean sendMeAnnouncement, boolean sendMeArticle, boolean sendMePromotion) {
+		super();
+		this.reminder = reminder;
+		this.dontRemindAgain = dontRemindAgain;
+		this.remindAgainInTheLastDay = remindAgainInTheLastDay;
+		this.sendMeEvent = sendMeEvent;
+		this.sendMeNewRelease = sendMeNewRelease;
+		this.sendMeAnnouncement = sendMeAnnouncement;
+		this.sendMeArticle = sendMeArticle;
+		this.sendMePromotion = sendMePromotion;
+	}
+
 	public boolean isReminder() {
 		return reminder;
 	}

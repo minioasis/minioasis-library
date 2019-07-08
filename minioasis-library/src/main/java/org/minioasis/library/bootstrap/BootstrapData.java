@@ -27,8 +27,10 @@ import org.minioasis.library.domain.Language;
 import org.minioasis.library.domain.Location;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
+import org.minioasis.library.domain.Preference;
 import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Series;
+import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.Volume;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.repository.AccountRepository;
@@ -46,6 +48,7 @@ import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.library.repository.PatronTypeRepository;
 import org.minioasis.library.repository.PublisherRepository;
 import org.minioasis.library.repository.SeriesRepository;
+import org.minioasis.library.repository.TelegramUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.stereotype.Service;
@@ -83,6 +86,8 @@ public class BootstrapData implements CommandLineRunner {
 	private PublisherRepository publisherRepository;
 	@Autowired
 	private SeriesRepository seriesRepository;
+	@Autowired
+	private TelegramUserRepository telegramUserRepository;
 	
 	public void run(String... args) throws Exception {
 
@@ -539,6 +544,21 @@ public class BootstrapData implements CommandLineRunner {
 		
 		FormData fd3 = new FormData("renew", DataType.JOURNAL_ENTRY_DESP);
 		formDataRepository.save(fd3);
+		
+		// TelegramUser
+		Preference preference1 = new Preference(true,true,true,true,true,true,true,true);
+		Preference preference2 = new Preference(true,true,true,false,false,true,true,true);
+		Preference preference3 = new Preference(false,false,false,true,false,false,true,true);
+
+		TelegramUser tu1 = new TelegramUser(1111,"11111", preference1);
+		TelegramUser tu2 = new TelegramUser(2222,"22222", preference2);
+		TelegramUser tu3 = new TelegramUser(3333,"33333", preference2);
+		TelegramUser tu4 = new TelegramUser(4444,"44444", preference3);
+		
+		telegramUserRepository.save(tu1);
+		telegramUserRepository.save(tu2);
+		telegramUserRepository.save(tu3);
+		telegramUserRepository.save(tu4);
 
 	}
 	

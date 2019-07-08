@@ -3,14 +3,57 @@
 <html xmlns:th="http://www.thymeleaf.org">
 	<head th:replace="fragments/head :: head(Minioasis)">
 	    <title>Minioasis Library</title>
+	    <style>
+			table td {
+				vertical-align: top;
+				border: solid 1px #888;
+				padding: 10px;
+			}
+		</style>
 	</head>
 <body>
 
+	<div th:replace="fragments/topnav :: topnav"></div>
+	
 	<div class="container pt-3 pb-3">
 
-		<h1 class="text-center text-danger">Error !</h1>		
-		<div class="row">	
-			<p>There was an unexpected error (type=Not Found, status=404)</p>
+		<h3 class="text-center text-danger">
+			<i class="fas fa-bug fa-3x"></i>
+		</h3>
+			
+		<div class="row">
+			<div class="table-responsive">
+				<table class="table table-striped">
+				    <tr>
+				        <td>Date</td>
+				        <td th:text="${timestamp}"/>
+				    </tr>
+				    <tr>
+				        <td>Path</td>
+				        <td th:text="${path}"/>
+				    </tr>
+				    <tr>
+				        <td>Error</td>
+				        <td th:text="${error}"/>
+				    </tr>
+				    <tr>
+				        <td>Status</td>
+				        <td th:text="${status}"/>
+				    </tr>
+				    <tr>
+				        <td>Message</td>
+				        <td th:text="${message}"/>
+				    </tr>
+				    <tr>
+				        <td>Exception</td>
+				        <td th:text="${exception}"/>
+				    </tr>
+				    <tr>
+				        <td>Trace</td>
+				        <td th:text="${trace}" />
+				    </tr>
+				</table>
+			</div>
 		</div> <!-- row -->
 				  
 		<div th:replace="fragments/script :: script"></div>
