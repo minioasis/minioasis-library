@@ -22,10 +22,11 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser implements Serializable {
 
-    private static final long serialVersionUID = -196863388;
+    private static final long serialVersionUID = -342595911;
 
     private Long    id;
     private String  cardKey;
+    private Long    chatId;
     private Boolean dontRemindAgain;
     private Boolean remindAgainInTheLastDay;
     private Boolean reminder;
@@ -34,13 +35,13 @@ public class TelegramUser implements Serializable {
     private Boolean sendmeEvents;
     private Boolean sendmeNewRelease;
     private Boolean sendmePromotion;
-    private Integer telegramId;
 
     public TelegramUser() {}
 
     public TelegramUser(TelegramUser value) {
         this.id = value.id;
         this.cardKey = value.cardKey;
+        this.chatId = value.chatId;
         this.dontRemindAgain = value.dontRemindAgain;
         this.remindAgainInTheLastDay = value.remindAgainInTheLastDay;
         this.reminder = value.reminder;
@@ -49,12 +50,12 @@ public class TelegramUser implements Serializable {
         this.sendmeEvents = value.sendmeEvents;
         this.sendmeNewRelease = value.sendmeNewRelease;
         this.sendmePromotion = value.sendmePromotion;
-        this.telegramId = value.telegramId;
     }
 
     public TelegramUser(
         Long    id,
         String  cardKey,
+        Long    chatId,
         Boolean dontRemindAgain,
         Boolean remindAgainInTheLastDay,
         Boolean reminder,
@@ -62,11 +63,11 @@ public class TelegramUser implements Serializable {
         Boolean sendmeArticle,
         Boolean sendmeEvents,
         Boolean sendmeNewRelease,
-        Boolean sendmePromotion,
-        Integer telegramId
+        Boolean sendmePromotion
     ) {
         this.id = id;
         this.cardKey = cardKey;
+        this.chatId = chatId;
         this.dontRemindAgain = dontRemindAgain;
         this.remindAgainInTheLastDay = remindAgainInTheLastDay;
         this.reminder = reminder;
@@ -75,7 +76,6 @@ public class TelegramUser implements Serializable {
         this.sendmeEvents = sendmeEvents;
         this.sendmeNewRelease = sendmeNewRelease;
         this.sendmePromotion = sendmePromotion;
-        this.telegramId = telegramId;
     }
 
     public Long getId() {
@@ -92,6 +92,14 @@ public class TelegramUser implements Serializable {
 
     public void setCardKey(String cardKey) {
         this.cardKey = cardKey;
+    }
+
+    public Long getChatId() {
+        return this.chatId;
+    }
+
+    public void setChatId(Long chatId) {
+        this.chatId = chatId;
     }
 
     public Boolean getDontRemindAgain() {
@@ -158,20 +166,13 @@ public class TelegramUser implements Serializable {
         this.sendmePromotion = sendmePromotion;
     }
 
-    public Integer getTelegramId() {
-        return this.telegramId;
-    }
-
-    public void setTelegramId(Integer telegramId) {
-        this.telegramId = telegramId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("TelegramUser (");
 
         sb.append(id);
         sb.append(", ").append(cardKey);
+        sb.append(", ").append(chatId);
         sb.append(", ").append(dontRemindAgain);
         sb.append(", ").append(remindAgainInTheLastDay);
         sb.append(", ").append(reminder);
@@ -180,7 +181,6 @@ public class TelegramUser implements Serializable {
         sb.append(", ").append(sendmeEvents);
         sb.append(", ").append(sendmeNewRelease);
         sb.append(", ").append(sendmePromotion);
-        sb.append(", ").append(telegramId);
 
         sb.append(")");
         return sb.toString();

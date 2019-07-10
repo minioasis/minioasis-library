@@ -30,5 +30,8 @@ public interface PatronRepository extends JpaRepository<Patron, Long>, PatronRep
 	List<Patron> findByIdIn(Collection<Long> ids);
 	
 	List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, LocalDateTime updated);
+
+	@Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM Patron u WHERE u.cardKey = ?1 AND u.contact.mobile = ?2")
+	boolean match(String cardKey, String mobile);
 	
 }

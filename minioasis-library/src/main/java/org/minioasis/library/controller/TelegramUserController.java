@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.TelegramUserCriteria;
-import org.minioasis.library.service.LibraryService;
+import org.minioasis.library.service.TelegramService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -26,7 +26,7 @@ import org.springframework.web.util.UriComponents;
 public class TelegramUserController {
 
 	@Autowired
-	private LibraryService service;
+	private TelegramService service;
 	
 	@ModelAttribute("truefalse")
 	public List<Boolean> populateBooleans() {

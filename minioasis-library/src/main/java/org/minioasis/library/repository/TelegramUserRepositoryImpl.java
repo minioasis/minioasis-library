@@ -76,7 +76,7 @@ public class TelegramUserRepositoryImpl implements TelegramUserRepositoryCustom 
 	    Condition condition = DSL.trueCondition();
 	    
 		final String cardKey = criteria.getCardKey();
-		final Integer telegramId = criteria.getTelegramId();
+		final Long chatId = criteria.getChatId();
 
 		final Set<Boolean> reminders = criteria.getReminders();
 		final Set<Boolean> dontRemindAgains = criteria.getDontRemindAgains();
@@ -90,8 +90,8 @@ public class TelegramUserRepositoryImpl implements TelegramUserRepositoryCustom 
 	    if (cardKey != null) {
 	    	condition = condition.and(tu.CARD_KEY.eq(cardKey));			
 	    }
-	    if (telegramId != null) {
-	    	condition = condition.and(tu.TELEGRAM_ID.eq(telegramId));			
+	    if (chatId != null) {
+	    	condition = condition.and(tu.CHAT_ID.eq(chatId));			
 	    }
 		if(reminders != null && reminders.size() > 0){
 			condition = condition.and(tu.REMINDER.in(reminders));

@@ -38,7 +38,7 @@ import org.minioasis.library.jooq.tables.records.TelegramUserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser extends TableImpl<TelegramUserRecord> {
 
-    private static final long serialVersionUID = -2105664388;
+    private static final long serialVersionUID = -502482800;
 
     /**
      * The reference instance of <code>PUBLIC.TELEGRAM_USER</code>
@@ -62,6 +62,11 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
      * The column <code>PUBLIC.TELEGRAM_USER.CARD_KEY</code>.
      */
     public final TableField<TelegramUserRecord, String> CARD_KEY = createField("CARD_KEY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>PUBLIC.TELEGRAM_USER.CHAT_ID</code>.
+     */
+    public final TableField<TelegramUserRecord, Long> CHAT_ID = createField("CHAT_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
      * The column <code>PUBLIC.TELEGRAM_USER.DONT_REMIND_AGAIN</code>.
@@ -102,11 +107,6 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
      * The column <code>PUBLIC.TELEGRAM_USER.SENDME_PROMOTION</code>.
      */
     public final TableField<TelegramUserRecord, Boolean> SENDME_PROMOTION = createField("SENDME_PROMOTION", org.jooq.impl.SQLDataType.BOOLEAN, this, "");
-
-    /**
-     * The column <code>PUBLIC.TELEGRAM_USER.TELEGRAM_ID</code>.
-     */
-    public final TableField<TelegramUserRecord, Integer> TELEGRAM_ID = createField("TELEGRAM_ID", org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * Create a <code>PUBLIC.TELEGRAM_USER</code> table reference

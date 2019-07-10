@@ -71,6 +71,13 @@ public class TelegramUserDao extends DAOImpl<TelegramUserRecord, org.minioasis.l
     }
 
     /**
+     * Fetch records that have <code>CHAT_ID IN (values)</code>
+     */
+    public List<org.minioasis.library.jooq.tables.pojos.TelegramUser> fetchByChatId(Long... values) {
+        return fetch(TelegramUser.TELEGRAM_USER.CHAT_ID, values);
+    }
+
+    /**
      * Fetch records that have <code>DONT_REMIND_AGAIN IN (values)</code>
      */
     public List<org.minioasis.library.jooq.tables.pojos.TelegramUser> fetchByDontRemindAgain(Boolean... values) {
@@ -124,12 +131,5 @@ public class TelegramUserDao extends DAOImpl<TelegramUserRecord, org.minioasis.l
      */
     public List<org.minioasis.library.jooq.tables.pojos.TelegramUser> fetchBySendmePromotion(Boolean... values) {
         return fetch(TelegramUser.TELEGRAM_USER.SENDME_PROMOTION, values);
-    }
-
-    /**
-     * Fetch records that have <code>TELEGRAM_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.TelegramUser> fetchByTelegramId(Integer... values) {
-        return fetch(TelegramUser.TELEGRAM_USER.TELEGRAM_ID, values);
     }
 }

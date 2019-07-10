@@ -30,7 +30,6 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.Series;
-import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.AccountCriteria;
 import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
 import org.minioasis.library.domain.search.AttachmentCriteria;
@@ -42,7 +41,6 @@ import org.minioasis.library.domain.search.JournalEntryCriteria;
 import org.minioasis.library.domain.search.JournalEntryLineCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.domain.search.ReservationCriteria;
-import org.minioasis.library.domain.search.TelegramUserCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -265,6 +263,7 @@ public interface LibraryService {
 	List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, LocalDateTime updated);
 	Page<Patron> findAllPatrons(Pageable pageable);
 	Page<Patron> findByCriteria(PatronCriteria criteria, Pageable pageable);
+	boolean match(String cardKey, String mobile);
 	
 	Patron preparingPatronForCirculation(String cardKey,LocalDate given);
 	
@@ -315,12 +314,5 @@ public interface LibraryService {
 	List<Series> findSeriesByNameContaining(String name);
 	Page<Series> findAllSeries(Pageable pageable);
 	Page<Series> findSeriesByNameContaining(String name, Pageable pageable);
-	
-	// Telegram
-	TelegramUser getTelegramUser(long id);
-	void delete(TelegramUser entity);
-	void deleteTelegramUser(long id);
-	Page<TelegramUser> findAllTelegramUsers(Pageable pageable);
-	Page<TelegramUser> findByCriteria(TelegramUserCriteria criteria, Pageable pageable);
 	
 }

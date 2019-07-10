@@ -53,8 +53,8 @@
 					      	<input type="text" class="form-control"	th:field="*{cardKey}" autofocus="autofocus"/>
 					    </div>
 					    <div class="form-group col-md-3">
-							<label th:text="#{telegram.id}">Telegram Id</label>
-					      	<input type="text" class="form-control"	th:field="*{telegramId}"/>
+							<label th:text="#{chat.id}">Chat Id</label>
+					      	<input type="text" class="form-control"	th:field="*{chatId}"/>
 					    </div>
 					</div>								
 				</div>
@@ -170,7 +170,7 @@
 					<tr>
 						<th>#</th>
 						<th th:text="#{card.key}">Card Key</th>
-						<th th:text="#{telegram.id}">Telegram Id</th>
+						<th th:text="#{chat.id}">Chat Id</th>
 						<th th:text="#{reminder}">Active</th>
 						<th th:text="#{dont.remind.again}">P.Type</th>
 						<th th:text="#{remind.again.in.the.last.day}">remind.again.in.the.last.day</th>
@@ -186,8 +186,8 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td th:text="${e.telegramId}">telegramId</td>
 						<td th:text="${e.cardKey}">cardKey</td>
+						<td th:text="${e.chatId}">chatId</td>
 						<td th:text="${e.preference.reminder}">reminder</td>
 						<td th:text="${e.preference.dontRemindAgain}">dontRemindAgain</td>
 						<td th:text="${e.preference.remindAgainInTheLastDay}">remindAgainInTheLastDay</td>

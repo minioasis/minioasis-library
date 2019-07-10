@@ -23,10 +23,11 @@ public class TelegramUser implements Serializable {
 	private Long id;
 	
 	@NotNull(message = "{notnull}")
-	@Column(name = "telegram_id")
-	private Integer telegramId;
+	@Column(name = "chat_id", unique = true, nullable = false)
+	private Long chatId;
 	
-	@NotNull(message = "{notnull}")	@Column(name = "card_key")
+	@NotNull(message = "{notnull}")	
+	@Column(name = "card_key", unique = true, nullable = false)
 	private String cardKey;
 	
 	@Valid
@@ -35,10 +36,10 @@ public class TelegramUser implements Serializable {
 	public TelegramUser() {
 	}
 
-	public TelegramUser(@NotNull(message = "{notnull}") Integer telegramId,
+	public TelegramUser(@NotNull(message = "{notnull}") Long chatId,
 			@NotNull(message = "{notnull}") String cardKey, @Valid Preference preference) {
 		super();
-		this.telegramId = telegramId;
+		this.chatId = chatId;
 		this.cardKey = cardKey;
 		this.preference = preference;
 	}
@@ -52,12 +53,12 @@ public class TelegramUser implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getTelegramId() {
-		return telegramId;
+	public Long getChatId() {
+		return chatId;
 	}
 
-	public void setTelegramId(Integer telegramId) {
-		this.telegramId = telegramId;
+	public void setChatId(Long chatId) {
+		this.chatId = chatId;
 	}
 
 	public String getCardKey() {

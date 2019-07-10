@@ -8,7 +8,7 @@ public class TelegramUserCriteria implements Serializable {
 
 	private static final long serialVersionUID = 968113969064430885L;
 	
-	private Integer telegramId;
+	private Long chatId;
 	private String cardKey;
 	
 	private Set<Boolean> reminders = new HashSet<Boolean>();
@@ -25,11 +25,11 @@ public class TelegramUserCriteria implements Serializable {
 	// promotion
 	private Set<Boolean> sendMePromotions = new HashSet<Boolean>();
 	
-	public Integer getTelegramId() {
-		return telegramId;
+	public Long getChatId() {
+		return chatId;
 	}
-	public void setTelegramId(Integer telegramId) {
-		this.telegramId = telegramId;
+	public void setChatId(Long chatId) {
+		this.chatId = chatId;
 	}
 	public String getCardKey() {
 		return cardKey;

@@ -423,19 +423,19 @@ public class BootstrapData implements CommandLineRunner {
 		// Contact
 		Contact c1 = new Contact();
 		c1.setTel("03-62774545");
-		c1.setMobile("012-3111020");
+		c1.setMobile("0121111111");
 		c1.setEmail("moan70@hotmail.com");
 		c1.setAddress(a1);
 		
 		Contact c2 = new Contact();
 		c2.setTel("03-666566626");
-		c2.setMobile("012-9568452");
+		c2.setMobile("0122222222");
 		c2.setEmail("feijai33@hotmail.com");
 		c2.setAddress(a2);
 
 		Contact c3 = new Contact();
 		c3.setTel("03-666566626");
-		c3.setMobile("012-112132323");
+		c3.setMobile("0123333333");
 		c3.setEmail("hello33@hotmail.com");
 		c3.setAddress(a2);
 		
@@ -446,7 +446,7 @@ public class BootstrapData implements CommandLineRunner {
 		p1.setName2("Mr. Moon");
 		p1.setStartDate(LocalDate.parse("2019-01-03"));
 		p1.setEndDate(LocalDate.parse("2019-12-12"));
-		p1.setCardKey("11111");
+		p1.setCardKey("1111");
 		p1.setEntangled("entangled1");
 		p1.setPatronType(pt1);
 		p1.setGroup(g1);
@@ -461,7 +461,7 @@ public class BootstrapData implements CommandLineRunner {
 		p2.setName2("Mr. Loong");
 		p2.setStartDate(LocalDate.parse("2019-05-01"));
 		p2.setEndDate(LocalDate.parse("2019-12-12"));
-		p2.setCardKey("22222");
+		p2.setCardKey("2222");
 		p2.setEntangled("entangled2");
 		p2.setPatronType(pt1);
 		p2.setGroup(g2);
@@ -476,7 +476,7 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setName2("Prof Feynman");
 		p3.setStartDate(LocalDate.parse("2018-07-15"));
 		p3.setEndDate(LocalDate.parse("2019-07-12"));
-		p3.setCardKey("33333");
+		p3.setCardKey("3333");
 		p3.setEntangled("entangled3");
 		p3.setPatronType(pt2);
 		p3.setGroup(g3);
@@ -491,7 +491,7 @@ public class BootstrapData implements CommandLineRunner {
 		p4.setName2("Prof Feynman2");
 		p4.setStartDate(LocalDate.parse("2018-07-15"));
 		p4.setEndDate(LocalDate.parse("2019-07-12"));
-		p4.setCardKey("44444");
+		p4.setCardKey("4444");
 		p4.setEntangled("entangled4");
 		p4.setPatronType(pt1);
 		p4.setGroup(g3);
@@ -512,25 +512,25 @@ public class BootstrapData implements CommandLineRunner {
 		
 		// Account
 		Account ac1 = new Account();
-		ac1.setCode("11111");
+		ac1.setCode("1111");
 		ac1.setName("Moan Ah Meng");
 		ac1.setType(AccountType.PATRON);
 		accountRepository.save(ac1);
 		
 		Account ac2 = new Account();
-		ac2.setCode("22222");
+		ac2.setCode("2222");
 		ac2.setName("Moan Wai Loong");
 		ac2.setType(AccountType.PATRON);
 		accountRepository.save(ac2);
 		
 		Account ac3 = new Account();
-		ac3.setCode("33333");
+		ac3.setCode("3333");
 		ac3.setName("R.P. Feynman");
 		ac3.setType(AccountType.PATRON);
 		accountRepository.save(ac3);
 		
 		Account ac4 = new Account();
-		ac4.setCode("44444");
+		ac4.setCode("4444");
 		ac4.setName("R.P. Feynman2");
 		ac4.setType(AccountType.PATRON);
 		accountRepository.save(ac4);
@@ -550,10 +550,10 @@ public class BootstrapData implements CommandLineRunner {
 		Preference preference2 = new Preference(true,true,true,false,false,true,true,true);
 		Preference preference3 = new Preference(false,false,false,true,false,false,true,true);
 
-		TelegramUser tu1 = new TelegramUser(1111,"11111", preference1);
-		TelegramUser tu2 = new TelegramUser(2222,"22222", preference2);
-		TelegramUser tu3 = new TelegramUser(3333,"33333", preference2);
-		TelegramUser tu4 = new TelegramUser(4444,"44444", preference3);
+		TelegramUser tu1 = new TelegramUser(1111l,"1111", preference1);
+		TelegramUser tu2 = new TelegramUser(2222l,"2222", preference2);
+		TelegramUser tu3 = new TelegramUser(3333l,"3333", preference2);
+		TelegramUser tu4 = new TelegramUser(4444l,"4444", preference3);
 		
 		telegramUserRepository.save(tu1);
 		telegramUserRepository.save(tu2);
