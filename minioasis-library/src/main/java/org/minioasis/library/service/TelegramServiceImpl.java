@@ -17,6 +17,9 @@ public class TelegramServiceImpl implements TelegramService{
 	@Autowired
 	private TelegramUserRepository telegramUserRepository;
 	
+	public boolean isTelegramUserExist(Long chatId) {
+		return this.telegramUserRepository.isTelegramUserExist(chatId);
+	}
 	public void save(TelegramUser entity){
 		this.telegramUserRepository.save(entity);
 	}

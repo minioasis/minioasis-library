@@ -8,6 +8,7 @@ import org.springframework.data.domain.Pageable;
 public interface TelegramService {
 
 	// TelegramUser
+	boolean isTelegramUserExist(Long chatId);
 	void save(TelegramUser entity);
 	TelegramUser getTelegramUser(long id);
 	void delete(TelegramUser entity);

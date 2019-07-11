@@ -1,10 +1,5 @@
 package org.minioasis.library.telegram;
 
-import static java.lang.Math.toIntExact;
-
-import java.util.ArrayList;
-import java.util.List;
-
 import org.minioasis.library.domain.Preference;
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.service.LibraryService;
@@ -18,10 +13,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
-import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
-import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
 @Component
@@ -41,205 +33,209 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	@Autowired
 	private LibraryService libraryService;
 	
+	private static String START = "*Welcome to the BOT !*\n"
+								+ "/register : 1st time ser\n"
+								+ "Other commands : /help";
+	
+	private static String HELP = "*Member :*\n"
+								+ "/register : 1st time member\n"
+								+ "/checkouts : my checkouts\n"
+								+ "/renew : renew my books\n"
+								+ "/reservation : reservation of book"
+								+ "\n\n"
+								+ "*Public User :*\n"
+								+ "/search : search books by title, author\n"
+								+ "/recommendation : recommendation of book"
+								+ "\n\n"
+								+ "*Library Information :*\n"
+								+ "/openinghours : opening hours\n"
+								+ "/holidays : library holidays\n"
+								+ "/news : library news\n"
+								+ "/releases : new book releases\n"
+								+ "/annoucements : new annoucements\n"
+								+ "/events : library events\n"
+								+ "/articles : blog articles\n"
+								+ "/bookstoread : books recommended by library\n"
+								+ "/promotions : library promotions"
+								+ "\n\n"
+								+ "*Settings :*\n"
+								+ "/settings : settings";
+	
+	private static String REGISTER = "Key in your\n" 
+									+ "*1) 4-digit member id*\n"
+									+ "*2) mobile no.*\n"
+									+ "in the following format :"
+									+ "\n\n" 
+									+ "*#*0415*#*0124444333";
+	
+	private static String REGISTRATION_FAILED_MESSAGE = "*NOT successful !* reasons can be :\n"
+														+ "1) no such member\n"
+														+ "2) wrong member id or mobile no. !";
+	
+	private static String REGISTRATION_FAILED = "registration failed !";
+	
+	private static String MOBILE_LENGTH_ERROR = "mobile no. length > 12  !";
+	private static String MOBILE_NOT_NUMBER_ERROR = "mobile is not a number !";
+	private static String VERIFICATION_SUCCESS = "verification success !";
+	private static String ALREADY_REGISTERED = "already registered !";
+	
 	@Override
-	public void onUpdateReceived(Update update) {
-		
+	public void onUpdateReceived(Update update) {	
+
 		// We check if the update has a message and the message has text
 		if (update.hasMessage() && update.getMessage().hasText()) {
+			
+			sendMessage("/start", update, START);
+			
+			sendMessage("/help", update, HELP);
+			
+			registerMessage("/register", update, REGISTER);
+
+			registration(update);	
+
+		} else if (update.hasCallbackQuery()) {
+
+		}	
+	}
+
+	private void sendMessage(String command, Update update, String response) {
+
+		if(update.getMessage().getText().equals(command)){
+			
+			Long chat_id = update.getMessage().getChatId();		
+			SendMessage message = new SendMessage()
+					.setChatId(chat_id)
+					.setText(response)
+					.setParseMode(ParseMode.MARKDOWN);
+			
+			try {
+				execute(message);
+				logger.info("TELEGRAM LOG : " + chat_id + " - [ " + command + " ] ");
+			} catch (TelegramApiException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
+	private void registerMessage(String command, Update update, String response) {
+
+		if (update.getMessage().getText().equals(command)) {
 
 			Long chat_id = update.getMessage().getChatId();
-			
-			if (update.getMessage().getText().equals("/start")) {
-				logger.info("getMessageId ----------------" + update.getMessage().getMessageId());
-				// Create a message object object
-				SendMessage message = new SendMessage()
-											.setChatId(chat_id)
-											.setText("*Welcome to the BOT !*\n"
-													+ "/register : 1st time ser\n"
-													+ "Other commands : /help")
-											.setParseMode(ParseMode.MARKDOWN);
-				
+			SendMessage message = new SendMessage().setChatId(chat_id);
+			boolean exist = telegramService.isTelegramUserExist(chat_id);
+
+			if (exist) {
+
+				message.setText(ALREADY_REGISTERED);
+
 				try {
 					execute(message);
-					logger.info("TELEGRAM LOG : [/start] "+ chat_id);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ALREADY_REGISTERED + " ] ");
 				} catch (TelegramApiException e) {
 					e.printStackTrace();
 				}
-			} 
-			
-			if (update.getMessage().getText().equals("/help")) {
-				// Create a message object object
-				SendMessage message = new SendMessage()
-											.setChatId(chat_id)
-											.setText("*Member :*\n"
-													+ "/register : 1st time member\n"
-													+ "/checkouts : my checkouts\n"
-													+ "/renew : renew my books\n"
-													+ "/reservation : reservation of book"
-													+ "\n\n"
-													+ "*Public User :*\n"
-													+ "/search : search books by title, author\n"
-													+ "/recommendation : recommendation of book"
-													+ "\n\n"
-													+ "*Library Information :*\n"
-													+ "/openinghours : opening hours\n"
-													+ "/holidays : library holidays\n"
-													+ "/news : library news\n"
-													+ "/releases : new book releases\n"
-													+ "/annoucements : new annoucements\n"
-													+ "/events : library events\n"
-													+ "/articles : blog articles\n"
-													+ "/bookstoread : books recommended by library\n"
-													+ "/promotions : library promotions"
-													+ "\n\n"
-													+ "*Settings :*\n"
-													+ "/settings : settings")
-											.setParseMode(ParseMode.MARKDOWN);
-				
+
+			} else {
+
+				message.setText(response).setParseMode(ParseMode.MARKDOWN);
+
 				try {
 					execute(message);
-					logger.info("TELEGRAM LOG : [/help] "+ chat_id);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + command + " ] ");
 				} catch (TelegramApiException e) {
 					e.printStackTrace();
 				}
 			}
+		}
+	}
+	
+	private void registration(Update update) {
+		
+		Long chat_id = update.getMessage().getChatId();
+		
+		// registration
+		if (update.getMessage().getText().startsWith("#") && 
+				update.getMessage().getText().startsWith("#", 5)) {
+
+			SendMessage message = new SendMessage().setChatId(chat_id);
 			
-			if (update.getMessage().getText().equals("/register")) {
+			String msg = update.getMessage().getText();
+			String cardKey = msg.substring(1,5);
+			String mobile = msg.substring(6);
+			
+			// validation
+			if(mobile.length() > 12) {
 				
-				// Create a message object object
-				SendMessage message = new SendMessage()
-											.setChatId(chat_id)
-											.setText("Key in your\n"
-													+ "*1) 4-digit member id*\n"
-													+ "*2) mobile no.*\n"
-													+ "in the following format :"
-													+ "\n\n"
-													+ "*#*0415*#*0124444333")
-											.setParseMode(ParseMode.MARKDOWN);
+				message.setText(MOBILE_LENGTH_ERROR);
 				
 				try {
 					execute(message);
-					
-					logger.info("TELEGRAM LOG : [/register] "+ chat_id);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + MOBILE_LENGTH_ERROR + " ]");
 				} catch (TelegramApiException e) {
 					e.printStackTrace();
 				}
-			} 
-			
-			if (update.getMessage().getText().startsWith("#") && 
-					update.getMessage().getText().startsWith("#", 5)) {
 				
-				String msg = update.getMessage().getText();
-				String cardKey = msg.substring(1,5);
-				String mobile = msg.substring(6);
+			}else {
 				
-				boolean exist = libraryService.match(cardKey, mobile);
-				
-				TelegramUser telegramUser = new TelegramUser(chat_id, cardKey, new Preference(true,false,false,false,false,false,false,false));
-
-				// Create a message object object
-				SendMessage message = new SendMessage().setChatId(chat_id);
-						
-				if(exist) {
+				try {
 					
+					Integer.valueOf(mobile);
 					
+				}catch(NumberFormatException nfex) {
 					
-					try {
-						
-						telegramService.save(telegramUser);
-						message.setText("verification success !");
-						
-						try {
-							execute(message);
-							logger.info("Telegram INFO : [verification success !] " + chat_id);
-						} catch (TelegramApiException e) {
-							e.printStackTrace();
-						}
-						
-					} catch (DataIntegrityViolationException eive) {
-						
-						message.setText("already registered !");
-						
-						try {
-							execute(message);
-							logger.info("Telegram INFO : [already registered !] " + chat_id);
-						} catch (TelegramApiException e) {
-							e.printStackTrace();
-						}
-						
-					}
-					
-				}else {
-					
-					message.setText("not successful\n"
-									+ "1) no such member\n"
-									+ "2) wrong member id or mobile no. !");
+					message.setText(MOBILE_NOT_NUMBER_ERROR);
 					
 					try {
 						execute(message);
-						logger.info("Telegram INFO : [not successful] " + chat_id);
+						logger.info("TELEGRAM LOG : " + chat_id + " - [ " + MOBILE_NOT_NUMBER_ERROR + " ]");
+					} catch (TelegramApiException e) {
+						e.printStackTrace();
+					}			
+				}				
+			}
+			
+			boolean exist = libraryService.match(cardKey, mobile);		
+			TelegramUser telegramUser = new TelegramUser(chat_id, cardKey, new Preference(true,false,false,false,false,false,false,false));
+					
+			if(exist) {
+				
+				try {
+					
+					telegramService.save(telegramUser);
+					message.setText(VERIFICATION_SUCCESS);
+					
+					try {
+						execute(message);
+						logger.info("TELEGRAM LOG : " + chat_id + " - [ " + VERIFICATION_SUCCESS + " ]");
 					} catch (TelegramApiException e) {
 						e.printStackTrace();
 					}
 					
+				} catch (DataIntegrityViolationException eive) {	
+					
+					message.setText(ALREADY_REGISTERED);	
+					
+					try {
+						execute(message);
+						logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ALREADY_REGISTERED + " ]");
+					} catch (TelegramApiException e) {
+						e.printStackTrace();
+					}			
 				}
-
-			}
-			
-
-		} else if (update.hasCallbackQuery()) {
-
-			String call_data = update.getCallbackQuery().getData();
-			long message_id = update.getCallbackQuery().getMessage().getMessageId();
-			long chat_id = update.getCallbackQuery().getMessage().getChatId();
-
-			if (call_data.equals("callback_1")) {
 				
-				String answer = " Hi....WOWOWOWOWOW";
+			}else {
 				
-				EditMessageText new_message = new EditMessageText()
-													.setChatId(chat_id)
-													.setMessageId(toIntExact(message_id))
-													.setText(answer);
+				message.setText(REGISTRATION_FAILED_MESSAGE).setParseMode(ParseMode.MARKDOWN);
+				
 				try {
-					execute(new_message);
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + REGISTRATION_FAILED + " ]");
 				} catch (TelegramApiException e) {
 					e.printStackTrace();
-				}
+				}	
 			}
-			
-			if (call_data.equals("callback_2")) {
-				
-				String answer = " Hi.... This is the 2nd button";
-				
-				EditMessageText new_message = new EditMessageText()
-													.setChatId(chat_id)
-													.setMessageId(toIntExact(message_id))
-													.setText(answer);
-				try {
-					execute(new_message);
-				} catch (TelegramApiException e) {
-					e.printStackTrace();
-				}
-			}
-			
-			if (call_data.equals("callback_3")) {
-				
-				String answer = " Hi.... This is the 3th button";
-				
-				EditMessageText new_message = new EditMessageText()
-													.setChatId(chat_id)
-													.setMessageId(toIntExact(message_id))
-													.setText(answer);
-				try {
-					execute(new_message);
-				} catch (TelegramApiException e) {
-					e.printStackTrace();
-				}
-			}
-			
-		}
-		
+		}	
 	}
 
 	@Override
