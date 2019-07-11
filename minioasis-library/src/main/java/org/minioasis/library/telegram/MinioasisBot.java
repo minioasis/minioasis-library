@@ -68,14 +68,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 									+ "\n\n" 
 									+ "*#*0415*#*0124444333";
 	
-	private static String REGISTRATION_FAILED_MESSAGE = "*NOT successful !* reasons can be :\n"
-														+ "1) no such member\n"
-														+ "2) wrong member id or mobile no. !";
+	private static String REGISTRATION_FAILED_MESSAGE = "*FAILED*\n"
+														+ "> member not found\n"
+														+ "> wrong member id or mobile no.";
 	
 	private static String REGISTRATION_FAILED = "registration failed !";
 	
-	private static String MOBILE_LENGTH_ERROR = "mobile no. length > 12  !";
-	private static String MOBILE_NOT_NUMBER_ERROR = "mobile is not a number !";
+	private static String MOBILE_LENGTH_ERROR = "mobile length > 12  !";
+	private static String MOBILE_NOT_NUMBER_ERROR = "mobile has to be number !";
 	private static String VERIFICATION_SUCCESS = "verification success !";
 	private static String ALREADY_REGISTERED = "already registered !";
 	
