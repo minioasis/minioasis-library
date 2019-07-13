@@ -8,4 +8,7 @@ public interface TelegramUserRepository extends JpaRepository<TelegramUser, Long
 
 	@Query("SELECT CASE WHEN COUNT(u) > 0 THEN true ELSE false END FROM TelegramUser u WHERE u.chatId = ?1")
 	boolean isTelegramUserExist(Long chatId);
+	
+	@Query("SELECT u FROM TelegramUser u WHERE u.chatId = ?1")
+	TelegramUser findTelegramUserByChatId(Long chatId);
 }

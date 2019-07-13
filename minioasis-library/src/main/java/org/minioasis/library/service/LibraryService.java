@@ -134,6 +134,7 @@ public interface LibraryService {
 	List<Checkout> findAllCheckouts(Sort sort);
 	List<Checkout> findByCardKeyFetchItemBiblio(String cardKey);
 	List<Checkout> findByBarcodeAndFilterByStates(String barcode, List<CheckoutState> cStates, List<AttachmentCheckoutState> acStates);
+	List<Checkout> findAllActiveCheckoutsByCardKey(String cardKey);
 	Page<Checkout> findAllCheckouts(Pageable pageable);
 	Page<Checkout> findAllCheckouts(String username, List<CheckoutState> cStates, Pageable pageable);
 	Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable);

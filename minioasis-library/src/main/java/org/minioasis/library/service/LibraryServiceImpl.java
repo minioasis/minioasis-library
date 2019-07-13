@@ -462,6 +462,9 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<Checkout> findByBarcodeAndFilterByStates(String barcode, List<CheckoutState> cStates, List<AttachmentCheckoutState> acStates){
 		return this.checkoutRepository.findByBarcodeAndFilterByStates(barcode, cStates, acStates);
 	}
+	public List<Checkout> findAllActiveCheckoutsByCardKey(String cardKey){
+		return this.checkoutRepository.findAllActiveCheckoutsByCardKey(cardKey);
+	}
 	public Page<Checkout> findAllCheckouts(Pageable pageable){
 		
 		final LocalDate now = LocalDate.now();

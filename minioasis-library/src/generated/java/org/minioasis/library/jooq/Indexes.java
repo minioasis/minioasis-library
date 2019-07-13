@@ -113,6 +113,8 @@ public class Indexes {
     public static final Index PRIMARY_KEY_14 = Indexes0.PRIMARY_KEY_14;
     public static final Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Indexes0.UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1;
     public static final Index PRIMARY_KEY_B = Indexes0.PRIMARY_KEY_B;
+    public static final Index UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B = Indexes0.UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B;
+    public static final Index UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B = Indexes0.UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -180,5 +182,7 @@ public class Indexes {
         public static Index PRIMARY_KEY_14 = Internal.createIndex("PRIMARY_KEY_14", Tag.TAG, new OrderField[] { Tag.TAG.ID }, true);
         public static Index UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1 = Internal.createIndex("UK_1WDPSED5KNA2Y38HNBGRNHI5B_INDEX_1", Tag.TAG, new OrderField[] { Tag.TAG.NAME }, true);
         public static Index PRIMARY_KEY_B = Internal.createIndex("PRIMARY_KEY_B", TelegramUser.TELEGRAM_USER, new OrderField[] { TelegramUser.TELEGRAM_USER.ID }, true);
+        public static Index UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B = Internal.createIndex("UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B", TelegramUser.TELEGRAM_USER, new OrderField[] { TelegramUser.TELEGRAM_USER.CHAT_ID }, true);
+        public static Index UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B = Internal.createIndex("UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B", TelegramUser.TELEGRAM_USER, new OrderField[] { TelegramUser.TELEGRAM_USER.CARD_KEY }, true);
     }
 }

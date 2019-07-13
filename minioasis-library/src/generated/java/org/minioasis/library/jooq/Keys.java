@@ -142,6 +142,8 @@ public class Keys {
     public static final UniqueKey<TagRecord> CONSTRAINT_14 = UniqueKeys0.CONSTRAINT_14;
     public static final UniqueKey<TagRecord> UK_1WDPSED5KNA2Y38HNBGRNHI5B = UniqueKeys0.UK_1WDPSED5KNA2Y38HNBGRNHI5B;
     public static final UniqueKey<TelegramUserRecord> CONSTRAINT_B = UniqueKeys0.CONSTRAINT_B;
+    public static final UniqueKey<TelegramUserRecord> UK_ABIUVF67GFNDN35NGQDPKQ7DY = UniqueKeys0.UK_ABIUVF67GFNDN35NGQDPKQ7DY;
+    public static final UniqueKey<TelegramUserRecord> UK_8FJRX8Y7KIFVM13XIF72SY5BF = UniqueKeys0.UK_8FJRX8Y7KIFVM13XIF72SY5BF;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -238,6 +240,8 @@ public class Keys {
         public static final UniqueKey<TagRecord> CONSTRAINT_14 = Internal.createUniqueKey(Tag.TAG, "CONSTRAINT_14", Tag.TAG.ID);
         public static final UniqueKey<TagRecord> UK_1WDPSED5KNA2Y38HNBGRNHI5B = Internal.createUniqueKey(Tag.TAG, "UK_1WDPSED5KNA2Y38HNBGRNHI5B", Tag.TAG.NAME);
         public static final UniqueKey<TelegramUserRecord> CONSTRAINT_B = Internal.createUniqueKey(TelegramUser.TELEGRAM_USER, "CONSTRAINT_B", TelegramUser.TELEGRAM_USER.ID);
+        public static final UniqueKey<TelegramUserRecord> UK_ABIUVF67GFNDN35NGQDPKQ7DY = Internal.createUniqueKey(TelegramUser.TELEGRAM_USER, "UK_ABIUVF67GFNDN35NGQDPKQ7DY", TelegramUser.TELEGRAM_USER.CARD_KEY);
+        public static final UniqueKey<TelegramUserRecord> UK_8FJRX8Y7KIFVM13XIF72SY5BF = Internal.createUniqueKey(TelegramUser.TELEGRAM_USER, "UK_8FJRX8Y7KIFVM13XIF72SY5BF", TelegramUser.TELEGRAM_USER.CHAT_ID);
     }
 
     private static class ForeignKeys0 {

@@ -507,7 +507,7 @@ public class BootstrapData implements CommandLineRunner {
 		Checkout co2 = new Checkout(LocalDate.parse("2019-04-20"), LocalDate.parse("2019-05-10"), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
 		checkoutRepository.save(co2);
 		
-		Checkout co3 = new Checkout(LocalDate.parse("2019-04-25"), LocalDate.parse("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p4, i3);
+		Checkout co3 = new Checkout(LocalDate.parse("2019-04-25"), LocalDate.parse("2019-05-15"), new Integer(0), CheckoutState.CHECKOUT, p2, i3);
 		checkoutRepository.save(co3);
 		
 		// Account
@@ -550,8 +550,8 @@ public class BootstrapData implements CommandLineRunner {
 		Preference preference2 = new Preference(true,true,true,false,false,true,true,true);
 		Preference preference3 = new Preference(false,false,false,true,false,false,true,true);
 
-		TelegramUser tu1 = new TelegramUser(1111l,"1111", preference1);
-		TelegramUser tu2 = new TelegramUser(2222l,"2222", preference2);
+		TelegramUser tu1 = new TelegramUser(271419751l,"1111", preference1);
+		TelegramUser tu2 = new TelegramUser(291605247l,"2222", preference2);
 		TelegramUser tu3 = new TelegramUser(3333l,"3333", preference2);
 		TelegramUser tu4 = new TelegramUser(4444l,"4444", preference3);
 		

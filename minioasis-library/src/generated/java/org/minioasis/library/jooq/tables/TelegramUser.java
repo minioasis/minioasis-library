@@ -38,7 +38,7 @@ import org.minioasis.library.jooq.tables.records.TelegramUserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser extends TableImpl<TelegramUserRecord> {
 
-    private static final long serialVersionUID = -502482800;
+    private static final long serialVersionUID = 790134228;
 
     /**
      * The reference instance of <code>PUBLIC.TELEGRAM_USER</code>
@@ -61,12 +61,12 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
     /**
      * The column <code>PUBLIC.TELEGRAM_USER.CARD_KEY</code>.
      */
-    public final TableField<TelegramUserRecord, String> CARD_KEY = createField("CARD_KEY", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+    public final TableField<TelegramUserRecord, String> CARD_KEY = createField("CARD_KEY", org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.TELEGRAM_USER.CHAT_ID</code>.
      */
-    public final TableField<TelegramUserRecord, Long> CHAT_ID = createField("CHAT_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
+    public final TableField<TelegramUserRecord, Long> CHAT_ID = createField("CHAT_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.TELEGRAM_USER.DONT_REMIND_AGAIN</code>.
@@ -150,7 +150,7 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_B);
+        return Arrays.<Index>asList(Indexes.PRIMARY_KEY_B, Indexes.UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B, Indexes.UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B);
     }
 
     /**
@@ -174,7 +174,7 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
      */
     @Override
     public List<UniqueKey<TelegramUserRecord>> getKeys() {
-        return Arrays.<UniqueKey<TelegramUserRecord>>asList(Keys.CONSTRAINT_B);
+        return Arrays.<UniqueKey<TelegramUserRecord>>asList(Keys.CONSTRAINT_B, Keys.UK_ABIUVF67GFNDN35NGQDPKQ7DY, Keys.UK_8FJRX8Y7KIFVM13XIF72SY5BF);
     }
 
     /**

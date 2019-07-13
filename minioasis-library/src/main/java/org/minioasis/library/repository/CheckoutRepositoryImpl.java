@@ -50,9 +50,40 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	private org.minioasis.library.jooq.tables.Biblio b = BIBLIO.as("b");
 	private org.minioasis.library.jooq.tables.Groups g = GROUPS.as("g");
 
+	public List<Checkout> findAllActiveCheckoutsByCardKey(String cardKey){
+		
+		Table<?> table = c;
+		
+		table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID))
+						.join(i).on(c.ITEM_ID.eq(i.ID))
+						.join(b).on(i.BIBLIO_ID.eq(b.ID));
+		
+		org.jooq.Query jooqQuery = dsl.select()
+									.from(table)
+									.where(activeStatesCondition(cardKey));
+		
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), Checkout.class);
+		setBindParameterValues(q, jooqQuery);
+		
+		List<Checkout> checkouts = q.getResultList();
+		
+		return checkouts;
+
+	}
+	
+	private Condition activeStatesCondition(String cardKey) {
+			
+		    Condition condition = DSL.trueCondition();
+		    
+			condition = condition.and(p.CARD_KEY.eq(cardKey))
+								 .and(c.STATE.in(CheckoutState.getActives()));
+			
+		    return condition;
+	}
+
 	public List<TopPopularBooksSummary> topPopularBooks(TopPopularBooksCriteria criteria){
 		
-		Table<?> table = createTable2(criteria);
+		Table<?> table = createTable2();
 		
 		Table<Record7<String, String, Date, String, String, String, Integer>> view =
 				dsl.select(b.TITLE, b.ISBN, i.FIRST_CHECKIN, p.ACTIVE,pt.NAME.as("patronType"), g.CODE.as("group"), DSL.count().as("total"))
@@ -68,7 +99,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 
 	}
 	
-	private Table<?> createTable2(TopPopularBooksCriteria criteria) {
+	private Table<?> createTable2() {
 
 		
 		Table<?> table = c;

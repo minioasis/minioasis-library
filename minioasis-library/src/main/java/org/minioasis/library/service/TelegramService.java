@@ -11,6 +11,7 @@ public interface TelegramService {
 	boolean isTelegramUserExist(Long chatId);
 	void save(TelegramUser entity);
 	TelegramUser getTelegramUser(long id);
+	TelegramUser findTelegramUserByChatId(Long chatId);
 	void delete(TelegramUser entity);
 	void deleteTelegramUser(long id);
 	Page<TelegramUser> findAllTelegramUsers(Pageable pageable);

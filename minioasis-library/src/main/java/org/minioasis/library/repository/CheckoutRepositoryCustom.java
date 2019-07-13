@@ -15,6 +15,8 @@ public interface CheckoutRepositoryCustom {
 
 	Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable);
 	
+	List<Checkout> findAllActiveCheckoutsByCardKey(String cardKey);
+	
 	List<TopCheckoutPatronsSummary> topListPatronsForCheckouts(CheckoutPatronCriteria criteria);
 	
 	List<TopPopularBooksSummary> topPopularBooks(TopPopularBooksCriteria criteria);

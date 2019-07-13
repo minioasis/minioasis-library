@@ -71,10 +71,24 @@ public class TelegramUserDao extends DAOImpl<TelegramUserRecord, org.minioasis.l
     }
 
     /**
+     * Fetch a unique record that has <code>CARD_KEY = value</code>
+     */
+    public org.minioasis.library.jooq.tables.pojos.TelegramUser fetchOneByCardKey(String value) {
+        return fetchOne(TelegramUser.TELEGRAM_USER.CARD_KEY, value);
+    }
+
+    /**
      * Fetch records that have <code>CHAT_ID IN (values)</code>
      */
     public List<org.minioasis.library.jooq.tables.pojos.TelegramUser> fetchByChatId(Long... values) {
         return fetch(TelegramUser.TELEGRAM_USER.CHAT_ID, values);
+    }
+
+    /**
+     * Fetch a unique record that has <code>CHAT_ID = value</code>
+     */
+    public org.minioasis.library.jooq.tables.pojos.TelegramUser fetchOneByChatId(Long value) {
+        return fetchOne(TelegramUser.TELEGRAM_USER.CHAT_ID, value);
     }
 
     /**
