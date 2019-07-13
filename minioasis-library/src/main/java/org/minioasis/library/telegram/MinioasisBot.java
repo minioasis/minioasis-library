@@ -49,7 +49,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	@Autowired
 	private LibraryService libraryService;
 	
-	private static int pageSize = 2;
+	private static int pageSize = 3;
 	
 	private static String START = "*Welcome to the BOT !*\n"
 								+ "/register : 1st time user\n"
@@ -142,17 +142,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 					
 					Page<Biblio> biblioPage = libraryService.findByCriteria(criteria, pageable);
 					List<Biblio> biblios = biblioPage.getContent();
-					int total = biblios.size();
+					long total = biblioPage.getTotalElements();
 					
 					EditMessageText new_message = new EditMessageText()
 							.setChatId(chat_id)
 							.setMessageId(toIntExact(message_id));
-					
-					String view = searchView(biblios);
-					new_message.setText(view)
+
+					new_message.setText(searchView(biblios,total))
 								.setParseMode(ParseMode.MARKDOWN);
-					
-					System.out.println(view);
 					
 					new_message.setReplyMarkup(createInlinePagingButtons(page,total,keyword));			
 
@@ -185,11 +182,13 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 
 		for(int i = 1; i < pageSize + 1; i++) {
-			String num = String.valueOf(page*pageSize + i);
-			rowInline.add(new InlineKeyboardButton().setText(num).setCallbackData("/p^g^^g?" + num + "--" + page + "--" + keyword));
+			if(page*pageSize + i <= total) {
+				String num = String.valueOf(page*pageSize + i);
+				rowInline.add(new InlineKeyboardButton().setText(num).setCallbackData("/p^g^^g?" + num + "--" + page + "--" + keyword));
+			}
 		}
-
-		if(page*pageSize < total) {
+		
+		if((page + 1)*pageSize  < total) {
 			rowInline.add(new InlineKeyboardButton().setText(">").setCallbackData("/p^g^^g?" + ">" + "--" + (page+1) + "--" + keyword));
 		}
 		
@@ -232,9 +231,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return s.toString();
 	}
 	
-	private static String searchView(List<Biblio> biblios) {
+	private static String searchView(List<Biblio> biblios, long total) {
 
-		Integer total = biblios.size();
 		int i = 1;
 		
 		StringBuffer s = new StringBuffer();
@@ -283,7 +281,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				Long chat_id = update.getMessage().getChatId();	
 				SendMessage new_message = new SendMessage().setChatId(chat_id);
 				
-				new_message.setText(searchView(biblios))
+				new_message.setText(searchView(biblios, total))
 						.setParseMode(ParseMode.MARKDOWN);
 				
 				new_message.setReplyMarkup(createInlinePagingButtons(page,total,keyword));
