@@ -17,7 +17,7 @@ import org.springframework.web.bind.annotation.RestController;
 
 @RestController
 public class PhotoClientController {
-
+	
 	@Autowired
 	private RemoteAccessService service;
 
@@ -29,32 +29,34 @@ public class PhotoClientController {
 		URL url = this.service.getUrl();
 		Photo photo = this.service.getRestTemplate().getForObject(url.toString() + "/photo/patron/" + id, Photo.class);
 
-		URL imgUrl = new URL(photo.getUrl());
+		if (photo != null) {
+			URL imgUrl = new URL(photo.getUrl());
 
-		try {
-			response.reset();
-			// TODO : please include png , gif ...etc
-			response.setContentType("image/jpeg");
-			response.setBufferSize(DEFAULT_BUFFER_SIZE);
-			response.setHeader("Content-Length", String.valueOf(photo.getSize()));
-			response.setHeader("Content-Disposition", "inline;filename=\"" + photo.getName() + "\"");
-			OutputStream out = response.getOutputStream();
+			try {
+				response.reset();
+				// TODO : please include png , gif ...etc
+				response.setContentType("image/jpeg");
+				response.setBufferSize(DEFAULT_BUFFER_SIZE);
+				response.setHeader("Content-Length", String.valueOf(photo.getSize()));
+				response.setHeader("Content-Disposition", "inline;filename=\"" + photo.getName() + "\"");
+				OutputStream out = response.getOutputStream();
 
-			byte[] chunk = new byte[4096];
-			int bytesRead;
-			InputStream in = imgUrl.openStream();
+				byte[] chunk = new byte[4096];
+				int bytesRead;
+				InputStream in = imgUrl.openStream();
 
-			while ((bytesRead = in.read(chunk)) > 0) {
-				out.write(chunk, 0, bytesRead);
+				while ((bytesRead = in.read(chunk)) > 0) {
+					out.write(chunk, 0, bytesRead);
+				}
+
+				out.flush();
+				out.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (DataAccessException e) {
+				e.printStackTrace();
 			}
-
-			out.flush();
-			out.close();
-
-		} catch (IOException e) {
-			e.printStackTrace();
-		} catch (DataAccessException e) {
-			e.printStackTrace();
 		}
 
 	}
