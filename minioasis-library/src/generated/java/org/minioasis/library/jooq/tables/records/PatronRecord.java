@@ -27,7 +27,7 @@ import org.minioasis.library.jooq.tables.Patron;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PatronRecord extends UpdatableRecordImpl<PatronRecord> {
 
-    private static final long serialVersionUID = 1496816368;
+    private static final long serialVersionUID = -1003208106;
 
     /**
      * Setter for <code>PUBLIC.PATRON.ID</code>.
@@ -407,20 +407,6 @@ public class PatronRecord extends UpdatableRecordImpl<PatronRecord> {
         return (Long) get(26);
     }
 
-    /**
-     * Setter for <code>PUBLIC.PATRON.PHOTO_ID</code>.
-     */
-    public void setPhotoId(Long value) {
-        set(27, value);
-    }
-
-    /**
-     * Getter for <code>PUBLIC.PATRON.PHOTO_ID</code>.
-     */
-    public Long getPhotoId() {
-        return (Long) get(27);
-    }
-
     // -------------------------------------------------------------------------
     // Primary key information
     // -------------------------------------------------------------------------
@@ -447,7 +433,7 @@ public class PatronRecord extends UpdatableRecordImpl<PatronRecord> {
     /**
      * Create a detached, initialised PatronRecord
      */
-    public PatronRecord(Long id, String active, String cardKey, String address1, String address2, String address3, String city, String country, String postcode, String state, String email, String mobile, String tel, Timestamp created, Date endDate, String entangled, String gender, String ic, String name, String name2, String note, Short orderNo, Date startDate, Short uncollectedNo, Timestamp updated, Long groupId, Long patrontypeId, Long photoId) {
+    public PatronRecord(Long id, String active, String cardKey, String address1, String address2, String address3, String city, String country, String postcode, String state, String email, String mobile, String tel, Timestamp created, Date endDate, String entangled, String gender, String ic, String name, String name2, String note, Short orderNo, Date startDate, Short uncollectedNo, Timestamp updated, Long groupId, Long patrontypeId) {
         super(Patron.PATRON);
 
         set(0, id);
@@ -477,6 +463,5 @@ public class PatronRecord extends UpdatableRecordImpl<PatronRecord> {
         set(24, updated);
         set(25, groupId);
         set(26, patrontypeId);
-        set(27, photoId);
     }
 }

@@ -1,10 +1,6 @@
 package org.minioasis.library.controller;
 
-import java.io.IOException;
-import java.util.Enumeration;
-import java.util.Iterator;
 import java.util.List;
-import java.util.Map;
 
 import javax.validation.Valid;
 
@@ -12,7 +8,6 @@ import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.GroupEditor;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
-import org.minioasis.library.domain.Photo;
 import org.minioasis.library.service.LibraryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -28,8 +23,6 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
-import org.springframework.web.multipart.MultipartFile;
-import org.springframework.web.multipart.MultipartHttpServletRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 @Controller
@@ -120,54 +113,6 @@ public class PatronController {
 		model.addAttribute("id", id);
 		
 		return "patron.upload.form";
-	}
-	
-	@RequestMapping(value = { "/{id}/upload" }, method = RequestMethod.POST)
-	public String uploadImagePost(MultipartHttpServletRequest request, @ModelAttribute("photo") Photo photo, @PathVariable("id") long id, Model model) throws IOException {
-		System.out.println("---------photo img ------------" + photo.getImg());
-		//System.out.println("---------photo img .length------------" + photo.getImg().length);
-		System.out.println("---------photo name ------------" + photo.getName());
-		
-		System.out.println("--------- request.getParameter(\"file\") ------------>>>>" + request.getParameter("file"));
-		System.out.println("--------- request.getParameter(\"img\") XXXXXXXXXXXXXXXXXXXXXXXXXXX>>>>" + request.getParameter("img"));
-		System.out.println("--------- request.getParameter(\"img\") ooooooooooooooooooooooooooo>>>>" + request.getAttribute("img"));
-		
-		Enumeration<String> en = request.getParameterNames();
-		while (en.hasMoreElements()) {
-			String e = en.nextElement();
-			System.out.println("......" + e);
-		}
-
-		// Getting uploaded files from the request object
-        Map<String, MultipartFile> fileMap = request.getFileMap();
-		
-        // Iterate through the map
-        for (MultipartFile multipartFile : fileMap.values()) {
-        	System.out.println("..................getName...................." + multipartFile.getName());
-        	System.out.println("..................getOriginalFilename...................." + multipartFile.getOriginalFilename());
-        	System.out.println("..................getBytes().length...................." + multipartFile.getBytes().length);
-        	//photo.setImg(multipartFile.getBytes());
-        }
-        for (String key : fileMap.keySet()) {
-        	System.out.println("..................key...................." + key);
-        }
-        
-		Iterator<String> itr = request.getFileNames();
-
-		while (itr.hasNext()) {
-		    String uploadedFile = itr.next();
-		    MultipartFile file = request.getFile(uploadedFile);
-		    
-		    System.out.println("--------- file.getOriginalFilename() ------------" + file.getOriginalFilename());
-		}
-		
-		System.out.println("Docs uploaded !!!!!!!!!!!!!!!!!!!!!!!!!!!!!!");
-		
-		Patron patron = this.service.getPatron(id);
-		patron.setPhoto(photo);
-		this.service.upload(patron);
-
-		return "redirect:/patron/" + patron.getId();
 	}
 	
 	@InitBinder

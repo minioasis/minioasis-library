@@ -32,7 +32,6 @@ import org.minioasis.library.jooq.tables.JournalEntryLine;
 import org.minioasis.library.jooq.tables.Location;
 import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
-import org.minioasis.library.jooq.tables.Photo;
 import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
@@ -53,7 +52,7 @@ import org.minioasis.library.jooq.tables.TelegramUser;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -741387581;
+    private static final long serialVersionUID = 425749033;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -151,11 +150,6 @@ public class Public extends SchemaImpl {
     public final PatronType PATRON_TYPE = org.minioasis.library.jooq.tables.PatronType.PATRON_TYPE;
 
     /**
-     * The table <code>PUBLIC.PHOTO</code>.
-     */
-    public final Photo PHOTO = org.minioasis.library.jooq.tables.Photo.PHOTO;
-
-    /**
      * The table <code>PUBLIC.PUBLISHER</code>.
      */
     public final Publisher PUBLISHER = org.minioasis.library.jooq.tables.Publisher.PUBLISHER;
@@ -235,7 +229,6 @@ public class Public extends SchemaImpl {
             Location.LOCATION,
             Patron.PATRON,
             PatronType.PATRON_TYPE,
-            Photo.PHOTO,
             Publisher.PUBLISHER,
             Reservation.RESERVATION,
             Series.SERIES,

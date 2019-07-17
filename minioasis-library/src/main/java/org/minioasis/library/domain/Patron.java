@@ -21,7 +21,6 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.OrderBy;
 import javax.persistence.Table;
 import javax.persistence.Transient;
@@ -89,10 +88,6 @@ public class Patron implements Serializable {
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "patrontype_id", nullable = false, foreignKey = @ForeignKey(name = "fk_patron_patrontype") )
 	private PatronType patronType;
-
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "photo_id", unique= true, nullable=true, insertable=true, updatable=true)
-	private Photo photo;
 
 	@Valid
 	private Contact contact;
@@ -224,14 +219,6 @@ public class Patron implements Serializable {
 
 	public void setPatronType(PatronType patronType) {
 		this.patronType = patronType;
-	}
-
-	public Photo getPhoto() {
-		return photo;
-	}
-
-	public void setPhoto(Photo photo) {
-		this.photo = photo;
 	}
 
 	public Contact getContact() {

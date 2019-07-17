@@ -24,7 +24,6 @@ import org.minioasis.library.jooq.tables.JournalEntryLine;
 import org.minioasis.library.jooq.tables.Location;
 import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
-import org.minioasis.library.jooq.tables.Photo;
 import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
 import org.minioasis.library.jooq.tables.Series;
@@ -134,11 +133,6 @@ public class Tables {
      * The table <code>PUBLIC.PATRON_TYPE</code>.
      */
     public static final PatronType PATRON_TYPE = org.minioasis.library.jooq.tables.PatronType.PATRON_TYPE;
-
-    /**
-     * The table <code>PUBLIC.PHOTO</code>.
-     */
-    public static final Photo PHOTO = org.minioasis.library.jooq.tables.Photo.PHOTO;
 
     /**
      * The table <code>PUBLIC.PUBLISHER</code>.

@@ -20,7 +20,6 @@ import org.minioasis.library.domain.FormData;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Image;
-import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
@@ -812,10 +811,6 @@ public class LibraryServiceImpl implements LibraryService {
 		this.patronRepository.save(entity);
 	}
 	public void edit(Patron entity){
-		long id = entity.getId();
-		Patron existingPatron = this.patronRepository.getOne(id);
-		Photo photo = existingPatron.getPhoto();
-		entity.setPhoto(photo);
 		this.patronRepository.save(entity);
 	}
 	public void delete(Patron entity){
@@ -826,39 +821,6 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	public Patron getPatron(long id){
 		return this.patronRepository.getOne(id);
-	}
-	public boolean upload(Patron patron) {
-		
-		Photo photoPost = patron.getPhoto();
-		byte[] img = photoPost.getImg();
-		int size = 0;
-		
-		if (img != null){
-			 size = img.length;
-		}
-		
-		try{
-			
-			Patron existingPatron = this.patronRepository.getOne(patron.getId());
-			Photo photoFromDB = existingPatron.getPhoto();
-			
-			if (photoFromDB != null) {
-				if (photoPost != null) {
-					photoPost.setId(photoFromDB.getId());
-				}
-			}
-
-			photoPost.setSize(size);
-			existingPatron.setPhoto(photoPost);
-			
-			this.patronRepository.save(existingPatron);
-			return true;
-			
-		}catch (Exception e){
-			// TODO
-		}
-		
-		return false;
 	}
 	public Patron findByCardKey(String cardKey){
 		return this.patronRepository.findByCardKey(cardKey);

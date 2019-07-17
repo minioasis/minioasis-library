@@ -260,18 +260,4 @@ public class PatronDao extends DAOImpl<PatronRecord, org.minioasis.library.jooq.
     public List<org.minioasis.library.jooq.tables.pojos.Patron> fetchByPatrontypeId(Long... values) {
         return fetch(Patron.PATRON.PATRONTYPE_ID, values);
     }
-
-    /**
-     * Fetch records that have <code>PHOTO_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.Patron> fetchByPhotoId(Long... values) {
-        return fetch(Patron.PATRON.PHOTO_ID, values);
-    }
-
-    /**
-     * Fetch a unique record that has <code>PHOTO_ID = value</code>
-     */
-    public org.minioasis.library.jooq.tables.pojos.Patron fetchOneByPhotoId(Long value) {
-        return fetchOne(Patron.PATRON.PHOTO_ID, value);
-    }
 }

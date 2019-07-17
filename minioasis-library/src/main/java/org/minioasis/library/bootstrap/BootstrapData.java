@@ -451,7 +451,7 @@ public class BootstrapData implements CommandLineRunner {
 		p1.setPatronType(pt1);
 		p1.setGroup(g1);
 		p1.setGender("M");
-		p1.setIc("700819-10-9565");
+		p1.setIc("1");
 		p1.setContact(c1);
 		patronRepository.save(p1);
 		
@@ -466,7 +466,7 @@ public class BootstrapData implements CommandLineRunner {
 		p2.setPatronType(pt1);
 		p2.setGroup(g2);
 		p2.setGender("M");
-		p2.setIc("800719-10-7777");
+		p2.setIc("2");
 		p2.setContact(c2);
 		patronRepository.save(p2);
 		
@@ -481,7 +481,7 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setPatronType(pt2);
 		p3.setGroup(g3);
 		p3.setGender("F");
-		p3.setIc("44415-10-7777");
+		p3.setIc("3");
 		p3.setContact(c3);
 		patronRepository.save(p3);
 		
@@ -496,7 +496,7 @@ public class BootstrapData implements CommandLineRunner {
 		p4.setPatronType(pt1);
 		p4.setGroup(g3);
 		p4.setGender("F");
-		p4.setIc("44415-10-8888");
+		p4.setIc("4");
 		p4.setContact(c3);
 		patronRepository.save(p4);
 		

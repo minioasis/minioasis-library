@@ -252,7 +252,6 @@ public interface LibraryService {
 	void delete(Patron entity);
 	void deletePatron(long id);
 	Patron getPatron(long id);
-	boolean upload(Patron patron);
 	Patron findByCardKey(String name);
 	Patron findByEntangled(String name);
 	List<Patron> findAllPatrons(Sort sort);

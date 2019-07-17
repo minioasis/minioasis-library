@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Patron implements Serializable {
 
-    private static final long serialVersionUID = -827709980;
+    private static final long serialVersionUID = 1314180335;
 
     private Long      id;
     private String    active;
@@ -53,7 +53,6 @@ public class Patron implements Serializable {
     private Timestamp updated;
     private Long      groupId;
     private Long      patrontypeId;
-    private Long      photoId;
 
     public Patron() {}
 
@@ -85,7 +84,6 @@ public class Patron implements Serializable {
         this.updated = value.updated;
         this.groupId = value.groupId;
         this.patrontypeId = value.patrontypeId;
-        this.photoId = value.photoId;
     }
 
     public Patron(
@@ -115,8 +113,7 @@ public class Patron implements Serializable {
         Short     uncollectedNo,
         Timestamp updated,
         Long      groupId,
-        Long      patrontypeId,
-        Long      photoId
+        Long      patrontypeId
     ) {
         this.id = id;
         this.active = active;
@@ -145,7 +142,6 @@ public class Patron implements Serializable {
         this.updated = updated;
         this.groupId = groupId;
         this.patrontypeId = patrontypeId;
-        this.photoId = photoId;
     }
 
     public Long getId() {
@@ -364,14 +360,6 @@ public class Patron implements Serializable {
         this.patrontypeId = patrontypeId;
     }
 
-    public Long getPhotoId() {
-        return this.photoId;
-    }
-
-    public void setPhotoId(Long photoId) {
-        this.photoId = photoId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Patron (");
@@ -403,7 +391,6 @@ public class Patron implements Serializable {
         sb.append(", ").append(updated);
         sb.append(", ").append(groupId);
         sb.append(", ").append(patrontypeId);
-        sb.append(", ").append(photoId);
 
         sb.append(")");
         return sb.toString();

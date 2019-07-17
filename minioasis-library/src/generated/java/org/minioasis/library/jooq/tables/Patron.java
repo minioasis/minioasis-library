@@ -41,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.PatronRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Patron extends TableImpl<PatronRecord> {
 
-    private static final long serialVersionUID = -725972453;
+    private static final long serialVersionUID = -1006041275;
 
     /**
      * The reference instance of <code>PUBLIC.PATRON</code>
@@ -192,11 +192,6 @@ public class Patron extends TableImpl<PatronRecord> {
     public final TableField<PatronRecord, Long> PATRONTYPE_ID = createField("PATRONTYPE_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.PATRON.PHOTO_ID</code>.
-     */
-    public final TableField<PatronRecord, Long> PHOTO_ID = createField("PHOTO_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
-
-    /**
      * Create a <code>PUBLIC.PATRON</code> table reference
      */
     public Patron() {
@@ -238,7 +233,7 @@ public class Patron extends TableImpl<PatronRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FK_PATRON_GROUP_INDEX_8, Indexes.FK_PATRON_PATRONTYPE_INDEX_8, Indexes.PRIMARY_KEY_8C, Indexes.UK_3CND47DLNMG4XI9OQ6JNI97X3_INDEX_8, Indexes.UK_6AO4MCHW281WTIXA2FT86ESFK_INDEX_8, Indexes.UK_E9FRUVR3H2998KELNJ73YM6CY_INDEX_8);
+        return Arrays.<Index>asList(Indexes.FK_PATRON_GROUP_INDEX_8, Indexes.FK_PATRON_PATRONTYPE_INDEX_8, Indexes.PRIMARY_KEY_8C, Indexes.UK_3CND47DLNMG4XI9OQ6JNI97X3_INDEX_8, Indexes.UK_E9FRUVR3H2998KELNJ73YM6CY_INDEX_8);
     }
 
     /**
@@ -262,7 +257,7 @@ public class Patron extends TableImpl<PatronRecord> {
      */
     @Override
     public List<UniqueKey<PatronRecord>> getKeys() {
-        return Arrays.<UniqueKey<PatronRecord>>asList(Keys.CONSTRAINT_8C, Keys.UK_3CND47DLNMG4XI9OQ6JNI97X3, Keys.UK_E9FRUVR3H2998KELNJ73YM6CY, Keys.UK_6AO4MCHW281WTIXA2FT86ESFK);
+        return Arrays.<UniqueKey<PatronRecord>>asList(Keys.CONSTRAINT_8C, Keys.UK_3CND47DLNMG4XI9OQ6JNI97X3, Keys.UK_E9FRUVR3H2998KELNJ73YM6CY);
     }
 
     /**
@@ -270,7 +265,7 @@ public class Patron extends TableImpl<PatronRecord> {
      */
     @Override
     public List<ForeignKey<PatronRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<PatronRecord, ?>>asList(Keys.FK_PATRON_GROUP, Keys.FK_PATRON_PATRONTYPE, Keys.FKF9H2JWFDUY0AKISOPKRLPI37D);
+        return Arrays.<ForeignKey<PatronRecord, ?>>asList(Keys.FK_PATRON_GROUP, Keys.FK_PATRON_PATRONTYPE);
     }
 
     /**
