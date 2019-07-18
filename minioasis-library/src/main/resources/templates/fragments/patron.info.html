@@ -13,6 +13,7 @@
 					<div class="col-md-2">
 						<!-- th:src="@{/patron/photo/{id}(id=${dto.patron.id})}" -->
 						<img src="/images/bookworm.png"
+							th:src="@{/patron/{id}/photo(id=${dto.patron.ic})}"
 							class="rounded-circle"
 							style="min-height: 150px; height: 185px; width: 150px;" />
 					</div>
@@ -52,7 +53,7 @@
 
 					<div class="col-md-4">
 						<h6>Note</h6>
-						<textarea rows="7" cols="45" name="note" th:text="${dto.patron.note}"></textarea>
+						<textarea class="col" rows="7" name="note" th:text="${dto.patron.note}"></textarea>
 					</div>
 					<div class="col-md-1">
 						<a class="btn btn-outline-info" href="#" th:href="@{/patron/edit?id={id}(id=${dto.patron.id})}"><i class="far fa-edit"></i></a>

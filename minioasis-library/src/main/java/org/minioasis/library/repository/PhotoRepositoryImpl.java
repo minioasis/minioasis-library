@@ -25,6 +25,12 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 	
 	@Value("${minio.patron.thumbnail.bucket.name}")
 	private String patronThumbnailBucket;
+	
+	@Value("${minio.biblio.bucket.name}")
+	private String biblioBucket;
+	
+	@Value("${minio.biblio.thumbnail.bucket.name}")
+	private String biblioThumbnailBucket;
 
 	public Photo findPatronByIc(String id)
 			throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
@@ -98,6 +104,78 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 		
 		return photo;
 
+	}
+	
+	public Photo findBiblioByIsbn(String id) throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
+		
+		Photo photo = null;
+		
+		try {
+
+			boolean found = minioClient.bucketExists(biblioBucket);
+
+			if (found) {
+
+				ObjectStat objectStat = minioClient.statObject(biblioBucket, id + ".jpg");
+
+				if (objectStat == null) {
+					objectStat = minioClient.statObject(biblioBucket, id + ".jpeg");
+				}
+
+				if (objectStat != null) {
+					
+					String url = minioClient.presignedGetObject(biblioBucket, objectStat.name(), 60 * 60 * 24);
+					
+					photo = convert(objectStat, url);
+
+				} else {
+					return photo;
+				}
+
+			}
+
+		} catch (MinioException e) {
+			return null;
+		}
+		
+		return photo;
+		
+	}
+	
+	public Photo findBiblioThumbnailByIsbn(String id) throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
+		
+		Photo photo = null;
+		
+		try {
+
+			boolean found = minioClient.bucketExists(biblioThumbnailBucket);
+
+			if (found) {
+
+				ObjectStat objectStat = minioClient.statObject(biblioThumbnailBucket, id + ".jpg");
+
+				if (objectStat == null) {
+					objectStat = minioClient.statObject(biblioThumbnailBucket, id + ".jpeg");
+				}
+
+				if (objectStat != null) {
+					
+					String url = minioClient.presignedGetObject(biblioThumbnailBucket, objectStat.name(), 60 * 60 * 24);
+					
+					photo = convert(objectStat, url);
+
+				} else {
+					return photo;
+				}
+
+			}
+
+		} catch (MinioException e) {
+			return null;
+		}
+		
+		return photo;
+		
 	}
 	
 	private Photo convert(ObjectStat object, String url) {

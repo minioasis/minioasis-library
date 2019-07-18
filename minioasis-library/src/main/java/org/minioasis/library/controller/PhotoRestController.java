@@ -22,7 +22,7 @@ public class PhotoRestController {
 		
 		try {
 
-			photo = photoRepository.findPatronByIc(id);
+			photo = photoRepository.findPatronThumbnailByIc(id);
 
 		} catch (Exception ex) {
 
@@ -31,4 +31,20 @@ public class PhotoRestController {
 		return photo;
 	}
 
+	@GetMapping(path = "/biblio/{id}", produces = "application/json")
+	public Photo photoWithIsbn(@PathVariable("id") String id) {
+
+		Photo photo = null;
+		
+		try {
+
+			photo = photoRepository.findBiblioThumbnailByIsbn(id);
+
+		} catch (Exception ex) {
+
+		}
+
+		return photo;
+	}
+	
 }
