@@ -18,7 +18,6 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.InitBinder;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -64,7 +63,7 @@ public class PatronController {
 				return "patron.form";
 			}
 			
-			return "redirect:/patron/" + patron.getId() + "/upload";
+			return "redirect:/patron/" + patron.getId();
 			
 		}			
 	}
@@ -101,18 +100,10 @@ public class PatronController {
 				return "patron.form";
 			}
 			
-			return "redirect:/patron/" + patron.getId() + "/upload";
+			return "redirect:/patron/" + patron.getId();
 			
 		}
 		
-	}
-	
-	@RequestMapping(value = {"/{id}/upload" }, method = RequestMethod.GET)
-	public String uploadImageGet(@PathVariable("id") long id, Model model) {
-
-		model.addAttribute("id", id);
-		
-		return "patron.upload.form";
 	}
 	
 	@InitBinder

@@ -218,8 +218,7 @@
 						</td>
 						<td><textarea rows="4" cols="30" name="note" th:text="${e.note}"></textarea></td>
 						<td>
-							  <a href="#" th:href="@{/patron/{id}/upload(id=${e.id})}"><i class="far fa-image"></i></a>
-							| <a href="#" th:href="@{/patron/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							<a href="#" th:href="@{/patron/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
 							| <a href="#" th:href="@{/patron/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>

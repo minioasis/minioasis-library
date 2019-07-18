@@ -192,23 +192,5 @@ public class BiblioController {
 			
 		}		
 	}
-	
-	@RequestMapping(value = {"/upload" }, method = RequestMethod.GET)
-	public String uploadImage(@RequestParam(value = "id", required = true) long id, Model model) {
-
-		Biblio biblio = this.service.getBiblio(id);
-		model.addAttribute("biblio", biblio);
-		
-		return "biblio.image.upload.form";
-	}
-	
-	@RequestMapping(value = { "/upload" }, method = RequestMethod.POST)
-	public String uploadImage(@ModelAttribute("biblio") Biblio biblio, @RequestParam(value = "id", required = true) long id, Model model) {
-
-		biblio.setId(id);
-		this.service.upload(biblio);
-
-		return "redirect:/biblio/" + biblio.getId();
-	}
 
 }

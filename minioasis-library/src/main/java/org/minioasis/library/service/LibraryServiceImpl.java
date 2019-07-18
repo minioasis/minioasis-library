@@ -377,39 +377,6 @@ public class LibraryServiceImpl implements LibraryService {
 	public void deleteBiblio(long id){
 		this.biblioRepository.deleteById(id);
 	}
-	public boolean upload(Biblio biblio){
-
-		Image imagePost = biblio.getImage();
-		byte[] img = imagePost.getImg();
-		int size = 0;
-		
-		if (img != null){
-			 size = img.length;
-		}		
-		
-		try{
-			
-			Biblio existingBiblio = this.biblioRepository.getOne(biblio.getId());
-			Image imageFromDb = existingBiblio.getImage();
-			
-			if(imageFromDb != null){
-				if(imagePost != null){
-					imagePost.setId(imageFromDb.getId());
-				}		
-			}
-			
-			imagePost.setSize(size);
-			existingBiblio.setImage(imagePost);
-			
-			this.biblioRepository.save(existingBiblio);
-			return true;
-			
-		} catch (Exception e){
-			// TODO
-		}
-		
-		return false;
-	}
 	public Biblio getBiblio(long id){
 		return this.biblioRepository.getOne(id);
 	}

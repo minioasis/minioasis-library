@@ -115,7 +115,6 @@ public interface LibraryService {
 	void save(Biblio entity);
 	void delete(Biblio entity);
 	void deleteBiblio(long id);
-	boolean upload(Biblio biblio);
 	Biblio getBiblio(long id);
 	Biblio getBiblioDetails(long id);
 	Biblio getBiblioFetchItems(long id);
