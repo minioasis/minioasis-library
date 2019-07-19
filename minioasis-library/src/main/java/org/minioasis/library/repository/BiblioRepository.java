@@ -16,6 +16,8 @@ public interface BiblioRepository extends JpaRepository<Biblio, Long>, BiblioRep
 	@Query("SELECT b FROM Biblio b LEFT JOIN FETCH b.items WHERE b.id = ?1")
 	public Biblio getBiblioFetchItems(long id);
 	
+	public Biblio findByIsbn(String isbn);
+	
 	@Query("SELECT b FROM Biblio b WHERE title LIKE %?1% OR isbn LIKE %?1% OR note LIKE %?1%")
 	public Page<Biblio> findByTitleAndIsbnAndNoteContaining(String title, Pageable pageable); 
 	

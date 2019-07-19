@@ -386,6 +386,9 @@ public class LibraryServiceImpl implements LibraryService {
 	public Biblio getBiblioFetchItems(long id){
 		return this.biblioRepository.getBiblioFetchItems(id);
 	}
+	public Biblio findByIsbn(String isbn) {
+		return this.biblioRepository.findByIsbn(isbn);
+	}
 	public List<Biblio> findAllBiblios(Sort sort){
 		return this.biblioRepository.findAll(sort);
 	}

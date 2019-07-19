@@ -118,6 +118,7 @@ public interface LibraryService {
 	Biblio getBiblio(long id);
 	Biblio getBiblioDetails(long id);
 	Biblio getBiblioFetchItems(long id);
+	Biblio findByIsbn(String isbn);
 	List<Biblio> findAllBiblios(Sort sort);
 	Page<Biblio> findAllBiblios(Pageable pageable);
 	Page<Biblio> findAllUncompleteBiblios(Pageable pageable);

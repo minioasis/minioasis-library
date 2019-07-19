@@ -2,6 +2,9 @@ package org.minioasis.library.telegram;
 
 import static java.lang.Math.toIntExact;
 
+import java.io.IOException;
+import java.io.InputStream;
+import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
@@ -9,10 +12,12 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Checkout;
+import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Preference;
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.service.LibraryService;
+import org.minioasis.library.service.RemoteAccessService;
 import org.minioasis.library.service.TelegramService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -26,6 +31,7 @@ import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
 import org.telegram.telegrambots.meta.api.methods.send.SendMessage;
+import org.telegram.telegrambots.meta.api.methods.send.SendPhoto;
 import org.telegram.telegrambots.meta.api.methods.updatingmessages.EditMessageText;
 import org.telegram.telegrambots.meta.api.objects.Update;
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMarkup;
@@ -48,6 +54,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	
 	@Autowired
 	private LibraryService libraryService;
+	
+	@Autowired
+	private RemoteAccessService remoteService;
 	
 	private static int pageSize = 3;
 	
@@ -97,6 +106,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String VERIFICATION_SUCCESS = "verification success !";
 	private static String ALREADY_REGISTERED = "already registered !";
 	private static String MEMBER_NOT_FOUND = "member not found !";
+	private static String BOOK_NOT_FOUND = "book not found !";
 	
 	@Override
 	public void onUpdateReceived(Update update) {	
@@ -110,11 +120,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			registerMessage("/register", update, REGISTER);
 
-			registration(update);
+			registrationVerification(update);
 			
 			checkouts("/due", update);
 			
-			search(update);
+			search("/search", update);
 
 		} else if (update.hasCallbackQuery()) {
 
@@ -124,14 +134,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			String call_data = update.getCallbackQuery().getData();
 			
 			if(call_data.startsWith("/p^g^^g?")) {
-				
-				String extractedParameters = StringUtils.substringAfter(call_data,"/p^g^^g?");
-				String parameters[] = extractedParameters.split("--");
+
+				String extractedPagingParameters = StringUtils.substringAfter(call_data,"/p^g^^g?");
+				String parameters[] = extractedPagingParameters.split("--");
 				
 				String arrow = parameters[0];
 				
 				if(arrow.equals("<") || arrow.equals(">")) {
-					
+
 					int page = Integer.parseInt(parameters[1]);
 					String keyword = parameters[2];
 					
@@ -141,17 +151,15 @@ public class MinioasisBot extends TelegramLongPollingBot {
 					Pageable pageable = PageRequest.of(page, pageSize);
 					
 					Page<Biblio> biblioPage = libraryService.findByCriteria(criteria, pageable);
-					List<Biblio> biblios = biblioPage.getContent();
-					long total = biblioPage.getTotalElements();
 					
 					EditMessageText new_message = new EditMessageText()
 							.setChatId(chat_id)
 							.setMessageId(toIntExact(message_id));
 
-					new_message.setText(searchView(biblios,total))
+					new_message.setText(searchView(biblioPage))
 								.setParseMode(ParseMode.MARKDOWN);
 					
-					new_message.setReplyMarkup(createInlinePagingButtons(page,total,keyword));			
+					new_message.setReplyMarkup(createInlinePagingButtons(biblioPage,keyword));			
 
 					try {
 						execute(new_message);
@@ -159,15 +167,60 @@ public class MinioasisBot extends TelegramLongPollingBot {
 						e.printStackTrace();
 					}
 					
-				}else {
-					
+				}
+			}
+			
+			if(call_data.startsWith("/biblioinfo")) {
 
-				}			
+				String isbn = StringUtils.substringAfter(call_data,"/biblioinfo.");
+				
+				Biblio biblio = libraryService.findByIsbn(isbn);
+				
+				try {
+					
+					Photo photo = getPhoto(isbn);
+					
+					URL imgUrl = new URL(photo.getUrl());
+					InputStream in = imgUrl.openStream();
+					
+					SendPhoto message = new SendPhoto()
+											.setChatId(chat_id)
+											.setPhoto(isbn, in)
+											.setCaption(biblioView(biblio))
+											.setParseMode(ParseMode.MARKDOWN);
+					
+					try {
+						execute(message);
+						logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
+					} catch (TelegramApiException e) {
+						e.printStackTrace();
+					}
+					
+				}catch(IOException ioe) {
+					
+					SendMessage message = new SendMessage()
+												.setChatId(chat_id)
+												.setText(BOOK_NOT_FOUND);
+					
+					try {
+						execute(message);
+						logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ BOOK_NOT_FOUND + " ] ");
+					} catch (TelegramApiException e) {
+						e.printStackTrace();
+					}
+					
+				}
+	
 			}
 		}	
 	}
 	
-	private InlineKeyboardMarkup createInlinePagingButtons(int page, long total, String keyword) {
+	private InlineKeyboardMarkup createInlinePagingButtons(Page<Biblio> biblioPage, String keyword) {
+		
+		List<Biblio> biblios = biblioPage.getContent();
+		int page = biblioPage.getPageable().getPageNumber();
+		long total = biblioPage.getTotalElements();
+		int pageSize = biblioPage.getSize();
 		
 		InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
 		
@@ -181,10 +234,10 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			rowInline.add(new InlineKeyboardButton().setText("<").setCallbackData("/p^g^^g?" + "<" + "--" + (page-1) + "--" + keyword));
 		}
 
-		for(int i = 1; i < pageSize + 1; i++) {
-			if(page*pageSize + i <= total) {
-				String num = String.valueOf(page*pageSize + i);
-				rowInline.add(new InlineKeyboardButton().setText(num).setCallbackData("/p^g^^g?" + num + "--" + page + "--" + keyword));
+		for (int i = 0; i < biblios.size(); i++) {
+			if(page*pageSize + (i-1) <= total) {
+				String num = String.valueOf(page*pageSize + (i+1));
+				rowInline.add(new InlineKeyboardButton().setText(num).setCallbackData("/biblioinfo." + biblios.get(i).getIsbn()));
 			}
 		}
 		
@@ -197,7 +250,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		
 		return markupInline;
 	}
-	
+
 	private static String checkoutsView(String cardKey, List<Checkout> checkouts) {
 		
 		Integer total = checkouts.size();
@@ -231,8 +284,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return s.toString();
 	}
 	
-	private static String searchView(List<Biblio> biblios, long total) {
+	private static String searchView(Page<Biblio> page) {
 
+		long total = page.getTotalElements();
+		List<Biblio> biblios = page.getContent();
+		
 		int i = 1;
 		
 		StringBuffer s = new StringBuffer();
@@ -253,13 +309,37 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return s.toString(); 
 	}
 	
-	private void search(Update update) {
+	private static String biblioView(Biblio biblio) {
+		
+		StringBuffer s = new StringBuffer();
+		
+		s.append("_*" + biblio.getTitle() + "*_\n");
+		s.append("\n");
+		s.append("*Author*\n");
+		s.append("_" + biblio.getAuthor() + "_\n");
+		s.append("\n");
+		s.append("*Publisher*\n");
+		s.append("_" + biblio.getPublisher().getName() + "_\n");
+		s.append("\n");
+		//s.append();
+		
+		return s.toString();
+	}
+	
+	private Photo getPhoto(String isbn) throws IOException {
+		
+		URL url = this.remoteService.getUrl();
+		Photo photo = this.remoteService.getRestTemplate().getForObject(url.toString() + "/photo/biblio/" + isbn, Photo.class);
+		
+		return photo;
+	}
+	private void search(String command, Update update) {
 		
 		//there must be a SPACE between the /search command and search keyword !
 		
 		String message = update.getMessage().getText();
 		
-		boolean searchCommand = message.startsWith("/search ");
+		boolean searchCommand = message.startsWith(command);
 
 		if(searchCommand){
 			
@@ -275,16 +355,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				Pageable pageable = PageRequest.of(page, pageSize);
 				
 				Page<Biblio> biblioPage = libraryService.findByCriteria(criteria, pageable);
-				List<Biblio> biblios = biblioPage.getContent();
-				long total = biblioPage.getTotalElements();
 
 				Long chat_id = update.getMessage().getChatId();	
 				SendMessage new_message = new SendMessage().setChatId(chat_id);
 				
-				new_message.setText(searchView(biblios, total))
+				new_message.setText(searchView(biblioPage))
 						.setParseMode(ParseMode.MARKDOWN);
 				
-				new_message.setReplyMarkup(createInlinePagingButtons(page,total,keyword));
+				new_message.setReplyMarkup(createInlinePagingButtons(biblioPage,keyword));
 				
 				try {
 					
@@ -388,7 +466,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 	
-	private void registration(Update update) {
+	private void registrationVerification(Update update) {
 		
 		Long chat_id = update.getMessage().getChatId();
 		
