@@ -868,6 +868,7 @@ public class Patron implements Serializable {
 			throw new LibraryException(renewError.getAllMessages());
 
 		// renew
+		renew.setCheckoutDate(given);
 		renew.setState(CheckoutState.RENEW);
 		renew.setRenewedNo(renew.getRenewedNo() + 1);
 		renew.setDueDate(newDueDate);
