@@ -182,40 +182,48 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				List<Item> items = libraryService.findItemsByIsbn(isbn);
 
 				biblio.setItems(items);
-				
-				try {
 
+				try {
+					
 					Photo photo = getPhoto(isbn);
 					
-					URL imgUrl = new URL(photo.getUrl());
-					InputStream in = imgUrl.openStream();
+					if(photo != null) {
+						
+						URL imgUrl = new URL(photo.getUrl());
+						InputStream in = imgUrl.openStream();
 
-					SendPhoto message = new SendPhoto()
-											.setChatId(chat_id)
-											.setPhoto(isbn, in)
-											.setCaption(biblioView(biblio))
-											.setParseMode(ParseMode.MARKDOWN);
-					
-					try {
-						execute(message);
-						logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
-					} catch (TelegramApiException e) {
-						e.printStackTrace();
-					}
-					
-				}catch(IOException ioe) {
-
-					SendMessage message = new SendMessage()
+						SendPhoto message = new SendPhoto()
 												.setChatId(chat_id)
-												.setText(biblioView(biblio))
+												.setPhoto(isbn, in)
+												.setCaption(biblioView(biblio))
 												.setParseMode(ParseMode.MARKDOWN);
+						
+						try {
+							execute(message);
+							logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
+						} catch (TelegramApiException e) {
+							e.printStackTrace();
+						}
 
-					try {
-						execute(message);
-						logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
-					} catch (TelegramApiException e) {
-						e.printStackTrace();
+						
+					}else {
+						
+						SendMessage message = new SendMessage()
+								.setChatId(chat_id)
+								.setText(biblioView(biblio))
+								.setParseMode(ParseMode.MARKDOWN);
+						
+						try {
+							execute(message);
+							logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
+						} catch (TelegramApiException e) {
+							e.printStackTrace();
+						}
 					}
+					
+				}catch(IOException ex) {
+
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : IOException ] ");
 					
 				}
 			}
