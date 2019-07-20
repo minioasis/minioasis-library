@@ -46,6 +46,18 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 	Item getItemForCheckin(String barcode, String[] states);
 	
 	@Query("SELECT i FROM Item i"
+			+ " LEFT JOIN FETCH i.itemStatus"
+			+ " LEFT JOIN FETCH i.biblio b"
+			+ " WHERE b.isbn = ?1 AND i.state.state in ?2")
+	List<Item> findItemsByIsbnAndStates(String isbn, String[] states);
+	
+	@Query("SELECT i FROM Item i"
+			+ " LEFT JOIN FETCH i.itemStatus"
+			+ " LEFT JOIN FETCH i.biblio b"
+			+ " WHERE b.isbn = ?1")
+	List<Item> findItemsByIsbn(String isbn);
+	
+	@Query("SELECT i FROM Item i"
 			+ " LEFT JOIN FETCH i.biblio b"
 			+ " WHERE b.id = ?1")	
 	List<Item> findAllItemsOrderByBarcode(long id);

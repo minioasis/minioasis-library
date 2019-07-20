@@ -12,6 +12,8 @@ import java.util.List;
 import org.apache.commons.lang3.StringUtils;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Checkout;
+import org.minioasis.library.domain.Item;
+import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Preference;
 import org.minioasis.library.domain.TelegramUser;
@@ -106,7 +108,6 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String VERIFICATION_SUCCESS = "verification success !";
 	private static String ALREADY_REGISTERED = "already registered !";
 	private static String MEMBER_NOT_FOUND = "member not found !";
-	private static String BOOK_NOT_FOUND = "book not found !";
 	
 	@Override
 	public void onUpdateReceived(Update update) {	
@@ -176,13 +177,19 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				
 				Biblio biblio = libraryService.findByIsbn(isbn);
 				
+				String[] states = new String[1];
+				states[0] = ItemState.IN_LIBRARY.toString();
+				List<Item> items = libraryService.findItemsByIsbn(isbn);
+
+				biblio.setItems(items);
+				
 				try {
-					
+
 					Photo photo = getPhoto(isbn);
 					
 					URL imgUrl = new URL(photo.getUrl());
 					InputStream in = imgUrl.openStream();
-					
+
 					SendPhoto message = new SendPhoto()
 											.setChatId(chat_id)
 											.setPhoto(isbn, in)
@@ -197,20 +204,20 @@ public class MinioasisBot extends TelegramLongPollingBot {
 					}
 					
 				}catch(IOException ioe) {
-					
+
 					SendMessage message = new SendMessage()
 												.setChatId(chat_id)
-												.setText(BOOK_NOT_FOUND);
-					
+												.setText(biblioView(biblio))
+												.setParseMode(ParseMode.MARKDOWN);
+
 					try {
 						execute(message);
-						logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ BOOK_NOT_FOUND + " ] ");
+						logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
 					} catch (TelegramApiException e) {
 						e.printStackTrace();
 					}
 					
 				}
-	
 			}
 		}	
 	}
@@ -310,6 +317,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	}
 	
 	private static String biblioView(Biblio biblio) {
+
+		List<Item> items = biblio.getItems();
 		
 		StringBuffer s = new StringBuffer();
 		
@@ -321,8 +330,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		s.append("*Publisher*\n");
 		s.append("_" + biblio.getPublisher().getName() + "_\n");
 		s.append("\n");
-		//s.append();
+		s.append("*Status*\n");
 		
+		String state = "";
+		
+		for (int i = 0; i < items.size(); i++) {
+			state = items.get(i).getState().getState();
+			s.append((i+1) + ". " + state.replaceAll("_", " ") + "\n");
+		}
 		return s.toString();
 	}
 	

@@ -203,9 +203,13 @@ public class BootstrapData implements CommandLineRunner {
 		ItemStatus is1 = new ItemStatus("Available",true,true);
 		ItemStatus is2 = new ItemStatus("Lost",false,false);
 		ItemStatus is3 = new ItemStatus("New Book Display",false,true);
+		ItemStatus is4 = new ItemStatus("Reference",false,false);
+		ItemStatus is5 = new ItemStatus("Weeded",false,false);
 		itemStatusRepository.save(is1);
 		itemStatusRepository.save(is2);
 		itemStatusRepository.save(is3);
+		itemStatusRepository.save(is4);
+		itemStatusRepository.save(is5);
 		
 		// Location
 		Location l1 = new Location("Kepong");

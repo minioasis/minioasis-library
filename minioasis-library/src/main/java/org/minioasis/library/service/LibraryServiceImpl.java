@@ -585,6 +585,12 @@ public class LibraryServiceImpl implements LibraryService {
 	public Item getItemFetchRelatedBiblio(String barcode){
 		return this.itemRepository.getItemFetchRelatedBiblio(barcode);
 	}
+	public List<Item> findItemsByIsbn(String isbn){
+		return this.itemRepository.findItemsByIsbn(isbn);
+	}
+	public List<Item> findItemsByIsbnAndStates(String isbn, String[] states) {
+		return this.itemRepository.findItemsByIsbnAndStates(isbn, states);
+	}
 	public List<Item> findAllItems(Sort sort){
 		return this.itemRepository.findAll(sort);
 	}
