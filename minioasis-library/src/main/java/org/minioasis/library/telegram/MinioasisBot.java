@@ -135,101 +135,16 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			String call_data = update.getCallbackQuery().getData();
 			
 			if(call_data.startsWith("/p^g^^g?")) {
-
-				String extractedPagingParameters = StringUtils.substringAfter(call_data,"/p^g^^g?");
-				String parameters[] = extractedPagingParameters.split("--");
-				
-				String arrow = parameters[0];
-				
-				if(arrow.equals("<") || arrow.equals(">")) {
-
-					int page = Integer.parseInt(parameters[1]);
-					String keyword = parameters[2];
-					
-					BiblioCriteria criteria = new BiblioCriteria();			
-					criteria.setKeyword1(keyword);
-					
-					Pageable pageable = PageRequest.of(page, pageSize);
-					
-					Page<Biblio> biblioPage = libraryService.findByCriteria(criteria, pageable);
-					
-					EditMessageText new_message = new EditMessageText()
-							.setChatId(chat_id)
-							.setMessageId(toIntExact(message_id));
-
-					new_message.setText(searchView(biblioPage))
-								.setParseMode(ParseMode.MARKDOWN);
-					
-					new_message.setReplyMarkup(createInlinePagingButtons(biblioPage,keyword));			
-
-					try {
-						execute(new_message);
-					} catch (TelegramApiException e) {
-						e.printStackTrace();
-					}
-					
-				}
+				pagingCallBack(call_data, chat_id, message_id);
 			}
 			
 			if(call_data.startsWith("/biblioinfo")) {
-
-				String isbn = StringUtils.substringAfter(call_data,"/biblioinfo.");
-				
-				Biblio biblio = libraryService.findByIsbn(isbn);
-				
-				String[] states = new String[1];
-				states[0] = ItemState.IN_LIBRARY.toString();
-				List<Item> items = libraryService.findItemsByIsbn(isbn);
-
-				biblio.setItems(items);
-
-				try {
-					
-					Photo photo = getPhoto(isbn);
-					
-					if(photo != null) {
-						
-						URL imgUrl = new URL(photo.getUrl());
-						InputStream in = imgUrl.openStream();
-
-						SendPhoto message = new SendPhoto()
-												.setChatId(chat_id)
-												.setPhoto(isbn, in)
-												.setCaption(biblioView(biblio))
-												.setParseMode(ParseMode.MARKDOWN);
-						
-						try {
-							execute(message);
-							logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
-						} catch (TelegramApiException e) {
-							e.printStackTrace();
-						}
-
-						
-					}else {
-						
-						SendMessage message = new SendMessage()
-								.setChatId(chat_id)
-								.setText(biblioView(biblio))
-								.setParseMode(ParseMode.MARKDOWN);
-						
-						try {
-							execute(message);
-							logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
-						} catch (TelegramApiException e) {
-							e.printStackTrace();
-						}
-					}
-					
-				}catch(IOException ex) {
-
-					logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : IOException ] ");
-					
-				}
+				biblioInfoCallBack(call_data, chat_id, message_id);
 			}
 		}	
 	}
-	
+
+	// [/search] create inline keyboard (inline buttons)
 	private InlineKeyboardMarkup createInlinePagingButtons(Page<Biblio> biblioPage, String keyword) {
 		
 		List<Biblio> biblios = biblioPage.getContent();
@@ -265,40 +180,104 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		
 		return markupInline;
 	}
+	
+	// [/search] create buttons - <previous,next>
+	private void pagingCallBack(String call_data, long chat_id, long message_id) {
+		
+		String extractedPagingParameters = StringUtils.substringAfter(call_data,"/p^g^^g?");
+		String parameters[] = extractedPagingParameters.split("--");
+		
+		String arrow = parameters[0];
+		
+		if(arrow.equals("<") || arrow.equals(">")) {
 
-	private static String checkoutsView(String cardKey, List<Checkout> checkouts) {
-		
-		Integer total = checkouts.size();
-		int i = 1;
-		
-		StringBuffer s = new StringBuffer();
-		
-		if(total < 1) {
-			s.append("You have no borrowing.");
-		}else {
+			int page = Integer.parseInt(parameters[1]);
+			String keyword = parameters[2];
 			
-			Checkout c1 = checkouts.get(0);
-
-			LocalDate end = c1.getPatron().getEndDate();
+			BiblioCriteria criteria = new BiblioCriteria();			
+			criteria.setKeyword1(keyword);
 			
-			s.append("_Member :_ *" + cardKey + "*    _Exp : " + end + "_\n");
-			s.append("_Total : " + total + "_\n");
-			s.append("-------------------------------------------------------\n");
+			Pageable pageable = PageRequest.of(page, pageSize);
+			
+			Page<Biblio> biblioPage = libraryService.findByCriteria(criteria, pageable);
+			
+			EditMessageText new_message = new EditMessageText()
+					.setChatId(chat_id)
+					.setMessageId(toIntExact(message_id));
 
-			for(Checkout c : checkouts) {
+			new_message.setText(searchView(biblioPage))
+						.setParseMode(ParseMode.MARKDOWN);
+			
+			new_message.setReplyMarkup(createInlinePagingButtons(biblioPage,keyword));			
 
-				String title = c.getItem().getBiblio().getTitle();
-				LocalDate dueDate = c.getDueDate();
-				
-				s.append(i + ". _" + title + "_\n");
-				s.append("    _Due: " + dueDate + "_\n");
-				i++;
+			try {
+				execute(new_message);
+			} catch (TelegramApiException e) {
+				e.printStackTrace();
 			}
+			
 		}
-		
-		return s.toString();
 	}
 	
+	// [/search] create buttons - 1,2,3,4,5..
+	private void biblioInfoCallBack(String call_data, long chat_id, long message_id) {
+		
+		String isbn = StringUtils.substringAfter(call_data,"/biblioinfo.");
+		
+		Biblio biblio = libraryService.findByIsbn(isbn);
+		
+		String[] states = new String[1];
+		states[0] = ItemState.IN_LIBRARY.toString();
+		List<Item> items = libraryService.findItemsByIsbn(isbn);
+
+		biblio.setItems(items);
+
+		try {
+			
+			Photo photo = getPhoto(isbn);
+			
+			if(photo != null) {
+				
+				URL imgUrl = new URL(photo.getUrl());
+				InputStream in = imgUrl.openStream();
+
+				SendPhoto message = new SendPhoto()
+										.setChatId(chat_id)
+										.setPhoto(isbn, in)
+										.setCaption(biblioView(biblio))
+										.setParseMode(ParseMode.MARKDOWN);
+				
+				try {
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}
+
+				
+			}else {
+				
+				SendMessage message = new SendMessage()
+						.setChatId(chat_id)
+						.setText(biblioView(biblio))
+						.setParseMode(ParseMode.MARKDOWN);
+				
+				try {
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}
+			}
+			
+		}catch(IOException ex) {
+
+			logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : IOException ] ");
+			
+		}
+	}
+	
+	// [/search] view
 	private static String searchView(Page<Biblio> page) {
 
 		long total = page.getTotalElements();
@@ -324,6 +303,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return s.toString(); 
 	}
 	
+	// [/search] button 1,2,3,4,5's biblio view
 	private static String biblioView(Biblio biblio) {
 
 		List<Item> items = biblio.getItems();
@@ -356,6 +336,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		
 		return photo;
 	}
+	
+	// [/search]
 	private void search(String command, Update update) {
 		
 		//there must be a SPACE between the /search command and search keyword !
@@ -398,6 +380,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		} 
 	}
 	
+	// [/due]
 	private void checkouts(String command, Update update) {
 		
 		if(update.getMessage().getText().equals(command)){
@@ -437,6 +420,41 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 
+	// [/due] view
+	private static String checkoutsView(String cardKey, List<Checkout> checkouts) {
+		
+		Integer total = checkouts.size();
+		int i = 1;
+		
+		StringBuffer s = new StringBuffer();
+		
+		if(total < 1) {
+			s.append("You have no borrowing.");
+		}else {
+			
+			Checkout c1 = checkouts.get(0);
+
+			LocalDate end = c1.getPatron().getEndDate();
+			
+			s.append("_Member :_ *" + cardKey + "*    _Exp : " + end + "_\n");
+			s.append("_Total : " + total + "_\n");
+			s.append("-------------------------------------------------------\n");
+
+			for(Checkout c : checkouts) {
+
+				String title = c.getItem().getBiblio().getTitle();
+				LocalDate dueDate = c.getDueDate();
+				
+				s.append(i + ". _" + title + "_\n");
+				s.append("    _Due: " + dueDate + "_\n");
+				i++;
+			}
+		}
+		
+		return s.toString();
+	}
+	
+	// [/help]
 	private void sendMessage(String command, Update update, String response) {
 
 		if(update.getMessage().getText().equals(command)){
@@ -456,6 +474,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 	
+	// [/register]
 	private void registerMessage(String command, Update update, String response) {
 
 		if (update.getMessage().getText().equals(command)) {
@@ -489,6 +508,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 	
+	// registration verification
 	private void registrationVerification(Update update) {
 		
 		Long chat_id = update.getMessage().getChatId();
