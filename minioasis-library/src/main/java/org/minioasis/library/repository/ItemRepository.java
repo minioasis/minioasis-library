@@ -18,7 +18,6 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 	Item getItemFetchBiblio(String barcode);
 	
 	@Query("SELECT i FROM Item i"
-			+ " JOIN FETCH i.itemDuration"
 			+ " JOIN FETCH i.itemStatus"
 			+ " JOIN FETCH i.location"
 			+ " WHERE i.id = ?1")
@@ -30,7 +29,6 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 	Item getItemFetchItemStatus(String barcode);
 	
 	@Query("SELECT i FROM Item i"
-			+ " LEFT JOIN FETCH i.itemDuration"
 			+ " LEFT JOIN FETCH i.itemStatus"
 			+ " LEFT JOIN FETCH i.location"
 			+ " LEFT JOIN FETCH i.biblio"
@@ -38,7 +36,6 @@ public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositor
 	Item getItemFetchRelatedBiblio(String barcode);
 	
 	@Query("SELECT i FROM Item i"
-			+ " LEFT JOIN FETCH i.itemDuration"
 			+ " LEFT JOIN FETCH i.itemStatus"
 			+ " LEFT JOIN FETCH i.location"
 			+ " LEFT JOIN FETCH i.biblio"

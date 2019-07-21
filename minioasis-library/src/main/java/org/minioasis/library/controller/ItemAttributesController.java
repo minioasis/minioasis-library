@@ -3,7 +3,6 @@ package org.minioasis.library.controller;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Location;
 import org.minioasis.library.domain.search.ItemAttributes;
@@ -29,11 +28,6 @@ public class ItemAttributesController {
 	@ModelAttribute("locations")
 	public List<Location> populateLocations() {
 		return this.service.findAllLocations();	
-	}
-	
-	@ModelAttribute("itemDurations")
-	public List<ItemDuration> populateItemDurations() {
-		return this.service.findAllItemDurations();	
 	}
 	
 	@ModelAttribute("itemStatuz")
@@ -66,60 +60,6 @@ public class ItemAttributesController {
 		
 		model.addAttribute("attributes", new ItemAttributes());
 		return "item.attributes";
-		
-	}
-	
-	//  --------------- Item Duration ---------------
-	@RequestMapping(value = { "/item.duration/save" }, method = RequestMethod.POST)
-	public String addItemDuration(@ModelAttribute("attributes") ItemAttributes attributes , BindingResult result , ModelMap model) {
-		
-		ItemDuration duration = attributes.getItemDuration();
-		new ItemAttributesValidator().validate(attributes, result);
-		
-		if(result.hasErrors()){	
-
-			return "item.attributes";
-			
-		} else {
-			
-			try{
-				
-				this.service.save(duration);
-				
-			}catch (DataIntegrityViolationException eive){
-				
-				model.addAttribute("attributes", attributes);
-				result.rejectValue("itemDuration.name","error.not.unique");			
-				return "item.attributes";
-				
-			}
-			
-		}
-		
-		return "redirect:/item.attributes";
-			
-	}	
-	
-	@RequestMapping(value = { "/item.duration/edit/{id}" }, method = RequestMethod.GET)
-	public String editItemDuration(@PathVariable("id") long id, @ModelAttribute("attributes") ItemAttributes attributes , ModelMap model) {
-
-		ItemDuration itemDuration = this.service.getItemDuration(id);		
-		attributes.setItemDuration(itemDuration);
-		
-		model.addAttribute("attributes", attributes);
-		
-		return "item.attributes";
-
-	}
-
-	@RequestMapping(value = { "/item.duration/delete/{id}" }, method = RequestMethod.GET)
-	public String deleteItemDuration(@PathVariable("id") long id) {
-
-		ItemDuration itemDuration = this.service.getItemDuration(id);
-		if(itemDuration != null)
-			this.service.delete(itemDuration);
-		
-		return "redirect:/item.attributes";
 		
 	}
 	

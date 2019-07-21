@@ -21,8 +21,6 @@ public class ItemCriteria implements Serializable {
 	private LocalDateTime expiredFrom;
 	private LocalDateTime expiredTo;
 
-	
-	private Set<Long> itemDurations = new HashSet<Long>();
 	private Set<Long> itemStatuz = new HashSet<Long>();
 	private Set<Long> locations = new HashSet<Long>();
 	private Set<String> itemStates =  new HashSet<String>();
@@ -76,12 +74,6 @@ public class ItemCriteria implements Serializable {
 	}
 	public void setBiblio(String biblio) {
 		this.biblio = biblio;
-	}
-	public Set<Long> getItemDurations() {
-		return itemDurations;
-	}
-	public void setItemDurations(Set<Long> itemDurations) {
-		this.itemDurations = itemDurations;
 	}
 	public Set<Long> getItemStatuz() {
 		return itemStatuz;

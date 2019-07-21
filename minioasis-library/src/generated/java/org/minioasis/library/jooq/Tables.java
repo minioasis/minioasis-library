@@ -17,7 +17,6 @@ import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
 import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
-import org.minioasis.library.jooq.tables.ItemDuration;
 import org.minioasis.library.jooq.tables.ItemStatus;
 import org.minioasis.library.jooq.tables.JournalEntry;
 import org.minioasis.library.jooq.tables.JournalEntryLine;
@@ -98,11 +97,6 @@ public class Tables {
      * The table <code>PUBLIC.ITEM</code>.
      */
     public static final Item ITEM = org.minioasis.library.jooq.tables.Item.ITEM;
-
-    /**
-     * The table <code>PUBLIC.ITEM_DURATION</code>.
-     */
-    public static final ItemDuration ITEM_DURATION = org.minioasis.library.jooq.tables.ItemDuration.ITEM_DURATION;
 
     /**
      * The table <code>PUBLIC.ITEM_STATUS</code>.

@@ -21,7 +21,6 @@ import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Image;
 import org.minioasis.library.domain.Item;
-import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.JournalEntry;
@@ -54,7 +53,6 @@ import org.minioasis.library.repository.CheckoutRepository;
 import org.minioasis.library.repository.FormDataRepository;
 import org.minioasis.library.repository.GroupRepository;
 import org.minioasis.library.repository.HolidayRepository;
-import org.minioasis.library.repository.ItemDurationRepository;
 import org.minioasis.library.repository.ItemRepository;
 import org.minioasis.library.repository.ItemStatusRepository;
 import org.minioasis.library.repository.JournalEntryLineRepository;
@@ -96,8 +94,6 @@ public class LibraryServiceImpl implements LibraryService {
 	@Autowired
 	private ItemRepository itemRepository;
 	@Autowired
-	private ItemDurationRepository itemDurationRepository;
-	@Autowired
 	private ItemStatusRepository itemStatusRepository;
 	@Autowired
 	private JournalEntryRepository journalEntryRepository;
@@ -121,11 +117,8 @@ public class LibraryServiceImpl implements LibraryService {
 	/****************************************  Business Logic **************************************/	
 	
 	private LocalDate calculateDueDate(Patron patron, Item item, LocalDate given) {
-		
-		long duration = patron.getPatronType().getDuration().longValue();
-		long itemDuration = item.getItemDuration().getValue().longValue();
-		
-		return given.plusDays(duration + itemDuration);
+		long duration = patron.getPatronType().getDuration().longValue();	
+		return given.plusDays(duration);
 	}
 	
 	public void checkout(Patron patron, Item item, LocalDate given) throws LibraryException {
@@ -151,6 +144,18 @@ public class LibraryServiceImpl implements LibraryService {
 		this.patronRepository.save(patron);
 		
 	}
+	
+/*	public void renewAll(Patron patron, LocalDate given) throws LibraryException {
+		
+		LocalDate dueDate = calculateDueDate(patron,item,given);
+		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
+		
+		patron.preparingCheckoutsOn(given);
+		patron.renew(item, given, newDueDate);
+		
+		this.patronRepository.save(patron);
+		
+	}*/
 	
 	public void checkoutAttachment(Patron patron, Attachment attachment, LocalDate given){
 
@@ -654,30 +659,6 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	public void stockCheck() {
 		this.itemRepository.stockCheck();
-	}
-	
-	/****************************************  ItemDuration  ************************************/
-	
-	public void save(ItemDuration entity){
-		this.itemDurationRepository.save(entity);
-	}
-	public void delete(ItemDuration entity){
-		this.itemDurationRepository.delete(entity);
-	}
-	public void deleteItemDuration(long id){
-		this.itemDurationRepository.deleteById(id);
-	}
-	public ItemDuration getItemDuration(long id){
-		return this.itemDurationRepository.getOne(id);
-	}
-	public List<ItemDuration> findAllItemDurations(){
-		return this.itemDurationRepository.findAll();
-	}
-	public List<ItemDuration> findAllItemDurations(Sort sort){
-		return this.itemDurationRepository.findAll(sort);
-	}
-	public Page<ItemDuration> findAllItemDurationsByName(String name, Pageable pageable){
-		return this.itemDurationRepository.findAllByName(name, pageable);
 	}
 	
 	/****************************************  ItemStatus  **************************************/

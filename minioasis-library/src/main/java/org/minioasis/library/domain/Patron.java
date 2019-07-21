@@ -857,13 +857,14 @@ public class Patron implements Serializable {
 				throw new LibraryException(CirculationCode.NOT_REACHED_RESUME_CHECKOUT_PERIOD);
 		}
 
-		// renew validation
-		Notification renewError = renewValidation(renew, given);
-		if (renewError.hasErrors())
-			throw new LibraryException(renewError.getAllMessages());
+		Notification renewError = new Notification();
 
 		// given date validation
 		givenDateValidation(given, renewError);
+		
+		// renew validation
+		renewValidation(renew, given, renewError);
+		
 		if (renewError.hasErrors())
 			throw new LibraryException(renewError.getAllMessages());
 
@@ -881,24 +882,66 @@ public class Patron implements Serializable {
 		}
 
 	}
+	
+	public void renewAll(LocalDate given, LocalDate newDueDate) {
+		
+		Notification errors = new Notification();
+		
+		// given date validation
+		givenDateValidation(given, errors);
+		if (errors.hasErrors())
+			throw new LibraryException(errors.getAllMessages());
+				
+		for(Checkout c : checkouts) {
+			
+			CheckoutState state = c.getState();
+			Item item = c.getItem();
+			
+			if(state.equals(CheckoutState.CHECKOUT) || state.equals(CheckoutState.RENEW)) {
+				
+				// check resume borrowable period
+				String lastfullRenewPerson = item.getLastFullRenewPerson();
 
-	private Notification renewValidation(Checkout renew, LocalDate given) {
+				if (lastfullRenewPerson != null && lastfullRenewPerson.equals(this.entangled)) {
+					// A.3.3.1
+					if (!resumeCheckoutPeriod(item, given))
+						errors.addError(CirculationCode.NOT_REACHED_RESUME_CHECKOUT_PERIOD);
+				}
+				
+				// renew validation
+				renewValidation(c,given,errors);
+				
+				if(!errors.hasErrors()) {
+					// renew
+					c.setCheckoutDate(given);
+					c.setState(CheckoutState.RENEW);
+					c.setRenewedNo(c.getRenewedNo() + 1);
+					c.setDueDate(newDueDate);
 
-		Notification notification = new Notification();
+					item.setState(ItemState.CHECKOUT);
+
+					// set lastFullRenewPerson
+					if (c.getRenewedNo().equals(patronType.getMaxNoOfRenew())) {
+						item.setLastFullRenewPerson(this.entangled);
+					}
+				}
+			}
+		}	
+	}
+
+	private void renewValidation(Checkout renew, LocalDate given, Notification error) {
 
 		if(renew.isOverDue(given)) {
-			notification.addError(CirculationCode.HAS_FINES);
+			error.addError(CirculationCode.HAS_FINES);
 		}
 		
 		if (!renew.reachMinRenewableDate(given)) {
-			notification.addError(CirculationCode.CANNOT_RENEW_SO_EARLIER);
+			error.addError(CirculationCode.CANNOT_RENEW_SO_EARLIER);
 		}
 
 		if (renew.getRenewedNo().intValue() >= patronType.getMaxNoOfRenew().intValue()) {
-			notification.addError(CirculationCode.REACHED_MAX_RENEWNO);
+			error.addError(CirculationCode.REACHED_MAX_RENEWNO);
 		}
-
-		return notification;
 	}
 
 	// ******************* reportlost (item) *****************************

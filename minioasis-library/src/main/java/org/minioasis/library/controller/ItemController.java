@@ -9,13 +9,11 @@ import java.util.Locale;
 import javax.validation.Valid;
 
 import org.minioasis.library.domain.YesNo;
-import org.minioasis.library.domain.util.ItemDurationEditor;
 import org.minioasis.library.domain.util.ItemStatusEditor;
 import org.minioasis.library.domain.util.LocationEditor;
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Item;
-import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Location;
@@ -44,11 +42,6 @@ public class ItemController {
 	@ModelAttribute("locations")
 	public List<Location> populateLocations() {
 		return this.service.findAllLocations();	
-	}
-	
-	@ModelAttribute("itemDurations")
-	public List<ItemDuration> populateItemDurations() {
-		return this.service.findAllItemDurations();	
 	}
 	
 	@ModelAttribute("itemStatuz")
@@ -188,7 +181,6 @@ public class ItemController {
 		Locale locale = request.getLocale();
 
 		binder.registerCustomEditor(BigDecimal.class, new CustomNumberEditor(BigDecimal.class, DecimalFormat.getInstance(locale), true));
-		binder.registerCustomEditor(ItemDuration.class, new ItemDurationEditor(service));
 		binder.registerCustomEditor(ItemStatus.class, new ItemStatusEditor(service));
 		binder.registerCustomEditor(Location.class, new LocationEditor(service));
 

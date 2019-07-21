@@ -8,7 +8,6 @@ import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.Item;
-import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Location;
@@ -35,11 +34,6 @@ public class ItemListSearch {
 	@ModelAttribute("locs")
 	public List<Location> populateLocations() {
 		return this.service.findAllLocations();	
-	}
-	
-	@ModelAttribute("idurations")
-	public List<ItemDuration> populateItemDurations() {
-		return this.service.findAllItemDurations();	
 	}
 	
 	@ModelAttribute("istatuz")

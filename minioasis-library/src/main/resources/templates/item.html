@@ -103,10 +103,6 @@
 									<td class="text-info" th:text="${item.volume != null ? item.volume.volumeNo : ''}">IN_LIBRARY</td>
 								</tr>
 								<tr>
-									<td><i class="far fa-clock text-label"></i> <span th:text="#{item.duration}"></span></td>
-									<td class="text-info" th:text="${item.itemDuration.name}">none</td>
-								</tr>
-								<tr>
 									<td><i class="fas fa-battery-half text-label"></i> <span th:text="#{item.status}"></span></td>
 									<td class="text-info" th:text="${item.itemStatus.name}">Available</td>
 								</tr>

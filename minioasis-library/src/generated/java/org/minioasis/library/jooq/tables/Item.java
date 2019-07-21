@@ -42,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.ItemRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item extends TableImpl<ItemRecord> {
 
-    private static final long serialVersionUID = 1708410667;
+    private static final long serialVersionUID = -1560369412;
 
     /**
      * The reference instance of <code>PUBLIC.ITEM</code>
@@ -148,11 +148,6 @@ public class Item extends TableImpl<ItemRecord> {
     public final TableField<ItemRecord, Long> BIBLIO_ID = createField("BIBLIO_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
 
     /**
-     * The column <code>PUBLIC.ITEM.ITEM_DURATION_ID</code>.
-     */
-    public final TableField<ItemRecord, Long> ITEM_DURATION_ID = createField("ITEM_DURATION_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
      * The column <code>PUBLIC.ITEM.ITEM_STATUS_ID</code>.
      */
     public final TableField<ItemRecord, Long> ITEM_STATUS_ID = createField("ITEM_STATUS_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
@@ -204,7 +199,7 @@ public class Item extends TableImpl<ItemRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FK_ITEM_BIBLIO_INDEX_2, Indexes.FK_ITEM_ITEMDURATION_INDEX_2, Indexes.FK_ITEM_ITEMSTATUS_INDEX_2, Indexes.FK_ITEM_LOCATION_INDEX_2, Indexes.PRIMARY_KEY_2, Indexes.UK_BFO0NHIH8F3JL9M9UBLNXR4UY_INDEX_2);
+        return Arrays.<Index>asList(Indexes.FK_ITEM_BIBLIO_INDEX_2, Indexes.FK_ITEM_ITEMSTATUS_INDEX_2, Indexes.FK_ITEM_LOCATION_INDEX_2, Indexes.PRIMARY_KEY_2, Indexes.UK_BFO0NHIH8F3JL9M9UBLNXR4UY_INDEX_2);
     }
 
     /**
@@ -236,7 +231,7 @@ public class Item extends TableImpl<ItemRecord> {
      */
     @Override
     public List<ForeignKey<ItemRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ItemRecord, ?>>asList(Keys.FK_ITEM_BIBLIO, Keys.FK_ITEM_ITEMDURATION, Keys.FK_ITEM_ITEMSTATUS, Keys.FK_ITEM_LOCATION);
+        return Arrays.<ForeignKey<ItemRecord, ?>>asList(Keys.FK_ITEM_BIBLIO, Keys.FK_ITEM_ITEMSTATUS, Keys.FK_ITEM_LOCATION);
     }
 
     /**

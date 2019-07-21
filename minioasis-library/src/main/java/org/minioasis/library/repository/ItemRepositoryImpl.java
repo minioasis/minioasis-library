@@ -107,7 +107,6 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 		final LocalDateTime expiredTo = criteria.getExpiredTo();
 		
 		final Set<YesNo> actives = criteria.getActives();
-		final Set<Long> itemdurations = criteria.getItemDurations();
 		final Set<Long> itemstatuz = criteria.getItemStatuz();
 		final Set<Long> locations = criteria.getLocations();
 		final Set<String> itemStates = criteria.getItemStates();
@@ -135,9 +134,6 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 		}
 		if(checkStocks != null && checkStocks.size() > 0){
 			condition = condition.and(i.CHECKED.in(checkStocks));
-		}
-		if(itemdurations != null && itemdurations.size() > 0){
-			condition = condition.and(i.ITEM_DURATION_ID.in(itemdurations));
 		}
 		if(itemStates != null && itemStates.size() > 0){
 			condition = condition.and(i.STATE.in(itemStates));

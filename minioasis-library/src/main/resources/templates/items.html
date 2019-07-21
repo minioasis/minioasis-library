@@ -121,14 +121,6 @@
 								<option th:remove="all" value="N">NO</option>
 							</select>
 					    </div>
-					    <div class="form-group col-md-2">
-					    	<label th:text="#{item.duration}">Item Duration</label>
-							<select	class="form-control" th:field="*{itemDurations}" multiple="multiple">						
-								<option th:each="d : ${idurations}" th:value="${d.id}" th:text="${d.name}" />
-								<option th:remove="all" value="24121">1 Week</option>
-								<option th:remove="all" value="12123">2 Weeks</option>
-							</select>
-					    </div>
 					    <div class="form-group col-md-3">
 					    	<label th:text="#{item.state}">Item State</label>
 							<select	class="form-control" th:field="*{itemStates}" multiple="multiple">						

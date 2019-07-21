@@ -21,7 +21,6 @@ import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
 import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
-import org.minioasis.library.jooq.tables.ItemDuration;
 import org.minioasis.library.jooq.tables.ItemStatus;
 import org.minioasis.library.jooq.tables.JournalEntry;
 import org.minioasis.library.jooq.tables.JournalEntryLine;
@@ -43,7 +42,6 @@ import org.minioasis.library.jooq.tables.records.FormDataRecord;
 import org.minioasis.library.jooq.tables.records.GroupsRecord;
 import org.minioasis.library.jooq.tables.records.HolidayRecord;
 import org.minioasis.library.jooq.tables.records.ImageRecord;
-import org.minioasis.library.jooq.tables.records.ItemDurationRecord;
 import org.minioasis.library.jooq.tables.records.ItemRecord;
 import org.minioasis.library.jooq.tables.records.ItemStatusRecord;
 import org.minioasis.library.jooq.tables.records.JournalEntryLineRecord;
@@ -85,7 +83,6 @@ public class Keys {
     public static final Identity<GroupsRecord, Long> IDENTITY_GROUPS = Identities0.IDENTITY_GROUPS;
     public static final Identity<HolidayRecord, Long> IDENTITY_HOLIDAY = Identities0.IDENTITY_HOLIDAY;
     public static final Identity<ItemRecord, Long> IDENTITY_ITEM = Identities0.IDENTITY_ITEM;
-    public static final Identity<ItemDurationRecord, Long> IDENTITY_ITEM_DURATION = Identities0.IDENTITY_ITEM_DURATION;
     public static final Identity<JournalEntryRecord, Long> IDENTITY_JOURNAL_ENTRY = Identities0.IDENTITY_JOURNAL_ENTRY;
     public static final Identity<JournalEntryLineRecord, Long> IDENTITY_JOURNAL_ENTRY_LINE = Identities0.IDENTITY_JOURNAL_ENTRY_LINE;
     public static final Identity<LocationRecord, Long> IDENTITY_LOCATION = Identities0.IDENTITY_LOCATION;
@@ -117,8 +114,6 @@ public class Keys {
     public static final UniqueKey<ImageRecord> CONSTRAINT_4 = UniqueKeys0.CONSTRAINT_4;
     public static final UniqueKey<ItemRecord> CONSTRAINT_2 = UniqueKeys0.CONSTRAINT_2;
     public static final UniqueKey<ItemRecord> UK_BFO0NHIH8F3JL9M9UBLNXR4UY = UniqueKeys0.UK_BFO0NHIH8F3JL9M9UBLNXR4UY;
-    public static final UniqueKey<ItemDurationRecord> CONSTRAINT_E2 = UniqueKeys0.CONSTRAINT_E2;
-    public static final UniqueKey<ItemDurationRecord> UK_EUJ6H91X1IYUL76UX181OQL98 = UniqueKeys0.UK_EUJ6H91X1IYUL76UX181OQL98;
     public static final UniqueKey<ItemStatusRecord> CONSTRAINT_64 = UniqueKeys0.CONSTRAINT_64;
     public static final UniqueKey<ItemStatusRecord> UK_GW69EG5BWDJ2BC6GJ8GYXT9AD = UniqueKeys0.UK_GW69EG5BWDJ2BC6GJ8GYXT9AD;
     public static final UniqueKey<JournalEntryRecord> CONSTRAINT_E8 = UniqueKeys0.CONSTRAINT_E8;
@@ -157,7 +152,6 @@ public class Keys {
     public static final ForeignKey<CheckoutRecord, ItemRecord> FK_CHECKOUT_ITEM = ForeignKeys0.FK_CHECKOUT_ITEM;
     public static final ForeignKey<CheckoutRecord, PatronRecord> FK_CHECKOUT_PATRON = ForeignKeys0.FK_CHECKOUT_PATRON;
     public static final ForeignKey<ItemRecord, BiblioRecord> FK_ITEM_BIBLIO = ForeignKeys0.FK_ITEM_BIBLIO;
-    public static final ForeignKey<ItemRecord, ItemDurationRecord> FK_ITEM_ITEMDURATION = ForeignKeys0.FK_ITEM_ITEMDURATION;
     public static final ForeignKey<ItemRecord, ItemStatusRecord> FK_ITEM_ITEMSTATUS = ForeignKeys0.FK_ITEM_ITEMSTATUS;
     public static final ForeignKey<ItemRecord, LocationRecord> FK_ITEM_LOCATION = ForeignKeys0.FK_ITEM_LOCATION;
     public static final ForeignKey<JournalEntryLineRecord, AccountRecord> FK_JOURNALENTRYLINE_ACCOUNT = ForeignKeys0.FK_JOURNALENTRYLINE_ACCOUNT;
@@ -182,7 +176,6 @@ public class Keys {
         public static Identity<GroupsRecord, Long> IDENTITY_GROUPS = Internal.createIdentity(Groups.GROUPS, Groups.GROUPS.ID);
         public static Identity<HolidayRecord, Long> IDENTITY_HOLIDAY = Internal.createIdentity(Holiday.HOLIDAY, Holiday.HOLIDAY.ID);
         public static Identity<ItemRecord, Long> IDENTITY_ITEM = Internal.createIdentity(Item.ITEM, Item.ITEM.ID);
-        public static Identity<ItemDurationRecord, Long> IDENTITY_ITEM_DURATION = Internal.createIdentity(ItemDuration.ITEM_DURATION, ItemDuration.ITEM_DURATION.ID);
         public static Identity<JournalEntryRecord, Long> IDENTITY_JOURNAL_ENTRY = Internal.createIdentity(JournalEntry.JOURNAL_ENTRY, JournalEntry.JOURNAL_ENTRY.ID);
         public static Identity<JournalEntryLineRecord, Long> IDENTITY_JOURNAL_ENTRY_LINE = Internal.createIdentity(JournalEntryLine.JOURNAL_ENTRY_LINE, JournalEntryLine.JOURNAL_ENTRY_LINE.ID);
         public static Identity<LocationRecord, Long> IDENTITY_LOCATION = Internal.createIdentity(Location.LOCATION, Location.LOCATION.ID);
@@ -212,8 +205,6 @@ public class Keys {
         public static final UniqueKey<ImageRecord> CONSTRAINT_4 = Internal.createUniqueKey(Image.IMAGE, "CONSTRAINT_4", Image.IMAGE.ID);
         public static final UniqueKey<ItemRecord> CONSTRAINT_2 = Internal.createUniqueKey(Item.ITEM, "CONSTRAINT_2", Item.ITEM.ID);
         public static final UniqueKey<ItemRecord> UK_BFO0NHIH8F3JL9M9UBLNXR4UY = Internal.createUniqueKey(Item.ITEM, "UK_BFO0NHIH8F3JL9M9UBLNXR4UY", Item.ITEM.BARCODE);
-        public static final UniqueKey<ItemDurationRecord> CONSTRAINT_E2 = Internal.createUniqueKey(ItemDuration.ITEM_DURATION, "CONSTRAINT_E2", ItemDuration.ITEM_DURATION.ID);
-        public static final UniqueKey<ItemDurationRecord> UK_EUJ6H91X1IYUL76UX181OQL98 = Internal.createUniqueKey(ItemDuration.ITEM_DURATION, "UK_EUJ6H91X1IYUL76UX181OQL98", ItemDuration.ITEM_DURATION.NAME);
         public static final UniqueKey<ItemStatusRecord> CONSTRAINT_64 = Internal.createUniqueKey(ItemStatus.ITEM_STATUS, "CONSTRAINT_64", ItemStatus.ITEM_STATUS.ID);
         public static final UniqueKey<ItemStatusRecord> UK_GW69EG5BWDJ2BC6GJ8GYXT9AD = Internal.createUniqueKey(ItemStatus.ITEM_STATUS, "UK_GW69EG5BWDJ2BC6GJ8GYXT9AD", ItemStatus.ITEM_STATUS.NAME);
         public static final UniqueKey<JournalEntryRecord> CONSTRAINT_E8 = Internal.createUniqueKey(JournalEntry.JOURNAL_ENTRY, "CONSTRAINT_E8", JournalEntry.JOURNAL_ENTRY.ID);
@@ -250,7 +241,6 @@ public class Keys {
         public static final ForeignKey<CheckoutRecord, ItemRecord> FK_CHECKOUT_ITEM = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_2, Checkout.CHECKOUT, "FK_CHECKOUT_ITEM", Checkout.CHECKOUT.ITEM_ID);
         public static final ForeignKey<CheckoutRecord, PatronRecord> FK_CHECKOUT_PATRON = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8C, Checkout.CHECKOUT, "FK_CHECKOUT_PATRON", Checkout.CHECKOUT.PATRON_ID);
         public static final ForeignKey<ItemRecord, BiblioRecord> FK_ITEM_BIBLIO = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, Item.ITEM, "FK_ITEM_BIBLIO", Item.ITEM.BIBLIO_ID);
-        public static final ForeignKey<ItemRecord, ItemDurationRecord> FK_ITEM_ITEMDURATION = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E2, Item.ITEM, "FK_ITEM_ITEMDURATION", Item.ITEM.ITEM_DURATION_ID);
         public static final ForeignKey<ItemRecord, ItemStatusRecord> FK_ITEM_ITEMSTATUS = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_64, Item.ITEM, "FK_ITEM_ITEMSTATUS", Item.ITEM.ITEM_STATUS_ID);
         public static final ForeignKey<ItemRecord, LocationRecord> FK_ITEM_LOCATION = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_9, Item.ITEM, "FK_ITEM_LOCATION", Item.ITEM.LOCATION_ID);
         public static final ForeignKey<JournalEntryLineRecord, AccountRecord> FK_JOURNALENTRYLINE_ACCOUNT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_E, JournalEntryLine.JOURNAL_ENTRY_LINE, "FK_JOURNALENTRYLINE_ACCOUNT", JournalEntryLine.JOURNAL_ENTRY_LINE.ACCOUNT_ID);

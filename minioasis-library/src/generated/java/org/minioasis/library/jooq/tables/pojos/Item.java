@@ -25,7 +25,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item implements Serializable {
 
-    private static final long serialVersionUID = 1881647826;
+    private static final long serialVersionUID = 1294972378;
 
     private Long       id;
     private String     active;
@@ -45,7 +45,6 @@ public class Item implements Serializable {
     private Date       publishingDate;
     private String     volumeNo;
     private Long       biblioId;
-    private Long       itemDurationId;
     private Long       itemStatusId;
     private Long       locationId;
 
@@ -70,7 +69,6 @@ public class Item implements Serializable {
         this.publishingDate = value.publishingDate;
         this.volumeNo = value.volumeNo;
         this.biblioId = value.biblioId;
-        this.itemDurationId = value.itemDurationId;
         this.itemStatusId = value.itemStatusId;
         this.locationId = value.locationId;
     }
@@ -94,7 +92,6 @@ public class Item implements Serializable {
         Date       publishingDate,
         String     volumeNo,
         Long       biblioId,
-        Long       itemDurationId,
         Long       itemStatusId,
         Long       locationId
     ) {
@@ -116,7 +113,6 @@ public class Item implements Serializable {
         this.publishingDate = publishingDate;
         this.volumeNo = volumeNo;
         this.biblioId = biblioId;
-        this.itemDurationId = itemDurationId;
         this.itemStatusId = itemStatusId;
         this.locationId = locationId;
     }
@@ -265,14 +261,6 @@ public class Item implements Serializable {
         this.biblioId = biblioId;
     }
 
-    public Long getItemDurationId() {
-        return this.itemDurationId;
-    }
-
-    public void setItemDurationId(Long itemDurationId) {
-        this.itemDurationId = itemDurationId;
-    }
-
     public Long getItemStatusId() {
         return this.itemStatusId;
     }
@@ -311,7 +299,6 @@ public class Item implements Serializable {
         sb.append(", ").append(publishingDate);
         sb.append(", ").append(volumeNo);
         sb.append(", ").append(biblioId);
-        sb.append(", ").append(itemDurationId);
         sb.append(", ").append(itemStatusId);
         sb.append(", ").append(locationId);
 

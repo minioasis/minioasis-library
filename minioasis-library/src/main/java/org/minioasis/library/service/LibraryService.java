@@ -19,7 +19,6 @@ import org.minioasis.library.domain.FormData;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Item;
-import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.JournalEntry;
 import org.minioasis.library.domain.JournalEntryLine;
@@ -199,15 +198,6 @@ public interface LibraryService {
 	void stockCheck();
 	
 	//Map findStockCheckItemsByCriteria(ItemCmd command);
-
-	// ItemDuration	
-	void save(ItemDuration entity);
-	void delete(ItemDuration entity);
-	void deleteItemDuration(long id);
-	ItemDuration getItemDuration(long id);
-	List<ItemDuration> findAllItemDurations();
-	List<ItemDuration> findAllItemDurations(Sort sort);
-	Page<ItemDuration> findAllItemDurationsByName(String name, Pageable pageable);
 	
 	// ItemStatus
 	void save(ItemStatus entity);

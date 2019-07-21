@@ -125,10 +125,6 @@ public class Item implements Serializable {
 	private Volume volume;
     
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="item_duration_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_item_itemduration"))
-	private ItemDuration itemDuration;
-    
-    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="item_status_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_item_itemstatus"))
 	private ItemStatus itemStatus;
     
@@ -256,14 +252,6 @@ public class Item implements Serializable {
 
 	public void setVolume(Volume volume) {
 		this.volume = volume;
-	}
-
-	public ItemDuration getItemDuration() {
-		return this.itemDuration;
-	}
-
-	public void setItemDuration(ItemDuration itemDuration) {
-		this.itemDuration = itemDuration;
 	}
 
 	public ItemStatus getItemStatus() {

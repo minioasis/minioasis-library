@@ -193,13 +193,6 @@ public class ItemDao extends DAOImpl<ItemRecord, org.minioasis.library.jooq.tabl
     }
 
     /**
-     * Fetch records that have <code>ITEM_DURATION_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByItemDurationId(Long... values) {
-        return fetch(Item.ITEM.ITEM_DURATION_ID, values);
-    }
-
-    /**
      * Fetch records that have <code>ITEM_STATUS_ID IN (values)</code>
      */
     public List<org.minioasis.library.jooq.tables.pojos.Item> fetchByItemStatusId(Long... values) {

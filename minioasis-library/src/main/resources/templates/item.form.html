@@ -81,17 +81,6 @@
 						</div>
 					</div>
 					<div class="form-group row">
-						<label class="col-sm-3 col-form-label" th:text="#{item.duration}">Item Duration</label>
-						<div class="col-sm-6">
-					      	<select	class="form-control" th:field="*{itemDuration}">
-								<option th:each="d : ${itemDurations}" th:value="${d.id}" th:text="${d.name}" />
-								<option th:remove="all" value="32423234">1 Week</option>
-								<option th:remove="all" value="23423423">2 Weeks</option>
-							</select>
-							<span class="text-danger" th:if="${#fields.hasErrors('itemDuration')}" th:errors="*{itemDuration}"></span>		        
-						</div>
-					</div>
-					<div class="form-group row">
 						<label class="col-sm-3 col-form-label" th:text="#{item.status}">Item Status</label>
 						<div class="col-sm-6">
 					      	<select	class="form-control" th:field="*{itemStatus}">

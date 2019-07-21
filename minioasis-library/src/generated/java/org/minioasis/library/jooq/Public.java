@@ -25,7 +25,6 @@ import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
 import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
-import org.minioasis.library.jooq.tables.ItemDuration;
 import org.minioasis.library.jooq.tables.ItemStatus;
 import org.minioasis.library.jooq.tables.JournalEntry;
 import org.minioasis.library.jooq.tables.JournalEntryLine;
@@ -52,7 +51,7 @@ import org.minioasis.library.jooq.tables.TelegramUser;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 425749033;
+    private static final long serialVersionUID = -753150633;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -113,11 +112,6 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.ITEM</code>.
      */
     public final Item ITEM = org.minioasis.library.jooq.tables.Item.ITEM;
-
-    /**
-     * The table <code>PUBLIC.ITEM_DURATION</code>.
-     */
-    public final ItemDuration ITEM_DURATION = org.minioasis.library.jooq.tables.ItemDuration.ITEM_DURATION;
 
     /**
      * The table <code>PUBLIC.ITEM_STATUS</code>.
@@ -222,7 +216,6 @@ public class Public extends SchemaImpl {
             Holiday.HOLIDAY,
             Image.IMAGE,
             Item.ITEM,
-            ItemDuration.ITEM_DURATION,
             ItemStatus.ITEM_STATUS,
             JournalEntry.JOURNAL_ENTRY,
             JournalEntryLine.JOURNAL_ENTRY_LINE,

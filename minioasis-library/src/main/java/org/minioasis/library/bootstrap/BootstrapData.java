@@ -20,7 +20,6 @@ import org.minioasis.library.domain.FormData;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.Item;
-import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Language;
@@ -40,7 +39,6 @@ import org.minioasis.library.repository.CheckoutRepository;
 import org.minioasis.library.repository.FormDataRepository;
 import org.minioasis.library.repository.GroupRepository;
 import org.minioasis.library.repository.HolidayRepository;
-import org.minioasis.library.repository.ItemDurationRepository;
 import org.minioasis.library.repository.ItemRepository;
 import org.minioasis.library.repository.ItemStatusRepository;
 import org.minioasis.library.repository.LocationRepository;
@@ -72,8 +70,6 @@ public class BootstrapData implements CommandLineRunner {
 	private HolidayRepository holidayRepository;
 	@Autowired
 	private ItemRepository itemRepository;
-	@Autowired
-	private ItemDurationRepository itemDurationRepository;
 	@Autowired
 	private ItemStatusRepository itemStatusRepository;
 	@Autowired
@@ -190,14 +186,6 @@ public class BootstrapData implements CommandLineRunner {
 		b4.setPublisher(pb2);
 		b4.setSeries(s3);
 		biblioRepository.save(b4);
-
-		// Item Duration
-		ItemDuration d1 = new ItemDuration("1 Week", 7);
-		ItemDuration d2 = new ItemDuration("2 Weeks", 14);
-		ItemDuration d3 = new ItemDuration("1 Month", 30);
-		itemDurationRepository.save(d1);
-		itemDurationRepository.save(d2);
-		itemDurationRepository.save(d3);
 		
 		// Item Status
 		ItemStatus is1 = new ItemStatus("Available",true,true);
@@ -228,7 +216,6 @@ public class BootstrapData implements CommandLineRunner {
 		i1.setCreated(LocalDate.parse("2015-10-10"));
 		i1.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
 		i1.setFirstCheckin(LocalDate.parse("2015-10-10"));
-		i1.setItemDuration(d1);
 		i1.setState(ItemState.CHECKOUT);
 		i1.setItemStatus(is1);
 		i1.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
@@ -247,7 +234,6 @@ public class BootstrapData implements CommandLineRunner {
 		i2.setCreated(LocalDate.parse("2015-10-10"));
 		i2.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
 		i2.setFirstCheckin(LocalDate.parse("2015-10-10"));
-		i2.setItemDuration(d1);
 		i2.setState(ItemState.CHECKOUT);
 		i2.setItemStatus(is1);
 		i2.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
@@ -266,7 +252,6 @@ public class BootstrapData implements CommandLineRunner {
 		i3.setCreated(LocalDate.parse("2015-10-10"));
 		i3.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
 		i3.setFirstCheckin(LocalDate.parse("2015-10-10"));
-		i3.setItemDuration(d1);
 		i3.setState(ItemState.CHECKOUT);
 		i3.setItemStatus(is1);
 		i3.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
@@ -286,7 +271,6 @@ public class BootstrapData implements CommandLineRunner {
 		i4.setCreated(LocalDate.parse("2015-10-10"));
 		i4.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
 		i4.setFirstCheckin(LocalDate.parse("2015-10-10"));
-		i4.setItemDuration(d1);
 		i4.setState(ItemState.CHECKOUT);
 		i4.setItemStatus(is1);
 		i4.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
@@ -306,7 +290,6 @@ public class BootstrapData implements CommandLineRunner {
 		i5.setCreated(LocalDate.parse("2015-10-10"));
 		i5.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
 		i5.setFirstCheckin(LocalDate.parse("2015-10-10"));
-		i5.setItemDuration(d1);
 		i5.setState(ItemState.IN_LIBRARY);
 		i5.setItemStatus(is1);
 		i5.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));

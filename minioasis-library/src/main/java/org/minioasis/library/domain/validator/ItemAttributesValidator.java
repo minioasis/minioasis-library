@@ -1,6 +1,5 @@
 package org.minioasis.library.domain.validator;
 
-import org.minioasis.library.domain.ItemDuration;
 import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Location;
 import org.minioasis.library.domain.search.ItemAttributes;
@@ -12,35 +11,8 @@ public class ItemAttributesValidator {
 		
 		ItemAttributes a = (ItemAttributes)command;
 		String which = a.getWhich();
-		ItemDuration duration = a.getItemDuration();
 		ItemStatus status = a.getItemStatus();
 		Location location = a.getLocation();
-		
-		if(which.equals("itemduration")){
-			String name = duration.getName();
-			Integer value =  duration.getValue();
-			
-			// name
-			if (name == null || name.equals("")) {		
-				errors.rejectValue("itemDuration.name","*", null ,"required");
-			}else{
-				if(name.length() > 64){
-					errors.rejectValue("itemDuration.name","" , null ,"< 65");
-				}
-						
-			}
-
-			// value
-			if (value == null) {
-				errors.rejectValue("itemDuration.value", "*" , null , "required");
-			}else{
-				if(value < 0 || value > 365){
-					errors.rejectValue("itemDuration.value", "" , null , "0 <= x <= 365");
-				}
-					
-			}		
-			
-		}
 		
 		if(which.equals("itemstatus")){
 			

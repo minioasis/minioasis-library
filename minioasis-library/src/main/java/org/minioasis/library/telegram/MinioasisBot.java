@@ -14,6 +14,7 @@ import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemState;
+import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Preference;
 import org.minioasis.library.domain.TelegramUser;
@@ -124,6 +125,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			registrationVerification(update);
 			
 			checkouts("/due", update);
+			
+			//renew("/renew", update);
 			
 			search("/search", update);
 
@@ -379,6 +382,34 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}			
 		} 
 	}
+	
+/*	private void renew(String command, Update update) {
+		
+		if(update.getMessage().getText().equals(command)){
+			
+			Long chat_id = update.getMessage().getChatId();	
+			SendMessage message = new SendMessage().setChatId(chat_id);
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+
+			if(telegramUser == null) {
+				
+				message.setText(MEMBER_NOT_FOUND);
+				
+				try {
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + command + " ] " + MEMBER_NOT_FOUND);
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}
+				
+			}else {
+				String cardKey = telegramUser.getCardKey();
+				Patron patron = libraryService.findByCardKey(cardKey);
+				libraryService.renew(patron, item, LocalDate.now());
+			}
+			
+		}
+	}*/
 	
 	// [/due]
 	private void checkouts(String command, Update update) {
