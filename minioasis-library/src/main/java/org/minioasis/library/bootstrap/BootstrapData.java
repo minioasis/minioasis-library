@@ -343,8 +343,8 @@ public class BootstrapData implements CommandLineRunner {
 		pt1.setExpiryDate(LocalDate.parse("2030-12-12"));
 		pt1.setMemberFee(new BigDecimal(100.00));
 		pt1.setDeposit(new BigDecimal(200.00));
-		pt1.setBiblioLimit(5);
-		pt1.setDuration(6);
+		pt1.setBiblioLimit(3);
+		pt1.setDuration(14);
 		pt1.setMaxNoOfReservations(3);
 		pt1.setMaxCollectablePeriod(7);
 		pt1.setMaxUncollectedNo(3);
@@ -363,7 +363,7 @@ public class BootstrapData implements CommandLineRunner {
 		pt2.setMemberFee(new BigDecimal(100.00));
 		pt2.setDeposit(new BigDecimal(200.00));
 		pt2.setBiblioLimit(5);
-		pt2.setDuration(6);
+		pt2.setDuration(14);
 		pt2.setMaxNoOfReservations(3);
 		pt2.setMaxCollectablePeriod(7);
 		pt2.setMaxUncollectedNo(3);
@@ -491,13 +491,13 @@ public class BootstrapData implements CommandLineRunner {
 		Checkout co1 = new Checkout(LocalDate.now().minusDays(13), LocalDate.now().plusDays(1), new Integer(0), CheckoutState.CHECKOUT, p1, i1);
 		checkoutRepository.save(co1);
 		
-		Checkout co2 = new Checkout(LocalDate.now().minusDays(1), LocalDate.now().plusDays(13), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
+		Checkout co2 = new Checkout(LocalDate.now().minusDays(12), LocalDate.now().plusDays(2), new Integer(0), CheckoutState.CHECKOUT, p2, i2);
 		checkoutRepository.save(co2);
 		
 		Checkout co3 = new Checkout(LocalDate.now().minusDays(17), LocalDate.now().minusDays(3), new Integer(0), CheckoutState.CHECKOUT, p2, i3);
 		checkoutRepository.save(co3);
 		
-		Checkout co4 = new Checkout(LocalDate.now().minusDays(27), LocalDate.now().minusDays(13), new Integer(0), CheckoutState.CHECKOUT, p3, i3);
+		Checkout co4 = new Checkout(LocalDate.now().minusDays(27), LocalDate.now().minusDays(13), new Integer(0), CheckoutState.CHECKOUT, p3, i4);
 		checkoutRepository.save(co4);
 
 		

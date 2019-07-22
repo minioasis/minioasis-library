@@ -28,12 +28,7 @@ public class ReportCheckoutController {
 		List<CheckoutState> states = CheckoutState.getCheckouts();
 		
 		Page<Checkout> page = this.service.findAllOverDueOrderByDueDateCardKey(states, now, pageable);
-		
-		List<Checkout> checkouts = page.getContent();
-		for(Checkout c : checkouts) {
-			c.preparingCheckoutOn(now);
-		}
-		
+
 		model.addAttribute("page", page);
 
 		return "report.overdue";
@@ -47,11 +42,6 @@ public class ReportCheckoutController {
 		List<CheckoutState> states = CheckoutState.getCheckouts();
 		
 		Page<Checkout> page = this.service.findAllOverDueOrderByGroupPatronTypeDueDateCardKey(states, now, pageable);
-		
-		List<Checkout> checkouts = page.getContent();
-		for(Checkout c : checkouts) {
-			c.preparingCheckoutOn(now);
-		}
 		
 		model.addAttribute("page", page);
 

@@ -126,7 +126,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			checkouts("/due", update);
 			
-			//renew("/renew", update);
+			renewAll("/renew", update);
 			
 			search("/search", update);
 
@@ -349,8 +349,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		
 		boolean searchCommand = message.startsWith(command);
 
-		if(searchCommand){
-			
+		if(searchCommand && (message.length() > 7)){
+
 			String keyword = message.substring(8);
 			
 			if(!keyword.equals("")) {
@@ -383,7 +383,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		} 
 	}
 	
-/*	private void renew(String command, Update update) {
+	private void renewAll(String command, Update update) {
 		
 		if(update.getMessage().getText().equals(command)){
 			
@@ -404,12 +404,25 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				
 			}else {
 				String cardKey = telegramUser.getCardKey();
-				Patron patron = libraryService.findByCardKey(cardKey);
-				libraryService.renew(patron, item, LocalDate.now());
+				final LocalDate now = LocalDate.now();
+				
+				Patron patron = this.libraryService.preparingPatronForCirculation(cardKey, now);
+				libraryService.renewAll(patron, now);
+				
+				List<Checkout> checkouts = patron.getCheckouts();
+				
+				message.setText(checkoutsView(cardKey, checkouts))
+				   .setParseMode(ParseMode.MARKDOWN);
+				
+				try {
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + command + " ] ");
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}	
 			}
-			
 		}
-	}*/
+	}
 	
 	// [/due]
 	private void checkouts(String command, Update update) {
@@ -467,10 +480,12 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 			LocalDate end = c1.getPatron().getEndDate();
 			
-			s.append("_Member :_ *" + cardKey + "*    _Exp : " + end + "_\n");
-			s.append("_Total : " + total + "_\n");
-			s.append("-------------------------------------------------------\n");
-
+			s.append("-------------------------------------------------------------\n");
+			s.append("_Member :_ *" + cardKey + "*         _Exp : " + end + "_\n");
+			s.append("-------------------------------------------------------------\n");
+			s.append("_Total : " + total + "                    Date : " + LocalDate.now() + "_\n");
+			s.append("\n");
+			
 			for(Checkout c : checkouts) {
 
 				String title = c.getItem().getBiblio().getTitle();

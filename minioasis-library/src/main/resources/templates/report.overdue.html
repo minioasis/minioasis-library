@@ -41,7 +41,6 @@
 						<th th:text="#{patron.type}">Patron Type</th>
 						<th th:text="#{barcode} + '(i)'">Barcode(i)</th>
 						<th th:text="#{title}">Title</th>
-						<th th:text="#{biblio}">Biblio</th>
 						<th th:text="#{checkout.date}">Checkout Date</th>
 						<th th:text="#{due.date}">Due Date</th>
 						<th th:text="#{fine}">Fine</th>
@@ -57,8 +56,9 @@
 						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
 						<td th:text="${e.patron.patronType.name}">3-books</td>
 						<td th:text="${e.item.barcode}">121212</td>
-						<td th:text="${e.item.biblio.title}"></td>
-						<td><a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
+						<td>
+							<a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" th:text="${e.item.biblio.title}">Title</a>
+						</td>
 						<td th:text="${e.checkoutDate != null ? #temporals.format(e.checkoutDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
 						<td th:text="${e.dueDate != null ? #temporals.format(e.dueDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.fineAmount}">12.00</td>

@@ -116,14 +116,14 @@ public class LibraryServiceImpl implements LibraryService {
 
 	/****************************************  Business Logic **************************************/	
 	
-	private LocalDate calculateDueDate(Patron patron, Item item, LocalDate given) {
+	private LocalDate calculateDueDate(Patron patron, LocalDate given) {
 		long duration = patron.getPatronType().getDuration().longValue();	
 		return given.plusDays(duration);
 	}
 	
 	public void checkout(Patron patron, Item item, LocalDate given) throws LibraryException {
 	
-		LocalDate dueDate = calculateDueDate(patron, item, given);
+		LocalDate dueDate = calculateDueDate(patron, given);
 		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
 		
 		patron.preparingCheckoutsOn(given);
@@ -135,7 +135,7 @@ public class LibraryServiceImpl implements LibraryService {
 
 	public void renew(Patron patron, Item item, LocalDate given) throws LibraryException {
 		
-		LocalDate dueDate = calculateDueDate(patron,item,given);
+		LocalDate dueDate = calculateDueDate(patron,given);
 		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
 		
 		patron.preparingCheckoutsOn(given);
@@ -145,17 +145,17 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 	
-/*	public void renewAll(Patron patron, LocalDate given) throws LibraryException {
+	public void renewAll(Patron patron, LocalDate given) throws LibraryException {
 		
-		LocalDate dueDate = calculateDueDate(patron,item,given);
+		LocalDate dueDate = calculateDueDate(patron,given);
 		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
 		
 		patron.preparingCheckoutsOn(given);
-		patron.renew(item, given, newDueDate);
+		patron.renewAll(given, newDueDate);
 		
 		this.patronRepository.save(patron);
 		
-	}*/
+	}
 	
 	public void checkoutAttachment(Patron patron, Attachment attachment, LocalDate given){
 
@@ -456,7 +456,16 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	
 	public Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable){
-		return this.checkoutRepository.findByCriteria(criteria, pageable);
+		
+		final LocalDate now = LocalDate.now();
+		
+		Page<Checkout> checkoutsPage = this.checkoutRepository.findByCriteria(criteria, pageable);
+		
+		for(Checkout c : checkoutsPage.getContent()){
+			c.preparingCheckoutOn(now);
+		}
+		
+		return checkoutsPage;
 	}
 
 	/************************************  FormData  *************************************/

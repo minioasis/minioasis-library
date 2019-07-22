@@ -58,6 +58,7 @@ public interface LibraryService {
 	
 	// Renew
 	void renew(Patron patron, Item item, LocalDate given) throws LibraryException;
+	void renewAll(Patron patron, LocalDate given) throws LibraryException;
 	
 	// ReportLost
 	void reportlost(Patron patron, Item item, LocalDate given) throws LibraryException;

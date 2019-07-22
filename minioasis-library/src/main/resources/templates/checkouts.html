@@ -179,13 +179,12 @@
 						<th th:text="#{patron.type}">Patron Type</th>
 						<th th:text="#{barcode} + '(i)'">Barcode(i)</th>
 						<th th:text="#{title}">Title</th>
-						<th th:text="#{biblio}">Biblio</th>
 						<th th:text="#{checkout.date}">Checkout Date</th>
 						<th th:text="#{due.date}">Due Date</th>
 						<th th:text="#{done}">Done</th>
-						<th th:text="#{ld.fine}">L/D fines</th>
-						<th th:text="#{fine}">Fine</th>
-						<th th:text="#{fine.paid}">Last In</th>
+						<th th:text="#{fine.amount}">Fine Amount</th>
+						<th th:text="#{fine.paid}">Fine</th>
+						<th th:text="#{ld.fine.paid}">L/D fines</th>
 						<th th:text="#{state}">State</th>
 						<th th:text="#{actions}">Action</th>
 					</tr>
@@ -196,17 +195,26 @@
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td th:text="${e.patron.active}">Y</td>
 						<td th:text="${e.patron.group.code}">4S1</td>
-						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
+						<td>
+							<a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a>
+						</td>
 						<td th:text="${e.patron.patronType.name}">3-books</td>
 						<td th:text="${e.item.barcode}">121212</td>
-						<td th:text="${e.item.biblio.title}"></td>
-						<td><a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
+						<td>
+							<a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" th:text="${e.item.biblio.title}">Title</a>
+						</td>
 						<td th:text="${e.checkoutDate != null ? #temporals.format(e.checkoutDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
 						<td th:text="${e.dueDate != null ? #temporals.format(e.dueDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.done != null ? #temporals.format(e.done,'yyyy-MM-dd') : ''}">2015-09-30</td>
-						<td th:text="${e.lostOrDamageFineAmount}">15.00</td>
-						<td th:text="${e.finePaidAmount}">12.00</td>
-						<td th:text="${e.finePaidDate != null ? #temporals.format(e.finePaidDate,'yyyy-MM-dd') : ''}">2015-09-30</td>
+						<td th:text="${e.fineAmount}">15.00</td>
+						<td th:inline="text">
+							[[${e.finePaidAmount}]]<br>
+							[[${e.finePaidDate != null ? #temporals.format(e.finePaidDate,'yyyy-MM-dd') : ''}]]
+						</td>
+						<td th:inline="text">
+							[[${e.lostOrDamageFineAmount}]]<br>
+							[[${e.lostOrDamagePaidDate != null ? #temporals.format(e.lostOrDamagePaidDate,'yyyy-MM-dd') : ''}]]
+						</td>
 						<td th:text="${e.state}">CHECKOUT</td>
 						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/circ/checkout/edit?id={id}(id=${e.id})}">Set L/D Fine</a></td>
 					</tr>
@@ -217,11 +225,19 @@
 						<td>cardKey</td>
 						<td>3-books</td>
 						<td>213213</td>
+						<td>Title</td>
+						<td>2015-07-31</td>
 						<td>2015-07-31</td>
 						<td>2015-08-31</td>
 						<td>15.00</td>
-						<td>12.00</td>
-						<td>2015-09-30</td>
+						<td>
+							12.00
+							2015-09-30
+						</td>
+						<td>
+							12.00
+							2015-09-30
+						</td>
 						<td>CHECKOUT</td>
 						<td><a href="#">Set L/D Fine</a></td>
 					</tr>

@@ -12,10 +12,10 @@
 
 		<h4>
 			<span th:text="#{search.reservation}">Search Reservation</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/reservation/list(page=0,size=10,sort='reservationDate,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/reservation/notification/list(page=0,size=10,states='AVAILABLE',states='NOTIFIED',sort='availableDate,asc')}">
 				<i class="fas fa-search"></i> a
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/reservation/notification/list(page=0,size=10,states='AVAILABLE',states='NOTIFIED',sort='availableDate,asc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/reservation/list(page=0,size=10,sort='reservationDate,desc')}">
 				<i class="fas fa-search"></i>
 			</a>
 		</h4>

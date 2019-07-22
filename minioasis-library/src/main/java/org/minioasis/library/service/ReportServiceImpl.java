@@ -58,10 +58,26 @@ public class ReportServiceImpl implements ReportService {
 	}
 	
 	public 	Page<Checkout> findAllOverDueOrderByDueDateCardKey(List<CheckoutState> cStates, LocalDate given, Pageable pageable){
-		return checkoutRepository.findAllOverDueOrderByDueDateCardKey(cStates, given, pageable);
+		
+		Page<Checkout> page = checkoutRepository.findAllOverDueOrderByDueDateCardKey(cStates, given, pageable);
+		
+		List<Checkout> checkouts = page.getContent();
+		for(Checkout c : checkouts) {
+			c.preparingCheckoutOn(given);
+		}
+		
+		return page;
 	}
 	
 	public Page<Checkout> findAllOverDueOrderByGroupPatronTypeDueDateCardKey(List<CheckoutState> cStates, LocalDate given, Pageable pageable){
-		return checkoutRepository.findAllOverDueOrderByGroupPatronTypeDueDateCardKey(cStates, given, pageable);
+		
+		Page<Checkout> page = checkoutRepository.findAllOverDueOrderByGroupPatronTypeDueDateCardKey(cStates, given, pageable);
+		
+		List<Checkout> checkouts = page.getContent();
+		for(Checkout c : checkouts) {
+			c.preparingCheckoutOn(given);
+		}
+		
+		return page;
 	}
 }
