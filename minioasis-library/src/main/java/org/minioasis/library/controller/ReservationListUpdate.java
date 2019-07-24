@@ -44,7 +44,8 @@ public class ReservationListUpdate {
 	@RequestMapping(value = "/notification/list", method = RequestMethod.GET)
 	public String reservations(@ModelAttribute("criteria") ReservationCriteria criteria, Model model, Pageable pageable) {
 
-		Page<Reservation> page = this.service.findByCriteria(criteria,pageable);		
+		Page<Reservation> page = this.service.findByCriteria(criteria,pageable);
+		
 		model.addAttribute("page", page);
 		model.addAttribute("pagingType", "list");
 		model.addAttribute("criteria", new ReservationCriteria());
