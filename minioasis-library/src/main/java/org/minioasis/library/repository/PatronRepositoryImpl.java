@@ -2,6 +2,7 @@ package org.minioasis.library.repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -18,6 +19,7 @@ import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.jooq.DatePart;
 import org.jooq.Field;
+import org.jooq.Record;
 import org.jooq.Record1;
 import org.jooq.Record3;
 import org.jooq.Record4;
@@ -230,14 +232,14 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		return records;
 	}
 	
-	public Result<Record1<Integer>> getAllPatronsStartedYears(){
+	public List<Integer> getAllPatronsStartedYears(){
 		
 		Field<Integer> year = p.START_DATE.extract(DatePart.YEAR);
 		
-		Result<Record1<Integer>> records = dsl.selectDistinct(year)
+		List<Integer> records = dsl.selectDistinct(year)
 				.from(p)
 				.orderBy(year)
-				.fetch();
+				.fetch(year, Integer.class);
 		
 		return records;
 	}

@@ -1,8 +1,9 @@
 package org.minioasis.library.domain;
 
-public class Photo implements java.io.Serializable {
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
-	private static final long serialVersionUID = 6116618221818155805L;
+@JsonIgnoreProperties(ignoreUnknown = true)
+public class Photo {
 	
 	private String name;
 	
@@ -13,6 +14,11 @@ public class Photo implements java.io.Serializable {
 	private long size;
 
 	public Photo(){}
+
+	public Photo(String name) {
+		super();
+		this.name = name;
+	}
 
 	public String getName() {
 		return name;

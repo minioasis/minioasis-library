@@ -23,8 +23,8 @@ public class PhotoClientController {
 
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 
-	@GetMapping(path = "/patron/{id}/photo")
-	public void patronPhoto(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
+	@GetMapping(path = "/patron/photo/{id}")
+	public void patronPhoto(@PathVariable("id") String id, HttpServletResponse response) throws IOException {
 
 		URL url = this.service.getUrl();
 		Photo photo = this.service.getRestTemplate().getForObject(url.toString() + "/photo/patron/" + id, Photo.class);
@@ -61,8 +61,8 @@ public class PhotoClientController {
 
 	}
 	
-	@GetMapping(path = "/biblio/{id}/photo")
-	public void biblioPhoto(@PathVariable("id") long id, HttpServletResponse response) throws IOException {
+	@GetMapping(path = "/biblio/photo/{id}")
+	public void biblioPhoto(@PathVariable("id") String id, HttpServletResponse response) throws IOException {
 
 		URL url = this.service.getUrl();
 		Photo photo = this.service.getRestTemplate().getForObject(url.toString() + "/photo/biblio/" + id, Photo.class);

@@ -25,9 +25,12 @@ import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
 import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
+import org.minioasis.library.jooq.tables.Role;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
 import org.minioasis.library.jooq.tables.TelegramUser;
+import org.minioasis.library.jooq.tables.User;
+import org.minioasis.library.jooq.tables.UserRole;
 
 
 /**
@@ -139,6 +142,11 @@ public class Tables {
     public static final Reservation RESERVATION = org.minioasis.library.jooq.tables.Reservation.RESERVATION;
 
     /**
+     * The table <code>PUBLIC.ROLE</code>.
+     */
+    public static final Role ROLE = org.minioasis.library.jooq.tables.Role.ROLE;
+
+    /**
      * The table <code>PUBLIC.SERIES</code>.
      */
     public static final Series SERIES = org.minioasis.library.jooq.tables.Series.SERIES;
@@ -152,4 +160,14 @@ public class Tables {
      * The table <code>PUBLIC.TELEGRAM_USER</code>.
      */
     public static final TelegramUser TELEGRAM_USER = org.minioasis.library.jooq.tables.TelegramUser.TELEGRAM_USER;
+
+    /**
+     * The table <code>PUBLIC.USER</code>.
+     */
+    public static final User USER = org.minioasis.library.jooq.tables.User.USER;
+
+    /**
+     * The table <code>PUBLIC.USER_ROLE</code>.
+     */
+    public static final UserRole USER_ROLE = org.minioasis.library.jooq.tables.UserRole.USER_ROLE;
 }

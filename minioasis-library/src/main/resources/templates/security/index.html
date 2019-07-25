@@ -1,0 +1,51 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorator="layouts/library.template">
+<head>
+	<title></title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link
+		href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+		rel="stylesheet" media="screen" />
+
+	<link href="../../static/css/glyphicons.css"
+		th:href="@{/css/glyphicons.css}" rel="stylesheet" media="screen" />
+		
+</head>
+<body>
+
+	<div class="container" layout:fragment="content">
+	
+		<div class="jumbotron">
+		
+			<h2><span class="glyphicons glyphicons-lock x2"></span> Welcome to Security Minioasis !</h2>
+			
+			<br/>
+			
+			<p class="pull-right">
+  				<span class="glyphicon glyphicon-time"></span>
+  				<span th:text="${#calendars.format(now,'dd MMMM yyyy')}">01 Sep 2015</span>
+  				..........
+    			<span th:text="${#calendars.format(now,'hh:mm:ss a')}">08:28:54</span>
+			</p>
+		</div>
+
+		<div class="row">
+		
+			<div class="col-xs-6 col-sm-4">
+				<h3><span class="glyphicon glyphicon-user"></span> User</h3>
+				<p>User</p>
+				<a href="#" th:href="@{/security/user/add}" class="btn btn-default"><span class="glyphicon glyphicon-user"></span></a>
+				<a href="#" th:href="@{/security/user/list(page=0,size=10,sort=username)}" class="btn btn-default"><span class="glyphicon glyphicon-search"></span></a>
+			</div>
+
+		</div>
+
+	</div>
+
+</body>
+</html>

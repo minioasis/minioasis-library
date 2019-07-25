@@ -15,35 +15,27 @@ public class PhotoRestController {
 	@Autowired
 	private PhotoRepository photoRepository;
 
-	@GetMapping(path = "/patron/{id}", produces = "application/json")
+	@GetMapping(path = "/patron/{id}")
 	public Photo photoWithId(@PathVariable("id") String id) {
 
-		Photo photo = null;
-		
+		Photo photo = null;	
 		try {
-
 			photo = photoRepository.findPatronThumbnailByIc(id);
-
 		} catch (Exception ex) {
-
 		}
 
 		return photo;
 	}
 
-	@GetMapping(path = "/biblio/{id}", produces = "application/json")
+	@GetMapping(path = "/biblio/{id}")
 	public Photo photoWithIsbn(@PathVariable("id") String id) {
 
 		Photo photo = null;
-		
 		try {
-
 			photo = photoRepository.findBiblioThumbnailByIsbn(id);
-
 		} catch (Exception ex) {
-
 		}
-
+		
 		return photo;
 	}
 	

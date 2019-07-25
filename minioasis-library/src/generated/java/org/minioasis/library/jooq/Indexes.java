@@ -28,9 +28,12 @@ import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
 import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
+import org.minioasis.library.jooq.tables.Role;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
 import org.minioasis.library.jooq.tables.TelegramUser;
+import org.minioasis.library.jooq.tables.User;
+import org.minioasis.library.jooq.tables.UserRole;
 
 
 /**
@@ -101,6 +104,8 @@ public class Indexes {
     public static final Index FK_RESERVATION_PATRONTYPE_INDEX_2 = Indexes0.FK_RESERVATION_PATRONTYPE_INDEX_2;
     public static final Index FK_RESERVATION_PATRON_INDEX_2 = Indexes0.FK_RESERVATION_PATRON_INDEX_2;
     public static final Index PRIMARY_KEY_23 = Indexes0.PRIMARY_KEY_23;
+    public static final Index PRIMARY_KEY_26 = Indexes0.PRIMARY_KEY_26;
+    public static final Index UK8SEWWNPAMNGI6B1DWAA88ASKK_INDEX_2 = Indexes0.UK8SEWWNPAMNGI6B1DWAA88ASKK_INDEX_2;
     public static final Index PRIMARY_KEY_91 = Indexes0.PRIMARY_KEY_91;
     public static final Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Indexes0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9;
     public static final Index PRIMARY_KEY_14 = Indexes0.PRIMARY_KEY_14;
@@ -108,6 +113,11 @@ public class Indexes {
     public static final Index PRIMARY_KEY_B = Indexes0.PRIMARY_KEY_B;
     public static final Index UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B = Indexes0.UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B;
     public static final Index UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B = Indexes0.UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B;
+    public static final Index PRIMARY_KEY_27 = Indexes0.PRIMARY_KEY_27;
+    public static final Index UK_SB8BBOUER5WAK8VYIIY4PF2BX_INDEX_2 = Indexes0.UK_SB8BBOUER5WAK8VYIIY4PF2BX_INDEX_2;
+    public static final Index FK859N2JVI8IVHUI0RL0ESWS6O_INDEX_B = Indexes0.FK859N2JVI8IVHUI0RL0ESWS6O_INDEX_B;
+    public static final Index FKA68196081FVOVJHKEK5M97N3Y_INDEX_B = Indexes0.FKA68196081FVOVJHKEK5M97N3Y_INDEX_B;
+    public static final Index PRIMARY_KEY_BC = Indexes0.PRIMARY_KEY_BC;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -165,6 +175,8 @@ public class Indexes {
         public static Index FK_RESERVATION_PATRONTYPE_INDEX_2 = Internal.createIndex("FK_RESERVATION_PATRONTYPE_INDEX_2", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.PATRONTYPE_ID }, false);
         public static Index FK_RESERVATION_PATRON_INDEX_2 = Internal.createIndex("FK_RESERVATION_PATRON_INDEX_2", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.PATRON_ID }, false);
         public static Index PRIMARY_KEY_23 = Internal.createIndex("PRIMARY_KEY_23", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.ID }, true);
+        public static Index PRIMARY_KEY_26 = Internal.createIndex("PRIMARY_KEY_26", Role.ROLE, new OrderField[] { Role.ROLE.ROLE_ID }, true);
+        public static Index UK8SEWWNPAMNGI6B1DWAA88ASKK_INDEX_2 = Internal.createIndex("UK8SEWWNPAMNGI6B1DWAA88ASKK_INDEX_2", Role.ROLE, new OrderField[] { Role.ROLE.NAME }, true);
         public static Index PRIMARY_KEY_91 = Internal.createIndex("PRIMARY_KEY_91", Series.SERIES, new OrderField[] { Series.SERIES.ID }, true);
         public static Index UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9 = Internal.createIndex("UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9", Series.SERIES, new OrderField[] { Series.SERIES.NAME }, true);
         public static Index PRIMARY_KEY_14 = Internal.createIndex("PRIMARY_KEY_14", Tag.TAG, new OrderField[] { Tag.TAG.ID }, true);
@@ -172,5 +184,10 @@ public class Indexes {
         public static Index PRIMARY_KEY_B = Internal.createIndex("PRIMARY_KEY_B", TelegramUser.TELEGRAM_USER, new OrderField[] { TelegramUser.TELEGRAM_USER.ID }, true);
         public static Index UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B = Internal.createIndex("UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B", TelegramUser.TELEGRAM_USER, new OrderField[] { TelegramUser.TELEGRAM_USER.CHAT_ID }, true);
         public static Index UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B = Internal.createIndex("UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B", TelegramUser.TELEGRAM_USER, new OrderField[] { TelegramUser.TELEGRAM_USER.CARD_KEY }, true);
+        public static Index PRIMARY_KEY_27 = Internal.createIndex("PRIMARY_KEY_27", User.USER, new OrderField[] { User.USER.USER_ID }, true);
+        public static Index UK_SB8BBOUER5WAK8VYIIY4PF2BX_INDEX_2 = Internal.createIndex("UK_SB8BBOUER5WAK8VYIIY4PF2BX_INDEX_2", User.USER, new OrderField[] { User.USER.USERNAME }, true);
+        public static Index FK859N2JVI8IVHUI0RL0ESWS6O_INDEX_B = Internal.createIndex("FK859N2JVI8IVHUI0RL0ESWS6O_INDEX_B", UserRole.USER_ROLE, new OrderField[] { UserRole.USER_ROLE.USER_ID }, false);
+        public static Index FKA68196081FVOVJHKEK5M97N3Y_INDEX_B = Internal.createIndex("FKA68196081FVOVJHKEK5M97N3Y_INDEX_B", UserRole.USER_ROLE, new OrderField[] { UserRole.USER_ROLE.ROLE_ID }, false);
+        public static Index PRIMARY_KEY_BC = Internal.createIndex("PRIMARY_KEY_BC", UserRole.USER_ROLE, new OrderField[] { UserRole.USER_ROLE.USER_ID, UserRole.USER_ROLE.ROLE_ID }, true);
     }
 }

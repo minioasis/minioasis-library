@@ -3,6 +3,8 @@ package org.minioasis.library.bootstrap;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.HashSet;
+import java.util.Set;
 
 import org.minioasis.library.domain.Account;
 import org.minioasis.library.domain.AccountType;
@@ -28,8 +30,10 @@ import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.PatronType;
 import org.minioasis.library.domain.Preference;
 import org.minioasis.library.domain.Publisher;
+import org.minioasis.library.domain.Role;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.TelegramUser;
+import org.minioasis.library.domain.User;
 import org.minioasis.library.domain.Volume;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.repository.AccountRepository;
@@ -45,10 +49,13 @@ import org.minioasis.library.repository.LocationRepository;
 import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.library.repository.PatronTypeRepository;
 import org.minioasis.library.repository.PublisherRepository;
+import org.minioasis.library.repository.RoleRepository;
 import org.minioasis.library.repository.SeriesRepository;
 import org.minioasis.library.repository.TelegramUserRepository;
+import org.minioasis.library.repository.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -84,6 +91,13 @@ public class BootstrapData implements CommandLineRunner {
 	private SeriesRepository seriesRepository;
 	@Autowired
 	private TelegramUserRepository telegramUserRepository;
+	
+	@Autowired
+	private UserRepository userRepository;
+	@Autowired
+	private RoleRepository roleRepository;
+	@Autowired
+	private BCryptPasswordEncoder passwordEncoder;
 	
 	public void run(String... args) throws Exception {
 
@@ -550,6 +564,175 @@ public class BootstrapData implements CommandLineRunner {
 		telegramUserRepository.save(tu2);
 		telegramUserRepository.save(tu3);
 		telegramUserRepository.save(tu4);
+		
+		// role
+		Role r1 = new Role();
+		r1.setName("ROLE_ADMIN");
+		roleRepository.save(r1);
+		
+		Role r2 = new Role();
+		r2.setName("ROLE_USER");
+		roleRepository.save(r2);
+		
+		Role r3 = new Role();
+		r3.setName("ROLE_LIBRARIAN");
+		roleRepository.save(r3);
+	
+	// user
+
+		String encodedPassword1 = passwordEncoder.encode("1");
+		String encodedPassword2 = passwordEncoder.encode("2");
+		String encodedPassword3 = passwordEncoder.encode("1");
+		
+		User u1 = new User();
+		u1.setUsername("1");
+		u1.setPassword(encodedPassword1);
+		u1.setEnabled(true);
+		userRepository.save(u1);
+		
+		User u2 = new User();
+		u2.setUsername("2");
+		u2.setPassword(encodedPassword2);
+		u2.setEnabled(true);
+		userRepository.save(u2);
+		
+		User u3 = new User();
+		u3.setUsername("3");
+		u3.setPassword(encodedPassword3);
+		u3.setEnabled(true);
+		userRepository.save(u3);
+		
+		User u4 = new User();
+		u4.setUsername("u4");
+		u4.setPassword(encodedPassword1);
+		u4.setEnabled(true);
+		userRepository.save(u4);
+		
+		User u5 = new User();
+		u5.setUsername("u5");
+		u5.setPassword(encodedPassword1);
+		u5.setEnabled(true);
+		userRepository.save(u5);
+		
+		User u6 = new User();
+		u6.setUsername("u6");
+		u6.setPassword(encodedPassword1);
+		u6.setEnabled(true);
+		userRepository.save(u6);
+
+		User u7 = new User();
+		u7.setUsername("u7");
+		u7.setPassword(encodedPassword1);
+		u7.setEnabled(true);
+		userRepository.save(u7);
+		
+		User u8 = new User();
+		u8.setUsername("u8");
+		u8.setPassword(encodedPassword1);
+		u8.setEnabled(true);
+		userRepository.save(u8);
+		
+		User u9 = new User();
+		u9.setUsername("u9");
+		u9.setPassword(encodedPassword1);
+		u9.setEnabled(true);
+		userRepository.save(u9);
+	
+		User u10 = new User();
+		u10.setUsername("u10");
+		u10.setPassword(encodedPassword1);
+		u10.setEnabled(true);
+		userRepository.save(u10);
+	
+		User u11 = new User();
+		u11.setUsername("u11");
+		u11.setPassword(encodedPassword1);
+		u11.setEnabled(true);
+		userRepository.save(u11);
+		
+		User u12 = new User();
+		u12.setUsername("u12");
+		u12.setPassword(encodedPassword1);
+		u12.setEnabled(true);
+		userRepository.save(u12);
+		
+		
+	// (user,role)
+		// (1,1) (1,2)
+		Set<Role> rs1 = new HashSet<Role>();
+		rs1.add(r1);
+		rs1.add(r2);
+		u1.setRoles(rs1);
+		userRepository.save(u1);
+		
+		// (2,2)
+		Set<Role> rs2 = new HashSet<Role>();
+		rs2.add(r2);
+		u2.setRoles(rs2);
+		userRepository.save(u2);
+		
+		// (3,1) (3,2) (3,3)
+		Set<Role> rs3 = new HashSet<Role>();
+		rs3.add(r1);
+		rs3.add(r2);
+		rs3.add(r3);
+		u3.setRoles(rs3);
+		userRepository.save(u3);
+		
+		// (4,1)
+		Set<Role> rs4 = new HashSet<Role>();
+		rs4.add(r1);
+		u4.setRoles(rs4);
+		userRepository.save(u4);
+		
+		// (5,3)
+		Set<Role> rs5 = new HashSet<Role>();
+		rs5.add(r3);
+		u5.setRoles(rs5);
+		userRepository.save(u5);
+		
+		// (6,2) (6,3)
+		Set<Role> rs6 = new HashSet<Role>();
+		rs6.add(r2);
+		rs6.add(r3);
+		u6.setRoles(rs6);
+		userRepository.save(u6);
+		
+		// (7,2)
+		Set<Role> rs7 = new HashSet<Role>();
+		rs7.add(r2);
+		u7.setRoles(rs7);
+		userRepository.save(u7);
+		
+		// (8,2)
+		Set<Role> rs8 = new HashSet<Role>();
+		rs8.add(r2);
+		u8.setRoles(rs8);
+		userRepository.save(u8);
+		
+		// (9,2)
+		Set<Role> rs9 = new HashSet<Role>();
+		rs9.add(r2);
+		u9.setRoles(rs9);
+		userRepository.save(u9);
+		
+		// (10,2)
+		Set<Role> rs10 = new HashSet<Role>();
+		rs10.add(r2);
+		u10.setRoles(rs10);
+		userRepository.save(u10);
+		
+		// (11,2)
+		Set<Role> rs11 = new HashSet<Role>();
+		rs11.add(r2);
+		u11.setRoles(rs11);
+		userRepository.save(u11);
+		
+		// (12,3)
+		Set<Role> rs12 = new HashSet<Role>();
+		rs12.add(r3);
+		u12.setRoles(rs12);
+		userRepository.save(u12);	
 
 	}
 	

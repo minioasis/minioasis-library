@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorator="layouts/library.template">
+<head>
+	<title>Minioasis Security</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link
+		href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+		rel="stylesheet" media="screen" />
+
+</head>
+<body>
+
+	<div class="container" layout:fragment="content">
+
+		<h2>Search User</h2>
+		<form action="#" th:action="@{/security/user/search}" method="GET">
+			<div class="input-group col-xs-6 col-sm-4">
+				<input type="hidden" id="page" name="page" value="0" />
+				<input type="hidden" id="size" name="size" value="3" />
+				<input type="hidden" id="sort" name="sort" value="username" />
+				<input type="text" class="form-control" name="keyword" autofocus="autofocus" placeholder="Username" />
+				<div class="input-group-btn">
+					<button type="submit" class="btn btn-default">
+						<span class="glyphicon glyphicon-search"></span>
+					</button>
+				</div>
+			</div>
+		</form>
+
+		<hr/>
+
+		<ul class="pager" th:if="${pagerType eq 'search'}">
+			<li class="next">
+				<a th:if="${page.hasNext()}"
+					th:href="@{/security/user/search(page=${page.number + 1},size=${page.size},sort=username, keyword=${keyword})}"	
+					id="next">Next</a>
+			</li>
+			<li class="next">
+				<a th:if="${page.hasPrevious()}"
+					th:href="@{/security/user/search(page=${page.number - 1},size=${page.size},sort=username, keyword=${keyword})}"	
+					id="next">Previous</a>
+			</li>
+		</ul>
+		
+		<ul class="pager" th:if="${pagerType ne 'search'}">
+			<li class="next">
+				<a th:if="${page.hasNext()}"
+					th:href="@{/security/user/list(page=${page.number + 1},size=${page.size},sort=username)}"	
+					id="next">Next</a>
+			</li>
+			<li class="next">
+				<a th:if="${page.hasPrevious()}"
+					th:href="@{/security/user/list(page=${page.number - 1},size=${page.size},sort=username)}"	
+					id="next">Previous</a>
+			</li>
+		</ul>
+
+		Total : <span th:text="${page.totalElements}">105</span>
+				
+		<table class="table">
+			<thead>
+				<tr class="warning">
+					<th>#</th>
+					<th>Username</th>
+					<!-- <th>Password</th> -->
+					<th>Roles</th>
+					<th>Action</th>
+				</tr>
+			</thead>
+
+			<tbody>
+				<tr th:each="u,iterator : ${page.content}">
+					<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+					<td th:text="${u.username}">george</td>
+					<!-- <td th:text="${u.password}">password</td> -->
+					<td th:text="${u.roleNames}">ROLE_ADMIN</td>
+					<td><a href="#" th:href="@{/security/user/edit(id=${u.id})}">Edit</a>
+						| <a href="#" th:href="@{/security/user/delete(id=${u.id})}">Delete</a></td>
+				</tr>
+				<tr th:remove="all">
+					<td>2</td>
+					<td>moon1899</td>
+					<td>ROLE_ADMIN , ROLE_LIBRARIAN</td>
+					<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+				</tr>
+			</tbody>
+		</table>
+
+	</div>
+
+</body>
+</html>

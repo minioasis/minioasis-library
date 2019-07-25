@@ -29,9 +29,12 @@ import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
 import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
+import org.minioasis.library.jooq.tables.Role;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
 import org.minioasis.library.jooq.tables.TelegramUser;
+import org.minioasis.library.jooq.tables.User;
+import org.minioasis.library.jooq.tables.UserRole;
 import org.minioasis.library.jooq.tables.records.AccountRecord;
 import org.minioasis.library.jooq.tables.records.AttachmentCheckoutRecord;
 import org.minioasis.library.jooq.tables.records.AttachmentRecord;
@@ -51,9 +54,12 @@ import org.minioasis.library.jooq.tables.records.PatronRecord;
 import org.minioasis.library.jooq.tables.records.PatronTypeRecord;
 import org.minioasis.library.jooq.tables.records.PublisherRecord;
 import org.minioasis.library.jooq.tables.records.ReservationRecord;
+import org.minioasis.library.jooq.tables.records.RoleRecord;
 import org.minioasis.library.jooq.tables.records.SeriesRecord;
 import org.minioasis.library.jooq.tables.records.TagRecord;
 import org.minioasis.library.jooq.tables.records.TelegramUserRecord;
+import org.minioasis.library.jooq.tables.records.UserRecord;
+import org.minioasis.library.jooq.tables.records.UserRoleRecord;
 
 
 /**
@@ -128,6 +134,8 @@ public class Keys {
     public static final UniqueKey<PublisherRecord> CONSTRAINT_FC = UniqueKeys0.CONSTRAINT_FC;
     public static final UniqueKey<PublisherRecord> UK_H9TRV4XHMH6S68VBW9BA6TO70 = UniqueKeys0.UK_H9TRV4XHMH6S68VBW9BA6TO70;
     public static final UniqueKey<ReservationRecord> CONSTRAINT_23 = UniqueKeys0.CONSTRAINT_23;
+    public static final UniqueKey<RoleRecord> CONSTRAINT_26 = UniqueKeys0.CONSTRAINT_26;
+    public static final UniqueKey<RoleRecord> UK8SEWWNPAMNGI6B1DWAA88ASKK = UniqueKeys0.UK8SEWWNPAMNGI6B1DWAA88ASKK;
     public static final UniqueKey<SeriesRecord> CONSTRAINT_91 = UniqueKeys0.CONSTRAINT_91;
     public static final UniqueKey<SeriesRecord> UK_S4JD0PRFGED1PUCSTGAOH8QJ4 = UniqueKeys0.UK_S4JD0PRFGED1PUCSTGAOH8QJ4;
     public static final UniqueKey<TagRecord> CONSTRAINT_14 = UniqueKeys0.CONSTRAINT_14;
@@ -135,6 +143,9 @@ public class Keys {
     public static final UniqueKey<TelegramUserRecord> CONSTRAINT_B = UniqueKeys0.CONSTRAINT_B;
     public static final UniqueKey<TelegramUserRecord> UK_ABIUVF67GFNDN35NGQDPKQ7DY = UniqueKeys0.UK_ABIUVF67GFNDN35NGQDPKQ7DY;
     public static final UniqueKey<TelegramUserRecord> UK_8FJRX8Y7KIFVM13XIF72SY5BF = UniqueKeys0.UK_8FJRX8Y7KIFVM13XIF72SY5BF;
+    public static final UniqueKey<UserRecord> CONSTRAINT_27 = UniqueKeys0.CONSTRAINT_27;
+    public static final UniqueKey<UserRecord> UK_SB8BBOUER5WAK8VYIIY4PF2BX = UniqueKeys0.UK_SB8BBOUER5WAK8VYIIY4PF2BX;
+    public static final UniqueKey<UserRoleRecord> CONSTRAINT_BC = UniqueKeys0.CONSTRAINT_BC;
 
     // -------------------------------------------------------------------------
     // FOREIGN KEY definitions
@@ -161,6 +172,8 @@ public class Keys {
     public static final ForeignKey<ReservationRecord, BiblioRecord> FK_RESERVATION_BIBLIO = ForeignKeys0.FK_RESERVATION_BIBLIO;
     public static final ForeignKey<ReservationRecord, PatronRecord> FK_RESERVATION_PATRON = ForeignKeys0.FK_RESERVATION_PATRON;
     public static final ForeignKey<ReservationRecord, PatronTypeRecord> FK_RESERVATION_PATRONTYPE = ForeignKeys0.FK_RESERVATION_PATRONTYPE;
+    public static final ForeignKey<UserRoleRecord, UserRecord> FK859N2JVI8IVHUI0RL0ESWS6O = ForeignKeys0.FK859N2JVI8IVHUI0RL0ESWS6O;
+    public static final ForeignKey<UserRoleRecord, RoleRecord> FKA68196081FVOVJHKEK5M97N3Y = ForeignKeys0.FKA68196081FVOVJHKEK5M97N3Y;
 
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
@@ -219,6 +232,8 @@ public class Keys {
         public static final UniqueKey<PublisherRecord> CONSTRAINT_FC = Internal.createUniqueKey(Publisher.PUBLISHER, "CONSTRAINT_FC", Publisher.PUBLISHER.ID);
         public static final UniqueKey<PublisherRecord> UK_H9TRV4XHMH6S68VBW9BA6TO70 = Internal.createUniqueKey(Publisher.PUBLISHER, "UK_H9TRV4XHMH6S68VBW9BA6TO70", Publisher.PUBLISHER.NAME);
         public static final UniqueKey<ReservationRecord> CONSTRAINT_23 = Internal.createUniqueKey(Reservation.RESERVATION, "CONSTRAINT_23", Reservation.RESERVATION.ID);
+        public static final UniqueKey<RoleRecord> CONSTRAINT_26 = Internal.createUniqueKey(Role.ROLE, "CONSTRAINT_26", Role.ROLE.ROLE_ID);
+        public static final UniqueKey<RoleRecord> UK8SEWWNPAMNGI6B1DWAA88ASKK = Internal.createUniqueKey(Role.ROLE, "UK8SEWWNPAMNGI6B1DWAA88ASKK", Role.ROLE.NAME);
         public static final UniqueKey<SeriesRecord> CONSTRAINT_91 = Internal.createUniqueKey(Series.SERIES, "CONSTRAINT_91", Series.SERIES.ID);
         public static final UniqueKey<SeriesRecord> UK_S4JD0PRFGED1PUCSTGAOH8QJ4 = Internal.createUniqueKey(Series.SERIES, "UK_S4JD0PRFGED1PUCSTGAOH8QJ4", Series.SERIES.NAME);
         public static final UniqueKey<TagRecord> CONSTRAINT_14 = Internal.createUniqueKey(Tag.TAG, "CONSTRAINT_14", Tag.TAG.ID);
@@ -226,6 +241,9 @@ public class Keys {
         public static final UniqueKey<TelegramUserRecord> CONSTRAINT_B = Internal.createUniqueKey(TelegramUser.TELEGRAM_USER, "CONSTRAINT_B", TelegramUser.TELEGRAM_USER.ID);
         public static final UniqueKey<TelegramUserRecord> UK_ABIUVF67GFNDN35NGQDPKQ7DY = Internal.createUniqueKey(TelegramUser.TELEGRAM_USER, "UK_ABIUVF67GFNDN35NGQDPKQ7DY", TelegramUser.TELEGRAM_USER.CARD_KEY);
         public static final UniqueKey<TelegramUserRecord> UK_8FJRX8Y7KIFVM13XIF72SY5BF = Internal.createUniqueKey(TelegramUser.TELEGRAM_USER, "UK_8FJRX8Y7KIFVM13XIF72SY5BF", TelegramUser.TELEGRAM_USER.CHAT_ID);
+        public static final UniqueKey<UserRecord> CONSTRAINT_27 = Internal.createUniqueKey(User.USER, "CONSTRAINT_27", User.USER.USER_ID);
+        public static final UniqueKey<UserRecord> UK_SB8BBOUER5WAK8VYIIY4PF2BX = Internal.createUniqueKey(User.USER, "UK_SB8BBOUER5WAK8VYIIY4PF2BX", User.USER.USERNAME);
+        public static final UniqueKey<UserRoleRecord> CONSTRAINT_BC = Internal.createUniqueKey(UserRole.USER_ROLE, "CONSTRAINT_BC", UserRole.USER_ROLE.USER_ID, UserRole.USER_ROLE.ROLE_ID);
     }
 
     private static class ForeignKeys0 {
@@ -250,5 +268,7 @@ public class Keys {
         public static final ForeignKey<ReservationRecord, BiblioRecord> FK_RESERVATION_BIBLIO = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, Reservation.RESERVATION, "FK_RESERVATION_BIBLIO", Reservation.RESERVATION.BIBLIO_ID);
         public static final ForeignKey<ReservationRecord, PatronRecord> FK_RESERVATION_PATRON = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8C, Reservation.RESERVATION, "FK_RESERVATION_PATRON", Reservation.RESERVATION.PATRON_ID);
         public static final ForeignKey<ReservationRecord, PatronTypeRecord> FK_RESERVATION_PATRONTYPE = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_5, Reservation.RESERVATION, "FK_RESERVATION_PATRONTYPE", Reservation.RESERVATION.PATRONTYPE_ID);
+        public static final ForeignKey<UserRoleRecord, UserRecord> FK859N2JVI8IVHUI0RL0ESWS6O = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_27, UserRole.USER_ROLE, "FK859N2JVI8IVHUI0RL0ESWS6O", UserRole.USER_ROLE.USER_ID);
+        public static final ForeignKey<UserRoleRecord, RoleRecord> FKA68196081FVOVJHKEK5M97N3Y = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_26, UserRole.USER_ROLE, "FKA68196081FVOVJHKEK5M97N3Y", UserRole.USER_ROLE.ROLE_ID);
     }
 }

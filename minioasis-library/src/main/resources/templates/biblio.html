@@ -31,7 +31,7 @@
 		  <div class="card-body bg-white">
 			<div class="row">
 				<div class="col-md-4">
-					<img src="@{/images/smiley.png}" th:src="@{/biblio/{id}/photo(id=${biblio.isbn})}" 
+					<img src="@{/images/smiley.png}" th:src="@{/biblio/photo/{id}(id=${biblio.isbn})}" 
 						class="thumbnail" style="min-height:200px;height:215px;width:175px;"/>
 				</div>
 				<div class="col-md-8">

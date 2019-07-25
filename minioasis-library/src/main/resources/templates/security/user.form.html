@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" 
+	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
+	  layout:decorator="layouts/library.template">
+<head>
+	<title>Minioasis Security</title>
+	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+	
+	<link
+		href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
+		th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
+		rel="stylesheet" media="screen" />
+
+</head>
+<body>
+
+	<div class="container" layout:fragment="content">
+
+		<div class="row">
+		
+			<div class="col-md-6">
+			
+				<h2>Create User</h2>
+				
+				<div class="panel panel-info">
+					<div class="panel-heading">User</div>
+					<div class="panel-body">
+					
+						<form action="#" th:action="@{/security/user/add}" th:object="${cmd}" method="post">
+						
+							<input type="text" hidden="hidden" th:field="*{user.id}"/>
+							
+							<div class="form-group">
+								<label class="control-label" for="inputUsername">Username</label>
+								<input type="text" class="form-control" th:field="*{user.username}" id="inputUsername"
+									placeholder="Username" />
+								<p class="error" th:if="${#fields.hasErrors('user.username')}" th:errors="*{user.username}">username error</p>
+								<p class="help-block">Please use alphabets or numeric numbers only</p>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label" for="inputPassword">Password</label>
+								<input type="password" class="form-control" th:field="*{user.password}" id="inputPassword"
+									placeholder="Password" />
+								<p class="error" th:if="${#fields.hasErrors('user.password')}" th:errors="*{user.password}">password error</p>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label" for="confirmPassword">Confirm Password</label>
+								<input type="password" class="form-control" th:field="*{user.confirmPassword}" id="confirmPassword" 
+									placeholder="Confirm Password" />
+								<p class="error" th:if="${#fields.hasErrors('user.confirmPassword')}" th:errors="*{user.confirmPassword}">confirmPassword error</p>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label" for="inputEnable">Enabled</label>
+								<select	class="form-control" th:field="*{user.enabled}">
+									<option selected="selected" value="true">True</option>
+									<option value="false">False</option>
+								</select>
+								<p class="error" th:if="${#fields.hasErrors('user.enabled')}" th:errors="*{user.enabled}">enabled error</p>
+								<p class="help-block">You can disable this account</p>
+							</div>
+
+							<div class="form-group">
+								<label class="control-label" for="inputRoles">Role</label>
+								<select	class="form-control" multiple="multiple" th:field="*{user.roles}">
+									<option th:each="role : ${roles}" th:value="${role.id}"
+											th:text="${role.name}">ROLE_ADMIN</option>
+									<option th:remove="all" value="1">ROLE_USER</option>
+									<option th:remove="all" value="2">ROLE_LIBRARIAN</option>
+								</select>
+								<p class="error" th:if="${#fields.hasErrors('user.roles')}" th:errors="*{user.roles}">roles error</p>
+							</div>
+
+							<button type="submit" class="btn btn-info pull-right">Submit</button>
+						</form>
+
+					</div>
+				</div>
+			</div>
+
+			<div class="col-md-6" th:if="${cmd.completedUser != null}">
+
+				<h2>User Inserted</h2>
+ 
+				<div class="panel panel-info">
+					<div class="panel-heading">Done !</div>
+					<div class="panel-body">
+
+						<ul class="list-group">
+							<li class="list-group-item" style="font-weight: bold">
+								[ <a href="#" th:href="@{/security/user/edit(id=${cmd.completedUser.id})}">Edit</a> | <a href="#" th:href="@{/security/user/delete(id=${cmd.completedUser.id})}">Delete</a> ]
+							</li>
+							<li class="list-group-item"><span class="badge" th:text="${cmd.completedUser.username}">Username</span>
+								Username</li>
+							<li class="list-group-item"><span class="badge" th:text="${cmd.completedUser.enabled}">Enabled</span>
+								Enable</li>
+							<li class="list-group-item"><span class="badge" th:text="${cmd.completedUser.roleNames}">RoleNames</span>
+								Roles</li>
+						</ul>
+
+					</div>
+				</div>
+
+			</div>
+			
+		</div>
+
+	</div>
+	
+</body>
+</html>

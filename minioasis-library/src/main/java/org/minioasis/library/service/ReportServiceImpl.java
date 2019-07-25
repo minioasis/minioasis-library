@@ -3,7 +3,6 @@ package org.minioasis.library.service;
 import java.time.LocalDate;
 import java.util.List;
 
-import org.jooq.Record1;
 import org.jooq.Record3;
 import org.jooq.Record4;
 import org.jooq.Result;
@@ -37,7 +36,7 @@ public class ReportServiceImpl implements ReportService {
 		return patronRepository.CountPatronsByTypes3(year);
 	}
 	
-	public Result<Record1<Integer>> getAllPatronsStartedYears(){
+	public List<Integer> getAllPatronsStartedYears(){
 		return patronRepository.getAllPatronsStartedYears();
 	}
 	

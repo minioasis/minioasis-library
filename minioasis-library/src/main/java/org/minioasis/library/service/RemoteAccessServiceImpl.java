@@ -22,7 +22,7 @@ public class RemoteAccessServiceImpl implements RemoteAccessService {
     		@Value("${server.host.name:http://localhost}") String host, 
     		@Value("${server.port:8080}") String port, 
     		@Value("${server.servlet.context-path:}") String contextPath) {
-
+    	
     	this.restTemplate = restTemplateBuilder.build();
         this.host = host;
         this.port = port;

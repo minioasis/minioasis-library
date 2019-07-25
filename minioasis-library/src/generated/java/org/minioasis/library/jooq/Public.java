@@ -33,9 +33,12 @@ import org.minioasis.library.jooq.tables.Patron;
 import org.minioasis.library.jooq.tables.PatronType;
 import org.minioasis.library.jooq.tables.Publisher;
 import org.minioasis.library.jooq.tables.Reservation;
+import org.minioasis.library.jooq.tables.Role;
 import org.minioasis.library.jooq.tables.Series;
 import org.minioasis.library.jooq.tables.Tag;
 import org.minioasis.library.jooq.tables.TelegramUser;
+import org.minioasis.library.jooq.tables.User;
+import org.minioasis.library.jooq.tables.UserRole;
 
 
 /**
@@ -51,7 +54,7 @@ import org.minioasis.library.jooq.tables.TelegramUser;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = -753150633;
+    private static final long serialVersionUID = 926680807;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -154,6 +157,11 @@ public class Public extends SchemaImpl {
     public final Reservation RESERVATION = org.minioasis.library.jooq.tables.Reservation.RESERVATION;
 
     /**
+     * The table <code>PUBLIC.ROLE</code>.
+     */
+    public final Role ROLE = org.minioasis.library.jooq.tables.Role.ROLE;
+
+    /**
      * The table <code>PUBLIC.SERIES</code>.
      */
     public final Series SERIES = org.minioasis.library.jooq.tables.Series.SERIES;
@@ -167,6 +175,16 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.TELEGRAM_USER</code>.
      */
     public final TelegramUser TELEGRAM_USER = org.minioasis.library.jooq.tables.TelegramUser.TELEGRAM_USER;
+
+    /**
+     * The table <code>PUBLIC.USER</code>.
+     */
+    public final User USER = org.minioasis.library.jooq.tables.User.USER;
+
+    /**
+     * The table <code>PUBLIC.USER_ROLE</code>.
+     */
+    public final UserRole USER_ROLE = org.minioasis.library.jooq.tables.UserRole.USER_ROLE;
 
     /**
      * No further instances allowed
@@ -224,8 +242,11 @@ public class Public extends SchemaImpl {
             PatronType.PATRON_TYPE,
             Publisher.PUBLISHER,
             Reservation.RESERVATION,
+            Role.ROLE,
             Series.SERIES,
             Tag.TAG,
-            TelegramUser.TELEGRAM_USER);
+            TelegramUser.TELEGRAM_USER,
+            User.USER,
+            UserRole.USER_ROLE);
     }
 }
