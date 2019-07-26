@@ -3,12 +3,16 @@ package org.minioasis.library.controller;
 import java.io.IOException;
 import java.io.InputStream;
 import java.io.OutputStream;
+import java.net.ConnectException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 import javax.servlet.http.HttpServletResponse;
 
 import org.minioasis.library.domain.Photo;
-import org.minioasis.library.service.RemoteAccessService;
+import org.minioasis.library.repository.PhotoRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -16,18 +20,28 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
 @RestController
-public class PhotoClientController {
+public class PhotoController {
+	
+	private static final Logger logger = LoggerFactory.getLogger(PhotoController.class);
 	
 	@Autowired
-	private RemoteAccessService service;
+	private PhotoRepository photoRepository;
 
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 
-	@GetMapping(path = "/patron/photo/{id}")
-	public void patronPhoto(@PathVariable("id") String id, HttpServletResponse response) throws IOException {
-
-		URL url = this.service.getUrl();
-		Photo photo = this.service.getRestTemplate().getForObject(url.toString() + "/photo/patron/" + id, Photo.class);
+	@GetMapping(path = "/photo/patron/{id}")
+	public void patronPhoto(@PathVariable("id") String id, HttpServletResponse response) throws MalformedURLException {
+		
+		Photo photo = null;
+		
+		try {
+			photo = this.photoRepository.findPatronThumbnailByIc(id);
+		} catch(ConnectException cex) {
+			logger.info("MINIO LOG : Connection failed !");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		if (photo != null) {
 			URL imgUrl = new URL(photo.getUrl());
@@ -61,11 +75,19 @@ public class PhotoClientController {
 
 	}
 	
-	@GetMapping(path = "/biblio/photo/{id}")
-	public void biblioPhoto(@PathVariable("id") String id, HttpServletResponse response) throws IOException {
+	@GetMapping(path = "/photo/biblio/{id}")
+	public void biblioPhoto(@PathVariable("id") String id, HttpServletResponse response) throws MalformedURLException {
 
-		URL url = this.service.getUrl();
-		Photo photo = this.service.getRestTemplate().getForObject(url.toString() + "/photo/biblio/" + id, Photo.class);
+		Photo photo = null;
+		
+		try {
+			photo = this.photoRepository.findBiblioThumbnailByIsbn(id);
+		} catch(ConnectException cex) {
+			logger.info("MINIO LOG : Connection failed !");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
 
 		if (photo != null) {
 			URL imgUrl = new URL(photo.getUrl());

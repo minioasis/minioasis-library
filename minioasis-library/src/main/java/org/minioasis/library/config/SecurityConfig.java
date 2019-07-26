@@ -30,7 +30,6 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			.authorizeRequests()
 			.antMatchers("/photo/biblio/**").permitAll()
 			.antMatchers("/css/**", "/images/**","/console/**").permitAll()
-			.antMatchers("/photo/patron/**").hasAnyAuthority("ROLE_ADMIN, ROLE_LIBRARIAN")
 			.antMatchers("/**").hasAnyAuthority("ROLE_ADMIN, ROLE_LIBRARIAN")
 			.anyRequest().authenticated()
 			.and()
