@@ -29,7 +29,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 		http
 			.authorizeRequests()
 			.antMatchers("/photo/biblio/**").permitAll()
-			.antMatchers("/css/**", "/images/**","/console/**").permitAll()
+			.antMatchers("/css/**", "/js/**", "/images/**","/console/**").permitAll()
 			.antMatchers("/**").hasAnyAuthority("ROLE_ADMIN, ROLE_LIBRARIAN")
 			.anyRequest().authenticated()
 			.and()
