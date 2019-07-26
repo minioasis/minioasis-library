@@ -4,6 +4,7 @@ import static java.lang.Math.toIntExact;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.net.ConnectException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -19,8 +20,8 @@ import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Preference;
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.BiblioCriteria;
+import org.minioasis.library.repository.PhotoRepository;
 import org.minioasis.library.service.LibraryService;
-import org.minioasis.library.service.RemoteAccessService;
 import org.minioasis.library.service.TelegramService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -41,7 +42,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-//@Component
+@Component
 public class MinioasisBot extends TelegramLongPollingBot {
 
 	private static final Logger logger = LoggerFactory.getLogger(MinioasisBot.class);
@@ -59,7 +60,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private LibraryService libraryService;
 	
 	@Autowired
-	private RemoteAccessService remoteService;
+	private PhotoRepository photoRepository;
 	
 	private static int pageSize = 3;
 	
@@ -332,10 +333,17 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return s.toString();
 	}
 	
-	private Photo getPhoto(String isbn) throws IOException {
+	private Photo getPhoto(String isbn){
 		
-		URL url = this.remoteService.getUrl();
-		Photo photo = this.remoteService.getRestTemplate().getForObject(url.toString() + "/photo/biblio/" + isbn, Photo.class);
+		Photo photo = null;
+		
+		try {
+			photo = this.photoRepository.findBiblioThumbnailByIsbn(isbn);
+		} catch(ConnectException cex) {
+			logger.info("MINIO LOG : Connection failed !");
+		} catch (Exception ex) {
+			return photo;
+		}
 		
 		return photo;
 	}
