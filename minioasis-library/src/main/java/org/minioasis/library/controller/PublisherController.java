@@ -30,7 +30,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/publisher")
+@RequestMapping("/admin/publisher")
 public class PublisherController {
 
 	@Autowired

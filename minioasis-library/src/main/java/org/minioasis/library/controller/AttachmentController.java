@@ -19,7 +19,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.support.SessionStatus;
 
 @Controller
-@RequestMapping("/attachment")
+@RequestMapping("/admin/attachment")
 public class AttachmentController {
 
 	@Autowired
@@ -82,7 +82,7 @@ public class AttachmentController {
 			
 		}
 		
-		return "redirect:/attachment/"+ attachment.getId();
+		return "redirect:/admin/attachment/"+ attachment.getId();
 			
 	}
 	
@@ -127,7 +127,7 @@ public class AttachmentController {
 			
 		}
 
-		return "redirect:/attachment/"+ attachment.getId();
+		return "redirect:/admin/attachment/"+ attachment.getId();
 			
 	}
 	

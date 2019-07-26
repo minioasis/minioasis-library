@@ -22,7 +22,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/telegram.user")
+@RequestMapping("/admin/telegram.user")
 public class TelegramUserController {
 
 	@Autowired

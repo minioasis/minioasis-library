@@ -24,10 +24,10 @@
 				
 				<span th:text="#{patron}">Patron</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/save}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/save}">
 					<i class="fas fa-user-plus"></i>
 				</a>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
 					<i class="fas fa-search"></i>
 				</a>
 				
@@ -35,7 +35,7 @@
 				
 				<span th:text="#{patron.change.group}">Change Group</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
 					<i class="fas fa-random"></i>
 				</a>
 
@@ -52,10 +52,10 @@
 				
 				<span th:text="#{checkout}">Check Out </span>
 				<br/>
-				<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/patronid.form}">
+				<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/patronid.form}">
 					<i class="fas fa-shopping-cart"></i>
 				</a>
-				<a class="btn btn-outline-success text-success" href="#" th:href="@{/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+				<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
 					<i class="fas fa-search"></i>
 				</a>
 				
@@ -63,7 +63,7 @@
 				
 				<span th:text="#{attachment.checkout}">Attachment Check Out </span>
 				<br>
-				<a href="#" th:href="@{/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}" class="btn btn-outline-success text-success">
 					<i class="fas fa-paperclip"></i>
 					<i class="fas fa-shopping-cart"></i>
 				</a>
@@ -72,7 +72,7 @@
 				
 				<span th:text="#{checkin}">Check In</span>
 				<br>
-				<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/return}">
+				<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/return}">
 					<i class="fas fa-arrow-down"></i>
 				</a>
 				
@@ -80,10 +80,10 @@
 				
 				<span th:text="#{reservation.notification}">Reservation Notification</span>		
 				<br>
-				<a href="#" th:href="@{/reservation/notification/list(page=0,size=10,sort='reservationDate,desc',states='AVAILABLE',states='NOTIFIED')}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,sort='reservationDate,desc',states='AVAILABLE',states='NOTIFIED')}" class="btn btn-outline-success text-success">
 					<i class="fas fa-mobile-alt"></i> a
 				</a>
-				<a href="#" th:href="@{/reservation/list(page=0,size=10,sort='reservationDate,desc')}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/reservation/list(page=0,size=10,sort='reservationDate,desc')}" class="btn btn-outline-success text-success">
 					<i class="fas fa-search"></i>
 				</a>
 			      	
@@ -100,7 +100,7 @@
 							
 				<span th:text="#{opac}">OPACs</span> : <span th:text="#{web.scraping}">Web Scraping</span>
 				<br/>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/opac}">
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/opac}">
 			      	<i class="fas fa-university"></i>
 				</a>
 				:
@@ -112,14 +112,14 @@
 		      	
 				<span th:text="#{biblio}">Bibliography</span> : <span th:text="#{uncompleted}"> Uncompleted</span> 
 				<br>
-				<a class="btn btn-outline-danger text-danger" th:href="@{/biblio/save}">
+				<a class="btn btn-outline-danger text-danger" th:href="@{/admin/biblio/save}">
 		      		<i class="fas fa-book"></i>
 		      	</a>
-		      	<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+		      	<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
 				    <i class="fas fa-search"></i>b
 		      	</a>
 		      	:
-				<a class="btn btn-outline-danger text-danger btn-sm" href="#" th:href="@{/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
+				<a class="btn btn-outline-danger text-danger btn-sm" href="#" th:href="@{/admin/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
 				    <i class="fas fa-search"></i>u
 		      	</a>
 		      	
@@ -127,11 +127,11 @@
 		      	
 				<span th:text="#{item}">Item</span> : <span th:text="#{attachment}">Attachment</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
 				    <i class="fas fa-search"></i>i
 		      	</a>
 		      	:
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
 				    <i class="fas fa-search"></i>a
 		      	</a>
 		      	
@@ -139,10 +139,10 @@
 		      	
 				<span th:text="#{publisher}">Publisher</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/publisher/save}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/publisher/save}">
 	      			<i class="far fa-newspaper"></i>
 		      	</a>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/publisher/list(page=0,size=10,sort='name,asc')}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/publisher/list(page=0,size=10,sort='name,asc')}">
 					<i class="fas fa-search"></i>
 				</a>
 
@@ -150,10 +150,10 @@
 
 				<span th:text="#{series}">Series</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/series/save}">
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/series/save}">
 	      			<i class="fas fa-signal"></i>
 		      	</a>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/series/list(page=0,size=10,sort='name,asc')}">
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/series/list(page=0,size=10,sort='name,asc')}">
 			    	<i class="fas fa-search"></i>
 		      	</a>
 			      	
@@ -178,7 +178,7 @@
 		      	
 				<span th:text="#{stock.check.reset}">Stock Check / Reset</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/stock.check/item}">
+				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/stock.check/item}">
 					<i class="far fa-check-circle"></i>
 				</a>
 				<!-- Button trigger modal -->
@@ -189,7 +189,7 @@
 				<!-- Modal -->
 				<div class="modal fade" id="reset" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 
-					<form class="form" action="#" th:action="@{/stock.check/reset}" method="post">
+					<form class="form" action="#" th:action="@{/admin/stock.check/reset}" method="post">
 								  
 					  <div class="modal-dialog" role="document">
 					    <div class="modal-content">
@@ -227,10 +227,10 @@
 				
 				<span th:text="#{account}">Account</span>
 				<br>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/account/save}">
+				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/account/save}">
 					<i class="far fa-copy"></i>
 				</a>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/account/list(page=0,size=10,sort='code,desc')}">
+				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/account/list(page=0,size=10,sort='code,desc')}">
 					<i class="fas fa-search"></i>
 				</a>
 
@@ -238,10 +238,10 @@
 				
 				<span th:text="#{journalentry}">Journal Entry</span>
 				<br>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry/patronid.form}">
+				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry/patronid.form}">
 					<i class="fas fa-file-invoice-dollar"></i>
 				</a>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
+				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
 					<i class="fas fa-search"></i> je
 				</a>
 								
@@ -249,7 +249,7 @@
 				
 				<span th:text="#{journalentry.line}">Journal Entry Line</span>
 				<br>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
 					<i class="fas fa-search"></i> l
 				</a>
 				
@@ -257,7 +257,7 @@
 				
 				<span th:text="#{formdata}">Form Data</span>
 				<br>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/formdata/list(page=0,size=60,sort='data,asc')}">
+				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/formdata/list(page=0,size=60,sort='data,asc')}">
 					<i class="fas fa-search"></i>
 				</a>
 
@@ -274,7 +274,7 @@
 				
 				<span th:text="#{telegram}">Telegram</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
+				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
 					<i class="fas fa-search text-info"></i>
 				</a>
 

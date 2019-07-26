@@ -12,10 +12,10 @@
 
 		<h4>
 			<span th:text="#{search.reservation}">Search Reservation</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/reservation/notification/list(page=0,size=10,states='AVAILABLE',states='NOTIFIED',sort='availableDate,asc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,states='AVAILABLE',states='NOTIFIED',sort='availableDate,asc')}">
 				<i class="fas fa-search"></i> a
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/reservation/list(page=0,size=10,sort='reservationDate,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/reservation/list(page=0,size=10,sort='reservationDate,desc')}">
 				<i class="fas fa-search"></i>
 			</a>
 		</h4>
@@ -41,7 +41,7 @@
 			</li>
 		</ul>
 		
-		<form action="#" th:action="@{/reservation/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/admin/reservation/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -123,10 +123,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/reservation/list(page=${page.number - 1},size=${page.size},sort='reservationDate,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/reservation/list(page=${page.number - 1},size=${page.size},sort='reservationDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/reservation/list(page=${page.number + 1},size=${page.size},sort='reservationDate,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/reservation/list(page=${page.number + 1},size=${page.size},sort='reservationDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -165,8 +165,8 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td><a href="#" th:href="@{/patron/{id}(id=${e.patron.id})}" th:text="${e.patron.cardKey}"></a></td>
-						<td><a href="#" th:href="@{/biblio/{id}(id=${e.biblio.id})}" th:text="${e.biblio.title}"></a></td>
+						<td><a href="#" th:href="@{/admin/patron/{id}(id=${e.patron.id})}" th:text="${e.patron.cardKey}"></a></td>
+						<td><a href="#" th:href="@{/admin/biblio/{id}(id=${e.biblio.id})}" th:text="${e.biblio.title}"></a></td>
 						<td th:text="${e.biblio.isbn}">213223434113</td>
 						<td th:text="${e.reservationDate != null ? #temporals.format(e.reservationDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
 						<td th:text="${e.expiryDate != null ? #temporals.format(e.expiryDate,'yyyy-MM-dd') : ''}">2015-08-31</td>

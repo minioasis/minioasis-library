@@ -28,23 +28,23 @@
 
 		<h4>
 			<span th:text="#{journalentry}">Journal Entry</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/form?pid={id}(id=${jedto.pid})}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/journalentry/form?pid={id}(id=${jedto.pid})}">
 				<i class="fas fa-redo"></i>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/patronid.form}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/journalentry/patronid.form}">
 				<i class="fas fa-file-invoice-dollar"></i>
 			</a>
-			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
+			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
 				<i class="fas fa-search"></i> je
 			</a>
-			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
 				<i class="fas fa-search"></i> l
 			</a>
 		</h4>
 		
 		<br>
 		
-		<form action="#" th:action="@{/journalentry/add.entry}" th:object="${jedto}" method="post">
+		<form action="#" th:action="@{/admin/journalentry/add.entry}" th:object="${jedto}" method="post">
 			<div class="form-row">
 				<div class="col-2">
 					<input type="text" class="form-control" th:field="*{je.txnDate}" autofocus = "autofocus" placeholder="Date">
@@ -130,7 +130,7 @@
 
 		<hr/>
 		
-		<form action="#" th:action="@{/journalentry/form}" th:object="${jedto}" method="post">
+		<form action="#" th:action="@{/admin/journalentry/form}" th:object="${jedto}" method="post">
 			<div class="form-row">
 				<div class="col">
 					<input type="hidden" id="je_desp" class="form-control" th:field="*{je.description}">

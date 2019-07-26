@@ -25,7 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/group")
+@RequestMapping("/admin/group")
 public class GroupController {
 
 	@Autowired

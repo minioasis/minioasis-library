@@ -25,7 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/patron")
+@RequestMapping("/admin/patron")
 public class PatronListSearch {
 
 	@Autowired

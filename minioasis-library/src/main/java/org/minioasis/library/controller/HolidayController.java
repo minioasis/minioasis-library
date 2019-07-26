@@ -27,7 +27,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/holiday")
+@RequestMapping("/admin/holiday")
 public class HolidayController {
 
 	@Autowired
@@ -81,7 +81,7 @@ public class HolidayController {
 				return "holiday.form";
 			}
 
-			return "redirect:/holiday/save/" + holiday.getId();
+			return "redirect:/admin/holiday/save/" + holiday.getId();
 
 		}
 	}
@@ -129,7 +129,7 @@ public class HolidayController {
 				return "holiday.form";
 			}
 
-			return "redirect:/holiday/save/" + holiday.getId();
+			return "redirect:/admin/holiday/save/" + holiday.getId();
 
 		}
 	}
@@ -187,7 +187,7 @@ public class HolidayController {
 				return "holiday.form";
 			}
 
-			return "redirect:/holiday/save/" + holiday.getId();
+			return "redirect:/admin/holiday/save/" + holiday.getId();
 
 		}
 	}

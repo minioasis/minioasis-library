@@ -27,10 +27,10 @@
 		    <div class="col-sm-3">	    			      
 				<span th:text="#{patron.type}">Patron Type</span>
 				<br/>
-				<a href="#" th:href="@{/patrontype/save}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/patrontype/save}" class="btn btn-outline-success text-success">
 					<span><i class="fas fa-user-friends"></i></span>
 				</a>
-				<a href="#" th:href="@{/patrontype/list}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/patrontype/list}" class="btn btn-outline-success text-success">
 					<span><i class="fas fa-search"></i></span>
 				</a>				
 			</div>
@@ -39,12 +39,12 @@
 
 				<span th:text="#{group}">Group</span>
 				<br>
-				<a href="#" th:href="@{/group/save}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/group/save}" class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-users"></i>
 					</span>
 				</a>
-				<a href="#" th:href="@{/group/list(page=0,size=10,sort=code)}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/group/list(page=0,size=10,sort=code)}" class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-search"></i>
 					</span>
@@ -56,12 +56,12 @@
 
 				<span th:text="#{holiday}">Holiday</span>
 				<br>
-				<a href="#" th:href="@{/holiday/save}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/holiday/save}" class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-umbrella-beach"></i>
 					</span>
 				</a>
-				<a href="#" th:href="@{/holiday/list(page=0,size=10,sort='startDate,desc')}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/holiday/list(page=0,size=10,sort='startDate,desc')}" class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-search"></i>
 					</span>
@@ -72,7 +72,7 @@
 		    <div class="col-sm-3">	    	
 				<span th:text="#{item.attributes}">Item Attributes</span>
 				<br>
-				<a href="#" th:href="@{/item.attributes}" class="btn btn-outline-success text-success">
+				<a href="#" th:href="@{/admin/item.attributes}" class="btn btn-outline-success text-success">
 					<span>
 						<i class="fas fa-map-marker-alt"></i>
 						<i class="far fa-clock"></i>

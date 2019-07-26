@@ -12,17 +12,17 @@
 
 		<h3>
 			<span th:text="#{fines.pending.list.orderby.group.patrontype}">Overdue With Fines</span>
-			<a class="btn btn-outline-primary text-primary" href="#" th:href="@{/reports}">
+			<a class="btn btn-outline-primary text-primary" href="#" th:href="@{/admin/reports}">
 				<i class="fas fa-chart-line"></i>
 			</a>	
 		</h3>
 
 		<div class="float-right">
 
-			<a th:if="${page.hasPrevious()}" th:href="@{/report/fines.pending.orderby.group.patrontype(page=${page.number - 1},size=${page.size})}">
+			<a th:if="${page.hasPrevious()}" th:href="@{/admin/report/fines.pending.orderby.group.patrontype(page=${page.number - 1},size=${page.size})}">
 				<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 			</a>
-			<a th:if="${page.hasNext()}" th:href="@{/report/fines.pending.orderby.group.patrontype(page=${page.number + 1},size=${page.size})}">
+			<a th:if="${page.hasNext()}" th:href="@{/admin/report/fines.pending.orderby.group.patrontype(page=${page.number + 1},size=${page.size})}">
 				<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 			</a>
 		
@@ -54,11 +54,11 @@
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td th:text="${e.patron.active}">Y</td>
 						<td th:text="${e.patron.group.code}">4S1</td>
-						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
+						<td><a href="#" th:href="@{/admin/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
 						<td th:text="${e.patron.patronType.name}">3-books</td>
 						<td th:text="${e.item.barcode}">121212</td>
 						<td th:text="${e.item.biblio.title}"></td>
-						<td><a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
+						<td><a href="#" th:href="@{/admin/biblio/{id}(id=${e.item.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
 						<td th:text="${e.checkoutDate != null ? #temporals.format(e.checkoutDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
 						<td th:text="${e.dueDate != null ? #temporals.format(e.dueDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.fineAmount}">12.00</td>

@@ -13,10 +13,10 @@
 
 		<h4>
 			<span th:text="#{patron.type}">Patron Type</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patrontype/save}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patrontype/save}">
 				<span><i class="fas fa-user-friends"></i></span>
 			</a>
-			<a class="btn btn-outline-info text-info"  href="#" th:href="@{/patrontype/list}">
+			<a class="btn btn-outline-info text-info"  href="#" th:href="@{/admin/patrontype/list}">
 				<span><i class="fas fa-search"></i></span>
 			</a>
 		</h4>
@@ -25,8 +25,8 @@
 		  <div class="card-header">
 			<i class="fas fa-user-plus"></i>
 			<div class="float-right">
-				<a class="text-white" href="#" th:href="@{/patrontype/edit/{id}(id=${id})}"><i class="far fa-edit"></i></a>
-				| <a class="text-white" href="#" th:href="@{/patrontype/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
+				<a class="text-white" href="#" th:href="@{/admin/patrontype/edit/{id}(id=${id})}"><i class="far fa-edit"></i></a>
+				| <a class="text-white" href="#" th:href="@{/admin/patrontype/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
 			</div>
 		  </div>
 		  <div class="card-body bg-white">

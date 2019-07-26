@@ -15,7 +15,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/report")
+@RequestMapping("/admin/report")
 public class ReportCheckoutController {
 	
 	@Autowired

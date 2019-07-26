@@ -25,7 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/admin/item")
 public class ItemListSearch {
 
 	@Autowired

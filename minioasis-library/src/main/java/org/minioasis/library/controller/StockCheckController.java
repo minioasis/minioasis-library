@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/stock.check")
+@RequestMapping("/admin/stock.check")
 public class StockCheckController {
 
 	@Autowired
@@ -58,7 +58,7 @@ public class StockCheckController {
 	public String reset() {
 
 		this.service.stockCheck();	
-		return "redirect:/stock.check/reset.done";
+		return "redirect:/admin/stock.check/reset.done";
 		
 	}
 	

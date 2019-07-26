@@ -12,7 +12,7 @@
 
 		<h4>
 			<span th:text="#{search.attachment.checkout}">Search Attachment's Checkout</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
 				<i class="fas fa-search"></i>
 			</a>
 		</h4>
@@ -38,7 +38,7 @@
 			</li>
 		</ul>
 		
-		<form action="#" th:action="@{/attachment.checkout/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/admin/attachment.checkout/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -113,10 +113,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/attachment.checkout/list(page=${page.number - 1},size=${page.size},sort='checkoutDate,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/attachment.checkout/list(page=${page.number - 1},size=${page.size},sort='checkoutDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/attachment.checkout/list(page=${page.number + 1},size=${page.size},sort='checkoutDate,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/attachment.checkout/list(page=${page.number + 1},size=${page.size},sort='checkoutDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -150,7 +150,7 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td><a href="#" th:href="@{/circ/patron/{id}(id=${e.patron.id})}" th:text="${e.patron.cardKey}">cardKey</a></td>
+						<td><a href="#" th:href="@{/admin/circ/patron/{id}(id=${e.patron.id})}" th:text="${e.patron.cardKey}">cardKey</a></td>
 						<td th:text="${e.attachment.barcode}">2312131</td>
 						<td th:text="${e.attachment.description}">Feynman Lecture On Physics's CD</td>
 						<td th:text="${#temporals.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>

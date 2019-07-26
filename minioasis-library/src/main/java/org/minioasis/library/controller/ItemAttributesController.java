@@ -20,6 +20,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
+@RequestMapping("/admin")
 public class ItemAttributesController {
 
 	@Autowired
@@ -89,7 +90,7 @@ public class ItemAttributesController {
 			
 		}
 		
-		return "redirect:/item.attributes";
+		return "redirect:/admin/item.attributes";
 			
 	}
 	
@@ -112,7 +113,7 @@ public class ItemAttributesController {
 		if(status != null)
 			this.service.delete(status);
 		
-		return "redirect:/item.attributes";
+		return "redirect:/admin/item.attributes";
 		
 	}
 	
@@ -142,7 +143,7 @@ public class ItemAttributesController {
 			
 		}
 		
-		return "redirect:/item.attributes";
+		return "redirect:/admin/item.attributes";
 			
 	}
 	
@@ -165,7 +166,7 @@ public class ItemAttributesController {
 		if(location != null)
 			this.service.delete(location);
 		
-		return "redirect:/item.attributes";
+		return "redirect:/admin/item.attributes";
 		
 	}
 	

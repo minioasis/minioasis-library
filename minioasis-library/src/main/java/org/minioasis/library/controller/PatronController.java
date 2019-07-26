@@ -25,7 +25,7 @@ import org.springframework.web.context.request.WebRequest;
 import org.springframework.web.multipart.support.ByteArrayMultipartFileEditor;
 
 @Controller
-@RequestMapping("/patron")
+@RequestMapping("/admin/patron")
 public class PatronController {
 
 	@Autowired
@@ -63,7 +63,7 @@ public class PatronController {
 				return "patron.form";
 			}
 			
-			return "redirect:/patron/" + patron.getId();
+			return "redirect:/admin/patron/" + patron.getId();
 			
 		}			
 	}
@@ -100,7 +100,7 @@ public class PatronController {
 				return "patron.form";
 			}
 			
-			return "redirect:/patron/" + patron.getId();
+			return "redirect:/admin/patron/" + patron.getId();
 			
 		}
 		

@@ -12,7 +12,7 @@
 
 		<h4>
 			<span th:text="#{checkout}">Checkout</span>
-			<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/patronid.form}">
+			<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/patronid.form}">
 				<i class="fas fa-shopping-cart"></i>
 			</a>
 		</h4>
@@ -21,7 +21,7 @@
 		  <div class="card-header">
 			<i class="fas fa-user-plus"></i>
 			<div class="float-right">
-				<a class="text-white" href="#" th:href="@{/circ/checkout/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
+				<a class="text-white" href="#" th:href="@{/admin/circ/checkout/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
 			</div>
 		  </div>
 		  <div class="card-body bg-white">

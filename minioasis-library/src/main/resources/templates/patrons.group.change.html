@@ -26,7 +26,7 @@
 
 		<h4>
 			<span th:text="#{search.patron} + ' ('+ #{change.group} + ')'">Search Patron (Change Group)</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
 				<i class="fas fa-random"></i>
 			</a>	
 		</h4>
@@ -52,7 +52,7 @@
 			</li>
 		</ul>
 
-		<form  action="#" th:action="@{/patron/group.change/search}" th:object="${criteria}" method="get">
+		<form  action="#" th:action="@{/admin/patron/group.change/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="60" />
@@ -81,7 +81,7 @@
 					    </div>
 					    <div class="form-group col-md-2">
 					    	<label th:text="#{notes}">Notes</label>
-							<a th:href="@{/patron/search(page=0,size=20,sort='cardKey,desc',note='isNotEmpty()')}" id="next">
+							<a th:href="@{/admin/patron/search(page=0,size=20,sort='cardKey,desc',note='isNotEmpty()')}" id="next">
 								<button type="button" class="form-control btn btn-outline-success"><i class="far fa-sticky-note"></i></button>
 							</a>
 					    </div>
@@ -166,10 +166,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/patron/group.change/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/patron/group.change/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/patron/group.change/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/patron/group.change/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -194,7 +194,7 @@
 			});
 		</script>
 
-		<form action="#" th:action="@{/patron/group.change/change}" th:object="${criteria}" method="post">
+		<form action="#" th:action="@{/admin/patron/group.change/change}" th:object="${criteria}" method="post">
 
 			<div class="form-row">
 			    <div class="form-group col-md-3">

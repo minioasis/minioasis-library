@@ -12,10 +12,10 @@
 
 		<h4>
 			<span th:text="#{search.patron}">Search Patron</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/save}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/save}">
 				<span><i class="fas fa-user-plus"></i></span>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/patron/list(page=0,size=10,sort='cardKey,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
 				<i class="fas fa-search"></i>
 			</a>	
 		</h4>
@@ -41,7 +41,7 @@
 			</li>
 		</ul>
 
-		<form  action="#" th:action="@{/patron/search}" th:object="${criteria}" method="get">
+		<form  action="#" th:action="@{/admin/patron/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -70,7 +70,7 @@
 					    </div>
 					    <div class="form-group col-md-2">
 					    	<label th:text="#{notes}">Notes</label>
-							<a th:href="@{/patron/search(page=0,size=20,sort='cardKey,desc',note='isNotEmpty()')}" id="next">
+							<a th:href="@{/admin/patron/search(page=0,size=20,sort='cardKey,desc',note='isNotEmpty()')}" id="next">
 								<button type="button" class="form-control btn btn-outline-success"><i class="far fa-sticky-note"></i></button>
 							</a>
 					    </div>
@@ -154,10 +154,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/patron/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/patron/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/patron/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/patron/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -201,14 +201,14 @@
 								 style="min-height:75px;height:95px;width:80px;"/>
 						</td>
 						<td>
-							<a href="#" th:href="@{/patron/{id}(id=${e.id})}" th:text="|${e.name} , ${e.name2}|">Moan Wai Meng</a>
+							<a href="#" th:href="@{/admin/patron/{id}(id=${e.id})}" th:text="|${e.name} , ${e.name2}|">Moan Wai Meng</a>
 							<p>[[${'( ' + e.gender + ' )'}]]</p>
     						<p>[[${e.ic}]]</p>
 						</td>
 						<td th:text="${e.active}">Student</td>
 						<td th:text="${e.patronType.name}">Student</td>
 						<td>
-							<a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.cardKey})}" th:text="${e.cardKey}">cardKey</a>
+							<a href="#" th:href="@{/admin/circ/checkout?pid={cardKey}(cardKey=${e.cardKey})}" th:text="${e.cardKey}">cardKey</a>
 						</td>
 						<td th:text="${e.group.code}">SM1</td>
 						<td th:inline="text">
@@ -218,8 +218,8 @@
 						</td>
 						<td><textarea rows="4" cols="30" name="note" th:text="${e.note}"></textarea></td>
 						<td>
-							<a href="#" th:href="@{/patron/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/patron/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							<a href="#" th:href="@{/admin/patron/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/admin/patron/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>
 					<tr th:remove="all">

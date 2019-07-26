@@ -21,7 +21,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/formdata")
+@RequestMapping("/admin/formdata")
 public class FormDataListSearch {
 
 	@Autowired

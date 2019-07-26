@@ -12,15 +12,15 @@
 
 		<h4>
 			<span th:text="#{search.holiday}">Search Holiday</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/holiday/save}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/holiday/save}">
 				<span><i class="fas fa-umbrella-beach"></i></span>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/holiday/list(page=0,size=10,sort='startDate,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/holiday/list(page=0,size=10,sort='startDate,desc')}">
 				<i class="fas fa-search"></i>
 			</a>	
 		</h4>
 
-		<form  action="#" th:action="@{/holiday/search}" th:object="${criteria}" method="get">
+		<form  action="#" th:action="@{/admin/holiday/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -67,10 +67,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/holiday/list(page=${page.number - 1},size=${page.size},sort='name,asc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/holiday/list(page=${page.number - 1},size=${page.size},sort='name,asc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/holiday/list(page=${page.number + 1},size=${page.size},sort='name,asc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/holiday/list(page=${page.number + 1},size=${page.size},sort='name,asc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -112,8 +112,8 @@
 						</td>
 						<td th:text="${e.fine}">true</td>
 						<td>
-							<a href="#" th:href="@{/holiday/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/holiday/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+							<a href="#" th:href="@{/admin/holiday/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/admin/holiday/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
 					</tr>
 					<tr th:remove="all">
 						<td>2</td>

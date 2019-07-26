@@ -10,7 +10,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/attachment")
+@RequestMapping("/admin/attachment")
 public class AttachmentViewRemove {
 
 	@Autowired

@@ -15,11 +15,11 @@ import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataAccessException;
+import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.RestController;
 
-@RestController
+@Controller
 public class PhotoController {
 	
 	private static final Logger logger = LoggerFactory.getLogger(PhotoController.class);
@@ -29,7 +29,7 @@ public class PhotoController {
 
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 
-	@GetMapping(path = "/photo/patron/{id}")
+	@GetMapping(path = "/admin/photo/patron/{id}")
 	public void patronPhoto(@PathVariable("id") String id, HttpServletResponse response) throws MalformedURLException {
 		
 		Photo photo = null;

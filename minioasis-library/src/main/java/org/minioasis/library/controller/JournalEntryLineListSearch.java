@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/journalentry.line")
+@RequestMapping("/admin/journalentry.line")
 public class JournalEntryLineListSearch {
 
 	@Autowired

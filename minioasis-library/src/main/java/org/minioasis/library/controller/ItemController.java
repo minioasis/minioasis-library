@@ -33,7 +33,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.context.request.WebRequest;
 
 @Controller
-@RequestMapping("/item")
+@RequestMapping("/admin/item")
 public class ItemController {
 
 	@Autowired
@@ -119,7 +119,7 @@ public class ItemController {
 			}
 			
 		}
-		return "redirect:/item/" + item.getId();
+		return "redirect:/admin/item/" + item.getId();
 
 	}		
 
@@ -171,7 +171,7 @@ public class ItemController {
 			}
 			
 		}
-			return "redirect:/item/"+ item.getId();
+			return "redirect:/admin/item/"+ item.getId();
 			
 	}	
 

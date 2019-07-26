@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/biblio")
+@RequestMapping("/admin/biblio")
 public class BiblioViewRemove {
 
 	@Autowired

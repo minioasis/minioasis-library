@@ -30,19 +30,19 @@
 		
 		<ul class="nav nav-pills">
 		  <li class="nav-item">
-		    <a class="nav-link" href="#" th:href="@{/circ/checkout?pid={id}(id=${dto.patron.cardKey})}" th:text="#{checkout}">Check Out</a>
+		    <a class="nav-link" href="#" th:href="@{/admin/circ/checkout?pid={id}(id=${dto.patron.cardKey})}" th:text="#{checkout}">Check Out</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#" th:href="@{/circ/checkin?pid={id}(id=${dto.patron.cardKey})}" th:text="#{checkin}">Check In</a>
+		    <a class="nav-link" href="#" th:href="@{/admin/circ/checkin?pid={id}(id=${dto.patron.cardKey})}" th:text="#{checkin}">Check In</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#" th:href="@{/circ/renew?pid={id}(id=${dto.patron.cardKey})}" th:text="#{renew}">Renew</a>
+		    <a class="nav-link" href="#" th:href="@{/admin/circ/renew?pid={id}(id=${dto.patron.cardKey})}" th:text="#{renew}">Renew</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link" href="#" th:href="@{/circ/reportlost?pid={id}(id=${dto.patron.cardKey})}" th:text="#{report.lost}">Report Lost</a>
+		    <a class="nav-link" href="#" th:href="@{/admin/circ/reportlost?pid={id}(id=${dto.patron.cardKey})}" th:text="#{report.lost}">Report Lost</a>
 		  </li>
 		  <li class="nav-item">
-		    <a class="nav-link active" href="#" th:href="@{/circ/payfine?pid={id}(id=${dto.patron.cardKey})}" th:text="#{pay.fine}">Pay Fines</a>
+		    <a class="nav-link active" href="#" th:href="@{/admin/circ/payfine?pid={id}(id=${dto.patron.cardKey})}" th:text="#{pay.fine}">Pay Fines</a>
 		  </li>
 		</ul>
 
@@ -125,7 +125,7 @@
 							<td th:text="${e.renewedNo}">1</td>
 							<td th:text="${e.lostOrDamageFineAmount}">0.00</td>
 							<td th:switch="${e.isInLostOrDamageState()}"><a href="#"
-								th:case="true" th:href="@{/circ/checkout/edit?id={id}(id=${e.id})}">
+								th:case="true" th:href="@{/admin/circ/checkout/edit?id={id}(id=${e.id})}">
 									<i class="far fa-edit"></i>
 							</a> <span th:case="false"></span></td>
 							<td th:text="${e.fineAmount}">10.00</td>

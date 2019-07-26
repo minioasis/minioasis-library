@@ -12,10 +12,10 @@
 
 		<h4>
 			<span th:text="#{attachment}">Attachment</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
 				<i class="fas fa-search"></i> b
 		    </a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
 				<i class="fas fa-search"></i> i
 			</a>
 		</h4>
@@ -24,8 +24,8 @@
 		  <div class="card-header">
 			<i class="fas fa-user-plus"></i>
 			<div class="float-right">
-				<a class="text-white" href="#" th:href="@{/attachment/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
-				| <a class="text-white" href="#" th:href="@{/attachment/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
+				<a class="text-white" href="#" th:href="@{/admin/attachment/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
+				| <a class="text-white" href="#" th:href="@{/admin/attachment/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
 			</div>
 		  </div>
 		  <div class="card-body bg-white">

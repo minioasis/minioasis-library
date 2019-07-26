@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/reservation")
+@RequestMapping("/admin/reservation")
 public class ReservationListSearch {
 
 	@Autowired

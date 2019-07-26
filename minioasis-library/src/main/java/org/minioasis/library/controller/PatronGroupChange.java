@@ -37,7 +37,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/patron/group.change")
+@RequestMapping("/admin/patron/group.change")
 public class PatronGroupChange {
 
 	@Autowired
@@ -68,7 +68,7 @@ public class PatronGroupChange {
 		final LocalDateTime now = LocalDateTime.now();
 		
 		if(userIds.length == 0) {
-			return "redirect:/patron/group.change/list?page=0&size=10&sort=cardKey,desc";
+			return "redirect:/admin/patron/group.change/list?page=0&size=10&sort=cardKey,desc";
 		}
 		
 		if(result.hasErrors()){
@@ -96,7 +96,7 @@ public class PatronGroupChange {
 
 		String time = String.valueOf(now);
 		
-		return "redirect:/patron/group.change/" + groupId + "/" + time;
+		return "redirect:/admin/patron/group.change/" + groupId + "/" + time;
 		
 	}
 	

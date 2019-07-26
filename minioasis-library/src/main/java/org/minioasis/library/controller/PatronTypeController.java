@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/patrontype")
+@RequestMapping("/admin/patrontype")
 public class PatronTypeController {
 
 	@Resource
@@ -46,7 +46,7 @@ public class PatronTypeController {
 				return "patrontype.form";				
 			}
 				
-			return "redirect:/patrontype/" + patronType.getId();
+			return "redirect:/admin/patrontype/" + patronType.getId();
 			
 		}			
 	}
@@ -84,7 +84,7 @@ public class PatronTypeController {
 				return "patrontype.form";
 			}
 			
-			return "redirect:/patrontype/" + patronType.getId();
+			return "redirect:/admin/patrontype/" + patronType.getId();
 			
 		}
 		

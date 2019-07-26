@@ -23,7 +23,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/biblio")
+@RequestMapping("/admin/biblio")
 public class BiblioListSearch {
 
 	@Autowired

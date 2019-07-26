@@ -26,7 +26,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/circ")
+@RequestMapping("/admin/circ")
 public class CirculationController {
 
 	@Autowired

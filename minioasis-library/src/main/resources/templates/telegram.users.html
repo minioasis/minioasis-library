@@ -12,7 +12,7 @@
 
 		<h4>
 			<span th:text="#{search.telegram.user}">Search Telegram User</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
 				<i class="fas fa-search"></i>
 			</a>	
 		</h4>
@@ -38,7 +38,7 @@
 			</li>
 		</ul>
 
-		<form  action="#" th:action="@{/telegram.user/search}" th:object="${criteria}" method="get">
+		<form  action="#" th:action="@{/admin/telegram.user/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -144,10 +144,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/telegram.user/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/telegram.user/list(page=${page.number - 1},size=${page.size},sort='cardKey,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/telegram.user/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/telegram.user/list(page=${page.number + 1},size=${page.size},sort='cardKey,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -197,7 +197,7 @@
 						<td th:text="${e.preference.sendMeArticle}">sendMeArticle</td>
 						<td th:text="${e.preference.sendMePromotion}">sendMePromotion</td>
 						<td>
-							<a href="#" th:href="@{/telegram.user/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							<a href="#" th:href="@{/admin/telegram.user/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>
 					<tr th:remove="all">

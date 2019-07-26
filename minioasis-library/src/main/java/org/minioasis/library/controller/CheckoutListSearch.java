@@ -25,7 +25,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/checkout")
+@RequestMapping("/admin/checkout")
 public class CheckoutListSearch {
 
 	@Autowired

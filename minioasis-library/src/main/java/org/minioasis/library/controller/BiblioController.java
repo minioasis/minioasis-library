@@ -21,7 +21,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/biblio")
+@RequestMapping("/admin/biblio")
 public class BiblioController {
 	
 	@Autowired
@@ -111,7 +111,7 @@ public class BiblioController {
 				return "error";
 			}
 			
-			return "redirect:/biblio/" + biblio.getId();
+			return "redirect:/admin/biblio/" + biblio.getId();
 			
 		}		
 	}
@@ -188,7 +188,7 @@ public class BiblioController {
 				return "error";
 			}
 			
-			return "redirect:/biblio/" + biblio.getId();
+			return "redirect:/admin/biblio/" + biblio.getId();
 			
 		}		
 	}

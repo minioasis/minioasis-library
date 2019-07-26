@@ -12,20 +12,20 @@
 	
 		<h4>
 			<span th:text="#{search.series}">Search Series</span>
-			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/series/save}">
+			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/series/save}">
       			<i class="fas fa-signal"></i>
 	      	</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/publisher/save}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/publisher/save}">
       			<i class="far fa-newspaper"></i>
 	      	</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/publisher/list(page=0,size=10,sort='name,asc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/publisher/list(page=0,size=10,sort='name,asc')}">
 				<i class="fas fa-search"></i>
 			</a>
 		</h4>
 
 		<div class="row pt-3">
 			<div class="col-sm-8">
-				<form action="#" th:action="@{/series/search}" method="get">
+				<form action="#" th:action="@{/admin/series/search}" method="get">
 					<input type="hidden" id="page" name="page" value="0" />
 					<input type="hidden" id="size" name="size" value="10" />
 					<input type="hidden" id="sort" name="sort" value="name,asc" />
@@ -45,10 +45,10 @@
 			<div class="col-sm-8">	
 				<div class="float-right">
 					<div th:if="${pagingType eq 'list'}">
-						<a th:if="${page.hasPrevious()}" th:href="@{/series/list(page=${page.number - 1},size=${page.size},sort='name,asc')}">
+						<a th:if="${page.hasPrevious()}" th:href="@{/admin/series/list(page=${page.number - 1},size=${page.size},sort='name,asc')}">
 							<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 						</a>
-						<a th:if="${page.hasNext()}" th:href="@{/series/list(page=${page.number + 1},size=${page.size},sort='name,asc')}">
+						<a th:if="${page.hasNext()}" th:href="@{/admin/series/list(page=${page.number + 1},size=${page.size},sort='name,asc')}">
 							<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 						</a>	
 					</div>
@@ -81,8 +81,8 @@
 								<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 								<td th:text="${e.name}">class S1S1</td>
 								<td>
-									<a href="#" th:href="@{/series/edit?id={sid}(id=${e.id})}"><i class="far fa-edit"></i></a>
-									| <a href="#" th:href="@{/series/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+									<a href="#" th:href="@{/admin/series/edit?id={sid}(id=${e.id})}"><i class="far fa-edit"></i></a>
+									| <a href="#" th:href="@{/admin/series/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 								</td>
 							</tr>
 							<tr th:remove="all">

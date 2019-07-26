@@ -24,7 +24,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/reservation")
+@RequestMapping("/admin/reservation")
 public class ReservationListUpdate {
 
 	@Autowired
@@ -90,7 +90,7 @@ public class ReservationListUpdate {
 
 		this.service.save(r);
 
-		return "redirect:/reservation/notification/list?page=0&size=10&states=AVAILABLE&states=NOTIFIED&sort=availableDate,asc";
+		return "redirect:/admin/reservation/notification/list?page=0&size=10&states=AVAILABLE&states=NOTIFIED&sort=availableDate,asc";
 
 	}
 	

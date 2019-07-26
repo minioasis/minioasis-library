@@ -12,13 +12,13 @@
 
 		<h4>
 			<span th:text="#{search.journalentry}">Journal Entries</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/journalentry/patronid.form}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/journalentry/patronid.form}">
 				<i class="fas fa-file-invoice-dollar"></i>
 			</a>
-			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
+			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
 				<i class="fas fa-search"></i> je
 			</a>
-			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
 				<i class="fas fa-search"></i> l
 			</a>
 		</h4>
@@ -44,7 +44,7 @@
 			</li>
 		</ul>
 		
-		<form action="#" th:action="@{/journalentry/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/admin/journalentry/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -111,10 +111,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/journalentry/list(page=${page.number - 1},size=${page.size},sort='txnDate,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/journalentry/list(page=${page.number - 1},size=${page.size},sort='txnDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/journalentry/list(page=${page.number + 1},size=${page.size},sort='txnDate,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/journalentry/list(page=${page.number + 1},size=${page.size},sort='txnDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -158,8 +158,8 @@
 						<td th:text="${e.updated != null ? #temporals.format(e.updated,'yyyy-MM-dd') : ''}">2015-08-31</td>
 						<td th:text="${e.updatedBy}">Mynn</td>
 						<td>
-							<a href="#" th:href="@{/journalentry/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/journalentry/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							<a href="#" th:href="@{/admin/journalentry/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/admin/journalentry/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>
 					<tr th:remove="all">

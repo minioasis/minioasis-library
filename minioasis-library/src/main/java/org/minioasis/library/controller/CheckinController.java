@@ -22,7 +22,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 
 @Controller
-@RequestMapping("/circ")
+@RequestMapping("/admin/circ")
 public class CheckinController {
 
 	@Autowired
@@ -79,10 +79,10 @@ public class CheckinController {
 
 			if (r != null) {
 				Long rid = r.getId();
-				return "redirect:/circ/return/item/" + cid + "/" + rid;
+				return "redirect:/admin/circ/return/item/" + cid + "/" + rid;
 			}
 
-			return "redirect:/circ/return/item/" + cid;
+			return "redirect:/admin/circ/return/item/" + cid;
 
 		}
 
@@ -111,10 +111,10 @@ public class CheckinController {
 			if (r != null) {
 
 				Long rid = r.getId();
-				return "redirect:/circ/return/attachment/" + acid + "/" + rid;
+				return "redirect:/admin/circ/return/attachment/" + acid + "/" + rid;
 			}
 
-			return "redirect:/circ/return/attachment/" + acid;
+			return "redirect:/admin/circ/return/attachment/" + acid;
 
 		}
 

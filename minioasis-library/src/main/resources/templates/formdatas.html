@@ -12,14 +12,14 @@
 	
 		<h4>
 			<span th:text="#{search.formdata}">Search From Data</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/formdata/list(page=0,size=10,sort='data,asc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/formdata/list(page=0,size=10,sort='data,asc')}">
 				<i class="fas fa-search"></i>
 			</a>	
 		</h4>
 	
 		<div class="row">
 		    <div class="col-sm-8">
-				<form action="#" th:action="@{/formdata/search}" th:object="${criteria}" method="get">
+				<form action="#" th:action="@{/admin/formdata/search}" th:object="${criteria}" method="get">
 					<input type="hidden" id="page" name="page" value="0" />
 					<input type="hidden" id="size" name="size" value="10" />
 					<input type="hidden" id="sort" name="sort" value="data,asc" />
@@ -55,10 +55,10 @@
 			<div class="col-sm-8">	
 				<div class="float-right">
 					<div th:if="${pagingType eq 'list'}">
-						<a th:if="${page.hasPrevious()}" th:href="@{/formdata/list(page=${page.number - 1},size=${page.size},sort='data,asc')}">
+						<a th:if="${page.hasPrevious()}" th:href="@{/admin/formdata/list(page=${page.number - 1},size=${page.size},sort='data,asc')}">
 							<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 						</a>
-						<a th:if="${page.hasNext()}" th:href="@{/formdata/list(page=${page.number + 1},size=${page.size},sort='data,asc')}">
+						<a th:if="${page.hasNext()}" th:href="@{/admin/formdata/list(page=${page.number + 1},size=${page.size},sort='data,asc')}">
 							<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 						</a>	
 					</div>
@@ -93,8 +93,8 @@
 								<td th:text="${e.data}">3-Books</td>
 								<td th:text="${e.type}">JOURNAL_ENTRY</td>
 								<td>
-									<a href="#" th:href="@{/formdata/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-									| <a href="#" th:href="@{/formdata/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+									<a href="#" th:href="@{/admin/formdata/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+									| <a href="#" th:href="@{/admin/formdata/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 								</td>
 							</tr>
 							<tr th:remove="all">

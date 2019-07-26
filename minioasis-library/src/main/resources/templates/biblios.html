@@ -12,19 +12,19 @@
 
 		<h4>
 			<span th:text="#{search.biblio}">Search Biblio.</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/save}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/save}">
 				<i class="fas fa-book"></i>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
 				<i class="fas fa-search"></i>u
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
 				<i class="fas fa-search"></i>b
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
 				<i class="fas fa-search"></i>i
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
 				<i class="fas fa-search"></i>a
 			</a>	
 		</h4>
@@ -50,7 +50,7 @@
 			</li>
 		</ul>
 
-		<form action="#" th:action="@{/biblio/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/admin/biblio/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -148,10 +148,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/biblio/list(page=${page.number - 1},size=${page.size},sort='updated,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/biblio/list(page=${page.number - 1},size=${page.size},sort='updated,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/biblio/list(page=${page.number + 1},size=${page.size},sort='updated,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/biblio/list(page=${page.number + 1},size=${page.size},sort='updated,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -199,7 +199,7 @@
 						</td>
 						<td th:text="${e.active}">Active</td>
 						<td>
-							<a href="#" th:href="@{/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a> (<span th:text="${e.binding}"></span>)
+							<a href="#" th:href="@{/admin/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a> (<span th:text="${e.binding}"></span>)
 							<p><code th:text="${e.author}"></code></p>									
 							<p><code th:text="${e.isbn}"></code></p>
 						</td>
@@ -208,12 +208,12 @@
 							<p th:text="${e.language}"></p>
 						</td>
 						<td>
-							<a href="#" th:href="@{/biblio/{id}/items(id=${e.id})}" class="btn btn-outline-success btn-sm">
+							<a href="#" th:href="@{/admin/biblio/{id}/items(id=${e.id})}" class="btn btn-outline-success btn-sm">
 								<i class="fas fa-list-ul"></i>
 							</a>
 						</td>
 						<td>
-							<a href="#" th:href="@{/item/save?bid={bid}(bid=${e.id})}" class="btn btn-info btn-sm">
+							<a href="#" th:href="@{/admin/item/save?bid={bid}(bid=${e.id})}" class="btn btn-info btn-sm">
 								<i class="fas fa-list-ul"></i>
 							</a>
 						</td>
@@ -225,8 +225,8 @@
 						<td th:text="${e.journal != null ? e.journal.issn : ''}">Issn</td>
 						<td th:text="${#temporals.format(e.updated,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
-							<a href="#" th:href="@{/biblio/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/biblio/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							<a href="#" th:href="@{/admin/biblio/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/admin/biblio/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>
 					<tr th:remove="all">

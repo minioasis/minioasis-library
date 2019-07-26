@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/circ/checkout")
+@RequestMapping("/admin/circ/checkout")
 public class CheckoutController {
 
 	@Autowired
@@ -55,7 +55,7 @@ public class CheckoutController {
 				
 			}
 			// otherwise do nothing
-			return "redirect:/circ/checkout/" + existingCheckout.getId();
+			return "redirect:/admin/circ/checkout/" + existingCheckout.getId();
 			
 		}
 		

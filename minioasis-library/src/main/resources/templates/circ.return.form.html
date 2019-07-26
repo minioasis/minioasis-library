@@ -15,7 +15,7 @@
 				<div class="card-body">
 					<h1 class="display-5 text-success">
 						<i class="fas fa-arrow-down"></i> <span th:text="#{return}">Return</span>
-						<a class="btn btn-outline-success text-success" href="#" th:href="@{/circ/patronid.form}">
+						<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/patronid.form}">
 							<i class="fas fa-shopping-cart"></i>
 						</a>
 					</h1>
@@ -24,7 +24,7 @@
 					
 					<p class="lead" th:text="#{key.in.item.barcode}">Please key in	item barcode</p>
 	
-					<form class="form" action="#" th:action="@{/circ/return}" th:object="${dto}" method="post">
+					<form class="form" action="#" th:action="@{/admin/circ/return}" th:object="${dto}" method="post">
 						<div class="form-row">
 						  <div class="col-md-4 mb-4">
 						   	<label th:text="#{barcode}">Item Barcode</label>
@@ -76,7 +76,7 @@
 	
 				<tbody>
 					<tr>
-						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${icheckout.patron.cardKey})}" th:text="${icheckout.patron.cardKey}">cardKey</a></td>
+						<td><a href="#" th:href="@{/admin/circ/checkout?pid={cardKey}(cardKey=${icheckout.patron.cardKey})}" th:text="${icheckout.patron.cardKey}">cardKey</a></td>
 						<td th:text="${icheckout.item.biblio.title}">Title</td>
 						<td th:text="${icheckout.item.barcode}">Barcode</td>
 						<td th:text="${#temporals.format(icheckout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
@@ -112,7 +112,7 @@
 	
 				<tbody>
 					<tr>
-						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${acheckout.patron.cardKey})}" th:text="${acheckout.patron.cardKey}">cardKey</a></td>
+						<td><a href="#" th:href="@{/admin/circ/checkout?pid={cardKey}(cardKey=${acheckout.patron.cardKey})}" th:text="${acheckout.patron.cardKey}">cardKey</a></td>
 						<td th:text="${acheckout.attachment.description}">Description</td>
 						<td th:text="${acheckout.attachment.barcode}">Barcode</td>
 						<td th:text="${#temporals.format(acheckout.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
@@ -148,7 +148,7 @@
 				<tbody>
 					<tr>
 						<td th:text="${reservation.patron.name}">Name</td>
-						<td><a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${reservation.patron.cardKey})}" th:text="${reservation.patron.cardKey}">cardKey</a></td>
+						<td><a href="#" th:href="@{/admin/circ/checkout?pid={cardKey}(cardKey=${reservation.patron.cardKey})}" th:text="${reservation.patron.cardKey}">cardKey</a></td>
 						<td th:text="${#temporals.format(reservation.reservationDate,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${#temporals.format(reservation.expiryDate,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${reservation.state}">State</td>

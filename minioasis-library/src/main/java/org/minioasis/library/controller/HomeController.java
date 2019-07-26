@@ -8,9 +8,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
+@RequestMapping("/admin")
 public class HomeController {
 
-	@GetMapping("/")
+	@GetMapping("/index")
     public String home(Model model) {
 		model.addAttribute("now", LocalDateTime.now());
         return "index";

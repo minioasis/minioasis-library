@@ -29,7 +29,7 @@
 					</div>
 					<div class="card-body bg-lb">
 						
-						<form class="form" action="#" th:action="@{/location/save}" th:object="${attributes}" method="POST">			
+						<form class="form" action="#" th:action="@{/admin/location/save}" th:object="${attributes}" method="POST">			
 							<input type="text" hidden="hidden" th:field="*{location.id}" />
 							<input type="hidden" name="which" value="location" />
 		
@@ -63,9 +63,9 @@
 							<td th:text="${iterator.index + 1}">1</td>
 							<td th:text="${e.name}">Main Library</td>
 							<td><a href="#"
-								th:href="@{/location/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></a> |
+								th:href="@{/admin/location/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></a> |
 								<a href="#"
-								th:href="@{/location/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+								th:href="@{/admin/location/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
 						</tr>
 						<tr th:remove="all">
 							<td>2</td>
@@ -88,8 +88,8 @@
 					</div>
 					<div class="card-body bg-lb">
 						
-						<form class="form" action="#" th:action="@{/item.status/save}" th:object="${attributes}" method="POST">			
-							<input type="text" hidden="hidden" th:field="*{location.id}" />
+						<form class="form" action="#" th:action="@{/admin/item.status/save}" th:object="${attributes}" method="POST">			
+							<input type="text" hidden="hidden" th:field="*{itemStatus.id}" />
 							<input type="hidden" name="which" value="itemstatus" />
 		
 							<div class="form-row">
@@ -150,9 +150,9 @@
 							<td th:text="${e.borrowable}">true</td>
 							<td th:text="${e.reservable}">true</td>
 							<td><a href="#"
-								th:href="@{/item.status/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></span></a>
+								th:href="@{/admin/item.status/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></span></a>
 								| <a href="#"
-								th:href="@{/item.status/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
+								th:href="@{/admin/item.status/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a></td>
 						</tr>
 						<tr th:remove="all">
 							<td>2</td>

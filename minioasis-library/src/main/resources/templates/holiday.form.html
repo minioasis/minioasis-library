@@ -12,7 +12,7 @@
 
 		<h4>
 			<span th:text="#{create.holiday}">Create Holiday</span>
-			<a  class="btn btn-outline-info text-info" href="#" th:href="@{/holiday/list(page=0,size=10,sort='startDate,desc')}">
+			<a  class="btn btn-outline-info text-info" href="#" th:href="@{/admin/holiday/list(page=0,size=10,sort='startDate,desc')}">
 				<i class="fas fa-search"></i>
 			</a>
 		</h4>
@@ -88,8 +88,8 @@
 		      <td th:text="${#temporals.format(done.endDate,'yyyy-MM-dd')}">2019-12-31</td>
 		      <td th:text="${done.fine}">true</td>
 		      <td>
-				<a href="#" th:href="@{/holiday/edit?id={id}(id=${done.id})}"><i class="far fa-edit"></i></a>
-				| <a href="#" th:href="@{/holiday/delete/{id}(id=${done.id})}"><i class="far fa-trash-alt"></i></a>		      
+				<a href="#" th:href="@{/admin/holiday/edit?id={id}(id=${done.id})}"><i class="far fa-edit"></i></a>
+				| <a href="#" th:href="@{/admin/holiday/delete/{id}(id=${done.id})}"><i class="far fa-trash-alt"></i></a>		      
 		      </td>
 		    </tr>
 		  </tbody>

@@ -41,7 +41,7 @@
 							<td th:text="${e.renewedNo}">1</td>
 							<td th:text="${e.lostOrDamageFineAmount}">0.00</td>
 							<td th:switch="${e.isInLostOrDamageState()}" >
-								<a href="#" th:case="true" th:href="@{/circ/checkout/edit?id={id}(id=${e.id})}" >
+								<a href="#" th:case="true" th:href="@{/admin/circ/checkout/edit?id={id}(id=${e.id})}" >
 									<i class="far fa-edit"></i>
 								</a>
 								<span th:case="false"></span>
@@ -128,7 +128,7 @@
 					<tbody>
 						<tr th:each="e,iterator : ${dto.patron.reservations}">
 							<td th:text="${iterator.index + 1}">1</td>
-							<td><a href="#" th:href="@{/biblio/{id}(id=${e.biblio.id})}" th:text="${e.biblio.title}"></a></td>
+							<td><a href="#" th:href="@{/admin/biblio/{id}(id=${e.biblio.id})}" th:text="${e.biblio.title}"></a></td>
 							<td th:text="${e.biblio.isbn}">213223434113</td>
 							<td th:text="${e.reservationDate != null ? #temporals.format(e.reservationDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
 							<td th:text="${e.availableDate != null ? #temporals.format(e.availableDate,'yyyy-MM-dd') : ''}">2015-08-31</td>

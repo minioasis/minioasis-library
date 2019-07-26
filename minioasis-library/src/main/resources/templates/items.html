@@ -12,13 +12,13 @@
 
 		<h4>
 			<span th:text="#{search.item}">Search Item.</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
 				<i class="fas fa-search"></i>b
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
 				<i class="fas fa-search"></i>i
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
 				<i class="fas fa-search"></i>a
 			</a>
 		</h4>
@@ -44,7 +44,7 @@
 			</li>
 		</ul>
 
-		<form action="#" th:action="@{/item/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/admin/item/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -158,10 +158,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/item/list(page=${page.number - 1},size=${page.size},sort='lastCheckin,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/item/list(page=${page.number - 1},size=${page.size},sort='lastCheckin,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/item/list(page=${page.number + 1},size=${page.size},sort='lastCheckin,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/item/list(page=${page.number + 1},size=${page.size},sort='lastCheckin,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -205,9 +205,9 @@
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td>
-							<a href="#" th:href="@{/item/{id}(id=${e.id})}" th:text="${e.biblio != null ? e.biblio.title : ''}">Feynman Lecture of Physics</a>
+							<a href="#" th:href="@{/admin/item/{id}(id=${e.id})}" th:text="${e.biblio != null ? e.biblio.title : ''}">Feynman Lecture of Physics</a>
 						</td>
-						<td><a href="#" th:href="@{/biblio/{id}(id=${e.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
+						<td><a href="#" th:href="@{/admin/biblio/{id}(id=${e.biblio.id})}" class="btn btn-outline-info btn-sm"><i class="fas fa-book"></i></a></td>
 						<td th:text="${e.barcode}">221214214</td>
 						<td th:text="${e.active}">Y</td>
 						<td th:text="${e.checked}">N</td>
@@ -220,7 +220,7 @@
 						<td th:text="${e.price}">13.50</td>
 						<td th:text="${e.source}">Shiang Hwa</td>
 						<td>
-							<a href="#" th:href="@{/attachment/save?iid={iid}(iid=${e.id})}" class="btn btn-info btn-sm">
+							<a href="#" th:href="@{/admin/attachment/save?iid={iid}(iid=${e.id})}" class="btn btn-info btn-sm">
 								<i class="fas fa-paperclip"></i>
 							</a>
 						</td>
@@ -228,8 +228,8 @@
 						<td th:text="${#temporals.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${#temporals.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
-							<a href="#" th:href="@{/item/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/item/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							<a href="#" th:href="@{/admin/item/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/admin/item/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>
 
 					</tr>

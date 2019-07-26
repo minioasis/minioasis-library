@@ -12,7 +12,7 @@
 
 		<h4>
 			<span th:text="#{search.checkout}">Search Checkout</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
 				<i class="fas fa-search"></i>
 			</a>	
 		</h4>
@@ -38,7 +38,7 @@
 			</li>
 		</ul>
 		
-		<form action="#" th:action="@{/checkout/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/admin/checkout/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -148,10 +148,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/checkout/list(page=${page.number - 1},size=${page.size},sort='checkoutDate,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/checkout/list(page=${page.number - 1},size=${page.size},sort='checkoutDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/checkout/list(page=${page.number + 1},size=${page.size},sort='checkoutDate,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/checkout/list(page=${page.number + 1},size=${page.size},sort='checkoutDate,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -196,12 +196,12 @@
 						<td th:text="${e.patron.active}">Y</td>
 						<td th:text="${e.patron.group.code}">4S1</td>
 						<td>
-							<a href="#" th:href="@{/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a>
+							<a href="#" th:href="@{/admin/circ/checkout?pid={cardKey}(cardKey=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a>
 						</td>
 						<td th:text="${e.patron.patronType.name}">3-books</td>
 						<td th:text="${e.item.barcode}">121212</td>
 						<td>
-							<a href="#" th:href="@{/biblio/{id}(id=${e.item.biblio.id})}" th:text="${e.item.biblio.title}">Title</a>
+							<a href="#" th:href="@{/admin/biblio/{id}(id=${e.item.biblio.id})}" th:text="${e.item.biblio.title}">Title</a>
 						</td>
 						<td th:text="${e.checkoutDate != null ? #temporals.format(e.checkoutDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
 						<td th:text="${e.dueDate != null ? #temporals.format(e.dueDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
@@ -216,7 +216,7 @@
 							[[${e.lostOrDamagePaidDate != null ? #temporals.format(e.lostOrDamagePaidDate,'yyyy-MM-dd') : ''}]]
 						</td>
 						<td th:text="${e.state}">CHECKOUT</td>
-						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/circ/checkout/edit?id={id}(id=${e.id})}">Set L/D Fine</a></td>
+						<td><a th:if="${e.isInLostOrDamageState()}" href="#" th:href="@{/admin/circ/checkout/edit?id={id}(id=${e.id})}">Set L/D Fine</a></td>
 					</tr>
 					<tr th:remove="all">
 						<td>1</td>

@@ -20,7 +20,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/attachment.checkout")
+@RequestMapping("/admin/attachment.checkout")
 public class AttachmentCheckoutListSearch {
 
 	@Autowired

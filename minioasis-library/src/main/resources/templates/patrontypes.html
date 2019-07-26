@@ -12,7 +12,7 @@
 
 		<h4>
 			<span th:text="#{patrontypes}">Patron Types</span>
-			<a href="#" th:href="@{/patrontype/save}"  class="btn btn-outline-success text-success">
+			<a href="#" th:href="@{/admin/patrontype/save}"  class="btn btn-outline-success text-success">
 				<span><i class="fas fa-user-friends"></i></span>
 			</a>
 		</h4>
@@ -47,7 +47,7 @@
 						<td th:text="${iterator.index + 1}">1</td>
 						<td th:text="${e.code}">1</td>
 						<td>
-							<a href="#" th:href="@{/patrontype/{id}(id=${e.id})}" th:text="${e.name}">Student</a>
+							<a href="#" th:href="@{/admin/patrontype/{id}(id=${e.id})}" th:text="${e.name}">Student</a>
 						</td>
 						<td th:text="${#temporals.format(e.startDate,'yyyy-MM-dd')}">2015-01-01</td>
 						<td th:text="${#temporals.format(e.expiryDate,'yyyy-MM-dd')}">2015-12-31</td>
@@ -64,8 +64,8 @@
 						<td th:text="${e.maxCollectablePeriod}">5</td>
 						<td th:text="${e.maxCantReservePeriod}">5</td>
 						<td>
-							<a href="#" th:href="@{/patrontype/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/patrontype/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							<a href="#" th:href="@{/admin/patrontype/edit/{id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+							| <a href="#" th:href="@{/admin/patrontype/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
 						</td>
 					</tr>
 					<tr th:remove="all">

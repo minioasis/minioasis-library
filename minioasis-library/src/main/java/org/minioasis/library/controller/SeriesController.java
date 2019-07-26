@@ -28,7 +28,7 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/series")
+@RequestMapping("/admin/series")
 public class SeriesController {
 
 	@Autowired

@@ -23,7 +23,7 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 
 @Controller
 @SessionAttributes("jedto")
-@RequestMapping("/journalentry")
+@RequestMapping("/admin/journalentry")
 public class JournalEntryController {
 
 	@Autowired
@@ -143,7 +143,7 @@ public class JournalEntryController {
 		if(je != null)
 			this.service.deleteJournalEntry(id);
 		
-		return "redirect:/journalentry/list?page=0&size=60&sort=txnDate,desc";
+		return "redirect:/admin/journalentry/list?page=0&size=60&sort=txnDate,desc";
 		
 	}
 	

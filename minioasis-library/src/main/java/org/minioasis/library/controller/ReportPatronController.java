@@ -13,7 +13,7 @@ import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
 
 @Controller
-@RequestMapping("/report")
+@RequestMapping("/admin/report")
 public class ReportPatronController {
 
 	@Autowired
