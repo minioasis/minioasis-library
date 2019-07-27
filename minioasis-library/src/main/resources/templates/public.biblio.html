@@ -12,20 +12,14 @@
 
 		<h4>
 			<span th:text="#{biblio}">Biblio</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/save}">
-				<span><i class="fas fa-user-plus"></i></span>
-			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
 				<span><i class="fas fa-search"></i></span>
 			</a>
 		</h4>
 
 		<div class="card bg-hb" style="max-width: 42rem;">
 		  <div class="card-header">
-			<div class="float-right">
-				<a class="text-white" href="#" th:href="@{/admin/biblio/edit?id={id}(id=${id})}"><i class="far fa-edit"></i></a>
-				| <a class="text-white" href="#" th:href="@{/admin/biblio/delete/{id}(id=${id})}"><i class="far fa-trash-alt"></i></a>
-			</div>
+		  	<i class="fas fa-book-open text-white"></i>
 		  </div>
 		  <div class="card-body bg-white">
 			<div class="row">

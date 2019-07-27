@@ -440,6 +440,12 @@ public class BootstrapData implements CommandLineRunner {
 		c3.setEmail("hello33@hotmail.com");
 		c3.setAddress(a2);
 		
+		Contact c4 = new Contact();
+		c4.setTel("03-663466626");
+		c4.setMobile("0124444444");
+		c4.setEmail("hello44@hotmail.com");
+		c4.setAddress(a2);
+		
 		// Patron
 		Patron p1 = new Patron();
 		p1.setActive(YesNo.Y);
@@ -498,7 +504,7 @@ public class BootstrapData implements CommandLineRunner {
 		p4.setGroup(g3);
 		p4.setGender("F");
 		p4.setIc("4");
-		p4.setContact(c3);
+		p4.setContact(c4);
 		patronRepository.save(p4);
 		
 		//checkout

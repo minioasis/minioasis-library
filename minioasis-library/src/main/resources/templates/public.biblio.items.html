@@ -12,11 +12,8 @@
 	
 		<h4>
 			<span th:text="#{items}">Items</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
-				<i class="fas fa-search"></i> i
-			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				<i class="fas fa-search"></i> b
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<i class="fas fa-search"></i>
 			</a>	
 		</h4>
 
@@ -29,18 +26,12 @@
 						<th>#</th>
 						<th>Title</th>
 						<th>Barcode</th>
-						<th>Active</th>
-						<th>S.Check</th>
 						<th>State/Status</th>
 						<th>Location</th>
 						<th>ShelfMark</th>
-						<th>Price</th>
 						<th>Source</th>
 						<th>1st In</th>
 						<th>Last In</th>
-						<th>Created</th>
-						<th></th>
-						<th>Action</th>
 					</tr>
 				</thead>
 	
@@ -49,47 +40,30 @@
 						<td th:text="${iterator.index + 1}">1</td>
 						<td>
 							<div>
-								<a href="#" th:href="@{/admin/item/{id}(id=${e.id})}" th:text="${e.biblio != null ? e.biblio.title : ''}">Feynman Lecture of Physics</a>
+								<a href="#" th:href="@{/biblio/{id}(id=${e.biblio.id})}" th:text="${e.biblio != null ? e.biblio.title : ''}">Feynman Lecture of Physics</a>
 							</div>
 						</td>
 						<td th:text="${e.barcode}">221214214</td>
-						<td th:text="${e.active}">Y</td>
-						<td th:text="${e.checked}">N</td>
 						<td>
 							<div th:text="${e.state}">Item State</div>
 							<div th:text="${e.itemStatus.name}">Item Status</div>
 						</td>
 						<td th:text="${e.location.name}">Kepong</td>
 						<td th:text="${e.shelfMark}">530.17 HT1</td>
-						<td th:text="${e.price}">13.50</td>
 						<td th:text="${e.source}">Shiang Hwa</td>
 						<td th:text="${#temporals.format(e.firstCheckin,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${#temporals.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${#temporals.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
-						<td>
-							<a href="#" th:href="@{/admin/attachment/save/{iid}(iid=${e.id})}" class="btn btn-info btn-sm">
-								<i class="fas fa-paperclip"></i>
-							</a>
-						</td>
-						<td>
-							<a href="#" th:href="@{/admin/item/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/admin/item/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
-						</td>
 					</tr>
 					<tr th:remove="all">
 						<td>2</td>
 						<td>National Geography / Authors</td>
 						<td>Barcode</td>
-						<td>Y</td>
-						<td>N</td>
 						<td>Item State / Item Status</td>
 						<td>ShelfMark</td>
 						<td>12.40</td>
 						<td>Thai Yew Kuan</td>
 						<td>2015-08-31</td>
 						<td>2015-08-31</td>
-						<td>2015-08-31</td>
-						<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
 					</tr>
 				</tbody>
 			</table>

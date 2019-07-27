@@ -1,0 +1,133 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{search.biblio}">Search Biblio.</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<i class="fas fa-search"></i>
+			</a>
+		</h4>
+
+		<form action="#" th:action="@{/biblio/search}" th:object="${criteria}" method="get">
+
+			<input type="hidden" id="page" name="page" value="0" />
+			<input type="hidden" id="size" name="size" value="10" />
+			<input type="hidden" id="sort" name="sort" value="updated,desc" />
+							
+			<div class="form-row pt-3">
+			    <div class="form-group col-md-6">
+			    	<label th:text="#{keyword}">Keyword</label>
+			      	<input type="text" class="form-control" th:field="*{keyword1}" autofocus="autofocus" th:placeholder="#{title} + ', ' + #{author} + ', ' + #{isbn}"/>
+			    </div>
+			    <div class="form-group col-md-3">
+			    	<label th:text="#{publisher}">Publisher</label>
+			      	<input type="text" class="form-control" th:field="*{publisher}"/>
+			    </div>
+			    <div class="form-group col-md-3">
+			    	<label th:text="#{series}">Series</label>
+			      	<input type="text" class="form-control" th:field="*{series}"/>
+			    </div>
+			</div>
+			
+			<input hidden="hidden" type="submit" name="search" value="Submit"/>	
+			
+		</form>			
+			
+		<hr/>
+
+		<div class="float-right">
+			<div th:if="${pagingType eq 'list'}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/biblio/list(page=${page.number - 1},size=${page.size},sort='updated,desc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="@{/biblio/list(page=${page.number + 1},size=${page.size},sort='updated,desc')}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>
+					
+			<div th:if="${pagingType eq 'search'}">
+				<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>		
+		</div>
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive-sm">					
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th th:text="#{photo}">Photo</th>
+						<th th:text="#{title} + '/' + #{author} + '/' + #{isbn} + '/(B)'">Title/Author/ISBN/(B)</th>
+						<th th:text="#{items}">Items</th>
+						<th th:text="#{classmark}">ClassMark</th>
+						<th>(T)</th>
+						<th>(L)</th>
+						<th th:text="#{publisher} + '/' + #{series}">Publisher / Series</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td>
+							<img src="@{/images/smiley.png}" 
+								 th:src="@{/photo/biblio/{id}(id=${e.isbn})}" 
+								 class="thumbnail" 
+								 style="min-height:75px;height:95px;width:80px;"/>
+						</td>
+						<td>
+							<a href="#" th:href="@{/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a> (<span th:text="${e.binding}"></span>)
+							<p><code th:text="${e.author}"></code></p>									
+							<p><code th:text="${e.isbn}"></code></p>
+						</td>
+						<td>
+							<a href="#" th:href="@{/biblio/{id}/items(id=${e.id})}" class="btn btn-outline-success btn-sm">
+								<i class="fas fa-list-ul"></i>
+							</a>
+						</td>
+						<td th:text="${e.classMark}">555.55 HA1</td>
+						<td th:text="${e.biblioType}">BiblioType</td>
+						<td>
+							<p th:text="${e.language}"></p>
+						</td>
+						<td>
+							<p th:text="${e.publisher != null ? e.publisher.name : ''}">Richard P. Feynman</p>
+							<p th:text="${e.series != null ? e.series.name : ''}">Physics Series</p>
+						</td>
+					</tr>
+					<tr th:remove="all">
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+						<td>8</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+								
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

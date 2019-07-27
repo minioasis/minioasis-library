@@ -9,17 +9,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
 public class HomeController {
-
-	@GetMapping("/")
-    public String home(Model model) {
-		model.addAttribute("now", LocalDateTime.now());
-        return "redirect:/admin/index";
-    }
 	
-	@GetMapping("/admin/index")
+	@GetMapping("/admin")
     public String adminHome(Model model) {
 		model.addAttribute("now", LocalDateTime.now());
-        return "index";
+        return "admin";
     }
 	
 	@GetMapping("/admin/config")

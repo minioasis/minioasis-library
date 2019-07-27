@@ -32,21 +32,21 @@
 							<div class="form-row">
 								<div class="form-group col-sm-9">
 									<label th:text="#{username}">Username</label>
-									<input type="text" class="form-control" th:field="*{username}" placeholder="Username" />
+									<input type="text" class="form-control" th:field="*{username}"  autofocus="autofocus"/>
 									<p class="text-danger" th:if="${#fields.hasErrors('username')}"	th:errors="*{username}"></p>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-sm-9">
 									<label th:text="#{password}">Password</label>
-									<input type="password" class="form-control" th:field="*{password}" placeholder="Password" />
+									<input type="password" class="form-control" th:field="*{password}"/>
 									<p class="text-danger" th:if="${#fields.hasErrors('password')}"	th:errors="*{password}"></p>
 								</div>
 							</div>
 							<div class="form-row">
 								<div class="form-group col-sm-9">
 									<label th:text="#{confirm.password}">Password</label>
-									<input type="password" class="form-control" th:field="*{confirmPassword}" placeholder="Confirm Password" />
+									<input type="password" class="form-control" th:field="*{confirmPassword}"/>
 									<p class="text-danger" th:if="${#fields.hasErrors('confirmPassword')}"	th:errors="*{confirmPassword}"></p>
 								</div>
 							</div>

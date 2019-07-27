@@ -18,7 +18,7 @@
 		
 		<nav class="navbar navbar-expand-lg navbar-light"
 			style="background-color: #e3f2fd;">
-			<a class="navbar-brand" href="#" th:href="@{/admin/index}"> <img
+			<a class="navbar-brand" href="#" th:href="@{/admin}"> <img
 				src="https://img.icons8.com/ios/50/000000/elephant.png" width="45"
 				height="35">
 			</a>
@@ -32,7 +32,7 @@
 			<div class="collapse navbar-collapse" id="navbarSupportedContent">
 				<ul class="navbar-nav mr-auto">
 					<li class="nav-item active">	
-						<a class="nav-link" href="#" th:href="@{/admin/index}">
+						<a class="nav-link" href="#" th:href="@{/admin}">
 							<span class="text-success">
 								<i class="fas fa-home"></i>
 							</span>
@@ -103,9 +103,9 @@
 						</a>
 						<div class="dropdown-menu"
 							aria-labelledby="navbarDropdownMenuLink">
-							<a class="dropdown-item" href="#" th:href="@{/admin/index/(lang=en)}"
+							<a class="dropdown-item" href="#" th:href="@{/admin/(lang=en)}"
 								th:text="#{nav.en}"> English </a> <a class="dropdown-item"
-								href="#" th:href="@{/admin/index/(lang=cn)}" th:text="#{nav.cn}">
+								href="#" th:href="@{/admin/(lang=cn)}" th:text="#{nav.cn}">
 								Chinese </a>
 						</div></li>
 				</ul>
