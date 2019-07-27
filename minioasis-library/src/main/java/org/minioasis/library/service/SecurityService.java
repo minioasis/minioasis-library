@@ -1,6 +1,7 @@
 package org.minioasis.library.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.minioasis.library.domain.Role;
 import org.minioasis.library.domain.User;
@@ -13,7 +14,7 @@ public interface SecurityService {
 	// User
 	void add(User entity);
 	void edit(User entity);
-	User getUser(long id);
+	Optional<User> getUser(long id);
 	void deleteUser(long id);
 	User findByUsername(String username);
 	List<User> findAllUsers(Sort sort);

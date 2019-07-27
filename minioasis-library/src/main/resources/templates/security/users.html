@@ -1,97 +1,111 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org" 
-	  xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" 
-	  layout:decorator="layouts/library.template">
-<head>
-	<title>Minioasis Security</title>
-	<meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
-	
-	<link
-		href="http://cdn.jsdelivr.net/webjars/bootstrap/3.3.5/css/bootstrap.min.css"
-		th:href="@{/webjars/bootstrap/3.3.5/css/bootstrap.min.css}"
-		rel="stylesheet" media="screen" />
-
-</head>
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
 <body>
 
-	<div class="container" layout:fragment="content">
+	<div th:replace="fragments/topnav :: topnav"></div>
 
-		<h2>Search User</h2>
-		<form action="#" th:action="@{/admin/security/user/search}" method="GET">
-			<div class="input-group col-xs-6 col-sm-4">
-				<input type="hidden" id="page" name="page" value="0" />
-				<input type="hidden" id="size" name="size" value="3" />
-				<input type="hidden" id="sort" name="sort" value="username" />
-				<input type="text" class="form-control" name="keyword" autofocus="autofocus" placeholder="Username" />
-				<div class="input-group-btn">
-					<button type="submit" class="btn btn-default">
-						<span class="glyphicon glyphicon-search"></span>
-					</button>
-				</div>
+	<div class="container pt-3 pb-3">
+	
+		<h4>
+			<span th:text="#{search.user}">Search User</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/user/save}">
+      			<i class="fas fa-user-secret"></i>
+	      	</a>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/user/list(page=0,size=10,sort='username,asc')}">
+		    	<i class="fas fa-search"></i>
+	      	</a>
+		</h4>
+		
+		<div class="row pt-3">
+			<div class="col-md-6">
+				<form action="#" th:action="@{/admin/user/search}" method="get">
+					<input type="hidden" id="page" name="page" value="0" />
+					<input type="hidden" id="size" name="size" value="10" />
+					<input type="hidden" id="sort" name="sort" value="username,asc" />
+				
+					<div class="form-group">
+						<input name="username" class="form-control" autofocus="autofocus" placeholder="Username"/>
+					</div>
+				
+				</form>
 			</div>
-		</form>
+		</div>
 
 		<hr/>
 
-		<ul class="pager" th:if="${pagerType eq 'search'}">
-			<li class="next">
-				<a th:if="${page.hasNext()}"
-					th:href="@{/security/user/search(page=${page.number + 1},size=${page.size},sort=username, keyword=${keyword})}"	
-					id="next">Next</a>
-			</li>
-			<li class="next">
-				<a th:if="${page.hasPrevious()}"
-					th:href="@{/security/user/search(page=${page.number - 1},size=${page.size},sort=username, keyword=${keyword})}"	
-					id="next">Previous</a>
-			</li>
-		</ul>
+		<div class="row">
 		
-		<ul class="pager" th:if="${pagerType ne 'search'}">
-			<li class="next">
-				<a th:if="${page.hasNext()}"
-					th:href="@{/security/user/list(page=${page.number + 1},size=${page.size},sort=username)}"	
-					id="next">Next</a>
-			</li>
-			<li class="next">
-				<a th:if="${page.hasPrevious()}"
-					th:href="@{/security/user/list(page=${page.number - 1},size=${page.size},sort=username)}"	
-					id="next">Previous</a>
-			</li>
-		</ul>
-
-		Total : <span th:text="${page.totalElements}">105</span>
+			<div class="col">	
+				<div class="float-right">
+					<div th:if="${pagingType eq 'list'}">
+						<a th:if="${page.hasPrevious()}" th:href="@{/admin/user/list(page=${page.number - 1},size=${page.size},sort='username,asc')}">
+							<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+						</a>
+						<a th:if="${page.hasNext()}" th:href="@{/admin/user/list(page=${page.number + 1},size=${page.size},sort='username,asc')}">
+							<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+						</a>	
+					</div>
+							
+					<div th:if="${pagingType eq 'search'}">
+						<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+							<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+						</a>
+						<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+							<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+						</a>	
+					</div>		
+				</div>
 				
-		<table class="table">
-			<thead>
-				<tr class="warning">
-					<th>#</th>
-					<th>Username</th>
-					<!-- <th>Password</th> -->
-					<th>Roles</th>
-					<th>Action</th>
-				</tr>
-			</thead>
+				Total : <span th:text="${page.totalElements}">105</span>
+			
+		
+				<div class="table-responsive">					
+					<table class="table table-striped">
+						<thead>
+							<tr>
+								<th>#</th>
+								<th th:text="#{username}">Username</th>
+								<th th:text="#{role}">Roles</th>
+								<th th:text="#{actions}">Actions</th>
+							</tr>
+						</thead>
+			
+						<tbody>
+							<tr th:each="e,iterator : ${page.content}">
+								<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+								<td th:text="${e.username}">class S1S1</td>
+							    <td>
+							      	<span th:each="e,iterator : ${e.roles}">
+							      		<span class="font-weight-bold">#</span> [[${e.name}]]
+							      	</span> 	
+							    </td>
+								<td>
+									<a href="#" th:href="@{/admin/user/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
+									| <a href="#" th:href="@{/admin/user/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+								</td>
+							</tr>
+							<tr th:remove="all">
+								<td>2</td>
+								<td>7845878545</td>
+								<td>*ADMIN</td>
+								<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
+							</tr>
+						</tbody>
+					</table>
+				
+				</div>
+			</div>
 
-			<tbody>
-				<tr th:each="u,iterator : ${page.content}">
-					<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-					<td th:text="${u.username}">george</td>
-					<!-- <td th:text="${u.password}">password</td> -->
-					<td th:text="${u.roleNames}">ROLE_ADMIN</td>
-					<td><a href="#" th:href="@{/security/user/edit(id=${u.id})}">Edit</a>
-						| <a href="#" th:href="@{/security/user/delete(id=${u.id})}">Delete</a></td>
-				</tr>
-				<tr th:remove="all">
-					<td>2</td>
-					<td>moon1899</td>
-					<td>ROLE_ADMIN , ROLE_LIBRARIAN</td>
-					<td><a href="#">Edit</a> | <a href="#">Delete</a></td>
-				</tr>
-			</tbody>
-		</table>
-
+		</div>
+		  
+		<div th:replace="fragments/script :: script"></div>	  
+		<div th:replace="fragments/footer :: footer"></div>
+  
 	</div>
-
+	
 </body>
 </html>

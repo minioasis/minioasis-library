@@ -8,26 +8,31 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/admin")
 public class HomeController {
 
-	@GetMapping("/index")
+	@GetMapping("/")
     public String home(Model model) {
+		model.addAttribute("now", LocalDateTime.now());
+        return "redirect:/admin/index";
+    }
+	
+	@GetMapping("/admin/index")
+    public String adminHome(Model model) {
 		model.addAttribute("now", LocalDateTime.now());
         return "index";
     }
 	
-	@GetMapping("/config")
+	@GetMapping("/admin/config")
     public String config(Model model) {
         return "config";
     }
 	
-	@GetMapping("/reports")
+	@GetMapping("/admin/reports")
     public String report(Model model) {
         return "reports";
     }
 	
-    @RequestMapping("/opac")
+    @RequestMapping("/admin/opac")
     String opac(Model model){
         return "opac";
     }

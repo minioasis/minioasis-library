@@ -1,6 +1,7 @@
 package org.minioasis.library.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.minioasis.library.domain.Role;
 import org.minioasis.library.domain.User;
@@ -31,11 +32,11 @@ public class SecurityServiceImpl implements SecurityService {
 	public void edit(User entity){
 		this.userRepository.save(entity);
 	}
-	public User getUser(long id){
-		return this.userRepository.getOne(id);
+	public Optional<User> getUser(long id){
+		return this.userRepository.findById(id);
 	}
 	public void deleteUser(long id){
-		this.userRepository.delete(getUser(id));
+		this.userRepository.deleteById(id);
 	}
 	public User findByUsername(String username){
 		return this.userRepository.findByUsername(username);
