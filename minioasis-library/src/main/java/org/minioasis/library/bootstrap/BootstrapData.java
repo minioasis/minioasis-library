@@ -453,8 +453,8 @@ public class BootstrapData implements CommandLineRunner {
 		p1.setName2("Mr. Moon");
 		p1.setStartDate(LocalDate.now().minusMonths(6));
 		p1.setEndDate(LocalDate.now().plusMonths(6));
-		p1.setCardKey("1111");
-		p1.setEntangled("entangled1");
+		p1.setCardKey("1");
+		p1.setEntangled("1");
 		p1.setPatronType(pt1);
 		p1.setGroup(g1);
 		p1.setGender("M");
@@ -468,8 +468,8 @@ public class BootstrapData implements CommandLineRunner {
 		p2.setName2("Mr. Loong");
 		p2.setStartDate(LocalDate.now().minusMonths(4));
 		p2.setEndDate(LocalDate.now().plusMonths(8));
-		p2.setCardKey("2222");
-		p2.setEntangled("entangled2");
+		p2.setCardKey("2");
+		p2.setEntangled("2");
 		p2.setPatronType(pt1);
 		p2.setGroup(g2);
 		p2.setGender("M");
@@ -483,8 +483,8 @@ public class BootstrapData implements CommandLineRunner {
 		p3.setName2("Prof Feynman");
 		p3.setStartDate(LocalDate.now().minusMonths(1));
 		p3.setEndDate(LocalDate.now().plusMonths(11));
-		p3.setCardKey("3333");
-		p3.setEntangled("entangled3");
+		p3.setCardKey("3");
+		p3.setEntangled("3");
 		p3.setPatronType(pt2);
 		p3.setGroup(g3);
 		p3.setGender("F");
@@ -498,8 +498,8 @@ public class BootstrapData implements CommandLineRunner {
 		p4.setName2("Prof Feynman2");
 		p4.setStartDate(LocalDate.now().minusMonths(9));
 		p4.setEndDate(LocalDate.now().plusMonths(3));
-		p4.setCardKey("4444");
-		p4.setEntangled("entangled4");
+		p4.setCardKey("4");
+		p4.setEntangled("4");
 		p4.setPatronType(pt1);
 		p4.setGroup(g3);
 		p4.setGender("F");
@@ -523,25 +523,25 @@ public class BootstrapData implements CommandLineRunner {
 		
 		// Account
 		Account ac1 = new Account();
-		ac1.setCode("1111");
+		ac1.setCode("1");
 		ac1.setName("Moan Ah Meng");
 		ac1.setType(AccountType.PATRON);
 		accountRepository.save(ac1);
 		
 		Account ac2 = new Account();
-		ac2.setCode("2222");
+		ac2.setCode("2");
 		ac2.setName("Moan Wai Loong");
 		ac2.setType(AccountType.PATRON);
 		accountRepository.save(ac2);
 		
 		Account ac3 = new Account();
-		ac3.setCode("3333");
+		ac3.setCode("3");
 		ac3.setName("R.P. Feynman");
 		ac3.setType(AccountType.PATRON);
 		accountRepository.save(ac3);
 		
 		Account ac4 = new Account();
-		ac4.setCode("4444");
+		ac4.setCode("4");
 		ac4.setName("R.P. Feynman2");
 		ac4.setType(AccountType.PATRON);
 		accountRepository.save(ac4);

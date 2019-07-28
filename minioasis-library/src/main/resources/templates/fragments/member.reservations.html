@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+	<div th:fragment="memberreservations">
+		
+			<br>
+
+			<h5 th:text="#{reservations}">Reservation :</h5>	
+			
+			<div class="table-responsive">					
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr class="warning">
+							<th>#</th>
+							<th th:text="#{title}">Title</th>
+							<th><i class="fas fa-barcode"></i> Isbn</th>
+							<th th:text="#{reservation}">Reservation</th>
+							<th th:text="#{available}">Available</th>
+							<th th:text="#{notification}">Notification</th>
+							<th th:text="#{expiry.date}">Expiry Date</th>
+							<th th:text="#{cancel}">Cancel</th>
+							<th th:text="#{collected.date}">Collected Date</th>
+							<th th:text="#{uncollected.date}">UnCollected Date</th>
+							<th th:text="#{state}">State</th>
+						</tr>
+					</thead>
+		
+					<tbody>
+						<tr th:each="e,iterator : ${patron.reservations}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td><a href="#" th:href="@{/admin/biblio/{id}(id=${e.biblio.id})}" th:text="${e.biblio.title}"></a></td>
+							<td th:text="${e.biblio.isbn}">213223434113</td>
+							<td th:text="${e.reservationDate != null ? #temporals.format(e.reservationDate,'yyyy-MM-dd') : ''}">2015-07-31</td>
+							<td th:text="${e.availableDate != null ? #temporals.format(e.availableDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.notificationDate != null ? #temporals.format(e.notificationDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.expiryDate != null ? #temporals.format(e.expiryDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.cancelDate != null ? #temporals.format(e.cancelDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.collectedDate != null ? #temporals.format(e.collectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:text="${e.unCollectedDate != null ? #temporals.format(e.unCollectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
+							<td th:if="${e.state.toString() == 'RESERVE'}" th:text="${e.state}">RESERVE</td>
+							<td th:unless="${e.state.toString() == 'RESERVE'}" th:text="${e.state}" class="error">AVAILABLE</td>
+						</tr>
+						<tr th:remove="all">
+							<td>#</td>
+							<td>213223434113</td>
+							<td>2015-07-31</td>
+							<td>2015-07-31</td>
+							<td>2015-07-31</td>
+							<td>2015-07-31</td>
+							<td>2015-09-30</td>
+							<td>2015-07-31</td>
+							<td>2015-07-31</td>
+							<td>CHECKOUT</td>
+						</tr>
+					</tbody>
+				</table>
+
+		</div>
+		
+	</div>
+
+</body>
+</html>

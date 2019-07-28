@@ -1,7 +1,6 @@
 package org.minioasis.library.controller;
 
 import java.time.LocalDate;
-import java.util.Date;
 
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.service.AuthenticationFacade;
@@ -14,7 +13,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.RequestMapping;
 
 @Controller
-@RequestMapping("/user")
+@RequestMapping("/member")
 public class MemberAccountController {
 
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
@@ -38,9 +37,9 @@ public class MemberAccountController {
 			
 			model.addAttribute("patron", patron);
 
-			return "pub/index";
+			return "member/index";
 		} else {
-			return "pub/no.user.attached";
+			return "member/no.user.attached";
 		}
 	}
 	

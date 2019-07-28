@@ -31,6 +31,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 			//.antMatchers("/photo/biblio/**").permitAll()
 			//.antMatchers("/css/**", "/js/**", "/images/**","/console/**").permitAll()
 			.antMatchers("/admin/**").hasAnyAuthority("ROLE_ADMIN, ROLE_LIBRARIAN")
+			.antMatchers("/member/**").hasAnyAuthority("ROLE_ADMIN, ROLE_LIBRARIAN, ROLE_USER")
 			.antMatchers("/**").permitAll()
 			.anyRequest().authenticated()
 			.and()

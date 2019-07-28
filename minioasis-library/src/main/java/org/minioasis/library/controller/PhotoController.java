@@ -29,6 +29,51 @@ public class PhotoController {
 
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 
+	@GetMapping(path = "/member/photo/patron/{id}")
+	public void memberPhoto(@PathVariable("id") String id, HttpServletResponse response) throws MalformedURLException {
+		
+		Photo photo = null;
+		
+		try {
+			photo = this.photoRepository.findPatronThumbnailByIc(id);
+		} catch(ConnectException cex) {
+			logger.info("MINIO LOG : Connection failed !");
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		if (photo != null) {
+			URL imgUrl = new URL(photo.getUrl());
+
+			try {
+				response.reset();
+				// TODO : please include png , gif ...etc
+				response.setContentType("image/jpeg");
+				response.setBufferSize(DEFAULT_BUFFER_SIZE);
+				response.setHeader("Content-Length", String.valueOf(photo.getSize()));
+				response.setHeader("Content-Disposition", "inline;filename=\"" + photo.getName() + "\"");
+				OutputStream out = response.getOutputStream();
+
+				byte[] chunk = new byte[4096];
+				int bytesRead;
+				InputStream in = imgUrl.openStream();
+
+				while ((bytesRead = in.read(chunk)) > 0) {
+					out.write(chunk, 0, bytesRead);
+				}
+
+				out.flush();
+				out.close();
+
+			} catch (IOException e) {
+				e.printStackTrace();
+			} catch (DataAccessException e) {
+				e.printStackTrace();
+			}
+		}
+	}
+	
 	@GetMapping(path = "/admin/photo/patron/{id}")
 	public void patronPhoto(@PathVariable("id") String id, HttpServletResponse response) throws MalformedURLException {
 		
@@ -72,7 +117,6 @@ public class PhotoController {
 				e.printStackTrace();
 			}
 		}
-
 	}
 	
 	@GetMapping(path = "/photo/biblio/{id}")

@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav.member :: topnavmember"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<div th:replace="fragments/member.info :: memberinfo"></div>
+		
+		<hr>
+
+		<ul class="nav nav-tabs" id="myTab" role="tablist">
+			<li class="nav-item">
+				<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true" th:text="#{checkout}">Checkout</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" th:text="#{reservation}">Reservation</a>
+			</li>
+		</ul>
+
+		<div class="tab-content" id="myTabContent">
+			<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<div th:replace="fragments/member.checkouts :: membercheckouts"></div>
+			</div>
+
+			<div class="tab-pane fade" id="profile" role="tabpanel"	aria-labelledby="profile-tab">
+				<div th:replace="fragments/member.reservations :: memberreservations"></div>
+			</div>
+
+		</div>
+		
+		
+
+		<div th:replace="fragments/script :: script"></div>
+		<script	src="/js/main.js" th:src="@{/js/main.js}"></script>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

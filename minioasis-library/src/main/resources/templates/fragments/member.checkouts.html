@@ -1,0 +1,113 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+</head>
+<body>
+
+	<div th:fragment="membercheckouts">
+		
+			<br>
+			
+			<h5 th:text="#{biblios.journals}">Books , Journals :</h5>
+				
+			<div class="table-responsive">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr class="warning">
+							<th>#</th>
+							<th th:text="#{title}">Title</th>
+							<th th:text="#{patron.type}">P.Type</th>
+							<th><i class="fas fa-barcode"></i></th>
+							<th th:text="#{checkout}">Checkout</th>
+							<th th:text="#{due.date}">Due Date</th>
+							<th th:text="#{done}">Done</th>
+							<th th:text="#{state}">State</th>
+							<th th:text="#{renew}">Renew</th>
+							<th th:text="#{ld.fine}">L/D Fine</th>
+							<th>L/D</th>
+							<th th:text="#{fine}">Fine</th>
+						</tr>
+					</thead>
+		
+					<tbody>
+						<tr th:each="e,iterator : ${patron.checkouts}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.item.biblio.title}">Feynman Lecture On Physics</td>
+							<td th:text="${e.patron.patronType.name}">Student</td>
+							<td th:text="${e.item.barcode}">154646</td>
+							<td th:text="${#temporals.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
+							<td th:text="${#temporals.format(e.dueDate,'yyyy-MM-dd')}">2015-09-15</td>
+							<td th:text="${e.done != null} ? ${#temporals.format(e.done,'yyyy-MM-dd')} : '' ">2015-09-15</td>
+							<td th:text="${e.state}">CHECKOUT</td>
+							<td th:text="${e.renewedNo}">1</td>
+							<td th:text="${e.lostOrDamageFineAmount}">0.00</td>
+							<td th:switch="${e.isInLostOrDamageState()}" >
+								<a href="#" th:case="true" th:href="@{/admin/circ/checkout/edit?id={id}(id=${e.id})}" >
+									<i class="far fa-edit"></i>
+								</a>
+								<span th:case="false"></span>
+							</td>
+							<td th:text="${e.fineAmount}">10.00</td>
+						</tr>
+						<tr th:remove="all">
+							<td>No.</td>
+							<td>Feynman Lecture On Physics</td>
+							<td>Student</td>
+							<td>5536156</td>
+							<td>2015-01-01</td>
+							<td>2015-01-15</td>
+							<td>2015-01-15</td>
+							<td>CHECKOUT</td>
+							<td>1</td>
+							<td>5.00</td>
+							<td>XX</td>
+							<td>6.00</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+
+			<h5 th:text="#{attachments}">Attachments :</h5>	
+			
+			<div class="table-responsive">
+				<table class="table table-striped table-condensed">
+					<thead>
+						<tr class="warning">
+							<th>#</th>
+							<th th:text="#{title}">Title</th>
+							<th th:text="#{description}">Description</th>
+							<th><i class="fas fa-barcode"></i></th>
+							<th th:text="#{state}">State</th>
+							<th th:text="#{call.no}">Call No</th>
+							<th th:text="#{checkout.date}">Checkout Date</th>
+						</tr>
+					</thead>
+		
+					<tbody>			
+						<tr th:each="e,iterator : ${patron.attachmentCheckouts}">
+							<td th:text="${iterator.index + 1}">1</td>
+							<td th:text="${e.attachment.item.biblio.title}">Feynman Lecture On Physics</td>
+							<td th:text="${e.attachment.description}">Cds For Feynman Lecture On Physics</td>
+							<td th:text="${e.attachment.barcode}">154646</td>
+							<td th:text="${e.state}">CHECKOUT</td>
+							<td th:text="${e.attachment.callNo}">530.30 HJT1</td>
+							<td th:text="${#temporals.format(e.checkoutDate,'yyyy-MM-dd')}">2015-09-15</td>
+						</tr>								
+						<tr th:remove="all">
+							<td>No.</td>
+							<td>Feynman Lecture On Physics</td>
+							<td>Cds For Feynman Lecture On Physics</td>
+							<td>5536156</td>
+							<td>CHECKOUT</td>
+							<td>530.30 HJT1</td>
+							<td>2015-09-15</td>
+						</tr>			
+					</tbody>
+				</table>
+			</div>
+		
+	</div>
+
+</body>
+</html>
