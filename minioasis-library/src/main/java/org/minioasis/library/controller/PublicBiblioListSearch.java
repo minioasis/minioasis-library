@@ -33,7 +33,7 @@ public class PublicBiblioListSearch {
 		
 		model.addAttribute("biblio", this.service.getBiblio(id));
 		
-		return "public.biblio";
+		return "public/biblio";
 
 	}
 
@@ -43,7 +43,7 @@ public class PublicBiblioListSearch {
 		List<Item> items = this.service.findAllItemsOrderByBarcode(id);
 		model.addAttribute("items", items);
 		
-		return "public.biblio.items";
+		return "public/biblio.items";
 
 	}
 	
@@ -56,7 +56,7 @@ public class PublicBiblioListSearch {
 		model.addAttribute("criteria", new BiblioCriteria());
 		model.addAttribute("pagingType", "list");
 		
-		return "public.biblios";
+		return "public/biblios";
 		
 	}
 	
@@ -74,7 +74,7 @@ public class PublicBiblioListSearch {
 		model.addAttribute("previous", previous);
 		model.addAttribute("pagingType", "search");
 		
-		return "public.biblios";
+		return "public/biblios";
 
 	}
 	
