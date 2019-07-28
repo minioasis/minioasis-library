@@ -12,7 +12,7 @@
 
 		<div th:replace="fragments/member.info :: memberinfo"></div>
 		
-		<hr>
+		<br>
 
 		<ul class="nav nav-tabs" id="myTab" role="tablist">
 			<li class="nav-item">
@@ -20,6 +20,9 @@
 			</li>
 			<li class="nav-item">
 				<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false" th:text="#{reservation}">Reservation</a>
+			</li>
+			<li class="nav-item">
+				<a class="nav-link" href="#" th:href="@{/member/index}" th:text="#{history}">History</a>
 			</li>
 		</ul>
 
@@ -31,10 +34,7 @@
 			<div class="tab-pane fade" id="profile" role="tabpanel"	aria-labelledby="profile-tab">
 				<div th:replace="fragments/member.reservations :: memberreservations"></div>
 			</div>
-
 		</div>
-		
-		
 
 		<div th:replace="fragments/script :: script"></div>
 		<script	src="/js/main.js" th:src="@{/js/main.js}"></script>
