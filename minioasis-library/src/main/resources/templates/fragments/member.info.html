@@ -16,24 +16,19 @@
 							class="rounded-circle"
 							style="min-height: 90px; height: 100px; width: 80px;" />
 					</div>
-
-					<div class="col-md-4">
-						<p class="font-weight-bold font-italic" th:inline="text">
-							[[ ${patron.name} + ' ( ' + ${patron.name2} + ' )' ]]
-						</p>
-						<p class="font-weight-bold font-italic" th:inline="text">
-							[[ ${patron.patronType.name} + ' ( ' + ${#temporals.format(patron.startDate,'yyyy-MM-dd')} + ', exp : ' + ${#temporals.format(patron.endDate,'yyyy-MM-dd')} + ' )']]
-						</p>
-						<p class="font-weight-bold font-italic" th:inline="text">
-							[[ ${patron.group.name} ]]
-						</p>
-					</div>
-					<div class="col-md-4">
+					<div class="col-md-2">
 						<h1 class="display-3 font-weight-bold font-italic" th:inline="text">
 							[[ ${patron.cardKey} ]]
 						</h1>		
 					</div>
-
+					<div class="col-md-4">
+						<p class="font-weight-bold font-italic" th:inline="text">
+							[[ ${patron.name} + ' ( ' + ${patron.name2} + ' )' ]] <br>
+							[[ ${patron.patronType.name}]] <br>
+							[[' ( start : ' + ${#temporals.format(patron.startDate,'yyyy-MM-dd')} + ', exp : ' + ${#temporals.format(patron.endDate,'yyyy-MM-dd')} + ' )']] <br>
+							[[ ${patron.group.name} ]]
+						</p>
+					</div>
 				</div>
 			</div>
 		</div>
