@@ -73,9 +73,9 @@ public class MemberAccountController {
 				CheckoutState.CHECKOUT,
 				CheckoutState.RENEW
 		};
-		
+
 		Page<Checkout> page = this.service.findAllCheckouts(username, Arrays.asList(cStates), PageRequest.of(0, 15, Sort.by("checkoutDate").descending()));	
-		
+
 		model.addAttribute("page", page);
 		model.addAttribute("criteria", new CheckoutCriteria());
 		

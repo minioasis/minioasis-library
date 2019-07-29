@@ -22,9 +22,11 @@
 				<a class="nav-link" href="#" th:href="@{/member/index#reservation}" th:text="#{reservation}">Reservation</a>
 			</li>
 			<li class="nav-item">
-				<a class="nav-link active" href="#" th:href="@{/member/index}" th:text="#{history}">History</a>
+				<a class="nav-link active" href="#" th:href="@{/member/histories}" th:text="#{history}">History</a>
 			</li>
 		</ul>
+
+		<div th:replace="fragments/member.histories :: memberhistories"></div>
 
 		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>
