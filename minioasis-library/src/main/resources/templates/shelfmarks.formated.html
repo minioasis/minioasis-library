@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(Minioasis)">
+<title>Minioasis Library</title>
+</head>
+<body>
+
+	<table class="table table-bordered">
+		<tbody>
+			<tr th:each="rows : ${rowlists}">
+				<td th:each="row: ${rows}">[[ ${row} ]]</td>
+			</tr>
+		</tbody>
+	</table>
+
+	<div th:replace="fragments/script :: script"></div>
+
+
+</body>
+</html>

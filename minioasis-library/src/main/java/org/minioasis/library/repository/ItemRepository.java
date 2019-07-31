@@ -12,6 +12,8 @@ import org.springframework.stereotype.Repository;
 @Repository
 public interface ItemRepository extends JpaRepository<Item, Long>, ItemRepositoryCustom {
 	
+	Item findByBarcode(String barcode);
+	
 	@Query("SELECT i FROM Item i"
 			+ " LEFT JOIN FETCH i.biblio b"
 			+ " WHERE i.barcode = ?1")

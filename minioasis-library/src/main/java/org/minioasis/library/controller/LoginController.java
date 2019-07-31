@@ -52,7 +52,7 @@ public class LoginController {
     
 
 	// access-denied redirect.
-	@RequestMapping(value = "/accessdenied", method = RequestMethod.GET)
+	@RequestMapping(value = "/access.denied", method = RequestMethod.GET)
 	public String accessDeniedPage(Model model) {
 		
 		model.addAttribute("loggedinuser", getPrincipal());

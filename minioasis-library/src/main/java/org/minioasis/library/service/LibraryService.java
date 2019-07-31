@@ -185,6 +185,7 @@ public interface LibraryService {
 	Item getItemFetchItemRelated(long id);
 	Item getItemFetchItemStatus(String barcode);
 	Item getItemFetchRelatedBiblio(String barcode);
+	Item findByBarcode(String barcode);
 	List<Item> findItemsByIsbn(String isbn);
 	List<Item> findItemsByIsbnAndStates(String isbn, String[] states);
 	List<Item> findAllItems(Sort sort);
