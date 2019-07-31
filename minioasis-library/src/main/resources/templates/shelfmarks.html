@@ -18,34 +18,47 @@
 		</h4>
 		
 		<br>
+		
+		<div class="row">
+		    <div class="col">
+				<form th:action="@{/admin/shelfmark/list}" th:object="${shelfmarks}" method="post">			
+		
+					<div class="form-row">
+						<div class="form-group col">
+					      	<input type="text" class="form-control" name="barcode" autofocus="autofocus"  placeholder="Barcode"/>
+					    </div>
+					   	<input hidden="hidden" type="submit" name="search" value="Submit"/>		
+					</div>
+							
+		 		</form>
+		 		
+				<br>
+		
+				<table class="table">
+					<thead>
+						<tr>
+							<th scope="col" th:text="#{shelfmark}">Shelfmark</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr th:each="s : ${shelfmarks}">
+							<td>
+								<a href="#"	th:href="@{/admin/shelfmark/remove?barcode={s}(s=${s.barcode})}" th:text="${s.shelfmark}"></a>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+		
+		    </div>
+		    
+		    <div class="col">
+		 		<a href="#"	th:href="@{/admin/shelfmark/print}" >
+		 			<i class="fas fa-print fa-10x"></i>
+		 		</a>
+		    </div>
+		</div>
 
-		<form th:object="${shelfmarks}" method="post">			
 
-			<div class="form-row">
-				<div class="form-group col-sm-4">
-			      	<input type="text" class="form-control" name="barcode" autofocus="autofocus"  placeholder="Barcode"/>
-			    </div>
-			   	<input hidden="hidden" type="submit" name="search" value="Submit"/>		
-			</div>
-					
- 		</form>
-	
-		<br>
-
-		<table class="table col-sm-4">
-			<thead>
-				<tr>
-					<th scope="col" th:text="#{shelfmark}">Shelfmark</th>
-				</tr>
-			</thead>
-			<tbody>
-				<tr th:each="s : ${shelfmarks}">
-					<td>
-						<a href="#"	th:href="@{/admin/shelfmark/remove?barcode={s}(s=${s.barcode})}" th:text="${s.shelfmark}"></a>
-					</td>
-				</tr>
-			</tbody>
-		</table>
 
 		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>

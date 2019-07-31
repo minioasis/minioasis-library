@@ -18,13 +18,29 @@ import org.springframework.web.bind.annotation.SessionAttributes;
 @Controller
 @SessionAttributes("shelfmarks")
 @RequestMapping("/admin/shelfmark")
-public class ShelfmarkPrinterController {
-
+public class ShelfmarksCollector {
+	
 	@Autowired
-	private LibraryService service;	
+	private LibraryService service;
+	
+	@RequestMapping(value = "/list", method = RequestMethod.GET)
+	public String insert(Model model) {
+
+		model.addAttribute("shelfmarks", new HashSet<Shelfmark>());
+		
+		return "shelfmarks";
+		
+	}
+	
+	@RequestMapping(value = "/back", method = RequestMethod.GET)
+	public String back(Model model) {
+		
+		return "shelfmarks";
+		
+	}
 	
 	@RequestMapping(value = { "/list" }, method = RequestMethod.POST)
-	public String search(@RequestParam String barcode , @ModelAttribute("shelfmarks") Set<Shelfmark> shelfmarks, Model model) {
+	public String search(@RequestParam String barcode , @ModelAttribute("shelfmarks") Set<Shelfmark> shelfmarks) {
 		
 		Item item = this.service.findByBarcode(barcode);
 
@@ -32,14 +48,12 @@ public class ShelfmarkPrinterController {
 			shelfmarks.add(new Shelfmark(barcode, item.getShelfMark()));
 		}
 		
-		model.addAttribute("shelfmarks", shelfmarks);
-		
 		return "shelfmarks";
 
 	}
 	
 	@RequestMapping(value = { "/remove" }, method = RequestMethod.GET)
-	public String remove(@RequestParam String barcode, @ModelAttribute("shelfmarks") Set<Shelfmark> shelfmarks, Model model) {
+	public String remove(@RequestParam String barcode, @ModelAttribute("shelfmarks") Set<Shelfmark> shelfmarks) {
 		
 		Item item = this.service.findByBarcode(barcode);
 		
@@ -48,18 +62,8 @@ public class ShelfmarkPrinterController {
 			shelfmarks.remove(shelfmark);
 		}
 		
-		model.addAttribute("shelfmarks", shelfmarks);
-		
 		return "shelfmarks";
 
 	}
-	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String shelfmarks(Model model) {
 
-		model.addAttribute("shelfmarks", new HashSet<Shelfmark>());
-		
-		return "shelfmarks";
-		
-	}
 }

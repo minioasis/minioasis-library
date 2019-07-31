@@ -236,7 +236,7 @@ public class BootstrapData implements CommandLineRunner {
 		i1.setLastFullRenewPerson("Moon");
 		i1.setLocation(l1);
 		i1.setPrice(new BigDecimal(12.50));
-		i1.setShelfMark("435.78 HY1");
+		i1.setShelfMark("435.78 HY1 c.2 v.23");
 		i1.setSource("Shiang Hua");
 		itemRepository.save(i1);
 		
@@ -254,7 +254,7 @@ public class BootstrapData implements CommandLineRunner {
 		i2.setLastFullRenewPerson("Thai");
 		i2.setLocation(l2);
 		i2.setPrice(new BigDecimal(12.50));
-		i2.setShelfMark("435.78 HY2");
+		i2.setShelfMark("435.78 HY2 c.2");
 		i2.setSource("Shiang Hua");
 		itemRepository.save(i2);
 	
@@ -310,10 +310,67 @@ public class BootstrapData implements CommandLineRunner {
 		i5.setLastFullRenewPerson("Karuna");
 		i5.setLocation(l1);
 		i5.setPrice(new BigDecimal(12.50));
-		i5.setShelfMark("530.78 HY3");
+		i5.setShelfMark("530.78 HY3 ");
 		i5.setSource("Karuna");
 		i5.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 		itemRepository.save(i5);
+		
+		Item i6 = new Item();
+		i6.setActive(YesNo.Y);
+		i6.setBarcode("666");
+		i6.setBiblio(b4);
+		i6.setChecked(YesNo.N);
+		i6.setCreated(LocalDate.parse("2015-10-10"));
+		i6.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
+		i6.setFirstCheckin(LocalDate.parse("2015-10-10"));
+		i6.setState(ItemState.IN_LIBRARY);
+		i6.setItemStatus(is1);
+		i6.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
+		i6.setLastFullRenewPerson("Karuna");
+		i6.setLocation(l1);
+		i6.setPrice(new BigDecimal(12.50));
+		i6.setShelfMark("230.38 HY1  ");
+		i6.setSource("Karuna");
+		i6.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
+		itemRepository.save(i6);
+		
+		Item i7 = new Item();
+		i7.setActive(YesNo.Y);
+		i7.setBarcode("777");
+		i7.setBiblio(b4);
+		i7.setChecked(YesNo.N);
+		i7.setCreated(LocalDate.parse("2015-10-10"));
+		i7.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
+		i7.setFirstCheckin(LocalDate.parse("2015-10-10"));
+		i7.setState(ItemState.IN_LIBRARY);
+		i7.setItemStatus(is1);
+		i7.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
+		i7.setLastFullRenewPerson("Karuna");
+		i7.setLocation(l1);
+		i7.setPrice(new BigDecimal(12.50));
+		i7.setShelfMark("130.78");
+		i7.setSource("Karuna");
+		i7.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
+		itemRepository.save(i7);
+		
+		Item i8 = new Item();
+		i8.setActive(YesNo.Y);
+		i8.setBarcode("888");
+		i8.setBiblio(b4);
+		i8.setChecked(YesNo.N);
+		i8.setCreated(LocalDate.parse("2015-10-10"));
+		i8.setExpired(LocalDateTime.parse("2016-10-10T00:00:00"));
+		i8.setFirstCheckin(LocalDate.parse("2015-10-10"));
+		i8.setState(ItemState.IN_LIBRARY);
+		i8.setItemStatus(is1);
+		i8.setLastCheckin(LocalDateTime.parse("2015-10-10T00:00:00"));
+		i8.setLastFullRenewPerson("Karuna");
+		i8.setLocation(l1);
+		i8.setPrice(new BigDecimal(12.50));
+		i8.setShelfMark("570.99 HY3 c.1");
+		i8.setSource("Karuna");
+		i8.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
+		itemRepository.save(i8);
 		
 		// attachments
 		Attachment at1 = new Attachment();

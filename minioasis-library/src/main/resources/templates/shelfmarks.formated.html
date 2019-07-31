@@ -1,21 +1,38 @@
 <!DOCTYPE html>
 
-<html xmlns:th="http://www.thymeleaf.org">
-<head th:replace="fragments/head :: head(Minioasis)">
-<title>Minioasis Library</title>
+<html xmlns:th="http://www.thymeleaf.org" xmlns:nl2br="https://github.com/bufferings/thymeleaf-extras-nl2br">
+<head>
+	<!-- Required meta tags -->
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	<!-- Bootstrap CSS -->
+	<link rel="stylesheet"
+		href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+		integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+		crossorigin="anonymous">
+	<link rel="stylesheet" type="text/css" href="/css/minioasis.css" th:href="@{/css/minioasis.css}"/>
+	<link rel="stylesheet" type="text/css" href="css/shelfmark.css" th:href="@{/css/shelfmark.css}">
+	<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
+		
+	<title th:text="${title}">Page Title</title>
 </head>
 <body>
 
-	<table class="table table-bordered">
-		<tbody>
-			<tr th:each="rows : ${rowlists}">
-				<td th:each="row: ${rows}">[[ ${row} ]]</td>
-			</tr>
-		</tbody>
-	</table>
-
-	<div th:replace="fragments/script :: script"></div>
-
+	<div class="container pt-5 pb-5">
+		<a href="#"	th:href="@{/admin/shelfmark/back}"><i class="fas fa-chevron-left"></i></a>
+		<table class="table table-bordered">
+			<tbody>
+				<tr th:each="rows : ${rowlists}">
+					<td th:each="row: ${rows}" style="max-width: 30rem;">
+						<p class="text-center font-weight-bolder" nl2br:text="${row.shelfmark}">shelfmark</p>
+					</td>
+				</tr>
+			</tbody>
+		</table>
+	
+		<div th:replace="fragments/script :: script"></div>
+	</div>
 
 </body>
 </html>
