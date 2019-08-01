@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+<head th:replace="fragments/head :: head(Minioasis)">
+<title>Minioasis Library</title>
+</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-5 pb-3">
+	
+		<div class="row">
+			<h1 class="display-5 text-success">
+				<i class="fas fa-spider"></i>
+				<span th:text="#{web.scraping}">Web Scraping</span>
+			</h1>
+		</div>
+		
+		<hr></hr>
+		
+		<div class="row">
+			<div class="col">
+		
+				<p class="lead" th:text="#{key.in.isbn}">Please key in ISBN</p>
+	
+				<p class="text-danger" th:if="${msg == 'No_BOOK_FOUND'}" th:text="#{error.no.biblio.found}">No Book Found</p>
+	
+				<form action="#" th:action="@{/admin/biblio/scraper}" method="get">
+					<div class="form-row">
+					  <div class="col-md-6 mb-6">
+					   	<input class="form-control form-control-lg col-sm" type="text" name="isbn" autofocus="autofocus" th:placeholder="#{isbn}"/>
+					  </div>
+					</div>
+				</form>
+				
+			</div>
+			<div class="col">
+				<div th:if="${isbn != ''}">
+					<p th:text="${isbn}"></p>
+				</div>
+			</div>
+		</div>
+
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+	</div>
+
+</body>
+</html>

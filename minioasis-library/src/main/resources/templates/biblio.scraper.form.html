@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+			integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+			crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/css/minioasis.css" th:href="@{/css/minioasis.css}"/>
+		<link rel="stylesheet" type="text/css" href="/css/easy-autocomplete.min.css" th:href="@{/css/easy-autocomplete.min.css}">
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
+		<script src="/js/jquery.easy-autocomplete.min.js" th:src="@{/js/jquery.easy-autocomplete.min.js}"></script>
+			
+		<title th:text="${title}">Page Title</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-3 pb-3">
+
+		<h4>
+			<span th:text="#{create.biblio.by.scraper}">Create Biblio (Scraper)</span>
+			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<i class="fas fa-search"></i>
+			</a>
+		</h4>
+
+		<div class="card bg-hb" style="max-width: 50rem;">
+			<div class="card-header">
+				<i class="fas fa-user-plus"></i>
+			</div>
+			<div class="card-body bg-lb">
+				<form action="#" th:object="${biblio}" method="post">
+				
+					<input type="text" hidden="hidden" th:field="*{id}" />
+
+					<div class="form-row pt-3">
+						<div class="form-group col-sm-3">
+							<label th:text="#{active}">Active</label>
+							<select class="form-control" th:field="*{active}">
+								<option value="Y">YES</option>
+								<option value="N">NO</option>
+							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('active')}" th:errors="*{active}"></span>
+						</div>
+						<div class="form-group col-sm-3">
+				      		<label th:text="#{biblio.type}">Biblio Type</label>
+				      		<select	class="form-control" th:field="*{biblioType}">
+				      			<option th:each="b : ${biblioTypes}" th:value="${b}" th:text="${b}" />
+								<option  th:remove="all" value="BOOK">BOOK</option>
+								<option  th:remove="all" value="JOURNAL">JOURNAL</option>
+							</select>
+							<span class="text-danger" th:if="${#fields.hasErrors('biblioType')}" th:errors="*{biblioType}"></span>
+						</div>
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-sm-6">						      
+				      		<label th:text="#{title}">Title</label>
+							<input type="text" class="form-control" th:field="*{title}"	autofocus = "autofocus" placeholder="Title" />
+							<span class="text-danger" th:if="${#fields.hasErrors('title')}" th:errors="*{title}"></span>
+						</div>
+						<div class="form-group col-sm-3">
+							<label th:text="#{isbn}">Isbn</label>
+							<input type="text" class="form-control" th:field="*{isbn}"	placeholder="Isbn" />
+							<span class="text-danger" th:if="${#fields.hasErrors('isbn')}" th:errors="*{isbn}"></span>
+						</div>
+						<div class="form-group col-sm-3">
+				      		<label th:text="#{classmark}">ClassMark</label>
+							<input type="text" class="form-control" th:field="*{classMark}"	placeholder="ClassMark" />
+							<span class="text-danger" th:if="${#fields.hasErrors('classMark')}" th:errors="*{classMark}"></span>
+						</div>
+					</div>
+					<div class="form-row">
+				      	<div class="form-group col-sm-6">
+				      		<label th:text="#{author}">Author</label>
+							<input type="text" class="form-control" th:field="*{author}" placeholder="Author" />
+							<span class="text-danger" th:if="${#fields.hasErrors('author')}" th:errors="*{author}"></span>
+						</div>
+						
+				      	<div class="form-group col-sm-6">
+				      		<label th:text="#{publisher}">Publisher</label>
+				      		<input type="text" id="autopublisher" class="form-control" th:field="*{publisher.name}" placeholder="Publisher" />
+							<span class="text-danger" th:if="${#fields.hasErrors('publisher.name')}" th:errors="*{publisher.name}"></span>
+							<script>
+								
+								var options = {
+
+									url : function(phrase) {
+										return "/publisher/phase?phase=" + phrase;
+									},
+
+									getValue : "name",
+
+									list : {
+										maxNumberOfElements: 10,
+										match : {
+											enabled : true
+										}
+									}
+								};
+
+								$('#autopublisher').easyAutocomplete(options);
+								
+							</script>
+						</div>					
+					</div>
+					<div class="form-row">
+				      	<div class="form-group col-sm-6">
+				      		<label th:text="#{subject}">Subject</label>
+							<input type="text" class="form-control" th:field="*{subject}" placeholder="Subject" />
+							<span class="text-danger" th:if="${#fields.hasErrors('subject')}" th:errors="*{subject}"></span>
+						</div>
+							
+				      	<div class="form-group col-sm-6">
+				      		<label th:text="#{series}">Series</label>
+				      		<input type="text" id="autoseries" class="form-control" th:field="*{series.name}" placeholder="Series" />
+							<span class="text-danger" th:if="${#fields.hasErrors('series.name')}" th:errors="*{series.name}"></span>
+						</div>
+						<script>
+							
+							var options = {
+
+								url : function(phrase) {
+									return "/series/phase?phase=" + phrase;
+								},
+
+								getValue : "name",
+
+								list : {
+									maxNumberOfElements: 10,
+									match : {
+										enabled : true
+									}
+								}
+							};
+
+							$('#autoseries').easyAutocomplete(options);
+							
+						</script>					
+					</div>
+					<hr>
+					<div class="form-row">
+				      	<div class="form-group col-sm-3">
+				      		<label th:text="#{edition}">Edition</label>
+							<input type="text" class="form-control" th:field="*{edition}" placeholder="Edition" />
+							<span class="help-inline error" th:if="${#fields.hasErrors('edition')}" th:errors="*{edition}"></span>
+						</div>
+						<div class="form-group col-sm-3">
+				      		<label th:text="#{pages}">Pages</label>
+							<input type="text" class="form-control" th:field="*{pages}"	placeholder="int" />
+							<span class="help-inline error" th:if="${#fields.hasErrors('pages')}" th:errors="*{pages}"></span>
+						</div>						
+				      	<div class="form-group col-sm-3">
+				      		<label th:text="#{publishing.year}">Publishing Year</label>
+							<input type="text" class="form-control" th:field="*{publishingYear}"	placeholder="int" />
+							<span class="help-inline error" th:if="${#fields.hasErrors('publishingYear')}" th:errors="*{publishingYear}"></span>
+						</div>
+				      	<div class="form-group col-sm-3">
+				      		<label th:text="#{publication.place}">Publication Place</label>
+							<input type="text" class="form-control" th:field="*{publicationPlace}"	placeholder="Publication Place" />
+							<span class="help-inline error" th:if="${#fields.hasErrors('publicationPlace')}" th:errors="*{publicationPlace}"></span>
+						</div>					
+					</div>
+					<div class="form-row">
+					    <div class="form-group col-sm-3">
+					    	<label th:text="#{binding}">Binding</label>
+					      	<select	class="form-control" th:field="*{binding}">
+								<option th:each="b : ${bindings}" th:value="${b}" th:text="${b.value}" />
+								<option th:remove="all" value="H">Hard Cover</option>
+								<option th:remove="all" value="S">Soft Cover</option>
+							</select>
+							<span class="help-inline error" th:if="${#fields.hasErrors('binding')}" th:errors="*{binding}"></span>
+						</div>	      
+						<div class="form-group col-sm-3">
+							<label th:text="#{language}">Language</label>
+						      	<select	class="form-control" th:field="*{language}">
+									<option th:each="l : ${languages}" th:value="${l}" th:text="${l.value}" />
+									<option th:remove="all" value="cn">Chinese</option>
+									<option th:remove="all" value="en">English</option>
+									<option th:remove="all" value="my">malay</option>
+								</select>
+								<span class="help-inline error" th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></span>
+						</div>
+						<div class="form-group col-sm-3">
+					      		<label th:text="#{issn}">Issn</label>
+								<input type="text" class="form-control" th:field="*{journal.issn}"	placeholder="Issn" />
+								<span class="help-inline error" th:if="${#fields.hasErrors('journal.issn')}" th:errors="*{journal.issn}"></span>
+						</div>
+						<div class="form-group col-sm-3">
+					      		<label th:text="#{coden}">Coden</label>
+								<input type="text" class="form-control" th:field="*{journal.coden}"	placeholder="Coden" />
+								<span class="help-inline error" th:if="${#fields.hasErrors('journal.coden')}" th:errors="*{journal.coden}"></span>
+						</div>					
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm-12">
+				      		<label th:text="#{description}">Description</label>
+							<input type="text" class="form-control" th:field="*{description}" placeholder="Description" />
+							<span class="help-inline error" th:if="${#fields.hasErrors('description')}" th:errors="*{description}"></span>
+						</div>
+					</div>
+					<div class="form-row">
+						<div class="form-group col-sm-8">
+				      		<label th:text="#{note}">Note</label>
+							<textarea class="form-control" rows="7" cols="45" th:field="*{note}" placeholder="Note"></textarea>
+							<span class="help-inline error" th:if="${#fields.hasErrors('note')}" th:errors="*{note}"></span>
+						</div>
+					</div>
+					<div class="form-group row">
+						<div class="col">
+					    	<button type="submit" class="btn bg-info text-white float-right"  th:text="#{submit}">Submit</button>
+						</div>
+					</div>
+					
+				</form>
+			</div>
+		</div>
+ 
+ 		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+		<!-- to prevent 2 version of jquery conflict -->
+		<script>
+		   var $y = jQuery.noConflict();
+		</script>
+		
+	</div>
+
+</body>
+</html>

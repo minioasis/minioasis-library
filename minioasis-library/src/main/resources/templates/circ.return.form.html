@@ -10,52 +10,49 @@
 
 	<div class="container pt-5 pb-3">
 		
-		<div class="col-8">
-			<div class="card inf-content">
-				<div class="card-body">
-					<h1 class="display-5 text-success">
-						<i class="fas fa-arrow-down"></i> <span th:text="#{return}">Return</span>
-						<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/patronid.form}">
-							<i class="fas fa-shopping-cart"></i>
-						</a>
-					</h1>
-					
-					<hr></hr>
-					
-					<p class="lead" th:text="#{key.in.item.barcode}">Please key in	item barcode</p>
-	
-					<form class="form" action="#" th:action="@{/admin/circ/return}" th:object="${dto}" method="post">
-						<div class="form-row">
-						  <div class="col-md-4 mb-4">
-						   	<label th:text="#{barcode}">Item Barcode</label>
-						   	<input class="form-control form-control-lg col-sm" type="text" th:field="*{barcode}" autofocus="autofocus"/>
-							<p class="text-danger" th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"></p>
-						  </div>
-						  <div class="col-md-3 mb-3">
-						   	<label th:text="#{when}">When</label>
-						   	<input type="text" class="form-control form-control-lg col-sm"	th:field="*{given}" placeholder="yyyy-MM-dd" />
-							<p class="text-danger" th:if="${#fields.hasErrors('given')}" th:errors="*{given}"></p>
-						  </div>
-						  <div class="col-md-2 mb-2">
-						   	<label th:text="#{damage}">Damage</label>
-						   	<input type="checkbox" class="form-control form-control-lg col-sm"	th:field="*{damage}" />
-							<p class="text-danger" th:if="${#fields.hasErrors('damage')}" th:errors="*{damage}"></p>
-						  </div>
-						  <div class="col-md-3 mb-3">
-							<div class="text-danger" th:if="${RETURN_ERRORS != null}">
-								<ul th:each="e : ${RETURN_ERRORS}">
-					        	  <li th:text="${e}"></li>
-								</ul>
-							</div>
-						  </div>
-						</div>
-						
-						<input class="sr-only" type="submit" name="search" value="Submit" />
-						
-					</form>
-					
+		<div class="col">
+
+			<h1 class="display-5 text-success">
+				<i class="fas fa-arrow-down"></i> <span th:text="#{return}">Return</span>
+				<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/patronid.form}">
+					<i class="fas fa-shopping-cart"></i>
+				</a>
+			</h1>
+			
+			<hr></hr>
+			
+			<p class="lead" th:text="#{key.in.item.barcode}">Please key in	item barcode</p>
+
+			<form class="form" action="#" th:action="@{/admin/circ/return}" th:object="${dto}" method="post">
+				<div class="form-row">
+				  <div class="col-md-4 mb-4">
+				   	<label th:text="#{barcode}">Item Barcode</label>
+				   	<input class="form-control form-control-lg col-sm" type="text" th:field="*{barcode}" autofocus="autofocus"/>
+					<p class="text-danger" th:if="${#fields.hasErrors('barcode')}" th:errors="*{barcode}"></p>
+				  </div>
+				  <div class="col-md-3 mb-3">
+				   	<label th:text="#{when}">When</label>
+				   	<input type="text" class="form-control form-control-lg col-sm"	th:field="*{given}" placeholder="yyyy-MM-dd" />
+					<p class="text-danger" th:if="${#fields.hasErrors('given')}" th:errors="*{given}"></p>
+				  </div>
+				  <div class="col-md-2 mb-2">
+				   	<label th:text="#{damage}">Damage</label>
+				   	<input type="checkbox" class="form-control form-control-lg col-sm"	th:field="*{damage}" />
+					<p class="text-danger" th:if="${#fields.hasErrors('damage')}" th:errors="*{damage}"></p>
+				  </div>
+				  <div class="col-md-3 mb-3">
+					<div class="text-danger" th:if="${RETURN_ERRORS != null}">
+						<ul th:each="e : ${RETURN_ERRORS}">
+			        	  <li th:text="${e}"></li>
+						</ul>
+					</div>
+				  </div>
 				</div>
-			</div>
+				
+				<input class="sr-only" type="submit" name="search" value="Submit" />
+				
+			</form>
+
 		</div>
 		
 		<br>

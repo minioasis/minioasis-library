@@ -10,33 +10,28 @@
 
 	<div class="container pt-5 pb-3">
 
-		<div class="col-6">
-			<div class="card inf-content">
-				<div class="card-body">
-					<h1 class="display-5 text-success">
-						<i class="fas fa-shopping-cart"></i> <span th:text="#{checkout}">Checkout</span>
-						<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/return}">
-							<i class="fas fa-arrow-down"></i>
-						</a>
-					</h1>
-					
-					<hr></hr>
-					
-					<p class="lead" th:text="#{key.in.patron.id}">Please key in
-						member ID.</p>
-	
-					<p class="text-danger" th:if="${exist == 'no'}"
-						th:text="#{error.no.patron}">No Patron Found</p>
-	
-					<form action="#" th:action="@{/admin/circ/checkout}" method="get">
-						<div class="form-group">
-							<input name="pid"
-								class="form-control form-control-lg col-sm"
-								autofocus="autofocus" th:placeholder="#{card.key}" />
-						</div>
-					</form>
+		<div class="col">
+
+			<h1 class="display-5 text-success">
+				<i class="fas fa-shopping-cart"></i> <span th:text="#{checkout}">Checkout</span>
+				<a class="btn btn-outline-success text-success" href="#"
+					th:href="@{/admin/circ/return}"> <i class="fas fa-arrow-down"></i>
+				</a>
+			</h1>
+
+			<hr></hr>
+
+			<p class="lead" th:text="#{key.in.patron.id}">Please key in	member ID.</p>
+
+			<p class="text-danger" th:if="${exist == 'no'}"	th:text="#{error.no.patron}">No Patron Found</p>
+
+			<form action="#" th:action="@{/admin/circ/checkout}" method="get">
+				<div class="form-row">
+				  <div class="col-md-4 mb-4">
+				   	<input class="form-control form-control-lg col-sm" type="text" name="pid" autofocus="autofocus" th:placeholder="#{card.key}"/>
+				  </div>
 				</div>
-			</div>
+			</form>
 		</div>
 
 		<div th:replace="fragments/script :: script"></div>
