@@ -241,7 +241,7 @@ public class BiblioScraper {
         if (rootNode.get("totalItems").intValue() <= 0) { 
     		model.addAttribute("errorMsg", "No book found in Google Book API : " + _isbn);
     		model.addAttribute("biblio", biblio);
-    		return "library/biblio.scraper.form"; 
+    		return "biblio.scraper.form"; 
         } 
            
         JsonNode item = items.get(0); 
