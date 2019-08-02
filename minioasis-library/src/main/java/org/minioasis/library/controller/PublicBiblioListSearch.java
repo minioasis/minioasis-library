@@ -18,6 +18,7 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
+import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
@@ -73,6 +74,29 @@ public class PublicBiblioListSearch {
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
 		model.addAttribute("pagingType", "search");
+		
+		return "pub/biblios";
+
+	}
+	
+	@RequestMapping(value = { "/simple.search" }, method = RequestMethod.GET)
+	public String simpleSearch(@RequestParam("keyword") String keyword, HttpServletRequest request, Map<String,String> params,
+			Model model, Pageable pageable) {
+		
+		BiblioCriteria criteria = new BiblioCriteria();
+		criteria.setKeyword1(keyword);
+
+		Page<Biblio> page = this.service.findByCriteria(criteria, pageable);
+		
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
+		
+		model.addAttribute("page", page);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
+		model.addAttribute("pagingType", "search");
+		
+		model.addAttribute("criteria", new BiblioCriteria());
 		
 		return "pub/biblios";
 

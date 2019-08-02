@@ -43,6 +43,7 @@ dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-thymeleaf'
 	implementation 'org.springframework.boot:spring-boot-starter-web'
 	implementation 'org.springframework.data:spring-data-rest-hal-browser'
+	implementation 'org.thymeleaf.extras:thymeleaf-extras-springsecurity5'
 
 	//implementation 'org.springframework:spring-oxm:5.1.8.RELEASE'
 	implementation 'commons-io:commons-io:2.6'

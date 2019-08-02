@@ -618,10 +618,10 @@ public class BootstrapData implements CommandLineRunner {
 		Preference preference2 = new Preference(true,true,true,false,false,true,true,true);
 		Preference preference3 = new Preference(false,false,false,true,false,false,true,true);
 
-		TelegramUser tu1 = new TelegramUser(271419751l,"1111", preference1);
-		TelegramUser tu2 = new TelegramUser(291605247l,"2222", preference2);
-		TelegramUser tu3 = new TelegramUser(3333l,"3333", preference2);
-		TelegramUser tu4 = new TelegramUser(4444l,"4444", preference3);
+		TelegramUser tu1 = new TelegramUser(271419751l,"1", preference1);
+		TelegramUser tu2 = new TelegramUser(291605247l,"2", preference2);
+		TelegramUser tu3 = new TelegramUser(3333l,"3", preference2);
+		TelegramUser tu4 = new TelegramUser(4444l,"4", preference3);
 		
 		telegramUserRepository.save(tu1);
 		telegramUserRepository.save(tu2);
