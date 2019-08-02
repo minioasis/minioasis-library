@@ -37,7 +37,13 @@
 			</div>
 			<div class="col">
 				<div th:if="${isbn != ''}">
-					<p th:text="${isbn}"></p>
+					<h1 class="display-4" th:text="${isbn}">ISBN</h1>
+					<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/scraper/worldcat?isbn={id}(id=${isbn})}">
+						<img th:src="@{/images/worldcat.png}" alt="" style="width:48px;height:48px;"/>
+					</a>
+					<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/scraper/google?isbn={id}(id=${isbn})}">
+						<img th:src="@{/images/google.png}" alt="" style="width:48px;height:48px;"/>
+					</a>
 				</div>
 			</div>
 		</div>
