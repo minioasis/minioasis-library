@@ -14,6 +14,17 @@
 		
 		<br>
 
+		<div class="text-danger" th:if="${RESERVATION_ERRORS != null}">
+			<ul th:each="e : ${RESERVATION_ERRORS}">
+			   <li th:text="${e}"></li>
+			</ul>
+		</div>
+		<div class="text-danger" th:if="${RENEW_ERRORS != null}">
+			<ul th:each="e : ${RENEW_ERRORS}">
+			   <li th:text="${e}"></li>
+			</ul>
+		</div>
+		
 		<ul class="nav nav-tabs">
 			<li class="nav-item">
 				<a class="nav-link" href="#" th:href="@{/member/index#checkout}" th:text="#{checkout}">Checkout</a>

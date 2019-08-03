@@ -73,11 +73,13 @@
 						</div>
 					</li>
 				</ul>
-				<form class="form-inline my-2 my-lg-0">
-					<input class="form-control mr-sm-2" type="search"
-						th:placeholder="#{nav.search}" aria-label="Search">
-					<button class="btn btn-outline-success my-2 my-sm-0"
-						th:text="#{nav.search}" type="submit">Search</button>
+				<form class="form-inline my-2 my-lg-0" th:action="@{/biblio/simple.search}" method="get">
+					<input type="hidden" id="page" name="page" value="0" />
+					<input type="hidden" id="size" name="size" value="10" />
+					<input type="hidden" id="sort" name="sort" value="updated,desc" />
+					
+					<input class="form-control mr-sm-2" type="search" name="keyword" th:placeholder="#{nav.search}" aria-label="Search">
+					<button class="btn btn-outline-success my-2 my-sm-0" th:text="#{nav.search}" type="submit">Search</button>
 				</form>
 			</div>
 		</nav>	
