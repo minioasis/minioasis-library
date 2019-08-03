@@ -3,8 +3,11 @@ package org.minioasis.library.service;
 import java.math.BigDecimal;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Collection;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.List;
 
 import org.minioasis.library.domain.Account;
@@ -44,6 +47,7 @@ import org.minioasis.library.domain.search.JournalEntryCriteria;
 import org.minioasis.library.domain.search.JournalEntryLineCriteria;
 import org.minioasis.library.domain.search.PatronCriteria;
 import org.minioasis.library.domain.search.ReservationCriteria;
+import org.minioasis.library.domain.util.ReservationComparator;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.AccountRepository;
 import org.minioasis.library.repository.AttachmentCheckoutRepository;
@@ -164,9 +168,37 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 	
+	private Reservation setReservationPriorityAndItemState(Item item, LocalDate given) {
+		
+		List<Reservation> reservations = this.reservationRepository.findByBiblioIdAndStates(item.getBiblio().getId(),
+				new ArrayList<ReservationState>(EnumSet.of(ReservationState.RESERVE)));
+		
+		if(reservations.size() > 0) {
+			
+			Collections.sort(reservations,new ReservationComparator());
+			Reservation candidate = reservations.get(0);
+			candidate.setAvailableDate(given);
+			candidate.setState(ReservationState.AVAILABLE);
+
+			this.reservationRepository.save(candidate);	
+			item.setState(ItemState.RESERVED_IN_LIBRARY);
+
+			return candidate;
+		}
+		
+		return null;
+	}
+
 	public CheckoutResult checkin(Patron patron, Item item, LocalDate given, boolean damage, boolean renew) throws LibraryException {
 		
 		CheckoutResult result = patron.checkin(item, given, damage, renew, holidayStrategy);
+		
+		Reservation r = setReservationPriorityAndItemState(item, given);
+		if(r != null) {
+			result.setReservation(r);
+		}
+
+		this.itemRepository.save(item);
 		this.patronRepository.save(patron);
 
 		return result;
@@ -206,6 +238,12 @@ public class LibraryServiceImpl implements LibraryService {
 	public CheckoutResult returnItem(Item item, LocalDate given, boolean damage) throws LibraryException {
 		
 		CheckoutResult result = item.checkIn(given, damage);
+		
+		Reservation r = setReservationPriorityAndItemState(item, given);
+		if(r != null) {
+			result.setReservation(r);
+		}
+		
 		this.itemRepository.save(item);
 		
 		return result;
@@ -630,7 +668,7 @@ public class LibraryServiceImpl implements LibraryService {
 		if(item == null)
 			return null;
 		
-		List<Reservation> brs = this.findReservationsByBiblioIdAndActiveStates(item.getBiblio().getId());
+		List<Reservation> brs = this.findByBiblioIdAndStates(item.getBiblio().getId());
 		item.getBiblio().setReservations(brs);
 		
 		return item;
@@ -663,7 +701,7 @@ public class LibraryServiceImpl implements LibraryService {
 
 		item.setCheckouts(checkouts);
 		
-		List<Reservation> brs = this.findReservationsByBiblioIdAndActiveStates(item.getBiblio().getId());
+		List<Reservation> brs = this.findByBiblioIdAndStates(item.getBiblio().getId());
 		item.getBiblio().setReservations(brs);
 	
 		return item;
@@ -838,7 +876,7 @@ public class LibraryServiceImpl implements LibraryService {
 		}
 		patron.setCheckouts(checkouts);
 	
-		List<Reservation> reservations = this.reservationRepository.findByCardKeyAndFilterByStates(cardKey, ReservationState.getActives());
+		List<Reservation> reservations = this.reservationRepository.findByCardKeyAndStates(cardKey, ReservationState.getActives());
 		patron.setReservations(reservations);
 		
 		List<AttachmentCheckout> attachmentCheckouts = this.attachmentCheckoutRepository.findByCardKeyAndFilterByStates(cardKey, AttachmentCheckoutState.CHECKOUT);
@@ -942,7 +980,7 @@ public class LibraryServiceImpl implements LibraryService {
 		return this.reservationRepository.findFilteredReservationsByCardKeyFetchBiblioReservations(cardKey);
 	}
 	
-	public List<Reservation> findReservationsByBiblioIdAndActiveStates(long id){
+	public List<Reservation> findByBiblioIdAndStates(long id){
 		
 		ReservationState[] activeStates = {
 				ReservationState.RESERVE,
@@ -950,7 +988,7 @@ public class LibraryServiceImpl implements LibraryService {
 				ReservationState.NOTIFIED
 		};
 		
-		return this.reservationRepository.findReservationsByBiblioIdAndStates(id,Arrays.asList(activeStates));
+		return this.reservationRepository.findByBiblioIdAndStates(id,Arrays.asList(activeStates));
 	}
 	
 	public Page<Reservation> findAllReservations(Pageable pageable){

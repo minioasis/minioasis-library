@@ -380,22 +380,6 @@ public class Biblio implements Serializable {
 	public boolean hasReservation() {
 		return (reservations.size() != 0);
 	}
-	
-	public boolean isReserved(){
-		
-		boolean result = false;
-		int count = 0;
-
-		for(Reservation r : reservations){
-			if(r.getState().equals(ReservationState.RESERVE))
-				count = count + 1;
-		}
-		
-		if(count != 0)
-			result = true;
-		
-		return result;
-	}
 
 	private int noOfReservationsInAvailableState() {
 		int count = 0;
@@ -428,23 +412,6 @@ public class Biblio implements Serializable {
 		}
 		
 		return false;
-	}
-	
-	public Reservation findFirstReservationInReservedState() {
-		
-		List<Reservation> reservationsInReservedState = new ArrayList<Reservation>();
-		
-		for(Reservation r : reservations){
-			if(r.getState().equals(ReservationState.RESERVE))
-				reservationsInReservedState.add(r);
-		}
-		
-		if(reservationsInReservedState.size() == 0)
-			return null;
-		
-		Collections.sort(reservationsInReservedState,new ReservationComparator());
-		
-		return reservationsInReservedState.get(0);
 	}
 	
 	private int noOfReservedInLibraryItems(){

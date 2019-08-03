@@ -289,7 +289,7 @@ public interface LibraryService {
 	
 	List<Reservation> findFilteredReservationsByCardKeyFetchBiblioReservations(String cardKey);
 	
-	List<Reservation> findReservationsByBiblioIdAndActiveStates(long id);
+	List<Reservation> findByBiblioIdAndStates(long id);
 	Page<Reservation> findAllReservations(Pageable pageable);
 	Page<Reservation> findByCriteria(ReservationCriteria criteria, Pageable pageable);
 	

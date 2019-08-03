@@ -171,7 +171,6 @@ public class Keys {
     public static final ForeignKey<PatronRecord, PatronTypeRecord> FK_PATRON_PATRONTYPE = ForeignKeys0.FK_PATRON_PATRONTYPE;
     public static final ForeignKey<ReservationRecord, BiblioRecord> FK_RESERVATION_BIBLIO = ForeignKeys0.FK_RESERVATION_BIBLIO;
     public static final ForeignKey<ReservationRecord, PatronRecord> FK_RESERVATION_PATRON = ForeignKeys0.FK_RESERVATION_PATRON;
-    public static final ForeignKey<ReservationRecord, PatronTypeRecord> FK_RESERVATION_PATRONTYPE = ForeignKeys0.FK_RESERVATION_PATRONTYPE;
     public static final ForeignKey<UserRoleRecord, UserRecord> FK859N2JVI8IVHUI0RL0ESWS6O = ForeignKeys0.FK859N2JVI8IVHUI0RL0ESWS6O;
     public static final ForeignKey<UserRoleRecord, RoleRecord> FKA68196081FVOVJHKEK5M97N3Y = ForeignKeys0.FKA68196081FVOVJHKEK5M97N3Y;
 
@@ -267,7 +266,6 @@ public class Keys {
         public static final ForeignKey<PatronRecord, PatronTypeRecord> FK_PATRON_PATRONTYPE = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_5, Patron.PATRON, "FK_PATRON_PATRONTYPE", Patron.PATRON.PATRONTYPE_ID);
         public static final ForeignKey<ReservationRecord, BiblioRecord> FK_RESERVATION_BIBLIO = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, Reservation.RESERVATION, "FK_RESERVATION_BIBLIO", Reservation.RESERVATION.BIBLIO_ID);
         public static final ForeignKey<ReservationRecord, PatronRecord> FK_RESERVATION_PATRON = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8C, Reservation.RESERVATION, "FK_RESERVATION_PATRON", Reservation.RESERVATION.PATRON_ID);
-        public static final ForeignKey<ReservationRecord, PatronTypeRecord> FK_RESERVATION_PATRONTYPE = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_5, Reservation.RESERVATION, "FK_RESERVATION_PATRONTYPE", Reservation.RESERVATION.PATRONTYPE_ID);
         public static final ForeignKey<UserRoleRecord, UserRecord> FK859N2JVI8IVHUI0RL0ESWS6O = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_27, UserRole.USER_ROLE, "FK859N2JVI8IVHUI0RL0ESWS6O", UserRole.USER_ROLE.USER_ID);
         public static final ForeignKey<UserRoleRecord, RoleRecord> FKA68196081FVOVJHKEK5M97N3Y = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_26, UserRole.USER_ROLE, "FKA68196081FVOVJHKEK5M97N3Y", UserRole.USER_ROLE.ROLE_ID);
     }

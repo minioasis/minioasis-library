@@ -134,11 +134,4 @@ public class ReservationDao extends DAOImpl<ReservationRecord, org.minioasis.lib
     public List<org.minioasis.library.jooq.tables.pojos.Reservation> fetchByPatronId(Long... values) {
         return fetch(Reservation.RESERVATION.PATRON_ID, values);
     }
-
-    /**
-     * Fetch records that have <code>PATRONTYPE_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.Reservation> fetchByPatrontypeId(Long... values) {
-        return fetch(Reservation.RESERVATION.PATRONTYPE_ID, values);
-    }
 }

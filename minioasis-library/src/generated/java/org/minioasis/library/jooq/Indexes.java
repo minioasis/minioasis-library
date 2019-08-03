@@ -101,7 +101,6 @@ public class Indexes {
     public static final Index PRIMARY_KEY_FC = Indexes0.PRIMARY_KEY_FC;
     public static final Index UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F = Indexes0.UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F;
     public static final Index FK_RESERVATION_BIBLIO_INDEX_2 = Indexes0.FK_RESERVATION_BIBLIO_INDEX_2;
-    public static final Index FK_RESERVATION_PATRONTYPE_INDEX_2 = Indexes0.FK_RESERVATION_PATRONTYPE_INDEX_2;
     public static final Index FK_RESERVATION_PATRON_INDEX_2 = Indexes0.FK_RESERVATION_PATRON_INDEX_2;
     public static final Index PRIMARY_KEY_23 = Indexes0.PRIMARY_KEY_23;
     public static final Index PRIMARY_KEY_26 = Indexes0.PRIMARY_KEY_26;
@@ -172,7 +171,6 @@ public class Indexes {
         public static Index PRIMARY_KEY_FC = Internal.createIndex("PRIMARY_KEY_FC", Publisher.PUBLISHER, new OrderField[] { Publisher.PUBLISHER.ID }, true);
         public static Index UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F = Internal.createIndex("UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F", Publisher.PUBLISHER, new OrderField[] { Publisher.PUBLISHER.NAME }, true);
         public static Index FK_RESERVATION_BIBLIO_INDEX_2 = Internal.createIndex("FK_RESERVATION_BIBLIO_INDEX_2", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.BIBLIO_ID }, false);
-        public static Index FK_RESERVATION_PATRONTYPE_INDEX_2 = Internal.createIndex("FK_RESERVATION_PATRONTYPE_INDEX_2", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.PATRONTYPE_ID }, false);
         public static Index FK_RESERVATION_PATRON_INDEX_2 = Internal.createIndex("FK_RESERVATION_PATRON_INDEX_2", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.PATRON_ID }, false);
         public static Index PRIMARY_KEY_23 = Internal.createIndex("PRIMARY_KEY_23", Reservation.RESERVATION, new OrderField[] { Reservation.RESERVATION.ID }, true);
         public static Index PRIMARY_KEY_26 = Internal.createIndex("PRIMARY_KEY_26", Role.ROLE, new OrderField[] { Role.ROLE.ROLE_ID }, true);

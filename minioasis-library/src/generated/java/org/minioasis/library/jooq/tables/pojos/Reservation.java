@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Reservation implements Serializable {
 
-    private static final long serialVersionUID = 1601108365;
+    private static final long serialVersionUID = -1104388018;
 
     private Long      id;
     private Date      availableDate;
@@ -37,7 +37,6 @@ public class Reservation implements Serializable {
     private Date      uncollectedDate;
     private Long      biblioId;
     private Long      patronId;
-    private Long      patrontypeId;
 
     public Reservation() {}
 
@@ -53,7 +52,6 @@ public class Reservation implements Serializable {
         this.uncollectedDate = value.uncollectedDate;
         this.biblioId = value.biblioId;
         this.patronId = value.patronId;
-        this.patrontypeId = value.patrontypeId;
     }
 
     public Reservation(
@@ -67,8 +65,7 @@ public class Reservation implements Serializable {
         String    state,
         Date      uncollectedDate,
         Long      biblioId,
-        Long      patronId,
-        Long      patrontypeId
+        Long      patronId
     ) {
         this.id = id;
         this.availableDate = availableDate;
@@ -81,7 +78,6 @@ public class Reservation implements Serializable {
         this.uncollectedDate = uncollectedDate;
         this.biblioId = biblioId;
         this.patronId = patronId;
-        this.patrontypeId = patrontypeId;
     }
 
     public Long getId() {
@@ -172,14 +168,6 @@ public class Reservation implements Serializable {
         this.patronId = patronId;
     }
 
-    public Long getPatrontypeId() {
-        return this.patrontypeId;
-    }
-
-    public void setPatrontypeId(Long patrontypeId) {
-        this.patrontypeId = patrontypeId;
-    }
-
     @Override
     public String toString() {
         StringBuilder sb = new StringBuilder("Reservation (");
@@ -195,7 +183,6 @@ public class Reservation implements Serializable {
         sb.append(", ").append(uncollectedDate);
         sb.append(", ").append(biblioId);
         sb.append(", ").append(patronId);
-        sb.append(", ").append(patrontypeId);
 
         sb.append(")");
         return sb.toString();

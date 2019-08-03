@@ -72,7 +72,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 								+ "/register : 1st time member\n"
 								+ "/due : my checkouts\n"
 								+ "/renew : renew my books\n"
-								+ "/reservation : reservation of book"
+								+ "/reservation : my reservations"
 								+ "\n\n"
 								+ "*Public User :*\n"
 								+ "/search : search books by title, author\n"
@@ -129,6 +129,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			renewAll("/renew", update);
 			
+			reservations("/reservation", update);
+			
 			search("/search", update);
 
 		} else if (update.hasCallbackQuery()) {
@@ -148,6 +150,72 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}	
 	}
 
+	// [/reservation]
+	private void reservations(String command, Update update) {
+		
+		if(update.getMessage().getText().equals(command)){
+			
+			Long chat_id = update.getMessage().getChatId();	
+			
+			SendMessage message = new SendMessage().setChatId(chat_id);
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+
+			if(telegramUser == null) {
+				
+				message.setText(MEMBER_NOT_FOUND);
+				
+				try {
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + command + " ] " + MEMBER_NOT_FOUND);
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}
+				
+			}else {
+				
+				String cardKey = telegramUser.getCardKey();
+	
+				List<Checkout> checkouts = libraryService.findAllActiveCheckoutsByCardKey(cardKey);
+				
+				message.setText(checkoutsView(cardKey, checkouts))
+					   .setParseMode(ParseMode.MARKDOWN);
+				
+				try {
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + command + " ] ");
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}
+			}
+		}	
+	}
+	
+	// [/search] view
+	private static String searchView(Page<Biblio> page) {
+
+		long total = page.getTotalElements();
+		List<Biblio> biblios = page.getContent();
+		
+		int i = 1;
+		
+		StringBuffer s = new StringBuffer();
+		
+		if(total < 1) {
+			s.append("No book found.");
+		}else {
+			s.append("_Total books found : " + total + "_\n");
+			s.append("-------------------------------------------------------\n");
+			
+			for(Biblio b : biblios) {
+				String title = b.getTitle();
+				s.append(i + ". _" + title + "_\n");
+				i++;
+			}
+		}
+		
+		return s.toString(); 
+	}
+	
 	// [/search] create inline keyboard (inline buttons)
 	private InlineKeyboardMarkup createInlinePagingButtons(Page<Biblio> biblioPage, String keyword) {
 		
@@ -184,7 +252,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		
 		return markupInline;
 	}
-	
+
 	// [/search] create buttons - <previous,next>
 	private void pagingCallBack(String call_data, long chat_id, long message_id) {
 		
@@ -281,32 +349,6 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 	
-	// [/search] view
-	private static String searchView(Page<Biblio> page) {
-
-		long total = page.getTotalElements();
-		List<Biblio> biblios = page.getContent();
-		
-		int i = 1;
-		
-		StringBuffer s = new StringBuffer();
-		
-		if(total < 1) {
-			s.append("No book found.");
-		}else {
-			s.append("_Total books found : " + total + "_\n");
-			s.append("-------------------------------------------------------\n");
-			
-			for(Biblio b : biblios) {
-				String title = b.getTitle();
-				s.append(i + ". _" + title + "_\n");
-				i++;
-			}
-		}
-		
-		return s.toString(); 
-	}
-	
 	// [/search] button 1,2,3,4,5's biblio view
 	private static String biblioView(Biblio biblio) {
 
@@ -391,6 +433,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		} 
 	}
 	
+	// [/renew] 
 	private void renewAll(String command, Update update) {
 		
 		if(update.getMessage().getText().equals(command)){
@@ -472,7 +515,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 
-	// [/due] view
+	// [/due] checkout view
 	private static String checkoutsView(String cardKey, List<Checkout> checkouts) {
 		
 		Integer total = checkouts.size();

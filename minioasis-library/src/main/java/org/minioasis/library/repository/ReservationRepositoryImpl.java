@@ -2,6 +2,9 @@ package org.minioasis.library.repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collections;
+import java.util.EnumSet;
 import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
@@ -18,11 +21,11 @@ import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
-import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.search.ReservationCriteria;
+import org.minioasis.library.domain.util.ReservationComparator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
@@ -43,7 +46,30 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 	private org.minioasis.library.jooq.tables.Patron p = PATRON.as("p");
 	private org.minioasis.library.jooq.tables.Reservation r = RESERVATION.as("r");
 	private org.minioasis.library.jooq.tables.Biblio b = BIBLIO.as("b");
-
+	
+	public List<Reservation> findByBiblioIdAndStates(long id, List<ReservationState> states){
+		
+		Table<?> table = r;
+		table = table.innerJoin(b).on(r.BIBLIO_ID.eq(b.ID)).and(b.ID.eq(id));
+		
+		Condition condition = DSL.trueCondition();
+		
+		if(states != null && states.size() > 0){
+			condition = condition.and(r.STATE.in(states));
+		}
+		
+		org.jooq.Query jooqQuery = dsl.select()
+				.from(table)
+				.where(condition);
+		
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), Reservation.class);
+		setBindParameterValues(q, jooqQuery);
+		
+		List<Reservation> list = q.getResultList();
+				
+		return list;
+	}
+	
 	public Page<Reservation> findByCriteria(ReservationCriteria criteria, Pageable pageable){
 
 		Table<?> table = createTable(criteria);
@@ -203,41 +229,35 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 		int count = 0;
 		
 		// biblio
-		List<Reservation> biblioReservations = getExpiredBiblioReservations();
+		List<Reservation> reservations = getExpiredBiblioReservations();
 
-		Iterator<Reservation> itb = biblioReservations.iterator();
-
-		while (itb.hasNext()) {
-			
-			Reservation reservation = (Reservation) itb.next();
+		for(Reservation r : reservations) {
 
 			// TODO : LUT use old or new ? old now !
-			long maxCollectablePeriod = reservation.getPatronType().getMaxCollectablePeriod().longValue();
-			LocalDate notificationDate = reservation.getNotificationDate();
-			LocalDate bufferDate = notificationDate.plusDays(maxCollectablePeriod);
+			long maxCollectablePeriod = r.getPatron().getPatronType().getMaxCollectablePeriod().longValue();
+			LocalDate notificationDate = r.getNotificationDate();
+			LocalDate timeframe = notificationDate.plusDays(maxCollectablePeriod);
 
-			Patron patron = reservation.getPatron();
+			Patron patron = r.getPatron();
 			short unCollectedNo = patron.getUnCollectedNo();
 			short plusOne = (short) (unCollectedNo + 1);
 
-			if(reservation.getBiblio() != null){
+			if (timeframe.isBefore(given)) {
 
-				if (bufferDate.isBefore(given)) {
+				r.setState(ReservationState.COLLECTION_PERIOD_EXPIRED);
+				r.setUnCollectedDate(timeframe);
+				patron.setUnCollectedNo(plusOne);
 
-					reservation.setState(ReservationState.COLLECTION_PERIOD_EXPIRED);
-					reservation.setUnCollectedDate(bufferDate);
-					patron.setUnCollectedNo(plusOne);
-
-					Biblio biblio = reservation.getBiblio();
-					Reservation r = biblio.findFirstReservationInReservedState();
-
-					if (r != null) {
-						r.setAvailableDate(given);
-						r.setState(ReservationState.AVAILABLE);
-					}
-					
-				}
+				List<Reservation> rs = findByBiblioIdAndStates(r.getBiblio().getId(), new ArrayList<ReservationState>(EnumSet.of(ReservationState.RESERVE)));
 				
+				if(rs.size() > 0) {
+					
+					Collections.sort(rs,new ReservationComparator());
+					Reservation candidate = rs.get(0);
+					candidate.setAvailableDate(given);
+					candidate.setState(ReservationState.AVAILABLE);
+
+				}
 			}
 
 			if (++count % 1 == 0) {

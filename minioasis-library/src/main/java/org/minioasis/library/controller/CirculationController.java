@@ -273,15 +273,6 @@ public class CirculationController {
 			model.addAttribute("RENEW_ERRORS", new Notification(CirculationCode.ITEM_NOT_FOUND).getAllMessages());
 			return "circ.renew.form";
 		}
-		
-		Long bid = item.getBiblio().getId();		
-		List<Reservation> reservations = this.service.findReservationsByBiblioIdAndActiveStates(bid);
-		
-		if(reservations.size() > 0) {
-			model.addAttribute("RENEW_ERRORS", new Notification(CirculationCode.HAS_RESERVATIONS).getAllMessages());
-			return "circ.renew.form";
-		}
-			
 
 		try {
 

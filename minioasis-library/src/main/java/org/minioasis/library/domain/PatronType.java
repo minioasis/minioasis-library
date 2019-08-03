@@ -111,9 +111,6 @@ public class PatronType implements Serializable {
 	
     @OneToMany(mappedBy="patronType")
 	private List<Patron> patrons = new ArrayList<Patron>(0);
-    
-    @OneToMany(mappedBy="patronType")
-	private List<Reservation> reservations = new ArrayList<Reservation>(0);
 
 	public PatronType() {
 	}
@@ -283,14 +280,6 @@ public class PatronType implements Serializable {
 
 	public void setPatrons(List<Patron> patrons) {
 		this.patrons = patrons;
-	}
-
-	public List<Reservation> getReservations() {
-		return this.reservations;
-	}
-
-	public void setReservations(List<Reservation> reservations) {
-		this.reservations = reservations;
 	}
 	
 	@Override

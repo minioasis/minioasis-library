@@ -8,6 +8,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
 import javax.persistence.Enumerated;
+import javax.persistence.FetchType;
 import javax.persistence.ForeignKey;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -66,17 +67,12 @@ public class Reservation implements Serializable {
 	@Column(name = "state" , nullable = false , columnDefinition = "CHAR(20)")
 	private ReservationState state;
 	
-	@NotNull
-    @ManyToOne
-    @JoinColumn(name="patrontype_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_reservation_patrontype"))
-	private PatronType patronType;
-	
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="biblio_id" , nullable = true , updatable = false , foreignKey = @ForeignKey(name = "fk_reservation_biblio"))
 	private Biblio biblio;
 	
     @NotNull
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="patron_id" , nullable = false , updatable = false , foreignKey = @ForeignKey(name = "fk_reservation_patron"))
 	private Patron patron;
 
@@ -89,20 +85,17 @@ public class Reservation implements Serializable {
 	}
 
 	public Reservation(LocalDateTime reservationDate, LocalDate expiryDate,
-			ReservationState state, PatronType patronType,
-			Biblio biblio, Patron patron) {
+			ReservationState state, Biblio biblio, Patron patron) {
 		this.reservationDate = reservationDate;
 		this.expiryDate = expiryDate;
 		this.state = state;
-		this.patronType = patronType;
 		this.biblio = biblio;
 		this.patron = patron;
 	}
 
 	public Reservation(LocalDateTime reservationDate, LocalDate expiryDate,
 			LocalDate availableDate, LocalDate notificationDate, LocalDate collectedDate,
-			LocalDate cancelDate, LocalDate unCollectedDate, ReservationState state,
-			PatronType patronType, Biblio biblio,Patron patron) {
+			LocalDate cancelDate, LocalDate unCollectedDate, ReservationState state, Biblio biblio,Patron patron) {
 		this.reservationDate = reservationDate;
 		this.expiryDate = expiryDate;
 		this.availableDate = availableDate;
@@ -111,7 +104,6 @@ public class Reservation implements Serializable {
 		this.cancelDate = cancelDate;
 		this.unCollectedDate = unCollectedDate;
 		this.state = state;
-		this.patronType = patronType;
 		this.biblio = biblio;
 		this.patron = patron;
 	}
@@ -188,14 +180,6 @@ public class Reservation implements Serializable {
 		this.state = state;
 	}
 
-	public PatronType getPatronType() {
-		return this.patronType;
-	}
-
-	public void setPatronType(PatronType patronType) {
-		this.patronType = patronType;
-	}
-
 	public Biblio getBiblio() {
 		return this.biblio;
 	}
@@ -213,23 +197,14 @@ public class Reservation implements Serializable {
 	}
 
 	public void cancel(LocalDate given) {
-
+		setCancelDate(given);
+		setState(ReservationState.CANCEL);
+	}
+	
+	public void extend(LocalDate given) {
 		if (state.equals(ReservationState.RESERVE)) {
-			setCancelDate(given);
-			setState(ReservationState.CANCEL);
+			setExpiryDate(given.plusDays(60));
 		}
-
-		if (state.equals(ReservationState.AVAILABLE) || state.equals(ReservationState.NOTIFIED)) {
-
-			setCancelDate(given);
-			setState(ReservationState.CANCEL);
-
-			Reservation candidate = biblio.findFirstReservationInReservedState();
-			if (candidate != null)
-				candidate.setState(ReservationState.AVAILABLE);
-
-		}
-
 	}
 	
 	public void notification(LocalDate given) {

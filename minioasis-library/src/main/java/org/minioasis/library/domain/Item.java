@@ -345,21 +345,6 @@ public class Item implements Serializable {
 
 			result.setCheckout(checkin);
 
-			// check reservation
-			// if has reservation , change
-			// 1st reservation to state AVAILABLE
-			// item to state RESERVED_IN_LIBRARY
-			if (biblio.isReserved()) {
-
-				setState(ItemState.RESERVED_IN_LIBRARY);
-
-				Reservation r = biblio.findFirstReservationInReservedState();
-				r.setAvailableDate(given);
-				r.setState(ReservationState.AVAILABLE);
-
-				result.setReservation(r);
-			}
-
 		}
 		
 		return result;

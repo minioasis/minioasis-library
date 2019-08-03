@@ -663,24 +663,6 @@ public class Patron implements Serializable {
 			// CHECKOUT_NOT_FOUND
 			result.setCheckout(checkin);
 
-			// check reservation
-			// if has reservation , change
-			// 1st reservation to state AVAILABLE
-			// item to state RESERVED_IN_LIBRARY
-			Biblio biblio = item.getBiblio();
-
-			if (biblio.isReserved()) {
-
-				item.setState(ItemState.RESERVED_IN_LIBRARY);
-
-				Reservation r = biblio.findFirstReservationInReservedState();
-				r.setAvailableDate(given);
-				r.setState(ReservationState.AVAILABLE);
-
-				result.setReservation(r);
-
-			}
-
 			return result;
 
 		}
@@ -739,14 +721,6 @@ public class Patron implements Serializable {
 					notification.addError(CirculationCode.RETURN_ATTACHMENT_FIRST);
 					break;
 				}
-			}
-		}
-
-		// if this item has reservation, renew will failed !
-		if (renew) {
-			Biblio biblio = item.getBiblio();
-			if (biblio.isReserved()) {
-				notification.addError(CirculationCode.HAS_RESERVATIONS);
 			}
 		}
 
@@ -1008,7 +982,7 @@ public class Patron implements Serializable {
 		if (notification.hasErrors())
 			throw new LibraryException(notification.getAllMessages());
 		
-		r = new Reservation(given, expiryDate, ReservationState.RESERVE, patronType, biblio, this);
+		r = new Reservation(given, expiryDate, ReservationState.RESERVE, biblio, this);
 
 		addReservation(r);
 
@@ -1019,6 +993,26 @@ public class Patron implements Serializable {
 	}
 
 	public Reservation cancelReservation(LocalDate given, Long reservationId) {
+
+		Long id = new Long(reservationId);
+
+		for (Reservation r : reservations) {
+
+			if (r.getId().equals(id)) {
+
+				r.cancel(given);
+				removeReservation(r);
+				return r;
+
+			}
+
+		}
+
+		return null;
+
+	}
+	
+	public Reservation extendReservation(LocalDate given, Long reservationId) {
 
 		Long id = new Long(reservationId);
 

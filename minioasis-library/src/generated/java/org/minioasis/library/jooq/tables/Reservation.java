@@ -41,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.ReservationRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Reservation extends TableImpl<ReservationRecord> {
 
-    private static final long serialVersionUID = 652523730;
+    private static final long serialVersionUID = -1211701427;
 
     /**
      * The reference instance of <code>PUBLIC.RESERVATION</code>
@@ -112,11 +112,6 @@ public class Reservation extends TableImpl<ReservationRecord> {
     public final TableField<ReservationRecord, Long> PATRON_ID = createField("PATRON_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
-     * The column <code>PUBLIC.RESERVATION.PATRONTYPE_ID</code>.
-     */
-    public final TableField<ReservationRecord, Long> PATRONTYPE_ID = createField("PATRONTYPE_ID", org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
      * Create a <code>PUBLIC.RESERVATION</code> table reference
      */
     public Reservation() {
@@ -158,7 +153,7 @@ public class Reservation extends TableImpl<ReservationRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FK_RESERVATION_BIBLIO_INDEX_2, Indexes.FK_RESERVATION_PATRONTYPE_INDEX_2, Indexes.FK_RESERVATION_PATRON_INDEX_2, Indexes.PRIMARY_KEY_23);
+        return Arrays.<Index>asList(Indexes.FK_RESERVATION_BIBLIO_INDEX_2, Indexes.FK_RESERVATION_PATRON_INDEX_2, Indexes.PRIMARY_KEY_23);
     }
 
     /**
@@ -190,7 +185,7 @@ public class Reservation extends TableImpl<ReservationRecord> {
      */
     @Override
     public List<ForeignKey<ReservationRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<ReservationRecord, ?>>asList(Keys.FK_RESERVATION_BIBLIO, Keys.FK_RESERVATION_PATRON, Keys.FK_RESERVATION_PATRONTYPE);
+        return Arrays.<ForeignKey<ReservationRecord, ?>>asList(Keys.FK_RESERVATION_BIBLIO, Keys.FK_RESERVATION_PATRON);
     }
 
     /**
