@@ -74,7 +74,7 @@ public interface LibraryService {
 	// Reserve
 	ReservationResult reserve(Patron patron, Biblio biblio, LocalDateTime given, LocalDate expiryDate) throws LibraryException;
 	void cancelReservation(Patron patron, long reservationId, LocalDate cancelDate) throws LibraryException;
-	void extendReservation(Patron patron, long reservationId, LocalDate extendDate) throws LibraryException;
+	void extendReservation(Patron patron, long reservationId, long extendDays) throws LibraryException;
 	
 	// Account
 	void save(Account entity);

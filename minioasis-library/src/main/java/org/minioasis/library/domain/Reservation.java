@@ -201,9 +201,9 @@ public class Reservation implements Serializable {
 		setState(ReservationState.CANCEL);
 	}
 	
-	public void extend(LocalDate given) {
+	public void extend(long days) {
 		if (state.equals(ReservationState.RESERVE)) {
-			setExpiryDate(given.plusDays(60));
+			setExpiryDate(this.expiryDate.plusDays(days));
 		}
 	}
 	

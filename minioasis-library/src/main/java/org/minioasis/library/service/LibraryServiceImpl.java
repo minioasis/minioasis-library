@@ -300,9 +300,9 @@ public class LibraryServiceImpl implements LibraryService {
 		this.patronRepository.save(patron);
 	}
 	
-	public void extendReservation(Patron patron, long reservationId, LocalDate extendDate) throws LibraryException {
+	public void extendReservation(Patron patron, long reservationId, long extendDays) throws LibraryException {
 		
-		Reservation extend = patron.extendReservation(extendDate, reservationId);
+		Reservation extend = patron.extendReservation(extendDays, reservationId);
 		if(extend != null) {
 			this.reservationRepository.save(extend);
 		}

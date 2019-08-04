@@ -1005,11 +1005,11 @@ public class Patron implements Serializable {
 		return null;
 	}
 	
-	public Reservation extendReservation(LocalDate given, Long reservationId) {
+	public Reservation extendReservation(long extendDays, Long reservationId) {
 
 		for (Reservation r : reservations) {
 			if (r.getId().equals(reservationId)) {
-				r.extend(given);
+				r.extend(extendDays);
 				return r;
 			}
 		}
@@ -1038,7 +1038,7 @@ public class Patron implements Serializable {
 		}
 			
 		if (!isReservableStatus(items)){
-			notification.addError(CirculationCode.THIS_ITEM_IS_AVAILABLE);
+			notification.addError(CirculationCode.THIS_BIBLIO_IS_AVAILABLE);
 		}
 			
 		if (isCheckoutByTheSameUser(biblio)){

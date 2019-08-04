@@ -119,7 +119,7 @@ public class MemberReservationController {
 		
 		try {
 			
-			this.service.extendReservation(patron, id, now);
+			this.service.extendReservation(patron, id, 60);
 			
 		}catch (LibraryException ex) {
 			

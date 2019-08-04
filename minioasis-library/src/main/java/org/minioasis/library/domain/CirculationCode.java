@@ -39,7 +39,7 @@ public enum CirculationCode implements ErrorCode {
 	HAS_FINES(147,"has.fines"),
 	
 	// reservation
-	THIS_ITEM_IS_AVAILABLE(150,"this.item.is.available"),
+	THIS_BIBLIO_IS_AVAILABLE(150,"this.biblio.is.available"),
 	CANNOT_RESERVE_SAME_BIBLIO(155,"cannot.reserve.same.biblio"),
 	HAS_RESERVATIONS(165,"has.reservations"),
 	ITEM_NOT_IN_RESERVABLE_STATE(167,"item.not.in.reservable.state"),

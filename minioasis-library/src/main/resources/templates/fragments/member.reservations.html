@@ -43,7 +43,7 @@
 							<td th:if="${e.state.toString() == 'RESERVE'}" th:text="${e.state}">RESERVE</td>
 							<td th:unless="${e.state.toString() == 'RESERVE'}" th:text="${e.state}" class="error">AVAILABLE</td>
 							<td>
-								<a href="#" th:href="@{/member/reservation/extend/id={id}(id=${e.id})}" data-toggle="tooltip" title="extend" class="btn btn-outline-info text-info btn-sm">
+								<a href="#" th:href="@{/member/reservation/extend/{id}(id=${e.id})}" data-toggle="tooltip" title="extend" class="btn btn-outline-info text-info btn-sm">
 									<i class="fas fa-arrows-alt-h"></i>
 								</a>
 								|
