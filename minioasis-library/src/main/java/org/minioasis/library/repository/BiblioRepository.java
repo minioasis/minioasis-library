@@ -13,7 +13,7 @@ public interface BiblioRepository extends JpaRepository<Biblio, Long>, BiblioRep
 	@Query("SELECT b FROM Biblio b WHERE b.id = ?1")
 	public Biblio getBiblioDetails(long id);
 	
-	@Query("SELECT b FROM Biblio b LEFT JOIN FETCH b.items WHERE b.id = ?1")
+	@Query("SELECT b FROM Biblio b LEFT JOIN FETCH b.items i LEFT JOIN FETCH i.itemStatus WHERE b.id = ?1")
 	public Biblio getBiblioFetchItems(long id);
 	
 	public Biblio findByIsbn(String isbn);

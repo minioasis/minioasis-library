@@ -20,9 +20,11 @@ import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Preference;
 import org.minioasis.library.domain.Reservation;
+import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.BiblioCriteria;
+import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.PhotoRepository;
 import org.minioasis.library.service.LibraryService;
 import org.minioasis.library.service.TelegramService;
@@ -150,6 +152,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			if(call_data.startsWith("/biblioinfo")) {
 				biblioInfoCallBack(call_data, chat_id, message_id);
 			}
+
+			if(call_data.startsWith("/r^s^rv^?")) {
+				reserveCallBack(call_data, chat_id, message_id);
+			}
+			
 		}	
 	}
 
@@ -210,9 +217,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			LocalDate end = r1.getPatron().getEndDate();
 			
 			s.append("-------------------------------------------------------------\n");
-			s.append("_Member :_ *" + cardKey + "*              _Exp : " + end + "_\n");
+			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
 			s.append("-------------------------------------------------------------\n");
-			s.append("_Total : " + total + "                    Date : " + LocalDate.now() + "_\n");
+			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
 			s.append("\n");
 			
 			for(Reservation r : reservations) {
@@ -255,7 +262,62 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return s.toString(); 
 	}
 	
-	// [/search] create inline keyboard (inline buttons)
+	// [reserve button]
+	private InlineKeyboardMarkup createInlineReserveButton(long bid) {
+		
+		InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+		
+		List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+		List<InlineKeyboardButton> rowInline = new ArrayList<>();
+		
+		rowInline.add(new InlineKeyboardButton().setText("RESERVE THE BOOK").setCallbackData("/r^s^rv^?" + bid));
+		rowsInline.add(rowInline);
+		
+		// Add it to the message
+		markupInline.setKeyboard(rowsInline);
+		
+		return markupInline;
+	}
+	
+	// [create reserve callback buttons]
+	private void reserveCallBack(String call_data, long chat_id, long message_id) {
+
+		String bid = StringUtils.substringAfter(call_data, "/r^s^rv^?");
+
+		TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+		String cardKey = telegramUser.getCardKey();
+
+		final LocalDateTime nowLDT = LocalDateTime.now();
+		final LocalDate now = nowLDT.toLocalDate();
+
+		Biblio biblio = this.libraryService.getBiblioFetchItems(Long.parseLong(bid));
+
+		Patron patron = this.libraryService.preparingPatronForCirculation(cardKey, now);
+
+		ReservationResult result = null;
+		SendMessage new_message = new SendMessage().setChatId(chat_id);
+
+		try {
+
+			result = libraryService.reserve(patron, biblio, nowLDT, now.plusDays(90));
+
+			if (result.getReservation() != null) {
+				new_message.setText("RESERVED ! /reservation");
+			}
+
+		} catch (LibraryException lex) {
+			new_message.setText("reservation FAILED !");
+		}
+
+		try {
+			execute(new_message);
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	// [/search] create inline buttons
 	private InlineKeyboardMarkup createInlinePagingButtons(Page<Biblio> biblioPage, String keyword) {
 		
 		List<Biblio> biblios = biblioPage.getContent();
@@ -292,7 +354,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return markupInline;
 	}
 
-	// [/search] create buttons - <previous,next>
+	// [/search] create callback buttons -> <previous,next> 
 	private void pagingCallBack(String call_data, long chat_id, long message_id) {
 		
 		String extractedPagingParameters = StringUtils.substringAfter(call_data,"/p^g^^g?");
@@ -330,7 +392,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 	
-	// [/search] create buttons - 1,2,3,4,5..
+	// [/search] create callback buttons -> 1,2,3,4,5.. 
 	private void biblioInfoCallBack(String call_data, long chat_id, long message_id) {
 		
 		String isbn = StringUtils.substringAfter(call_data,"/biblioinfo.");
@@ -352,14 +414,16 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				URL imgUrl = new URL(photo.getUrl());
 				InputStream in = imgUrl.openStream();
 
-				SendPhoto message = new SendPhoto()
+				SendPhoto new_message = new SendPhoto()
 										.setChatId(chat_id)
 										.setPhoto(isbn, in)
 										.setCaption(biblioView(biblio))
 										.setParseMode(ParseMode.MARKDOWN);
 				
+				new_message.setReplyMarkup(createInlineReserveButton(biblio.getId()));	
+				
 				try {
-					execute(message);
+					execute(new_message);
 					logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
 				} catch (TelegramApiException e) {
 					e.printStackTrace();
@@ -368,13 +432,13 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				
 			}else {
 				
-				SendMessage message = new SendMessage()
+				SendMessage new_message = new SendMessage()
 						.setChatId(chat_id)
 						.setText(biblioView(biblio))
 						.setParseMode(ParseMode.MARKDOWN);
 				
 				try {
-					execute(message);
+					execute(new_message);
 					logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
 				} catch (TelegramApiException e) {
 					e.printStackTrace();
@@ -571,9 +635,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			LocalDate end = c1.getPatron().getEndDate();
 			
 			s.append("-------------------------------------------------------------\n");
-			s.append("_Member :_ *" + cardKey + "*              _Exp : " + end + "_\n");
+			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
 			s.append("-------------------------------------------------------------\n");
-			s.append("_Total : " + total + "                    Date : " + LocalDate.now() + "_\n");
+			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
 			s.append("\n");
 			
 			for(Checkout c : checkouts) {
