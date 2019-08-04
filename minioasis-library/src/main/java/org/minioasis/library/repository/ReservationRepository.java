@@ -19,13 +19,13 @@ public interface ReservationRepository extends JpaRepository<Reservation, Long>,
 	@Query("SELECT r FROM Reservation r"
 			+ " JOIN r.biblio"
 			+ " WHERE r.patron.cardKey = ?1")
-	List<Reservation> findFilteredReservationsByCardKeyFetchBiblio(String cardKey);
+	List<Reservation> findReservationsByCardKey(String cardKey);
 	
 	@Query("SELECT r FROM Reservation r"
 			+ " LEFT JOIN FETCH r.biblio b"
 			+ " LEFT JOIN FETCH b.reservations"
 			+ " WHERE b IS NOT NULL"
 			+ " AND r.patron.cardKey = ?1")
-	List<Reservation> findFilteredReservationsByCardKeyFetchBiblioReservations(String cardKey);
+	List<Reservation> findReservationsByCardKeyFetchBiblioReservations(String cardKey);
 
 }

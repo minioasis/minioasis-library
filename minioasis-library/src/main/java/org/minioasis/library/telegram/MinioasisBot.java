@@ -7,6 +7,7 @@ import java.io.InputStream;
 import java.net.ConnectException;
 import java.net.URL;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -18,6 +19,8 @@ import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Preference;
+import org.minioasis.library.domain.Reservation;
+import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.repository.PhotoRepository;
@@ -175,9 +178,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				
 				String cardKey = telegramUser.getCardKey();
 	
-				List<Checkout> checkouts = libraryService.findAllActiveCheckoutsByCardKey(cardKey);
+				List<Reservation> rs = libraryService.findByCardKeyAndStates(cardKey, ReservationState.getActives());
 				
-				message.setText(checkoutsView(cardKey, checkouts))
+				message.setText(reservationsView(cardKey, rs))
 					   .setParseMode(ParseMode.MARKDOWN);
 				
 				try {
@@ -188,6 +191,42 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				}
 			}
 		}	
+	}
+	
+	// [/reservation] reservation view
+	private static String reservationsView(String cardKey, List<Reservation> reservations) {
+		
+		Integer total = reservations.size();
+		int i = 1;
+		
+		StringBuffer s = new StringBuffer();
+		
+		if(total < 1) {
+			s.append("You have no reservation.");
+		}else {
+			
+			Reservation r1 = reservations.get(0);
+
+			LocalDate end = r1.getPatron().getEndDate();
+			
+			s.append("-------------------------------------------------------------\n");
+			s.append("_Member :_ *" + cardKey + "*              _Exp : " + end + "_\n");
+			s.append("-------------------------------------------------------------\n");
+			s.append("_Total : " + total + "                    Date : " + LocalDate.now() + "_\n");
+			s.append("\n");
+			
+			for(Reservation r : reservations) {
+
+				String title = r.getBiblio().getTitle();
+				LocalDateTime reservationDate = r.getReservationDate();
+				
+				s.append(i + ". _" + title + "_\n");
+				s.append("    _Reservation : " + reservationDate.toLocalDate() + "_\n");
+				i++;
+			}
+		}
+		
+		return s.toString();
 	}
 	
 	// [/search] view
@@ -532,7 +571,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			LocalDate end = c1.getPatron().getEndDate();
 			
 			s.append("-------------------------------------------------------------\n");
-			s.append("_Member :_ *" + cardKey + "*         _Exp : " + end + "_\n");
+			s.append("_Member :_ *" + cardKey + "*              _Exp : " + end + "_\n");
 			s.append("-------------------------------------------------------------\n");
 			s.append("_Total : " + total + "                    Date : " + LocalDate.now() + "_\n");
 			s.append("\n");

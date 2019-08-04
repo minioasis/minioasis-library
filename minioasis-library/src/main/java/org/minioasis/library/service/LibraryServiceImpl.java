@@ -1008,12 +1008,14 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<Reservation> findAllReservations(Sort sort){
 		return this.reservationRepository.findAll(sort);
 	}
-	public List<Reservation> findFilteredReservationsByCardKeyFetchBiblio(String cardKey){
-		return this.reservationRepository.findFilteredReservationsByCardKeyFetchBiblio(cardKey);
+	public List<Reservation> findReservationsByCardKey(String cardKey){
+		return this.reservationRepository.findReservationsByCardKey(cardKey);
 	}
-	
-	public List<Reservation> findFilteredReservationsByCardKeyFetchBiblioReservations(String cardKey){
-		return this.reservationRepository.findFilteredReservationsByCardKeyFetchBiblioReservations(cardKey);
+	public List<Reservation> findByCardKeyAndStates(String cardKey, List<ReservationState> states){
+		return this.reservationRepository.findByCardKeyAndStates(cardKey, states);
+	}
+	public List<Reservation> findReservationsByCardKeyFetchBiblioReservations(String cardKey){
+		return this.reservationRepository.findReservationsByCardKeyFetchBiblioReservations(cardKey);
 	}
 	
 	public List<Reservation> findByBiblioIdAndStates(long id){

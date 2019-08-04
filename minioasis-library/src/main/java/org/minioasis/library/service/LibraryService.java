@@ -28,6 +28,7 @@ import org.minioasis.library.domain.Location;
 import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
+import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.search.AccountCriteria;
 import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
@@ -286,9 +287,10 @@ public interface LibraryService {
 	void deleteReservation(long id);
 	Reservation getReservation(long id);
 	List<Reservation> findAllReservations(Sort sort);
-	List<Reservation> findFilteredReservationsByCardKeyFetchBiblio(String cardKey);
+	List<Reservation> findReservationsByCardKey(String cardKey);
+	List<Reservation> findByCardKeyAndStates(String cardKey, List<ReservationState> states);
 	
-	List<Reservation> findFilteredReservationsByCardKeyFetchBiblioReservations(String cardKey);
+	List<Reservation> findReservationsByCardKeyFetchBiblioReservations(String cardKey);
 	
 	List<Reservation> findByBiblioIdAndStates(long id);
 	Page<Reservation> findAllReservations(Pageable pageable);
