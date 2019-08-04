@@ -24,6 +24,7 @@
 							<th th:text="#{collected.date}">Collected Date</th>
 							<th th:text="#{uncollected.date}">UnCollected Date</th>
 							<th th:text="#{state}">State</th>
+							<th th:text="#{actions}">Actions</th>
 						</tr>
 					</thead>
 		
@@ -41,6 +42,15 @@
 							<td th:text="${e.unCollectedDate != null ? #temporals.format(e.unCollectedDate,'yyyy-MM-dd') : ''}">2015-08-31</td>
 							<td th:if="${e.state.toString() == 'RESERVE'}" th:text="${e.state}">RESERVE</td>
 							<td th:unless="${e.state.toString() == 'RESERVE'}" th:text="${e.state}" class="error">AVAILABLE</td>
+							<td>
+								<a href="#" th:href="@{/member/reservation/extend/id={id}(id=${e.id})}" data-toggle="tooltip" title="extend" class="btn btn-outline-info text-info btn-sm">
+									<i class="fas fa-arrows-alt-h"></i>
+								</a>
+								|
+								<a href="#" th:href="@{/member/reservation/cancel/{id}(id=${e.id})}" data-toggle="tooltip" title="cancel" class="btn btn-outline-info text-info btn-sm">
+									<i class="far fa-trash-alt"></i>
+								</a>
+							</td>
 						</tr>
 						<tr th:remove="all">
 							<td>#</td>
@@ -53,6 +63,7 @@
 							<td>2015-07-31</td>
 							<td>2015-07-31</td>
 							<td>CHECKOUT</td>
+							<td>Actions</td>
 						</tr>
 					</tbody>
 				</table>

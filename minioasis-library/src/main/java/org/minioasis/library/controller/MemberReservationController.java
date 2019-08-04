@@ -61,8 +61,6 @@ public class MemberReservationController {
 			return "member/index";
 		}
 
-		model.addAttribute("patron", patron);
-
 		return "redirect:/member/index#reservation";
 
 	}
@@ -97,8 +95,6 @@ public class MemberReservationController {
 			
 			return "member/index";
 		}
-		
-		model.addAttribute("patron", patron);
 
 		return "redirect:/member/index#reservation";
 		
@@ -123,7 +119,7 @@ public class MemberReservationController {
 		
 		try {
 			
-			this.service.cancelReservation(patron, id, now);
+			this.service.extendReservation(patron, id, now);
 			
 		}catch (LibraryException ex) {
 			
@@ -134,8 +130,6 @@ public class MemberReservationController {
 			
 			return "member/index";
 		}
-		
-		model.addAttribute("patron", patron);
 
 		return "redirect:/member/index#reservation";
 		

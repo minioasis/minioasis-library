@@ -993,43 +993,28 @@ public class Patron implements Serializable {
 	}
 
 	public Reservation cancelReservation(LocalDate given, Long reservationId) {
-
-		Long id = new Long(reservationId);
-
+		
 		for (Reservation r : reservations) {
-
-			if (r.getId().equals(id)) {
-
+			if (r.getId().equals(reservationId)) {
 				r.cancel(given);
 				removeReservation(r);
 				return r;
-
 			}
-
 		}
-
+		
 		return null;
-
 	}
 	
 	public Reservation extendReservation(LocalDate given, Long reservationId) {
 
-		Long id = new Long(reservationId);
-
 		for (Reservation r : reservations) {
-
-			if (r.getId().equals(id)) {
-
-				r.cancel(given);
-				removeReservation(r);
+			if (r.getId().equals(reservationId)) {
+				r.extend(given);
 				return r;
-
 			}
-
 		}
 
 		return null;
-
 	}
 
 	public boolean isBiblioReservable(Biblio biblio, LocalDate given, Notification notification) {
@@ -1053,7 +1038,7 @@ public class Patron implements Serializable {
 		}
 			
 		if (!isReservableStatus(items)){
-			notification.addError(CirculationCode.ALL_ITEMS_NOT_RESERVABLE);
+			notification.addError(CirculationCode.THIS_ITEM_IS_AVAILABLE);
 		}
 			
 		if (isCheckoutByTheSameUser(biblio)){

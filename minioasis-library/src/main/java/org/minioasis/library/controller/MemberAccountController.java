@@ -109,7 +109,7 @@ public class MemberAccountController {
 
 	}
 	
-	@RequestMapping(value = { "/member/renew/{barcode}" }, method = RequestMethod.GET)
+	@RequestMapping(value = { "/renew/{barcode}" }, method = RequestMethod.GET)
 	public String renew(@PathVariable("barcode") String barcode, Model model) {
 
 		// given Date
@@ -149,15 +149,13 @@ public class MemberAccountController {
 
 		}
 
-		model.addAttribute("patron", patron);
-
 		return "redirect:/member/index";
 
 	}
 	
-	@RequestMapping(value = { "/member/reservation/cancel/{id}" }, method = RequestMethod.GET)
-	public String cancelReservation(@PathVariable("id") long id, Model model) {
-		
+	@RequestMapping(value = { "/renew.all" }, method = RequestMethod.GET)
+	public String renewAll( Model model) {
+
 		// given Date
 		final LocalDate now = LocalDate.now();
 
@@ -170,25 +168,24 @@ public class MemberAccountController {
 
 		String cardKey = p.getCardKey();
 		Patron patron = this.service.preparingPatronForCirculation(cardKey, now);
-		
+
 		try {
-			
-			this.service.cancelReservation(patron, id, now);
-			
-		}catch (LibraryException ex) {
+
+			this.service.renewAll(patron, now);
+
+		} catch (LibraryException ex) {
 			
 			patron = this.service.preparingPatronForCirculation(cardKey, now);
 
 			model.addAttribute("patron", patron);
-			model.addAttribute("RESERVATION_ERRORS", ex.getAllErrors());
+			model.addAttribute("RENEW_ERRORS", ex.getAllErrors());
 			
 			return "member/index";
+
 		}
-		
-		model.addAttribute("patron", patron);
 
 		return "redirect:/member/index";
-		
+
 	}
 	
 	private String getCurrentUsername() {

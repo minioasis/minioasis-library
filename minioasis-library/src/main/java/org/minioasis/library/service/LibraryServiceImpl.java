@@ -268,8 +268,44 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 	
+	private Reservation createNewReservation(Biblio biblio, LocalDate given) {
+		
+		Reservation candidate = null;
+		
+		List<Reservation> reservations = this.reservationRepository.findByBiblioIdAndStates(biblio.getId(),
+				new ArrayList<ReservationState>(EnumSet.of(ReservationState.RESERVE)));
+		
+		if(reservations.size() > 0) {
+			
+			Collections.sort(reservations,new ReservationComparator());
+			
+			candidate = reservations.get(0);
+			candidate.setAvailableDate(given);
+			candidate.setState(ReservationState.AVAILABLE);
+		}
+		
+		return candidate;
+	}
+	
 	public void cancelReservation(Patron patron, long reservationId, LocalDate cancelDate) throws LibraryException {
-		patron.cancelReservation(cancelDate, reservationId);
+		
+		Reservation cancel = patron.cancelReservation(cancelDate, reservationId);		
+		Biblio b = cancel.getBiblio();
+		
+		Reservation candidate = createNewReservation(b, cancelDate);
+		if(candidate != null) {
+			this.reservationRepository.save(candidate);
+		}
+		
+		this.patronRepository.save(patron);
+	}
+	
+	public void extendReservation(Patron patron, long reservationId, LocalDate extendDate) throws LibraryException {
+		
+		Reservation extend = patron.extendReservation(extendDate, reservationId);
+		if(extend != null) {
+			this.reservationRepository.save(extend);
+		}
 	}
 	
 	// Account
