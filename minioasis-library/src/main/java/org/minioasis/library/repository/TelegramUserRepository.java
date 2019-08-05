@@ -11,4 +11,7 @@ public interface TelegramUserRepository extends JpaRepository<TelegramUser, Long
 	
 	@Query("SELECT u FROM TelegramUser u WHERE u.chatId = ?1")
 	TelegramUser findTelegramUserByChatId(Long chatId);
+	
+	@Query("SELECT u FROM TelegramUser u WHERE u.cardKey = ?1")
+	TelegramUser findTelegramUserByCardKey(String cardKey);
 }

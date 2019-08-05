@@ -6,6 +6,8 @@ import javax.persistence.Query;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.Record;
+import org.jooq.Record1;
 import org.jooq.Record7;
 import org.jooq.Record9;
 import org.jooq.Table;
@@ -49,7 +51,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	private org.minioasis.library.jooq.tables.Item i = ITEM.as("i");
 	private org.minioasis.library.jooq.tables.Biblio b = BIBLIO.as("b");
 	private org.minioasis.library.jooq.tables.Groups g = GROUPS.as("g");
-
+	
 	public List<Checkout> findAllActiveCheckoutsByCardKey(String cardKey){
 		
 		Table<?> table = c;
@@ -72,15 +74,69 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	}
 	
 	private Condition activeStatesCondition(String cardKey) {
-			
-		    Condition condition = DSL.trueCondition();
-		    
-			condition = condition.and(p.CARD_KEY.eq(cardKey))
-								 .and(c.STATE.in(CheckoutState.getActives()));
-			
-		    return condition;
+		
+	    Condition condition = DSL.trueCondition();
+		condition = condition.and(p.CARD_KEY.eq(cardKey))
+							 .and(c.STATE.in(CheckoutState.getActives()));
+	    return condition;
+	}
+	
+	// ************************************************************************
+	
+	public List<Checkout> patronOverDues(String cardKey, LocalDate given){
+		
+		Table<?> table = c;
+		table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID))
+					 .innerJoin(i).on(c.ITEM_ID.eq(i.ID))
+					 .innerJoin(b).on(i.BIBLIO_ID.eq(b.ID));
+		
+		org.jooq.Query jooqQuery = dsl.select()
+				.from(table)
+				.where(patronOvedueCondition(cardKey,given));
+		
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), Checkout.class);
+		setBindParameterValues(q, jooqQuery);
+		
+		List<Checkout> checkouts = q.getResultList();
+		
+		return checkouts;
+		
 	}
 
+	private Condition patronOvedueCondition(String cardKey, LocalDate given) {
+		
+	    Condition condition = DSL.trueCondition();
+	    condition = condition.and(p.CARD_KEY.eq(cardKey))
+	    						.and(c.STATE.in(CheckoutState.getActives()))
+	    						.and(c.CHECKOUT_DATE.le(java.sql.Date.valueOf(given)));
+		
+	    return condition;
+	}
+	
+	// ************************************************************************
+	public List<String> allOverDuePatrons(LocalDate given){
+		
+		Table<?> table = c;
+		table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID));
+
+		List<String> result = dsl.select().from(table)
+											.where(ovedueCondition(given))
+											.fetch(p.CARD_KEY, String.class);
+		
+		return result;
+	}
+	
+	private Condition ovedueCondition(LocalDate given) {
+		
+	    Condition condition = DSL.trueCondition();
+	    condition = condition.and(c.STATE.in(CheckoutState.getActives()))
+	    						.and(c.CHECKOUT_DATE.le(java.sql.Date.valueOf(given)));
+		
+	    return condition;
+	}
+
+	// ************************************************************************
+	
 	public List<TopPopularBooksSummary> topPopularBooks(TopPopularBooksCriteria criteria){
 		
 		Table<?> table = createTable2();
@@ -101,7 +157,6 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	
 	private Table<?> createTable2() {
 
-		
 		Table<?> table = c;
 		
 		table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID))
@@ -112,7 +167,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 
 		return table;
 	}
-
+	
 	private Condition topPopularBooksCondition(TopPopularBooksCriteria criteria) {
 		
 	    Condition condition = DSL.trueCondition();
@@ -144,6 +199,8 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	    return condition;
 	}
 
+	// ************************************************************************
+	
 	public List<TopCheckoutPatronsSummary> topListPatronsForCheckouts(CheckoutPatronCriteria criteria){	
 
 		Table<Record9<String, String, String, String, String, String, Date, Date, Integer>> view =

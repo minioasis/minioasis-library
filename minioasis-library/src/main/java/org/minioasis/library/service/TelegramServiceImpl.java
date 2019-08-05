@@ -29,6 +29,9 @@ public class TelegramServiceImpl implements TelegramService{
 	public TelegramUser findTelegramUserByChatId(Long chatId) {
 		return this.telegramUserRepository.findTelegramUserByChatId(chatId);
 	}
+	public TelegramUser findTelegramUserByCardKey(String cardKey) {
+		return this.telegramUserRepository.findTelegramUserByCardKey(cardKey);
+	}
 	public void delete(TelegramUser entity) {
 		this.telegramUserRepository.delete(entity);
 	}

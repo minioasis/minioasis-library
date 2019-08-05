@@ -140,7 +140,8 @@ public interface LibraryService {
 	Page<Checkout> findAllCheckouts(Pageable pageable);
 	Page<Checkout> findAllCheckouts(String username, List<CheckoutState> cStates, Pageable pageable);
 	Page<Checkout> findByCriteria(CheckoutCriteria criteria, Pageable pageable);
-	//Page<Checkout> findAllCheckoutsByName(String name, Pageable pageable);
+	List<String> allOverDuePatrons(LocalDate given);
+	List<Checkout> patronOverDues(String cardKey, LocalDate given);
 
 	// FormData
 	void save(FormData entity);

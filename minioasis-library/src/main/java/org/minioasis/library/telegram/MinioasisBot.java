@@ -36,6 +36,7 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
+import org.springframework.scheduling.annotation.Scheduled;
 import org.springframework.stereotype.Component;
 import org.telegram.telegrambots.bots.TelegramLongPollingBot;
 import org.telegram.telegrambots.meta.api.methods.ParseMode;
@@ -57,6 +58,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	
 	@Value("${telegrambot.username}")
 	private String username;
+	
+	@Value("${reminder.days}")
+	private long reminderDays;
 	
 	@Autowired
 	private TelegramService telegramService;
@@ -160,7 +164,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}	
 	}
 
-	// [/reservation]
+	// [/reservation] **********************************************************************
 	private void reservations(String command, Update update) {
 		
 		if(update.getMessage().getText().equals(command)){
@@ -204,8 +208,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String reservationsView(String cardKey, List<Reservation> reservations) {
 		
 		Integer total = reservations.size();
-		int i = 1;
-		
+
 		StringBuffer s = new StringBuffer();
 		
 		if(total < 1) {
@@ -222,6 +225,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
 			s.append("\n");
 			
+			int i = 1;
+			
 			for(Reservation r : reservations) {
 
 				String title = r.getBiblio().getTitle();
@@ -234,32 +239,6 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 		
 		return s.toString();
-	}
-	
-	// [/search] view
-	private static String searchView(Page<Biblio> page) {
-
-		long total = page.getTotalElements();
-		List<Biblio> biblios = page.getContent();
-		
-		int i = 1;
-		
-		StringBuffer s = new StringBuffer();
-		
-		if(total < 1) {
-			s.append("No book found.");
-		}else {
-			s.append("_Total books found : " + total + "_\n");
-			s.append("-------------------------------------------------------\n");
-			
-			for(Biblio b : biblios) {
-				String title = b.getTitle();
-				s.append(i + ". _" + title + "_\n");
-				i++;
-			}
-		}
-		
-		return s.toString(); 
 	}
 	
 	// [reserve button]
@@ -317,7 +296,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 	}
 	
-	// [/search] create inline buttons
+	// [/search] create inline buttons **********************************************************
 	private InlineKeyboardMarkup createInlinePagingButtons(Page<Biblio> biblioPage, String keyword) {
 		
 		List<Biblio> biblios = biblioPage.getContent();
@@ -536,7 +515,33 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		} 
 	}
 	
-	// [/renew] 
+	// [/search] view
+	private static String searchView(Page<Biblio> page) {
+
+		long total = page.getTotalElements();
+		List<Biblio> biblios = page.getContent();
+		
+		StringBuffer s = new StringBuffer();
+		
+		if(total < 1) {
+			s.append("No book found.");
+		}else {
+			s.append("_Total books found : " + total + "_\n");
+			s.append("-------------------------------------------------------\n");
+			
+			int i = 1;
+			
+			for(Biblio b : biblios) {
+				String title = b.getTitle();
+				s.append(i + ". _" + title + "_\n");
+				i++;
+			}
+		}
+		
+		return s.toString(); 
+	}
+	
+	// [/renew] ***********************************************************************************
 	private void renewAll(String command, Update update) {
 		
 		if(update.getMessage().getText().equals(command)){
@@ -578,7 +583,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 	
-	// [/due]
+	// [/due] ***********************************************************************************
 	private void checkouts(String command, Update update) {
 		
 		if(update.getMessage().getText().equals(command)){
@@ -622,7 +627,6 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String checkoutsView(String cardKey, List<Checkout> checkouts) {
 		
 		Integer total = checkouts.size();
-		int i = 1;
 		
 		StringBuffer s = new StringBuffer();
 		
@@ -640,6 +644,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
 			s.append("\n");
 			
+			int i = 1;
+			
 			for(Checkout c : checkouts) {
 
 				String title = c.getItem().getBiblio().getTitle();
@@ -654,7 +660,83 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return s.toString();
 	}
 	
-	// [/help]
+	// [reminder] ********************************************************************************
+	@Scheduled(cron = "0 0 8 * * ?")
+	public void reminder() {
+		
+		final LocalDate now = LocalDate.now();
+		
+		List<String> cardKeys = libraryService.allOverDuePatrons(now.plusDays(reminderDays));
+		
+		for(String cardKey : cardKeys) {
+			
+			TelegramUser telegramUser = telegramService.findTelegramUserByCardKey(cardKey);
+			
+			if(telegramUser != null) {
+				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now.plusDays(reminderDays));
+				sendMessage(telegramUser.getChatId(), cardKey, checkouts);
+			}
+			
+		}
+		
+	}
+	
+	// [reminder - send msg]
+	private void sendMessage(Long chat_id, String cardKey, List<Checkout> checkouts) {
+
+		SendMessage message = new SendMessage().setChatId(chat_id);
+		
+		message.setText(overdueView(cardKey, checkouts))
+				.setParseMode(ParseMode.MARKDOWN);
+
+		try {
+			execute(message);
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	// [reminder - overdue view]
+	private static String overdueView(String cardKey, List<Checkout> checkouts) {
+		
+		Integer total = checkouts.size();
+		
+		StringBuffer s = new StringBuffer();	
+		
+		if(total < 1) {
+			s.append("You have no borrowing.");
+		}else {
+			
+			Checkout c1 = checkouts.get(0);
+
+			LocalDate end = c1.getPatron().getEndDate();
+			
+			s.append("Reminder : /renew or overdue.\n");
+			s.append("-------------------------------------------------------------\n");
+			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
+			s.append("-------------------------------------------------------------\n");
+			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
+			s.append("\n");
+			
+			int i = 1;
+			
+			for(Checkout c : checkouts) {
+
+				String title = c.getItem().getBiblio().getTitle();
+				LocalDate dueDate = c.getDueDate();
+				
+				s.append(i + ". _" + title + "_\n");
+				s.append("    _Due: " + dueDate + "_\n");
+				i++;
+			}
+		}
+		
+		return s.toString();
+	}
+	
+	
+	// [/help] ***********************************************************************************
 	private void sendMessage(String command, Update update, String response) {
 
 		if(update.getMessage().getText().equals(command)){

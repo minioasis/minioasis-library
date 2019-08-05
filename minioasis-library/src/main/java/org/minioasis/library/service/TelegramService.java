@@ -12,6 +12,7 @@ public interface TelegramService {
 	void save(TelegramUser entity);
 	TelegramUser getTelegramUser(long id);
 	TelegramUser findTelegramUserByChatId(Long chatId);
+	TelegramUser findTelegramUserByCardKey(String cardKey);
 	void delete(TelegramUser entity);
 	void deleteTelegramUser(long id);
 	Page<TelegramUser> findAllTelegramUsers(Pageable pageable);

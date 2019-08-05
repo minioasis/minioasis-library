@@ -1,5 +1,6 @@
 package org.minioasis.library.repository;
 
+import java.time.LocalDate;
 import java.util.List;
 
 import org.minioasis.library.domain.Checkout;
@@ -22,5 +23,9 @@ public interface CheckoutRepositoryCustom {
 	List<TopPopularBooksSummary> topPopularBooks(TopPopularBooksCriteria criteria);
 	
 	String topListPatronsForCheckouts_JSON();
+	
+	List<String> allOverDuePatrons(LocalDate given);
+	
+	List<Checkout> patronOverDues(String cardKey, LocalDate given);
 
 }
