@@ -297,9 +297,6 @@ public interface LibraryService {
 	Page<Reservation> findByCriteria(ReservationCriteria criteria, Pageable pageable);
 	
 	void refreshReservationStates();
-	//void clearExpiredReservations(Date given);
-	//void clearUncollectedReservations(Date given);
-	//void clearPunishedReservations(Date given);
 	
 	// Series
 	void save(Series entity);

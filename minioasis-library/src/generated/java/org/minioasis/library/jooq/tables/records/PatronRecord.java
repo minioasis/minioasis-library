@@ -27,7 +27,7 @@ import org.minioasis.library.jooq.tables.Patron;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PatronRecord extends UpdatableRecordImpl<PatronRecord> {
 
-    private static final long serialVersionUID = -1003208106;
+    private static final long serialVersionUID = -1376461134;
 
     /**
      * Setter for <code>PUBLIC.PATRON.ID</code>.
@@ -338,73 +338,87 @@ public class PatronRecord extends UpdatableRecordImpl<PatronRecord> {
     }
 
     /**
+     * Setter for <code>PUBLIC.PATRON.RESERVABLE_DATE</code>.
+     */
+    public void setReservableDate(Date value) {
+        set(22, value);
+    }
+
+    /**
+     * Getter for <code>PUBLIC.PATRON.RESERVABLE_DATE</code>.
+     */
+    public Date getReservableDate() {
+        return (Date) get(22);
+    }
+
+    /**
      * Setter for <code>PUBLIC.PATRON.START_DATE</code>.
      */
     public void setStartDate(Date value) {
-        set(22, value);
+        set(23, value);
     }
 
     /**
      * Getter for <code>PUBLIC.PATRON.START_DATE</code>.
      */
     public Date getStartDate() {
-        return (Date) get(22);
+        return (Date) get(23);
     }
 
     /**
      * Setter for <code>PUBLIC.PATRON.UNCOLLECTED_NO</code>.
      */
     public void setUncollectedNo(Short value) {
-        set(23, value);
+        set(24, value);
     }
 
     /**
      * Getter for <code>PUBLIC.PATRON.UNCOLLECTED_NO</code>.
      */
     public Short getUncollectedNo() {
-        return (Short) get(23);
+        return (Short) get(24);
     }
 
     /**
      * Setter for <code>PUBLIC.PATRON.UPDATED</code>.
      */
     public void setUpdated(Timestamp value) {
-        set(24, value);
+        set(25, value);
     }
 
     /**
      * Getter for <code>PUBLIC.PATRON.UPDATED</code>.
      */
     public Timestamp getUpdated() {
-        return (Timestamp) get(24);
+        return (Timestamp) get(25);
     }
 
     /**
      * Setter for <code>PUBLIC.PATRON.GROUP_ID</code>.
      */
     public void setGroupId(Long value) {
-        set(25, value);
+        set(26, value);
     }
 
     /**
      * Getter for <code>PUBLIC.PATRON.GROUP_ID</code>.
      */
     public Long getGroupId() {
-        return (Long) get(25);
+        return (Long) get(26);
     }
 
     /**
      * Setter for <code>PUBLIC.PATRON.PATRONTYPE_ID</code>.
      */
     public void setPatrontypeId(Long value) {
-        set(26, value);
+        set(27, value);
     }
 
     /**
      * Getter for <code>PUBLIC.PATRON.PATRONTYPE_ID</code>.
      */
     public Long getPatrontypeId() {
-        return (Long) get(26);
+        return (Long) get(27);
     }
 
     // -------------------------------------------------------------------------
@@ -433,7 +447,7 @@ public class PatronRecord extends UpdatableRecordImpl<PatronRecord> {
     /**
      * Create a detached, initialised PatronRecord
      */
-    public PatronRecord(Long id, String active, String cardKey, String address1, String address2, String address3, String city, String country, String postcode, String state, String email, String mobile, String tel, Timestamp created, Date endDate, String entangled, String gender, String ic, String name, String name2, String note, Short orderNo, Date startDate, Short uncollectedNo, Timestamp updated, Long groupId, Long patrontypeId) {
+    public PatronRecord(Long id, String active, String cardKey, String address1, String address2, String address3, String city, String country, String postcode, String state, String email, String mobile, String tel, Timestamp created, Date endDate, String entangled, String gender, String ic, String name, String name2, String note, Short orderNo, Date reservableDate, Date startDate, Short uncollectedNo, Timestamp updated, Long groupId, Long patrontypeId) {
         super(Patron.PATRON);
 
         set(0, id);
@@ -458,10 +472,11 @@ public class PatronRecord extends UpdatableRecordImpl<PatronRecord> {
         set(19, name2);
         set(20, note);
         set(21, orderNo);
-        set(22, startDate);
-        set(23, uncollectedNo);
-        set(24, updated);
-        set(25, groupId);
-        set(26, patrontypeId);
+        set(22, reservableDate);
+        set(23, startDate);
+        set(24, uncollectedNo);
+        set(25, updated);
+        set(26, groupId);
+        set(27, patrontypeId);
     }
 }

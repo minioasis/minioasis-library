@@ -11,9 +11,9 @@ public enum ReservationState {
 	AVAILABLE("Available"),
 	NOTIFIED("Notified"),
 	// completed
-	COLLECTION_PERIOD_EXPIRED("Collection Period Expired"), 
 	CANCEL("Cancel"),
 	RESERVATION_EXPIRED("Reservation Expired"),
+	COLLECTION_PERIOD_EXPIRED("Collection Period Expired"), 
 	COLLECTED("Collected"),
 	PUNISHED("Punished");
 	

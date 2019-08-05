@@ -24,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Patron implements Serializable {
 
-    private static final long serialVersionUID = 1314180335;
+    private static final long serialVersionUID = 1633134394;
 
     private Long      id;
     private String    active;
@@ -48,6 +48,7 @@ public class Patron implements Serializable {
     private String    name2;
     private String    note;
     private Short     orderNo;
+    private Date      reservableDate;
     private Date      startDate;
     private Short     uncollectedNo;
     private Timestamp updated;
@@ -79,6 +80,7 @@ public class Patron implements Serializable {
         this.name2 = value.name2;
         this.note = value.note;
         this.orderNo = value.orderNo;
+        this.reservableDate = value.reservableDate;
         this.startDate = value.startDate;
         this.uncollectedNo = value.uncollectedNo;
         this.updated = value.updated;
@@ -109,6 +111,7 @@ public class Patron implements Serializable {
         String    name2,
         String    note,
         Short     orderNo,
+        Date      reservableDate,
         Date      startDate,
         Short     uncollectedNo,
         Timestamp updated,
@@ -137,6 +140,7 @@ public class Patron implements Serializable {
         this.name2 = name2;
         this.note = note;
         this.orderNo = orderNo;
+        this.reservableDate = reservableDate;
         this.startDate = startDate;
         this.uncollectedNo = uncollectedNo;
         this.updated = updated;
@@ -320,6 +324,14 @@ public class Patron implements Serializable {
         this.orderNo = orderNo;
     }
 
+    public Date getReservableDate() {
+        return this.reservableDate;
+    }
+
+    public void setReservableDate(Date reservableDate) {
+        this.reservableDate = reservableDate;
+    }
+
     public Date getStartDate() {
         return this.startDate;
     }
@@ -386,6 +398,7 @@ public class Patron implements Serializable {
         sb.append(", ").append(name2);
         sb.append(", ").append(note);
         sb.append(", ").append(orderNo);
+        sb.append(", ").append(reservableDate);
         sb.append(", ").append(startDate);
         sb.append(", ").append(uncollectedNo);
         sb.append(", ").append(updated);

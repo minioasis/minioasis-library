@@ -46,7 +46,8 @@ public enum CirculationCode implements ErrorCode {
 	ITEM_NOT_RESERVED_BY_THIS_USER(168,"item.not.reserved.by.this.user"),
 	REACHED_MAX_RESERVATION_NO(170,"reached.max.reservation.no"),
 	REACHED_MAX_UNCOLLECTEDNO(175,"reached.max.uncollected.no"),
-	YOU_HAD_THIS_BIBLIO(180,"you.had.this.biblio");
+	YOU_HAD_THIS_BIBLIO(180,"you.had.this.biblio"),
+	USER_UNDER_RESERVATION_DATE_RESTRICTION(190,"user.under.reservation.date.restriction");
 
 	private final int number;
 	private final String code;

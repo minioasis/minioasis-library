@@ -227,6 +227,13 @@ public class PatronDao extends DAOImpl<PatronRecord, org.minioasis.library.jooq.
     }
 
     /**
+     * Fetch records that have <code>RESERVABLE_DATE IN (values)</code>
+     */
+    public List<org.minioasis.library.jooq.tables.pojos.Patron> fetchByReservableDate(Date... values) {
+        return fetch(Patron.PATRON.RESERVABLE_DATE, values);
+    }
+
+    /**
      * Fetch records that have <code>START_DATE IN (values)</code>
      */
     public List<org.minioasis.library.jooq.tables.pojos.Patron> fetchByStartDate(Date... values) {

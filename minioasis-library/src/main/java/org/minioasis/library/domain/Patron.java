@@ -104,6 +104,9 @@ public class Patron implements Serializable {
 	@Column(name = "order_no")
 	private Short orderNo;
 	
+	@Column(name = "reservable_date", nullable = false)
+	private LocalDate reservableDate = LocalDate.now();
+	
 	@Column(columnDefinition = "TEXT")
 	private String note;
 
@@ -259,6 +262,14 @@ public class Patron implements Serializable {
 
 	public void setOrderNo(Short orderNo) {
 		this.orderNo = orderNo;
+	}
+
+	public LocalDate getReservableDate() {
+		return reservableDate;
+	}
+
+	public void setReservableDate(LocalDate reservableDate) {
+		this.reservableDate = reservableDate;
 	}
 
 	public String getNote() {
@@ -1020,6 +1031,8 @@ public class Patron implements Serializable {
 	public boolean isBiblioReservable(Biblio biblio, LocalDate given, Notification notification) {
 
 		givenDateValidation(given, notification);
+		
+		checkEnableReservationDate(given, notification);
 
 		checkWrongActionForReservation(biblio, notification);
 
@@ -1029,6 +1042,12 @@ public class Patron implements Serializable {
 
 	}
 
+	private void checkEnableReservationDate(LocalDate given, Notification notification) {
+		if(given.isBefore(this.reservableDate)) {
+			notification.addError(CirculationCode.USER_UNDER_RESERVATION_DATE_RESTRICTION);
+		}
+	}
+	
 	private void checkWrongActionForReservation(Biblio biblio, Notification notification) {
 
 		List<Item> items = new ArrayList<Item>(biblio.getItems());

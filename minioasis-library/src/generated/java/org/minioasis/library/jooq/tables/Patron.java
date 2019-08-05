@@ -41,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.PatronRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Patron extends TableImpl<PatronRecord> {
 
-    private static final long serialVersionUID = -1006041275;
+    private static final long serialVersionUID = 476172701;
 
     /**
      * The reference instance of <code>PUBLIC.PATRON</code>
@@ -165,6 +165,11 @@ public class Patron extends TableImpl<PatronRecord> {
      * The column <code>PUBLIC.PATRON.ORDER_NO</code>.
      */
     public final TableField<PatronRecord, Short> ORDER_NO = createField("ORDER_NO", org.jooq.impl.SQLDataType.SMALLINT, this, "");
+
+    /**
+     * The column <code>PUBLIC.PATRON.RESERVABLE_DATE</code>.
+     */
+    public final TableField<PatronRecord, Date> RESERVABLE_DATE = createField("RESERVABLE_DATE", org.jooq.impl.SQLDataType.DATE.nullable(false), this, "");
 
     /**
      * The column <code>PUBLIC.PATRON.START_DATE</code>.

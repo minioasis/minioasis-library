@@ -67,6 +67,8 @@ import org.minioasis.library.repository.LocationRepository;
 import org.minioasis.library.repository.PublisherRepository;
 import org.minioasis.library.repository.ReservationRepository;
 import org.minioasis.library.repository.SeriesRepository;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -79,6 +81,8 @@ import org.springframework.transaction.annotation.Transactional;
 @Transactional(propagation=Propagation.REQUIRED, rollbackFor=Exception.class)
 public class LibraryServiceImpl implements LibraryService {
 
+	private static final Logger logger = LoggerFactory.getLogger(LibraryServiceImpl.class);
+	
 	@Autowired
 	private AccountRepository accountRepository;
 	@Autowired
@@ -1050,17 +1054,9 @@ public class LibraryServiceImpl implements LibraryService {
 	//Long findTotalAvailableVolumeReservationsByBarcode(KeywordCmd keywordCmd);
 	
 	public void refreshReservationStates(){
+		logger.info("*** REFRESHING RESERVATIONS' STATE *** : " + LocalDate.now());
 		this.reservationRepository.refreshReservationStates();
 	}
-/*	public void clearExpiredReservations(Date given){
-		this.reservationRepository.clearExpiredReservations(given);
-	}
-	public void clearUncollectedReservations(Date given){
-		this.reservationRepository.clearUncollectedReservations(given);
-	}
-	public void clearPunishedReservations(Date given){
-		this.reservationRepository.clearPunishedReservations(given);
-	}*/
 	
 	/****************************************  Series  *******************************************/
 	
