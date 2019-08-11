@@ -445,6 +445,15 @@ public class LibraryServiceImpl implements LibraryService {
 	/****************************************  Biblio  *****************************************/
 	
 	public void save(Biblio entity){
+		
+		Publisher p = entity.getPublisher();
+		p.addBiblio(entity);
+		entity.setPublisher(p);
+		
+		Series s = entity.getSeries();
+		s.addBiblio(entity);
+		entity.setSeries(s);
+		
 		this.biblioRepository.save(entity);
 	}
 	public void edit(Biblio entity){

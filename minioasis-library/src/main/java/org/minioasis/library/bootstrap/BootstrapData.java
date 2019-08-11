@@ -159,7 +159,9 @@ public class BootstrapData implements CommandLineRunner {
 		b1.setIsbn("1");
 		b1.setClassMark("532.12");
 		b1.setPublisher(pb3);
+		//pb3.addBiblio(b1);
 		b1.setSeries(s2);
+		//s2.addBiblio(b1);
 		biblioRepository.save(b1);
 						
 		Biblio b2 = new Biblio();
@@ -172,7 +174,9 @@ public class BootstrapData implements CommandLineRunner {
 		b2.setIsbn("2");
 		b2.setClassMark("532.12");
 		b2.setPublisher(pb2);
+		//pb2.addBiblio(b2);
 		b2.setSeries(s2);
+		//s2.addBiblio(b2);
 		biblioRepository.save(b2);
 		
 		Biblio b3 = new Biblio();
@@ -185,7 +189,9 @@ public class BootstrapData implements CommandLineRunner {
 		b3.setIsbn("3");
 		b3.setClassMark("511.12");
 		b3.setPublisher(pb2);
+		//pb2.addBiblio(b3);
 		b3.setSeries(s3);
+		//s3.addBiblio(b3);
 		biblioRepository.save(b3);
 		
 		Biblio b4 = new Biblio();
@@ -198,7 +204,9 @@ public class BootstrapData implements CommandLineRunner {
 		b4.setIsbn("4");
 		b4.setClassMark("564.12");
 		b4.setPublisher(pb2);
+		//pb2.addBiblio(b4);
 		b4.setSeries(s3);
+		//s3.addBiblio(b4);
 		biblioRepository.save(b4);
 		
 		// Item Status

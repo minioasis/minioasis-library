@@ -8,182 +8,154 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container">
+	<div class="container pt-4 pb-3">
 	
 		<div th:replace="fragments/header :: header"></div>
 		
 		<div class="row">
-		    <div class="col-6 col-md-2">	    	
-				<!----------------- Patron ---------------------->
-				<h5>
-					<i class="fas fa-user text-info"></i>
-					<span th:text="#{patron}">Patron</span>
-				</h5>
-				
-				<p><p/>
-				
-				<span th:text="#{patron}">Patron</span>
-				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/save}">
-					<i class="fas fa-user-plus"></i>
-				</a>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
-					<i class="fas fa-search"></i>
-				</a>
-				
-				<p><p/>
-				
-				<span th:text="#{patron.change.group}">Change Group</span>
-				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
-					<i class="fas fa-random"></i>
-				</a>
-
-		    </div>
 		    
 		    <div class="col-6 col-md-2">
 		    	<!----------------- Circulation ---------------------->	
-				<h5>
+				<h4>
 					<i class="fas fa-sync-alt text-success"></i>
 					<span th:text="#{circulation}">Circulation</span>
-				</h5>
+				</h4>
 		      
-				<p></p>
-				
+		      	<br/>
+		      			
 				<span th:text="#{checkout}">Check Out </span>
 				<br/>
-				<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/patronid.form}">
-					<i class="fas fa-shopping-cart"></i>
-				</a>
-				<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
-					<i class="fas fa-search"></i>
-				</a>
-				
-				<p><p/>
-				
-				<span th:text="#{attachment.checkout}">Attachment Check Out </span>
-				<br>
-				<a href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}" class="btn btn-outline-success text-success">
-					<i class="fas fa-paperclip"></i>
-					<i class="fas fa-shopping-cart"></i>
+				<a href="#" th:href="@{/admin/circ/patronid.form}">
+					<img th:src="@{/images/checkout.png}" alt=""/>
+				</a> 
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+					<i class="fas fa-search fa-2x"></i>
 				</a>
 				
 				<p><p/>
 				
 				<span th:text="#{checkin}">Check In</span>
 				<br>
-				<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/circ/return}">
-					<i class="fas fa-arrow-down"></i>
+				<a href="#" th:href="@{/admin/circ/return}">
+					<img th:src="@{/images/return.png}" alt=""/>
 				</a>
+								
+				<p><p/>
 				
+				<span th:text="#{attachment.checkout}">Attachment Check Out </span>
+				<br>
+				<a href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+					<img th:src="@{/images/attachment.png}" alt=""/><i class="fas fa-arrow-right"></i>
+				</a>
+			
 				<p><p/>
 				
 				<span th:text="#{reservation.notification}">Reservation Notification</span>		
 				<br>
-				<a href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,sort='reservationDate,desc',states='AVAILABLE',states='NOTIFIED')}" class="btn btn-outline-success text-success">
-					<i class="fas fa-mobile-alt"></i> a
+				<a href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,sort='reservationDate,desc',states='AVAILABLE',states='NOTIFIED')}">
+					<img th:src="@{/images/reservation.png}" alt=""/>
 				</a>
-				<a href="#" th:href="@{/admin/reservation/list(page=0,size=10,sort='reservationDate,desc')}" class="btn btn-outline-success text-success">
-					<i class="fas fa-search"></i>
+				<a href="#" th:href="@{/admin/reservation/list(page=0,size=10,sort='reservationDate,desc')}" class="btn btn-outline-light text-info">
+					<i class="fas fa-search fa-2x"></i>
 				</a>
 			      	
 		    </div>
 		    
 		    <div class="col-6 col-md-2">
 				<!----------------- Cataloging ---------------------->
-				<h5>
+				<h4>
 					<i class="fas fa-sitemap text-danger"></i>
 			      	<span th:text="#{cataloging}">Cataloging</span>
-				</h5>
+				</h4>
 
-				<p><p/>
+		      	<br/>
 							
 				<span th:text="#{opac}">OPACs</span> : <span th:text="#{web.scraping}">Web Scraping</span>
 				<br/>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/opac}">
-			      	<i class="fas fa-university"></i>
+				<a href="#" th:href="@{/admin/opac}">
+			      	<img th:src="@{/images/opac.png}" alt=""/>
 				</a>
 				:
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/biblio/isbn.form}">
-		      		<i class="fas fa-spider"></i>
+				<a href="#" th:href="@{/admin/biblio/isbn.form}">
+		      		<img th:src="@{/images/spider.png}" alt=""/>
 		      	</a>
 
 		      	<p><p/>
 		      	
 				<span th:text="#{biblio}">Bibliography</span> : <span th:text="#{uncompleted}"> Uncompleted</span> 
 				<br>
-				<a class="btn btn-outline-danger text-danger" th:href="@{/admin/biblio/save}">
-		      		<i class="fas fa-book"></i>
+				<a th:href="@{/admin/biblio/save}">
+				    <img th:src="@{/images/biblio.png}" alt=""/>
 		      	</a>
-		      	<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				    <i class="fas fa-search"></i>b
+		      	<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+					<i class="fas fa-search fa-2x"></i>
 		      	</a>
 		      	:
-				<a class="btn btn-outline-danger text-danger btn-sm" href="#" th:href="@{/admin/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
-				    <i class="fas fa-search"></i>u
+				<a class="btn btn-outline-light text-primary btn-sm" href="#" th:href="@{/admin/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
+				    <i class="fas fa-ghost fa-2x"></i>
 		      	</a>
 		      	
 		      	<p><p/>
 		      	
 				<span th:text="#{item}">Item</span> : <span th:text="#{attachment}">Attachment</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
-				    <i class="fas fa-search"></i>i
+				<a href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				    <img th:src="@{/images/item.png}" alt=""/>
 		      	</a>
 		      	:
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
-				    <i class="fas fa-search"></i>a
+				<a href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+					<img th:src="@{/images/attachment.png}" alt=""/>
 		      	</a>
 		      	
 		      	<p><p/>
 		      	
 				<span th:text="#{publisher}">Publisher</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/publisher/save}">
-	      			<i class="far fa-newspaper"></i>
+				<a href="#" th:href="@{/admin/publisher/save}">
+	      			<img th:src="@{/images/publisher.png}" alt=""/>
 		      	</a>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/publisher/list(page=0,size=10,sort='name,asc')}">
-					<i class="fas fa-search"></i>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/publisher/list(page=0,size=10,sort='name,asc')}">
+					<i class="fas fa-search fa-2x"></i>
 				</a>
 
 		      	<p><p/>
 
 				<span th:text="#{series}">Series</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/series/save}">
-	      			<i class="fas fa-signal"></i>
+				<a href="#" th:href="@{/admin/series/save}">
+	      			<img th:src="@{/images/series.png}" alt=""/>
 		      	</a>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/series/list(page=0,size=10,sort='name,asc')}">
-			    	<i class="fas fa-search"></i>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/series/list(page=0,size=10,sort='name,asc')}">
+					<i class="fas fa-search fa-2x"></i>
 		      	</a>
 			      	
 		    </div>
 				    
 		    <div class="col-6 col-md-2">
 		    	<!----------------- Cataloging ---------------------->	
-				<h5>
+				<h4>
 					<i class="fas fa-sitemap text-danger"></i>
 					...
-				</h5>
+				</h4>
 
-				<p><p/>
+		      	<br/>
 							
 				<span th:text="#{print.shelfmark}">Print Shelfmarks</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/shelfmark/list}">
-				    <i class="fas fa-barcode"></i>
+				<a href="#" th:href="@{/admin/shelfmark/list}">
+				    <img th:src="@{/images/shelfmark.png}" alt=""/>
 		      	</a>
 		      	
 		      	<p><p/>
 		      	
 				<span th:text="#{stock.check.reset}">Stock Check / Reset</span>
 				<br>
-				<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/stock.check/item}">
-					<i class="far fa-check-circle"></i>
+				<a href="#" th:href="@{/admin/stock.check/item}">
+				    <img th:src="@{/images/check.png}" alt=""/>
 				</a>
 				<!-- Button trigger modal -->
-		      	<a class="btn btn-outline-danger text-danger" data-toggle="modal" data-target="#reset">
-				    <i class="fas fa-history"></i>
+		      	<a href="#" data-toggle="modal" data-target="#reset">
+				    <img th:src="@{/images/reset.png}" alt=""/>
 		      	</a>			
 						      	
 				<!-- Modal -->
@@ -217,65 +189,93 @@
 		    </div>
 
 		    <div class="col-6 col-md-2">	    	
-				<!----------------- Account ---------------------->
-				<h5>
-					<i class="fas fa-cash-register text-secondary"></i>
-					<span th:text="#{account}">Account</span>
-				</h5>
+				<!----------------- Patron ---------------------->
+				<h4>
+					<i class="fas fa-user text-info"></i>
+					<span th:text="#{patron}">Patron</span>
+				</h4>
+				
+		      	<br/>
+				
+				<span th:text="#{patron}">Patron</span>
+				<br>
+				<a href="#" th:href="@{/admin/patron/save}">
+					<img th:src="@{/images/patron.png}" alt=""/>
+				</a>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
+					<i class="fas fa-search fa-2x"></i>
+				</a>
 				
 				<p><p/>
 				
+				<span th:text="#{patron.change.group}">Change Group</span>
+				<br>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
+					<i class="fas fa-random fa-2x"></i>
+				</a>
+
+		    </div>
+		    
+		    <div class="col-6 col-md-2">	    	
+				<!----------------- Account ---------------------->
+				<h4>
+					<i class="fas fa-cash-register text-secondary"></i>
+					<span th:text="#{account}">Account</span>
+				</h4>
+				
+		      	<br/>
+				
 				<span th:text="#{account}">Account</span>
 				<br>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/account/save}">
-					<i class="far fa-copy"></i>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/account/save}">
+					<i class="fas fa-archive fa-2x"></i>
 				</a>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/account/list(page=0,size=10,sort='code,desc')}">
-					<i class="fas fa-search"></i>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/account/list(page=0,size=10,sort='code,desc')}">
+					<i class="fas fa-search fa-2x"></i>
 				</a>
 
 				<p><p/>
 				
 				<span th:text="#{journalentry}">Journal Entry</span>
 				<br>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry/patronid.form}">
-					<i class="fas fa-file-invoice-dollar"></i>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry/patronid.form}">
+					<i class="fas fa-file-invoice-dollar fa-2x"></i>
 				</a>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
-					<i class="fas fa-search"></i> je
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
+					<i class="fas fa-search fa-2x"></i>
 				</a>
 								
 				<p><p/>
 				
 				<span th:text="#{journalentry.line}">Journal Entry Line</span>
 				<br>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
-					<i class="fas fa-search"></i> l
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+					<i class="fas fa-clipboard-list fa-2x"></i>
 				</a>
 				
 				<p><p/>
 				
 				<span th:text="#{formdata}">Form Data</span>
 				<br>
-				<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/formdata/list(page=0,size=60,sort='data,asc')}">
-					<i class="fas fa-search"></i>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/formdata/list(page=0,size=60,sort='data,asc')}">
+					<i class="fas fa-list-ul fa-2x"></i>
 				</a>
 
 		    </div>
 		    
 		    <div class="col-6 col-md-2">	    	
 				<!----------------- Telegram ---------------------->
-				<h5>
+				<h4>
 					<i class="fab fa-telegram text-info"></i>
 					<span th:text="#{telegram}">Telegram</span>
-				</h5>
+				</h4>
 				
-				<p><p/>
+		      	<br/>
 				
 				<span th:text="#{telegram}">Telegram</span>
 				<br>
-				<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
-					<i class="fas fa-search text-info"></i>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
+					<i class="fab fa-telegram-plane fa-2x"></i>
 				</a>
 
 		    </div>

@@ -1,13 +1,16 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
+import java.util.HashSet;
 import java.util.Objects;
+import java.util.Set;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
@@ -28,7 +31,10 @@ public class Series implements Serializable {
 	@Length(max = 128)
 	@Column(name = "name", unique = true , nullable = false)
 	private String name;
-
+	
+	@OneToMany(mappedBy = "series", orphanRemoval = true)
+    private Set<Biblio> biblios = new HashSet<Biblio>();
+    
 	public Series() {
 	}
 
@@ -51,8 +57,26 @@ public class Series implements Serializable {
 	public void setName(String name) {
 		this.name = name;
 	}
+
+	public Set<Biblio> getBiblios() {
+		return biblios;
+	}
+
+	public void setBiblios(Set<Biblio> biblios) {
+		this.biblios = biblios;
+	}
+
+	public void addBiblio(Biblio biblio) {
+		this.biblios.add(biblio);
+		biblio.setSeries(this);
+	}
+
+	public void removeBiblio(Biblio biblio) {
+		biblios.remove(biblio);
+		biblio.setSeries(null);
+	}
 	
-    @Override
+	@Override
 	public boolean equals(Object other) {
 		
 		if(this == other)

@@ -106,7 +106,7 @@ public class Biblio implements Serializable {
 	@Length(max = 256)
 	@Column(name = "topic")
 	private String subject;
-	
+    
 	@ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name="publisher_id", foreignKey = @ForeignKey(name = "fk_biblio_publisher"))
 	private Publisher publisher;
