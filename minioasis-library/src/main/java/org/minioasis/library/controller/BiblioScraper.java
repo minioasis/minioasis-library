@@ -381,6 +381,8 @@ public class BiblioScraper {
 			biblio.setSeries(null);
 		}
 		
+		new BiblioValidator().validate(biblio, result);
+		
 		// save
 		if (result.hasErrors()) {
 			return "biblio.scraper.form";

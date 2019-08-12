@@ -22,7 +22,6 @@ import org.minioasis.library.domain.DataType;
 import org.minioasis.library.domain.FormData;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Holiday;
-import org.minioasis.library.domain.Image;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.ItemStatus;
@@ -447,20 +446,50 @@ public class LibraryServiceImpl implements LibraryService {
 	public void save(Biblio entity){
 		
 		Publisher p = entity.getPublisher();
-		p.addBiblio(entity);
-		entity.setPublisher(p);
+		
+		if(p != null) {
+			
+			String pname = p.getName();
+			
+			if(pname != null) {
+				Publisher publisher = this.publisherRepository.findByName(pname);
+				
+				if(publisher != null) {
+					entity.setPublisher(publisher);
+				}else{
+					this.publisherRepository.save(p);
+					entity.setPublisher(p);
+				}
+			}else {
+				entity.setPublisher(null);
+			}
+			
+		}
 		
 		Series s = entity.getSeries();
-		s.addBiblio(entity);
-		entity.setSeries(s);
+		
+		if(s != null) {
+			
+			String sname = s.getName();	
+			
+			if(sname != null) {
+				Series series = this.seriesRepository.findByName(sname);
+				
+				if(series != null) {
+					entity.setSeries(series);
+				}else {
+					this.seriesRepository.save(s);
+					entity.setSeries(s);
+				}
+			}else{
+				entity.setSeries(null);
+			}
+		}
 		
 		this.biblioRepository.save(entity);
+		
 	}
 	public void edit(Biblio entity){
-		long id = entity.getId();
-		Biblio existingbiblio = this.biblioRepository.getOne(id);
-		Image image = existingbiblio.getImage();
-		entity.setImage(image);
 		this.biblioRepository.save(entity);
 	}
 	public void delete(Biblio entity){

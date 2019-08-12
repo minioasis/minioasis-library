@@ -23,6 +23,7 @@ import java.util.HashSet;
 import java.util.Objects;
 import java.util.Set;
 
+import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
@@ -50,7 +51,7 @@ public class Publisher implements Serializable {
 	@Column(name = "name", unique = true , nullable = false)
 	private String name;
 	
-	@OneToMany(mappedBy = "publisher", orphanRemoval = true)
+	@OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher", orphanRemoval = true)
     private Set<Biblio> biblios = new HashSet<Biblio>();
 
 	public Publisher() {

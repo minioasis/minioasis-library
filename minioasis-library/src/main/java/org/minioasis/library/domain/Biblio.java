@@ -107,6 +107,7 @@ public class Biblio implements Serializable {
 	@Column(name = "topic")
 	private String subject;
     
+	// You should never cascade from a child entity to a parent
 	@ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name="publisher_id", foreignKey = @ForeignKey(name = "fk_biblio_publisher"))
 	private Publisher publisher;

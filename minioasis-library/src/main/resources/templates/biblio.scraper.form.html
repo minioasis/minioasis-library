@@ -159,7 +159,7 @@
 						</div>						
 				      	<div class="form-group col-sm-3">
 				      		<label th:text="#{publishing.year}">Publishing Year</label>
-							<input type="text" class="form-control" th:field="*{publishingYear}"	placeholder="int" />
+							<input type="text" class="form-control" th:field="*{publishingYear}" placeholder="int" />
 							<span class="help-inline error" th:if="${#fields.hasErrors('publishingYear')}" th:errors="*{publishingYear}"></span>
 						</div>
 				      	<div class="form-group col-sm-3">

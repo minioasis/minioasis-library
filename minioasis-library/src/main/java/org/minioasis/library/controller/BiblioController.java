@@ -54,52 +54,7 @@ public class BiblioController {
 	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
 	public String add(@ModelAttribute("biblio") @Valid Biblio biblio , BindingResult result) {
 
-		String pname = biblio.getPublisher().getName();
-		String sname = biblio.getSeries().getName();
-		
-		// publisher
-		if(pname != null && !pname.isEmpty()) {
-			
-			Publisher p = this.service.findPublisherByName(pname);
-
-			if(p != null) {
-				biblio.setPublisher(p);
-			} else {
-				
-				biblio.setPublisher(new Publisher(pname));
-				new BiblioValidator().validate(biblio, result);
-
-				if (result.hasErrors()) {
-					return "biblio.form";
-				}	
-
-			}
-			
-					
-		}else {
-			biblio.setPublisher(null);
-		}
-		
-		// series
-		if(sname != null && !sname.isEmpty()) {
-
-			Series s = this.service.findSeriesByName(sname);
-			
-			if(s != null) {
-				biblio.setSeries(s);
-			}else {
-				
-				biblio.setSeries(new Series(sname));
-				new BiblioValidator().validate(biblio, result);
-
-				if (result.hasErrors()) {
-					return "biblio.form";
-				}
-			}			
-			
-		}else {
-			biblio.setSeries(null);
-		}
+		new BiblioValidator().validate(biblio, result);
 		
 		if (result.hasErrors()) {
 			return "biblio.form";
