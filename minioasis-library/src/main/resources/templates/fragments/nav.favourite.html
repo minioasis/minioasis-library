@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org" xmlns:sec="http://www.thymeleaf.org/extras/spring-security">
+	<head th:fragment="head(title)">
+	    <!-- Required meta tags -->
+	    <meta charset="utf-8">
+	    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+	
+	    <!-- Bootstrap CSS -->
+	    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css" integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS" crossorigin="anonymous">
+		<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
+	
+	    <title th:text="${title}">Page Title</title>
+	</head>
+  <body>
+
+	<div class="container">
+	
+		<!--libnav -->
+		<div th:fragment="navfavourite">
+			<div class="row">
+				<div class="col">
+					<h4 class="float-right">
+						<a href="#" th:href="@{/admin/circ/patronid.form}">
+							<img th:src="@{/images/checkout.png}" alt=""/>
+						</a> 
+						<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+							<i class="fas fa-search fa-lg"></i>
+						</a>
+						<a href="#" th:href="@{/admin/circ/return}">
+							<img th:src="@{/images/return.png}" alt=""/>
+						</a>
+						<a href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+							<img th:src="@{/images/attachment.png}" alt=""/><i class="fas fa-arrow-right"></i>
+						</a>
+						<a href="#" th:href="@{/admin/opac}">
+					      	<img th:src="@{/images/opac.png}" alt=""/>
+						</a>
+						<a href="#" th:href="@{/admin/biblio/isbn.form}">
+				      		<img th:src="@{/images/spider.png}" alt=""/>
+				      	</a>
+						<a th:href="@{/admin/biblio/save}">
+						    <img th:src="@{/images/biblio.png}" alt=""/>
+				      	</a>
+				      	<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+							<i class="fas fa-search fa-lg"></i>
+				      	</a>
+						<a class="btn btn-outline-light text-primary btn-sm" href="#" th:href="@{/admin/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
+						    <i class="fas fa-ghost fa-lg"></i>
+				      	</a>
+						<a href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+						    <img th:src="@{/images/item.png}" alt=""/>
+				      	</a>
+						<a href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+							<img th:src="@{/images/attachment.png}" alt=""/>
+				      	</a>
+						<a href="#" th:href="@{/admin/patron/save}">
+							<img th:src="@{/images/patron.png}" alt=""/>
+						</a>
+						<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
+							<i class="fas fa-search fa-lg"></i>
+						</a>
+						<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/account/save}">
+							<i class="fas fa-archive fa-lg"></i>
+						</a>			
+					</h4>
+				</div>
+			</div>
+		</div><!-- libnav -->
+	
+	</div>
+
+</body>
+</html>

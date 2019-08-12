@@ -8,15 +8,17 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container pt-3 pb-3">
+	<div class="container pt-2">
 
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+		
 		<h4>
 			<span th:text="#{search.reservation}">Search Reservation</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,states='AVAILABLE',states='NOTIFIED',sort='availableDate,asc')}">
-				<i class="fas fa-search"></i> a
+			<a href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,states='AVAILABLE',states='NOTIFIED',sort='availableDate,asc')}">
+				<img th:src="@{/images/reservation.png}" alt=""/>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/reservation/list(page=0,size=10,sort='reservationDate,desc')}">
-				<i class="fas fa-search"></i>
+			<a href="#" th:href="@{/admin/reservation/list(page=0,size=10,sort='reservationDate,desc')}">
+				<i class="fas fa-search fa-lg"></i>
 			</a>
 		</h4>
 

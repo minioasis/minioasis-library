@@ -8,14 +8,16 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container pt-5 pb-3">
-
+	<div class="container pt-2">
+	
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+				
 		<div class="col">
 
-			<h1 class="display-5 text-success">
+			<h1 class="display-5 text-info">
 				<img th:src="@{/images/checkout48.png}" alt=""/>
 				<span th:text="#{checkout}">Checkout</span>
-				<a class="btn btn-outline-success text-success float-right" href="#" th:href="@{/admin/circ/return}">
+				<a class="btn btn-outline-info text-light float-right" href="#" th:href="@{/admin/circ/return}">
 					<img th:src="@{/images/return.png}" alt=""/>
 				</a>
 			</h1>

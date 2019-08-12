@@ -8,12 +8,15 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container pt-3 pb-3">
+	<div class="container pt-2">
 
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+		
 		<h4>
+			<img th:src="@{/images/attachment.png}" alt=""/>
 			<span th:text="#{search.attachment.checkout}">Search Attachment's Checkout</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
-				<i class="fas fa-search"></i>
+			<a href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+				<i class="fas fa-search fa-lg"></i>
 			</a>
 		</h4>
 		

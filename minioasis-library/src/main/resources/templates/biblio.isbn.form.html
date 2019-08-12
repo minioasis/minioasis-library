@@ -8,11 +8,13 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container pt-5 pb-3">
+	<div class="container pt-2">
 	
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+			
 		<div class="row">
-			<h1 class="display-5 text-success">
-				<i class="fas fa-spider"></i>
+			<h1 class="display-5 text-info">
+				<img th:src="@{/images/spider.png}" alt=""/>
 				<span th:text="#{web.scraping}">Web Scraping</span>
 			</h1>
 		</div>

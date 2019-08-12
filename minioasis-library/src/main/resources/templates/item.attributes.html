@@ -8,9 +8,11 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container">
+	<div class="container pt-2">
 
-		<div class="row pt-3">
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+		
+		<div class="row">
 			<div class="col-sm">
 				<h5>
 					<span th:text="#{item.attributes}">Item Attributes</span>

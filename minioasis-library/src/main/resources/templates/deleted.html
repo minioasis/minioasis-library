@@ -8,8 +8,10 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container pt-3 pb-3">
+	<div class="container pt-2">
 	
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+			
 		<h2>Item Deleted :</h2>
 		<div class="well well-sm">
 			<h3>@Id - <span th:text="${id}"></span></h3>

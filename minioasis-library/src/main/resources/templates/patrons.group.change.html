@@ -21,8 +21,10 @@
 
 	<div th:replace="fragments/topnav :: topnav"></div>
 
-	<div class="container pt-3 pb-3">
+	<div class="container pt-2">
 
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+		
 		<h4>
 			<span th:text="#{search.patron} + ' ('+ #{change.group} + ')'">Search Patron (Change Group)</span>
 			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
