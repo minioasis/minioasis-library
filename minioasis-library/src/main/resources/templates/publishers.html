@@ -14,14 +14,17 @@
 		
 		<h4>
 			<span th:text="#{search.publisher}">Search Publisher</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/publisher/save}">
-      			<i class="far fa-newspaper"></i>
+			<a href="#" th:href="@{/admin/publisher/save}">
+				<img th:src="@{/images/publisher.png}" alt=""/>
+			</a>
+			<a href="#" th:href="@{/admin/publisher/list(page=0,size=10,sort='name,asc')}">
+		    	<i class="fas fa-search fa-lg"></i>
 	      	</a>
-			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/series/save}">
-      			<i class="fas fa-signal"></i>
+			<a href="#" th:href="@{/admin/series/save}">
+      			<img th:src="@{/images/series.png}" alt=""/>
 	      	</a>
-			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/series/list(page=0,size=10,sort='name,asc')}">
-		    	<i class="fas fa-search"></i>
+			<a href="#" th:href="@{/admin/series/list(page=0,size=10,sort='name,asc')}">
+		    	<i class="fas fa-search fa-lg"></i>
 	      	</a>
 		</h4>
 		

@@ -14,14 +14,14 @@
 		
 		<h4>
 			<span th:text="#{biblio}">Biblio</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/save}">
-				<span><i class="fas fa-user-plus"></i></span>
+				<a th:href="@{/admin/biblio/save}">
+				    <img th:src="@{/images/biblio.png}" alt=""/>
+		      	</a>
+			<a href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<span><i class="fas fa-search fa-lg"></i></span>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				<span><i class="fas fa-search"></i></span>
-			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/isbn.form}">
-				<i class="fas fa-spider"></i>
+			<a href="#" th:href="@{/admin/biblio/isbn.form}">
+				<img th:src="@{/images/spider.png}" alt=""/>
 			</a>
 		</h4>
 

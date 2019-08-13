@@ -13,10 +13,10 @@
 		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
 
 		<h4>
-			<span th:text="#{reset.done}">Reset Done</span>
-			<a class="btn btn-outline-success text-success" href="#" th:href="@{/admin/stock.check/item}">
-				<i class="fas fa-fast-backward"></i>
+			<a href="#" th:href="@{/admin/stock.check/item}">
+				<i class="fas fa-chevron-left fa-lg"></i>
 			</a>
+			<span th:text="#{reset.done}">Reset Done</span>
 		</h4>
 		
 		

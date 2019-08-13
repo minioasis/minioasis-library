@@ -14,14 +14,14 @@
 		
 		<h4>
 			<span th:text="#{search.attachment}">Search Attachment.</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				<i class="fas fa-search"></i>b
+			<a href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search fa-lg"></i>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
-				<i class="fas fa-search"></i>i
+			<a href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<img th:src="@{/images/attachment.png}" alt=""/>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
-				<i class="fas fa-search"></i>a
+			<a href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<img th:src="@{/images/biblio.png}" alt=""/>
 			</a>	
 		</h4>
 

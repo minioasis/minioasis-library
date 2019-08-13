@@ -14,11 +14,11 @@
 	
 		<h4>
 			<span th:text="#{search.patron}">Search Patron</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/save}">
-				<span><i class="fas fa-user-plus"></i></span>
+			<a href="#" th:href="@{/admin/patron/save}">
+				<img th:src="@{/images/patron.png}" alt=""/>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
-				<i class="fas fa-search"></i>
+			<a href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
+				<i class="fas fa-search fa-lg"></i>
 			</a>	
 		</h4>
 					

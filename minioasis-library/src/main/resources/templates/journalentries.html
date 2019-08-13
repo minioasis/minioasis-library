@@ -14,14 +14,14 @@
 	
 		<h4>
 			<span th:text="#{search.journalentry}">Journal Entries</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/journalentry/patronid.form}">
-				<i class="fas fa-file-invoice-dollar"></i>
-			</a>
-			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
-				<i class="fas fa-search"></i> je
-			</a>
-			<a class="btn btn-outline-secondary text-secondary" href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
-				<i class="fas fa-search"></i> l
+			<a href="#" th:href="@{/admin/journalentry/patronid.form}">
+				<i class="fas fa-file-invoice-dollar fa-lg"></i>
+			</a>-
+			<a href="#" th:href="@{/admin/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
+				<i class="fas fa-search fa-lg"></i>
+			</a>-
+			<a href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+				<i class="fas fa-clipboard-list fa-lg"></i>
 			</a>
 		</h4>
 
