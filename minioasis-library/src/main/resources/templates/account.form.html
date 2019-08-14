@@ -13,6 +13,7 @@
 		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
 		
 		<h4>
+			<i class="fas fa-archive fa-lg text-info"></i>
 			<span th:text="#{create.account}">Create Account</span>
 			<a href="#" th:href="@{/admin/account/list(page=0,size=10,sort=code)}">
 				<i class="fas fa-search fa-lg"></i>

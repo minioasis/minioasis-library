@@ -14,17 +14,14 @@
  
 		<h4>
 			<span th:text="#{create.item}">Create Item</span>
-		      	<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				    <i class="fas fa-search"></i>b
-		      	</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
-				<i class="fas fa-search"></i>i
+			<a href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search fa-lg"></i>
 			</a>
 		</h4>
 
 		<div class="card bg-hb" style="max-width: 40rem;">
 			<div class="card-header">
-				<i class="fas fa-user-plus"></i>
+				<i class="fas fa-book-open text-info"></i>
 			</div>
 			<div class="card-body bg-lb">
 				

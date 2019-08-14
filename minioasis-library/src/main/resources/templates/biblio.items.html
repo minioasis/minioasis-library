@@ -14,12 +14,15 @@
 			
 		<h4>
 			<span th:text="#{items}">Items</span>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
-				<i class="fas fa-search"></i> i
+			<a href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<i class="fas fa-search fa-lg"></i>
 			</a>
-			<a class="btn btn-outline-info text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				<i class="fas fa-search"></i> b
-			</a>	
+			<a th:href="@{/admin/biblio/save}">
+			    <img th:src="@{/images/biblio30.png}" alt=""/>
+	      	</a>
+	      	<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+				<i class="fas fa-search fa-2x"></i>
+	      	</a>	
 		</h4>
 
 		Total : <span th:text="${items.size()}">105</span>

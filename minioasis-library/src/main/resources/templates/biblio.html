@@ -14,14 +14,17 @@
 		
 		<h4>
 			<span th:text="#{biblio}">Biblio</span>
-				<a th:href="@{/admin/biblio/save}">
-				    <img th:src="@{/images/biblio.png}" alt=""/>
-		      	</a>
 			<a href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				<span><i class="fas fa-search fa-lg"></i></span>
+				<span><i class="fas fa-search"></i></span>
 			</a>
-			<a href="#" th:href="@{/admin/biblio/isbn.form}">
-				<img th:src="@{/images/spider.png}" alt=""/>
+			<a href="#" th:href="@{/admin/biblio/{id}/items(id=${id})}">
+				<i class="fas fa-list-ul"></i>
+			</a>
+			<a href="#" th:href="@{/admin/item/save?bid={bid}(bid=${id})}">
+				<span class="fa-layers">
+					<img th:src="@{/images/item30.png}" alt=""/>
+					<i class="fas fa-plus"  data-fa-transform="down-8 right-8" style="color:blue"></i>
+				</span>		
 			</a>
 		</h4>
 

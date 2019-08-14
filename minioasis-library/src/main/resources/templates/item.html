@@ -14,15 +14,10 @@
 
 		<h4>
 			<span th:text="#{item}">Item</span>
-			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				<i class="fas fa-search"></i> b
+			<a href="#" th:href="@{/admin/biblio/{id}(id=${biblio.id})}">
+				<i class="fas fa-book fa-lg"></i>
 		    </a>
-			<a class="btn btn-outline-danger text-danger" href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
-				<i class="fas fa-list-ol"></i> i
-			</a>
-			<a class="btn btn-outline-danger text-danger" th:href="@{/admin/biblio/save}">
-	      		<i class="fas fa-book"></i>
-	      	</a>
+
 		</h4>
 
 		<div class="card bg-hb" style="max-width: 35rem;">

@@ -27,20 +27,16 @@
 
 		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
 		
-		<h4>
-			<img th:src="@{/images/biblio.png}" alt=""/>
+		<h4>		
 			<span th:text="#{create.biblio}">Create Biblio</span>
 			<a href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
 				<i class="fas fa-search fa-lg"></i>
-			</a>
-			<a href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
-				<img th:src="@{/images/spider.png}" alt=""/>
 			</a>
 		</h4>
 
 		<div class="card bg-hb" style="max-width: 50rem;">
 			<div class="card-header">
-				<i class="fas fa-user-plus"></i>
+				<img th:src="@{/images/biblio30.png}" alt=""/>
 			</div>
 			<div class="card-body bg-lb">
 				<form action="#" th:object="${biblio}" method="post">

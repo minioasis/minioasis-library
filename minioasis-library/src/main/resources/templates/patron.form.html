@@ -14,6 +14,7 @@
 		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
 	
 		<h4>
+			<img th:src="@{/images/patron.png}" alt=""/>
 			<span th:text="#{create.patron}">Create Patron</span>
 			<a href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
 				<i class="fas fa-search fa-lg"></i>
