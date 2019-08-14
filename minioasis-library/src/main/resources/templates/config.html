@@ -27,59 +27,54 @@
 		    <div class="col-sm-3">	    			      
 				<span th:text="#{patron.type}">Patron Type</span>
 				<br/>
-				<a href="#" th:href="@{/admin/patrontype/save}" class="btn btn-outline-success text-success">
-					<span><i class="fas fa-user-friends"></i></span>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patrontype/save}">
+					<span><i class="fas fa-user-friends fa-2x"></i></span>
 				</a>
-				<a href="#" th:href="@{/admin/patrontype/list}" class="btn btn-outline-success text-success">
-					<span><i class="fas fa-search"></i></span>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patrontype/list}">
+					<span><i class="fas fa-search fa-2x"></i></span>
 				</a>				
 			</div>
 			
 		    <div class="col-sm-3">	    	
-
 				<span th:text="#{group}">Group</span>
 				<br>
-				<a href="#" th:href="@{/admin/group/save}" class="btn btn-outline-success text-success">
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/group/save}">
 					<span>
-						<i class="fas fa-users"></i>
+						<i class="fas fa-users fa-2x"></i>
 					</span>
 				</a>
-				<a href="#" th:href="@{/admin/group/list(page=0,size=10,sort=code)}" class="btn btn-outline-success text-success">
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/group/list(page=0,size=10,sort=code)}">
 					<span>
-						<i class="fas fa-search"></i>
+						<i class="fas fa-search fa-2x"></i>
 					</span>
-				</a>
-		
+				</a>	
 			</div>
 			
 		    <div class="col-sm-3">	    	
-
 				<span th:text="#{holiday}">Holiday</span>
 				<br>
-				<a href="#" th:href="@{/admin/holiday/save}" class="btn btn-outline-success text-success">
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/holiday/save}">
 					<span>
-						<i class="fas fa-umbrella-beach"></i>
+						<i class="fas fa-umbrella-beach fa-2x"></i>
 					</span>
 				</a>
-				<a href="#" th:href="@{/admin/holiday/list(page=0,size=10,sort='startDate,desc')}" class="btn btn-outline-success text-success">
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/holiday/list(page=0,size=10,sort='startDate,desc')}">
 					<span>
-						<i class="fas fa-search"></i>
+						<i class="fas fa-search fa-2x"></i>
 					</span>
-				</a>
-	
+				</a>	
 			</div>
 			
 		    <div class="col-sm-3">	    	
 				<span th:text="#{item.attributes}">Item Attributes</span>
 				<br>
-				<a href="#" th:href="@{/admin/item.attributes}" class="btn btn-outline-success text-success">
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/item.attributes}">
 					<span>
-						<i class="fas fa-map-marker-alt"></i>
-						<i class="far fa-clock"></i>
-						<i class="fas fa-thermometer-half"></i>
+						<i class="fas fa-map-marker-alt fa-2x"></i>
+						<i class="far fa-clock fa-2x"></i>
+						<i class="fas fa-thermometer-half fa-2x"></i>
 					</span>
-				</a>
-				
+				</a>				
 			</div>
 			
 		  </div> <!-- row 2 -->
