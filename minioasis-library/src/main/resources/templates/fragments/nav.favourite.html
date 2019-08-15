@@ -18,7 +18,7 @@
 	
 		<!--libnav -->
 		<div th:fragment="navfavourite">
-			<div class="row">
+			<div class="row d-none d-md-block">
 				<div class="col">
 					<h4 class="float-right">
 						<a href="#" th:href="@{/admin/circ/patronid.form}">
@@ -60,11 +60,19 @@
 						<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
 							<i class="fas fa-search fa-2x"></i>
 						</a>
-						<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry/patronid.form}">
-							<i class="fas fa-file-invoice-dollar fa-2x"></i>
+						<a href="#" th:href="@{/admin/journalentry/patronid.form}">
+							<i class="fas fa-file-invoice-dollar fa-lg text-info"></i>
+						</a>
+						<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry/list(page=0,size=60,sort='txnDate,desc')}">
+							<i class="fas fa-search fa-2x"></i>
+						</a>
+						<a href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+							<i class="fas fa-clipboard-list fa-lg text-info"></i>
 						</a>			
 					</h4>
 				</div>
+				<br>
+				<br>
 			</div>
 		</div><!-- libnav -->
 	

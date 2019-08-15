@@ -20,7 +20,9 @@
 <body>
 
 	<div class="container pt-5 pb-5">
-		<a href="#"	th:href="@{/admin/shelfmark/back}"><i class="fas fa-chevron-left"></i></a>
+		<a href="#"	th:href="@{/admin/shelfmark/back}">
+			<i class="fas fa-chevron-left"></i>
+		</a>
 		<table class="table table-bordered">
 			<tbody>
 				<tr th:each="rows : ${rowlists}">
