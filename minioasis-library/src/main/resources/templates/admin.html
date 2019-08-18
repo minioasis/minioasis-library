@@ -139,7 +139,15 @@
 				</h4>
 
 		      	<br/>
-							
+
+				<span th:text="#{biblio}">Bibliography</span>
+				<br>
+		      	<a href="#" th:href="@{/admin/biblio.img/list(page=0,size=10,sort='updated,desc')}">
+					<img th:src="@{/images/image.png}" alt=""/>
+		      	</a>
+		      	
+		      	<p><p/>
+		      								
 				<span th:text="#{print.shelfmark}">Print Shelfmarks</span>
 				<br>
 				<a href="#" th:href="@{/admin/shelfmark/list}">

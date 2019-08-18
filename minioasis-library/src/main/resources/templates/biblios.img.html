@@ -13,8 +13,8 @@
 		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
 			
 		<h4>
-			<span th:text="#{search.biblio}">Search Biblio.</span>
-			<a class="btn btn-outline-light text-primary" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+			<img th:src="@{/images/image.png}" alt=""/> <span th:text="#{search.biblio}">Search Biblio.</span>
+			<a class="btn btn-outline-light text-primary" href="#" th:href="@{/admin/biblio.img/list(page=0,size=10,sort='updated,desc')}">
 				<i class="fas fa-search fa-2x"></i>
 			</a>	
 		</h4>
@@ -40,7 +40,7 @@
 			</li>
 		</ul>
 
-		<form action="#" th:action="@{/admin/biblio/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/admin/biblio.img/search}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -138,10 +138,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/admin/biblio/list(page=${page.number - 1},size=${page.size},sort='updated,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/biblio.img/list(page=${page.number - 1},size=${page.size},sort='updated,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/admin/biblio/list(page=${page.number + 1},size=${page.size},sort='updated,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/biblio.img/list(page=${page.number + 1},size=${page.size},sort='updated,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
@@ -164,16 +164,9 @@
 					<tr>
 						<th>#</th>
 						<th th:text="#{photo}">Photo</th>
-						<th>(A)</th>
 						<th th:text="#{title} + '/' + #{author} + '/' + #{isbn} + '/(B)'">Title/Author/ISBN/(B)</th>
 						<th>(T)</th>
 						<th>(L)</th>
-						<th th:text="#{items}">Items</th>
-						<th th:text="#{add.item}">Add Item</th>
-						<th th:text="#{publisher} + '/' + #{series}">Publisher / Series</th>
-						<th th:text="#{classmark}">ClassMark</th>
-						<th th:text="#{issn}">ISSN</th>
-						<th th:text="#{updated}">Start / End</th>
 						<th th:text="#{actions}">Actions</th>
 					</tr>
 				</thead>
@@ -183,11 +176,10 @@
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td>
 							<img src="@{/images/smiley.png}" 
-								 th:src="@{/thumbnail.photo/biblio/{id}(id=${e.isbn})}" 
+								 th:src="@{/photo/biblio/{id}(id=${e.isbn})}" 
 								 class="thumbnail" 
 								 style="min-height:75px;height:95px;width:80px;"/>
 						</td>
-						<td th:text="${e.active}">Active</td>
 						<td>
 							<a href="#" th:href="@{/admin/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a> (<span th:text="${e.binding}"></span>)
 							<p><code th:text="${e.author}"></code></p>									
@@ -197,32 +189,10 @@
 						<td>
 							<p th:text="${e.language}"></p>
 						</td>
-						<td>
-							<a href="#" th:href="@{/admin/biblio/{id}/items(id=${e.id})}">
-								<i class="fas fa-list-ul fa-2x"></i>
-							</a>
-						</td>
-						<td>
-							<span class="fa-layers fa-fw">
-								<a href="#" th:href="@{/admin/item/save?bid={bid}(bid=${e.id})}">
-								<img th:src="@{/images/item30.png}" alt=""/>
-							    <i class="fa-inverse fas fa-plus" data-fa-transform="right-13" style="color:blue"></i>
-							    </a>
-							</span>
-							
-								
-							
-						</td>
-						<td>
-							<p th:text="${e.publisher != null ? e.publisher.name : ''}">Richard P. Feynman</p>
-							<p th:text="${e.series != null ? e.series.name : ''}">Physics Series</p>
-						</td>
-						<td th:text="${e.classMark}">555.55 HA1</td>
-						<td th:text="${e.journal != null ? e.journal.issn : ''}">Issn</td>
-						<td th:text="${#temporals.format(e.updated,'yyyy-MM-dd')}">2015-08-31</td>
-						<td>
-							<a href="#" th:href="@{/admin/biblio/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/admin/biblio/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+						<td>	
+							<a href="#" th:href="@{/admin/biblio.img/douban?isbn={isbn}(isbn=${e.isbn})}">
+								<img th:src="@{/images/image.png}" alt=""/>
+							</a>						
 						</td>
 					</tr>
 					<tr th:remove="all">
@@ -232,11 +202,6 @@
 						<td>4</td>
 						<td>5</td>
 						<td>6</td>
-						<td>7</td>
-						<td>8</td>
-						<td>9</td>
-						<td>10</td>
-						<td>11</td>
 					</tr>
 				</tbody>
 			</table>

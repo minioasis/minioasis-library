@@ -156,7 +156,7 @@ public class BootstrapData implements CommandLineRunner {
 		b1.setBiblioType(BiblioType.BOOK);
 		b1.setTitle("X-Man");
 		b1.setAuthor("Steven Spy");
-		b1.setIsbn("1");
+		b1.setIsbn("9787550274259");
 		b1.setClassMark("532.12");
 		b1.setPublisher(pb3);
 		b1.setSeries(s2);
@@ -169,7 +169,7 @@ public class BootstrapData implements CommandLineRunner {
 		b2.setBiblioType(BiblioType.BOOK);
 		b2.setTitle("Spider Man");
 		b2.setAuthor("Ken Robinson");
-		b2.setIsbn("2");
+		b2.setIsbn("9787508641140");
 		b2.setClassMark("532.12");
 		b2.setPublisher(pb2);
 		b2.setSeries(s2);
@@ -182,7 +182,7 @@ public class BootstrapData implements CommandLineRunner {
 		b3.setBiblioType(BiblioType.BOOK);
 		b3.setTitle("Iron Man");
 		b3.setAuthor("Robert");
-		b3.setIsbn("3");
+		b3.setIsbn("9787121073786");
 		b3.setClassMark("511.12");
 		b3.setPublisher(pb2);
 		b3.setSeries(s3);
@@ -195,7 +195,7 @@ public class BootstrapData implements CommandLineRunner {
 		b4.setBiblioType(BiblioType.BOOK);
 		b4.setTitle("Feynman Lecture On Physics");
 		b4.setAuthor("Feynman R.P");
-		b4.setIsbn("4");
+		b4.setIsbn("9787521700886");
 		b4.setClassMark("564.12");
 		b4.setPublisher(pb2);
 		b4.setSeries(s3);
