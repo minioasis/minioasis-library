@@ -1,8 +1,21 @@
 <!DOCTYPE html>
 
 <html xmlns:th="http://www.thymeleaf.org">
-	<head th:replace="fragments/head :: head(Minioasis)">
-	    <title>Minioasis Library</title>
+	<head>
+		<!-- Required meta tags -->
+		<meta charset="utf-8">
+		<meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+		
+		<!-- Bootstrap CSS -->
+		<link rel="stylesheet"
+			href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
+			integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
+			crossorigin="anonymous">
+		<link rel="stylesheet" type="text/css" href="/css/minioasis.css" th:href="@{/css/minioasis.css}"/>
+		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
+			
+		<title th:text="${title}">Page Title</title>
 	</head>
 <body>
 
@@ -155,61 +168,80 @@
 				</a>	
 			</div>		
 		</div>
-		
-		Total : <span th:text="${page.totalElements}">105</span>
 
-		<div class="table-responsive-sm">					
-			<table class="table table-striped">
-				<thead>
-					<tr>
-						<th>#</th>
-						<th th:text="#{photo}">Photo</th>
-						<th th:text="#{title} + '/' + #{author} + '/' + #{isbn} + '/(B)'">Title/Author/ISBN/(B)</th>
-						<th>(T)</th>
-						<th>(L)</th>
-						<th th:text="#{actions}">Actions</th>
-					</tr>
-				</thead>
-	
-				<tbody>
-					<tr th:each="e,iterator : ${page.content}">
-						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td>
-							<img src="@{/images/smiley.png}" 
-								 th:src="@{/photo/biblio/{id}(id=${e.isbn})}" 
-								 class="thumbnail" 
-								 style="min-height:75px;height:95px;width:80px;"/>
-						</td>
-						<td>
-							<a href="#" th:href="@{/admin/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a> (<span th:text="${e.binding}"></span>)
-							<p><code th:text="${e.author}"></code></p>									
-							<p><code th:text="${e.isbn}"></code></p>
-						</td>
-						<td th:text="${e.biblioType}">BiblioType</td>
-						<td>
-							<p th:text="${e.language}"></p>
-						</td>
-						<td>	
-							<a href="#" th:href="@{/admin/biblio.img/douban?isbn={isbn}(isbn=${e.isbn})}">
-								<img th:src="@{/images/image.png}" alt=""/>
-							</a>						
-						</td>
-					</tr>
-					<tr th:remove="all">
-						<td>1</td>
-						<td>2</td>
-						<td>3</td>
-						<td>4</td>
-						<td>5</td>
-						<td>6</td>
-					</tr>
-				</tbody>
-			</table>
-		</div>
+		<script type="text/javascript">
+			$(function () {
+			    $('#checkall').on('click', function () {
+			        $(this).closest('table').find(':checkbox').prop('checked', this.checked);
+			    });
+			});
+		</script>
+		
+		<form class="form" action="#" th:action="@{/admin/biblio.img/douban}" th:object="${criteria}" method="post">
+						
+			Total : <span th:text="${page.totalElements}">105</span>	
+
+			<button type="submit" class="btn bg-info text-white float-right"  th:text="#{douban}">Get All</button>
+
+			<div class="table-responsive-sm">					
+				<table class="table table-striped">
+					<thead>
+						<tr>
+							<th>#</th>
+							<th><span th:text="#{all}"></span> | <input type="checkbox" id="checkall" /></th>
+							<th th:text="#{photo}">Photo</th>
+							<th th:text="#{title} + '/' + #{author} + '/' + #{isbn} + '/(B)'">Title/Author/ISBN/(B)</th>
+							<th>(T)</th>
+							<th>(L)</th>
+							<th th:text="#{actions}">Actions</th>
+						</tr>
+					</thead>
+		
+					<tbody>
+						<tr th:each="e,iterator : ${page.content}">
+							<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+							<td><input type="checkbox" th:field="*{isbn}" th:value="${e.isbn}" /></td>
+							<td>
+								<img src="@{/images/smiley.png}" 
+									 th:src="@{/photo/biblio/{id}(id=${e.isbn})}" 
+									 class="thumbnail" 
+									 style="min-height:75px;height:95px;width:80px;"/>
+							</td>
+							<td>
+								<a href="#" th:href="@{/admin/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a> (<span th:text="${e.binding}"></span>)
+								<p><code th:text="${e.author}"></code></p>									
+								<p><code th:text="${e.isbn}"></code></p>
+							</td>
+							<td th:text="${e.biblioType}">BiblioType</td>
+							<td>
+								<p th:text="${e.language}"></p>
+							</td>
+							<td>	
+								<a href="#" th:href="@{/admin/biblio.img/douban?isbn={isbn}(isbn=${e.isbn})}">
+									<img th:src="@{/images/image.png}" alt=""/>
+								</a>						
+							</td>
+						</tr>
+						<tr th:remove="all">
+							<td>1</td>
+							<td>2</td>
+							<td>3</td>
+							<td>4</td>
+							<td>5</td>
+							<td>6</td>
+							<td>6</td>
+						</tr>
+					</tbody>
+				</table>
+			</div>
+		</form>
 								
 		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>
-
+		<!-- to prevent 2 version of jquery conflict -->
+		<script>
+		   var $y = jQuery.noConflict();
+		</script>
 	</div>
 
 </body>

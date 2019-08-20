@@ -21,6 +21,7 @@ public class BiblioCriteria implements Serializable {
 	private LocalDateTime updatedFrom;
 	private LocalDateTime updatedTo;
 	private String note;
+	private String[] isbn;
 	
 	private Set<BiblioType> bibliotypes = new HashSet<BiblioType>();
 	private Set<Language> languages = new HashSet<Language>();
@@ -68,6 +69,12 @@ public class BiblioCriteria implements Serializable {
 	}
 	public void setNote(String note) {
 		this.note = note;
+	}
+	public String[] getIsbn() {
+		return isbn;
+	}
+	public void setIsbn(String[] isbn) {
+		this.isbn = isbn;
 	}
 	public Set<BiblioType> getBibliotypes() {
 		return bibliotypes;

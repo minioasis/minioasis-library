@@ -109,8 +109,17 @@ public class BiblioImageScraper {
 		
 		return uc.toUriString();
 	}
-	
+
 	@RequestMapping(value = { "/douban" }, method = RequestMethod.GET)
+	public String scrapingDoubanImage(@RequestParam(value="isbn") String isbn) {
+		
+		getImage(isbn);
+		
+		return "redirect:/admin/biblio.img/list?page=0&size=10&sort=updated,desc";
+		
+	}
+	
+	@RequestMapping(value = { "/douban" }, method = RequestMethod.POST)
 	public String scrapingDoubanImage(@RequestParam(value="isbn") String[] isbn) {
 		
 		for(int i = 0; i < isbn.length ; i++) {
@@ -132,7 +141,9 @@ public class BiblioImageScraper {
 			
 			logger.info("★★★ " + LocalDateTime.now() + " ★★★" + " Connecting DOUBAN");
 
-			doc = Jsoup.connect(url).get();
+			doc = Jsoup.connect(url)
+						.timeout(20000)
+						.get();
 			
 			logger.info("★★★ " + LocalDateTime.now() + " ★★★" + " Connected");
 			
