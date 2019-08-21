@@ -20,6 +20,7 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
+import org.hibernate.envers.Audited;
 
 @Entity
 @FilterDef(
@@ -29,6 +30,7 @@ import org.hibernate.annotations.ParamDef;
 			@ParamDef(name = "effectiveReservationState", type = "string")
 		}
 	)
+@Audited
 @Table(name = "reservation")
 public class Reservation implements Serializable {
 

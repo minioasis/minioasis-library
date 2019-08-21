@@ -191,13 +191,6 @@ public class BiblioDao extends DAOImpl<BiblioRecord, org.minioasis.library.jooq.
     }
 
     /**
-     * Fetch records that have <code>IMAGE_ID IN (values)</code>
-     */
-    public List<org.minioasis.library.jooq.tables.pojos.Biblio> fetchByImageId(Long... values) {
-        return fetch(Biblio.BIBLIO.IMAGE_ID, values);
-    }
-
-    /**
      * Fetch records that have <code>PUBLISHER_ID IN (values)</code>
      */
     public List<org.minioasis.library.jooq.tables.pojos.Biblio> fetchByPublisherId(Long... values) {

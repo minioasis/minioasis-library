@@ -19,7 +19,6 @@ import org.minioasis.library.jooq.tables.Checkout;
 import org.minioasis.library.jooq.tables.FormData;
 import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
-import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
 import org.minioasis.library.jooq.tables.ItemStatus;
 import org.minioasis.library.jooq.tables.JournalEntry;
@@ -44,7 +43,6 @@ import org.minioasis.library.jooq.tables.records.CheckoutRecord;
 import org.minioasis.library.jooq.tables.records.FormDataRecord;
 import org.minioasis.library.jooq.tables.records.GroupsRecord;
 import org.minioasis.library.jooq.tables.records.HolidayRecord;
-import org.minioasis.library.jooq.tables.records.ImageRecord;
 import org.minioasis.library.jooq.tables.records.ItemRecord;
 import org.minioasis.library.jooq.tables.records.ItemStatusRecord;
 import org.minioasis.library.jooq.tables.records.JournalEntryLineRecord;
@@ -117,7 +115,6 @@ public class Keys {
     public static final UniqueKey<GroupsRecord> UK_16FAME6JE5OYJNCQMBL1N5177 = UniqueKeys0.UK_16FAME6JE5OYJNCQMBL1N5177;
     public static final UniqueKey<HolidayRecord> CONSTRAINT_6B = UniqueKeys0.CONSTRAINT_6B;
     public static final UniqueKey<HolidayRecord> UK_3JJDI9M362Y965LR542FPEJT = UniqueKeys0.UK_3JJDI9M362Y965LR542FPEJT;
-    public static final UniqueKey<ImageRecord> CONSTRAINT_4 = UniqueKeys0.CONSTRAINT_4;
     public static final UniqueKey<ItemRecord> CONSTRAINT_2 = UniqueKeys0.CONSTRAINT_2;
     public static final UniqueKey<ItemRecord> UK_BFO0NHIH8F3JL9M9UBLNXR4UY = UniqueKeys0.UK_BFO0NHIH8F3JL9M9UBLNXR4UY;
     public static final UniqueKey<ItemStatusRecord> CONSTRAINT_64 = UniqueKeys0.CONSTRAINT_64;
@@ -155,7 +152,6 @@ public class Keys {
     public static final ForeignKey<AttachmentCheckoutRecord, AttachmentRecord> FK_ATTACHMENTCHECKOUT_ATTACHMENT = ForeignKeys0.FK_ATTACHMENTCHECKOUT_ATTACHMENT;
     public static final ForeignKey<AttachmentCheckoutRecord, CheckoutRecord> FK_ATTACHMENTCHECKOUT_CHECKOUT = ForeignKeys0.FK_ATTACHMENTCHECKOUT_CHECKOUT;
     public static final ForeignKey<AttachmentCheckoutRecord, PatronRecord> FK_ATTACHMENTCHECKOUT_PATRON = ForeignKeys0.FK_ATTACHMENTCHECKOUT_PATRON;
-    public static final ForeignKey<BiblioRecord, ImageRecord> FK5H0N8HTB4IGKJI1C5FCV1HVY9 = ForeignKeys0.FK5H0N8HTB4IGKJI1C5FCV1HVY9;
     public static final ForeignKey<BiblioRecord, PublisherRecord> FK_BIBLIO_PUBLISHER = ForeignKeys0.FK_BIBLIO_PUBLISHER;
     public static final ForeignKey<BiblioRecord, SeriesRecord> FK_BIBLIO_SERIES = ForeignKeys0.FK_BIBLIO_SERIES;
     public static final ForeignKey<BiblioTagRecord, BiblioRecord> FK2Y040I75GSYULS6MEGB8PEOLK = ForeignKeys0.FK2Y040I75GSYULS6MEGB8PEOLK;
@@ -214,7 +210,6 @@ public class Keys {
         public static final UniqueKey<GroupsRecord> UK_16FAME6JE5OYJNCQMBL1N5177 = Internal.createUniqueKey(Groups.GROUPS, "UK_16FAME6JE5OYJNCQMBL1N5177", Groups.GROUPS.CODE);
         public static final UniqueKey<HolidayRecord> CONSTRAINT_6B = Internal.createUniqueKey(Holiday.HOLIDAY, "CONSTRAINT_6B", Holiday.HOLIDAY.ID);
         public static final UniqueKey<HolidayRecord> UK_3JJDI9M362Y965LR542FPEJT = Internal.createUniqueKey(Holiday.HOLIDAY, "UK_3JJDI9M362Y965LR542FPEJT", Holiday.HOLIDAY.NAME);
-        public static final UniqueKey<ImageRecord> CONSTRAINT_4 = Internal.createUniqueKey(Image.IMAGE, "CONSTRAINT_4", Image.IMAGE.ID);
         public static final UniqueKey<ItemRecord> CONSTRAINT_2 = Internal.createUniqueKey(Item.ITEM, "CONSTRAINT_2", Item.ITEM.ID);
         public static final UniqueKey<ItemRecord> UK_BFO0NHIH8F3JL9M9UBLNXR4UY = Internal.createUniqueKey(Item.ITEM, "UK_BFO0NHIH8F3JL9M9UBLNXR4UY", Item.ITEM.BARCODE);
         public static final UniqueKey<ItemStatusRecord> CONSTRAINT_64 = Internal.createUniqueKey(ItemStatus.ITEM_STATUS, "CONSTRAINT_64", ItemStatus.ITEM_STATUS.ID);
@@ -250,7 +245,6 @@ public class Keys {
         public static final ForeignKey<AttachmentCheckoutRecord, AttachmentRecord> FK_ATTACHMENTCHECKOUT_ATTACHMENT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_A, AttachmentCheckout.ATTACHMENT_CHECKOUT, "FK_ATTACHMENTCHECKOUT_ATTACHMENT", AttachmentCheckout.ATTACHMENT_CHECKOUT.ATTACHMENT_ID);
         public static final ForeignKey<AttachmentCheckoutRecord, CheckoutRecord> FK_ATTACHMENTCHECKOUT_CHECKOUT = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8, AttachmentCheckout.ATTACHMENT_CHECKOUT, "FK_ATTACHMENTCHECKOUT_CHECKOUT", AttachmentCheckout.ATTACHMENT_CHECKOUT.CHECKOUT_ID);
         public static final ForeignKey<AttachmentCheckoutRecord, PatronRecord> FK_ATTACHMENTCHECKOUT_PATRON = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_8C, AttachmentCheckout.ATTACHMENT_CHECKOUT, "FK_ATTACHMENTCHECKOUT_PATRON", AttachmentCheckout.ATTACHMENT_CHECKOUT.PATRON_ID);
-        public static final ForeignKey<BiblioRecord, ImageRecord> FK5H0N8HTB4IGKJI1C5FCV1HVY9 = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_4, Biblio.BIBLIO, "FK5H0N8HTB4IGKJI1C5FCV1HVY9", Biblio.BIBLIO.IMAGE_ID);
         public static final ForeignKey<BiblioRecord, PublisherRecord> FK_BIBLIO_PUBLISHER = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_FC, Biblio.BIBLIO, "FK_BIBLIO_PUBLISHER", Biblio.BIBLIO.PUBLISHER_ID);
         public static final ForeignKey<BiblioRecord, SeriesRecord> FK_BIBLIO_SERIES = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_91, Biblio.BIBLIO, "FK_BIBLIO_SERIES", Biblio.BIBLIO.SERIES_ID);
         public static final ForeignKey<BiblioTagRecord, BiblioRecord> FK2Y040I75GSYULS6MEGB8PEOLK = Internal.createForeignKey(org.minioasis.library.jooq.Keys.CONSTRAINT_7, BiblioTag.BIBLIO_TAG, "FK2Y040I75GSYULS6MEGB8PEOLK", BiblioTag.BIBLIO_TAG.BIBLIO_ID);

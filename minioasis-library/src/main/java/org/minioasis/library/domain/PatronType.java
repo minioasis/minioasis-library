@@ -34,7 +34,10 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 @Table(name = "patron_type")
 public class PatronType implements Serializable {
 

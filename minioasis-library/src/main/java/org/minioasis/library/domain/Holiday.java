@@ -30,7 +30,10 @@ import javax.persistence.Id;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 @Table(name = "holiday")
 public class Holiday implements Serializable {
 

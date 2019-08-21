@@ -8,7 +8,6 @@ import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
 
-import javax.persistence.CascadeType;
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.EnumType;
@@ -19,7 +18,6 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
-import javax.persistence.OneToOne;
 import javax.persistence.JoinColumn;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -30,12 +28,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Filter;
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Length;
 import org.minioasis.library.domain.util.ReservationComparator;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 
 @Entity
+@Audited
 @Table(name = "biblio")
 @JsonIgnoreProperties(ignoreUnknown = true)
 public class Biblio implements Serializable {
@@ -55,10 +55,6 @@ public class Biblio implements Serializable {
 	@NotNull
 	@Column(name = "title", nullable = false)
 	private String title;
-	
-	@OneToOne(cascade = CascadeType.ALL)
-	@JoinColumn(name = "image_id")
-	private Image image;
 
 	@Length(max = 16)
 	private String isbn;
@@ -161,14 +157,6 @@ public class Biblio implements Serializable {
 
 	public void setTitle(String title) {
 		this.title = title;
-	}
-
-	public Image getImage() {
-		return image;
-	}
-
-	public void setImage(Image image) {
-		this.image = image;
 	}
 
 	public String getIsbn() {

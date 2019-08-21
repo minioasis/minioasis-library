@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Biblio implements Serializable {
 
-    private static final long serialVersionUID = -1749973994;
+    private static final long serialVersionUID = 1039741312;
 
     private Long      id;
     private String    active;
@@ -44,7 +44,6 @@ public class Biblio implements Serializable {
     private String    topic;
     private String    title;
     private Timestamp updated;
-    private Long      imageId;
     private Long      publisherId;
     private Long      seriesId;
 
@@ -70,7 +69,6 @@ public class Biblio implements Serializable {
         this.topic = value.topic;
         this.title = value.title;
         this.updated = value.updated;
-        this.imageId = value.imageId;
         this.publisherId = value.publisherId;
         this.seriesId = value.seriesId;
     }
@@ -95,7 +93,6 @@ public class Biblio implements Serializable {
         String    topic,
         String    title,
         Timestamp updated,
-        Long      imageId,
         Long      publisherId,
         Long      seriesId
     ) {
@@ -118,7 +115,6 @@ public class Biblio implements Serializable {
         this.topic = topic;
         this.title = title;
         this.updated = updated;
-        this.imageId = imageId;
         this.publisherId = publisherId;
         this.seriesId = seriesId;
     }
@@ -275,14 +271,6 @@ public class Biblio implements Serializable {
         this.updated = updated;
     }
 
-    public Long getImageId() {
-        return this.imageId;
-    }
-
-    public void setImageId(Long imageId) {
-        this.imageId = imageId;
-    }
-
     public Long getPublisherId() {
         return this.publisherId;
     }
@@ -322,7 +310,6 @@ public class Biblio implements Serializable {
         sb.append(", ").append(topic);
         sb.append(", ").append(title);
         sb.append(", ").append(updated);
-        sb.append(", ").append(imageId);
         sb.append(", ").append(publisherId);
         sb.append(", ").append(seriesId);
 

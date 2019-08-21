@@ -11,10 +11,12 @@ import javax.persistence.Table;
 import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Length;
 
 
 @Entity
+@Audited
 @Table(name = "role", uniqueConstraints = @UniqueConstraint(columnNames = "name"))
 public class Role implements Serializable {
 

@@ -45,6 +45,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
+import org.hibernate.envers.Audited;
 
 @Entity
 @FilterDef(
@@ -54,6 +55,7 @@ import org.hibernate.annotations.ParamDef;
 			@ParamDef(name = "effectiveCheckoutState", type = "string")
 		}
 	)
+@Audited
 @Table(name = "checkout")
 public class Checkout implements Serializable {
 

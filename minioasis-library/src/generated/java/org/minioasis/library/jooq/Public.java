@@ -23,7 +23,6 @@ import org.minioasis.library.jooq.tables.Checkout;
 import org.minioasis.library.jooq.tables.FormData;
 import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
-import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
 import org.minioasis.library.jooq.tables.ItemStatus;
 import org.minioasis.library.jooq.tables.JournalEntry;
@@ -54,7 +53,7 @@ import org.minioasis.library.jooq.tables.UserRole;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Public extends SchemaImpl {
 
-    private static final long serialVersionUID = 926680807;
+    private static final long serialVersionUID = -1603898995;
 
     /**
      * The reference instance of <code>PUBLIC</code>
@@ -105,11 +104,6 @@ public class Public extends SchemaImpl {
      * The table <code>PUBLIC.HOLIDAY</code>.
      */
     public final Holiday HOLIDAY = org.minioasis.library.jooq.tables.Holiday.HOLIDAY;
-
-    /**
-     * The table <code>PUBLIC.IMAGE</code>.
-     */
-    public final Image IMAGE = org.minioasis.library.jooq.tables.Image.IMAGE;
 
     /**
      * The table <code>PUBLIC.ITEM</code>.
@@ -232,7 +226,6 @@ public class Public extends SchemaImpl {
             FormData.FORM_DATA,
             Groups.GROUPS,
             Holiday.HOLIDAY,
-            Image.IMAGE,
             Item.ITEM,
             ItemStatus.ITEM_STATUS,
             JournalEntry.JOURNAL_ENTRY,

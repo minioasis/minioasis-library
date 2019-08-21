@@ -40,7 +40,7 @@ import org.minioasis.library.jooq.tables.records.BiblioRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Biblio extends TableImpl<BiblioRecord> {
 
-    private static final long serialVersionUID = -969980523;
+    private static final long serialVersionUID = 1990410715;
 
     /**
      * The reference instance of <code>PUBLIC.BIBLIO</code>
@@ -151,11 +151,6 @@ public class Biblio extends TableImpl<BiblioRecord> {
     public final TableField<BiblioRecord, Timestamp> UPDATED = createField("UPDATED", org.jooq.impl.SQLDataType.TIMESTAMP, this, "");
 
     /**
-     * The column <code>PUBLIC.BIBLIO.IMAGE_ID</code>.
-     */
-    public final TableField<BiblioRecord, Long> IMAGE_ID = createField("IMAGE_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
-
-    /**
      * The column <code>PUBLIC.BIBLIO.PUBLISHER_ID</code>.
      */
     public final TableField<BiblioRecord, Long> PUBLISHER_ID = createField("PUBLISHER_ID", org.jooq.impl.SQLDataType.BIGINT, this, "");
@@ -207,7 +202,7 @@ public class Biblio extends TableImpl<BiblioRecord> {
      */
     @Override
     public List<Index> getIndexes() {
-        return Arrays.<Index>asList(Indexes.FK5H0N8HTB4IGKJI1C5FCV1HVY9_INDEX_7, Indexes.FK_BIBLIO_PUBLISHER_INDEX_7, Indexes.FK_BIBLIO_SERIES_INDEX_7, Indexes.PRIMARY_KEY_7);
+        return Arrays.<Index>asList(Indexes.FK_BIBLIO_PUBLISHER_INDEX_7, Indexes.FK_BIBLIO_SERIES_INDEX_7, Indexes.PRIMARY_KEY_7);
     }
 
     /**
@@ -239,7 +234,7 @@ public class Biblio extends TableImpl<BiblioRecord> {
      */
     @Override
     public List<ForeignKey<BiblioRecord, ?>> getReferences() {
-        return Arrays.<ForeignKey<BiblioRecord, ?>>asList(Keys.FK5H0N8HTB4IGKJI1C5FCV1HVY9, Keys.FK_BIBLIO_PUBLISHER, Keys.FK_BIBLIO_SERIES);
+        return Arrays.<ForeignKey<BiblioRecord, ?>>asList(Keys.FK_BIBLIO_PUBLISHER, Keys.FK_BIBLIO_SERIES);
     }
 
     /**

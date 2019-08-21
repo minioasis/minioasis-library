@@ -14,9 +14,11 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
+@Audited
 @Table(name = "location")
 public class Location implements Serializable {
 

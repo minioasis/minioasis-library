@@ -15,9 +15,11 @@ import javax.persistence.ManyToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
+@Audited
 @Table(name = "journal_entry_line")
 public class JournalEntryLine implements Serializable {
 	

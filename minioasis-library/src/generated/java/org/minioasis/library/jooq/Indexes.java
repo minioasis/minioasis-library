@@ -18,7 +18,6 @@ import org.minioasis.library.jooq.tables.Checkout;
 import org.minioasis.library.jooq.tables.FormData;
 import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
-import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
 import org.minioasis.library.jooq.tables.ItemStatus;
 import org.minioasis.library.jooq.tables.JournalEntry;
@@ -62,7 +61,6 @@ public class Indexes {
     public static final Index FK_ATTACHMENTCHECKOUT_CHECKOUT_INDEX_6 = Indexes0.FK_ATTACHMENTCHECKOUT_CHECKOUT_INDEX_6;
     public static final Index FK_ATTACHMENTCHECKOUT_PATRON_INDEX_6 = Indexes0.FK_ATTACHMENTCHECKOUT_PATRON_INDEX_6;
     public static final Index PRIMARY_KEY_6 = Indexes0.PRIMARY_KEY_6;
-    public static final Index FK5H0N8HTB4IGKJI1C5FCV1HVY9_INDEX_7 = Indexes0.FK5H0N8HTB4IGKJI1C5FCV1HVY9_INDEX_7;
     public static final Index FK_BIBLIO_PUBLISHER_INDEX_7 = Indexes0.FK_BIBLIO_PUBLISHER_INDEX_7;
     public static final Index FK_BIBLIO_SERIES_INDEX_7 = Indexes0.FK_BIBLIO_SERIES_INDEX_7;
     public static final Index PRIMARY_KEY_7 = Indexes0.PRIMARY_KEY_7;
@@ -77,7 +75,6 @@ public class Indexes {
     public static final Index UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7 = Indexes0.UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7;
     public static final Index PRIMARY_KEY_6B = Indexes0.PRIMARY_KEY_6B;
     public static final Index UK_3JJDI9M362Y965LR542FPEJT_INDEX_6 = Indexes0.UK_3JJDI9M362Y965LR542FPEJT_INDEX_6;
-    public static final Index PRIMARY_KEY_4 = Indexes0.PRIMARY_KEY_4;
     public static final Index FK_ITEM_BIBLIO_INDEX_2 = Indexes0.FK_ITEM_BIBLIO_INDEX_2;
     public static final Index FK_ITEM_ITEMSTATUS_INDEX_2 = Indexes0.FK_ITEM_ITEMSTATUS_INDEX_2;
     public static final Index FK_ITEM_LOCATION_INDEX_2 = Indexes0.FK_ITEM_LOCATION_INDEX_2;
@@ -132,7 +129,6 @@ public class Indexes {
         public static Index FK_ATTACHMENTCHECKOUT_CHECKOUT_INDEX_6 = Internal.createIndex("FK_ATTACHMENTCHECKOUT_CHECKOUT_INDEX_6", AttachmentCheckout.ATTACHMENT_CHECKOUT, new OrderField[] { AttachmentCheckout.ATTACHMENT_CHECKOUT.CHECKOUT_ID }, false);
         public static Index FK_ATTACHMENTCHECKOUT_PATRON_INDEX_6 = Internal.createIndex("FK_ATTACHMENTCHECKOUT_PATRON_INDEX_6", AttachmentCheckout.ATTACHMENT_CHECKOUT, new OrderField[] { AttachmentCheckout.ATTACHMENT_CHECKOUT.PATRON_ID }, false);
         public static Index PRIMARY_KEY_6 = Internal.createIndex("PRIMARY_KEY_6", AttachmentCheckout.ATTACHMENT_CHECKOUT, new OrderField[] { AttachmentCheckout.ATTACHMENT_CHECKOUT.ID }, true);
-        public static Index FK5H0N8HTB4IGKJI1C5FCV1HVY9_INDEX_7 = Internal.createIndex("FK5H0N8HTB4IGKJI1C5FCV1HVY9_INDEX_7", Biblio.BIBLIO, new OrderField[] { Biblio.BIBLIO.IMAGE_ID }, false);
         public static Index FK_BIBLIO_PUBLISHER_INDEX_7 = Internal.createIndex("FK_BIBLIO_PUBLISHER_INDEX_7", Biblio.BIBLIO, new OrderField[] { Biblio.BIBLIO.PUBLISHER_ID }, false);
         public static Index FK_BIBLIO_SERIES_INDEX_7 = Internal.createIndex("FK_BIBLIO_SERIES_INDEX_7", Biblio.BIBLIO, new OrderField[] { Biblio.BIBLIO.SERIES_ID }, false);
         public static Index PRIMARY_KEY_7 = Internal.createIndex("PRIMARY_KEY_7", Biblio.BIBLIO, new OrderField[] { Biblio.BIBLIO.ID }, true);
@@ -147,7 +143,6 @@ public class Indexes {
         public static Index UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7 = Internal.createIndex("UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7", Groups.GROUPS, new OrderField[] { Groups.GROUPS.CODE }, true);
         public static Index PRIMARY_KEY_6B = Internal.createIndex("PRIMARY_KEY_6B", Holiday.HOLIDAY, new OrderField[] { Holiday.HOLIDAY.ID }, true);
         public static Index UK_3JJDI9M362Y965LR542FPEJT_INDEX_6 = Internal.createIndex("UK_3JJDI9M362Y965LR542FPEJT_INDEX_6", Holiday.HOLIDAY, new OrderField[] { Holiday.HOLIDAY.NAME }, true);
-        public static Index PRIMARY_KEY_4 = Internal.createIndex("PRIMARY_KEY_4", Image.IMAGE, new OrderField[] { Image.IMAGE.ID }, true);
         public static Index FK_ITEM_BIBLIO_INDEX_2 = Internal.createIndex("FK_ITEM_BIBLIO_INDEX_2", Item.ITEM, new OrderField[] { Item.ITEM.BIBLIO_ID }, false);
         public static Index FK_ITEM_ITEMSTATUS_INDEX_2 = Internal.createIndex("FK_ITEM_ITEMSTATUS_INDEX_2", Item.ITEM, new OrderField[] { Item.ITEM.ITEM_STATUS_ID }, false);
         public static Index FK_ITEM_LOCATION_INDEX_2 = Internal.createIndex("FK_ITEM_LOCATION_INDEX_2", Item.ITEM, new OrderField[] { Item.ITEM.LOCATION_ID }, false);

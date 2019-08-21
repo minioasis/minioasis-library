@@ -28,12 +28,14 @@ import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Filter;
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Length;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.service.HolidayCalculationStrategy;
 import org.minioasis.validation.Notification;
 
 @Entity
+@Audited
 @Table(name = "patron")
 public class Patron implements Serializable {
 

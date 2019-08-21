@@ -44,9 +44,11 @@ import javax.persistence.UniqueConstraint;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.BatchSize;
+import org.hibernate.envers.Audited;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
+@Audited
 @Table(name = "user" , uniqueConstraints = @UniqueConstraint(columnNames = "username"))
 public class User implements Serializable {
 

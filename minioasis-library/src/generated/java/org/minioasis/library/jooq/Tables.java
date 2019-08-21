@@ -15,7 +15,6 @@ import org.minioasis.library.jooq.tables.Checkout;
 import org.minioasis.library.jooq.tables.FormData;
 import org.minioasis.library.jooq.tables.Groups;
 import org.minioasis.library.jooq.tables.Holiday;
-import org.minioasis.library.jooq.tables.Image;
 import org.minioasis.library.jooq.tables.Item;
 import org.minioasis.library.jooq.tables.ItemStatus;
 import org.minioasis.library.jooq.tables.JournalEntry;
@@ -90,11 +89,6 @@ public class Tables {
      * The table <code>PUBLIC.HOLIDAY</code>.
      */
     public static final Holiday HOLIDAY = org.minioasis.library.jooq.tables.Holiday.HOLIDAY;
-
-    /**
-     * The table <code>PUBLIC.IMAGE</code>.
-     */
-    public static final Image IMAGE = org.minioasis.library.jooq.tables.Image.IMAGE;
 
     /**
      * The table <code>PUBLIC.ITEM</code>.

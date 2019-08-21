@@ -52,6 +52,7 @@ dependencies {
 	implementation 'com.github.bufferings:thymeleaf-extras-nl2br:1.0.2'
 	implementation 'org.jsoup:jsoup:1.12.1'
 	implementation 'joda-time:joda-time:2.10'
+	implementation 'org.hibernate:hibernate-envers'
 	
 	implementation 'com.fasterxml.jackson.core:jackson-core:2.9.8'
     implementation 'com.fasterxml.jackson.core:jackson-databind:2.9.8'

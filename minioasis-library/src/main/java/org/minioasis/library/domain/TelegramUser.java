@@ -11,7 +11,10 @@ import javax.persistence.Table;
 import javax.validation.Valid;
 import javax.validation.constraints.NotNull;
 
+import org.hibernate.envers.Audited;
+
 @Entity
+@Audited
 @Table(name = "telegram_user")
 public class TelegramUser implements Serializable {
 
