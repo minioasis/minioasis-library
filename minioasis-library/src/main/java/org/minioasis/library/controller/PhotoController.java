@@ -10,7 +10,7 @@ import java.net.URL;
 import javax.servlet.http.HttpServletResponse;
 
 import org.minioasis.library.domain.Photo;
-import org.minioasis.library.repository.PhotoRepository;
+import org.minioasis.library.service.PhotoService;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,7 +25,7 @@ public class PhotoController {
 	private static final Logger logger = LoggerFactory.getLogger(PhotoController.class);
 	
 	@Autowired
-	private PhotoRepository photoRepository;
+	private PhotoService photoService;
 
 	private static final int DEFAULT_BUFFER_SIZE = 10240; // 10KB.
 
@@ -35,7 +35,7 @@ public class PhotoController {
 		Photo photo = null;
 		
 		try {
-			photo = this.photoRepository.findPatronThumbnailByIc(id);
+			photo = this.photoService.findPatronThumbnailByIc(id);
 		} catch(ConnectException cex) {
 			logger.info("MINIO LOG : Connection failed !");
 		} catch (Exception e) {
@@ -80,7 +80,7 @@ public class PhotoController {
 		Photo photo = null;
 		
 		try {
-			photo = this.photoRepository.findPatronByIc(id);
+			photo = this.photoService.findPatronByIc(id);
 		} catch(ConnectException cex) {
 			logger.info("MINIO LOG : Connection failed !");
 		} catch (Exception e) {
@@ -125,7 +125,7 @@ public class PhotoController {
 		Photo photo = null;
 		
 		try {
-			photo = this.photoRepository.findPatronThumbnailByIc(id);
+			photo = this.photoService.findPatronThumbnailByIc(id);
 		} catch(ConnectException cex) {
 			logger.info("MINIO LOG : Connection failed !");
 		} catch (Exception e) {
@@ -170,7 +170,7 @@ public class PhotoController {
 		Photo photo = null;
 		
 		try {
-			photo = this.photoRepository.findBiblioThumbnailByIsbn(id);
+			photo = this.photoService.findBiblioThumbnailByIsbn(id);
 		} catch(ConnectException cex) {
 			logger.info("MINIO LOG : Connection failed !");
 		} catch (Exception e) {
@@ -215,7 +215,7 @@ public class PhotoController {
 		Photo photo = null;
 		
 		try {
-			photo = this.photoRepository.findBiblioByIsbn(id);
+			photo = this.photoService.findBiblioByIsbn(id);
 		} catch(ConnectException cex) {
 			logger.info("MINIO LOG : Connection failed !");
 		} catch (Exception e) {

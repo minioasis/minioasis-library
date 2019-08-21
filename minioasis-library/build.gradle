@@ -32,7 +32,17 @@ sourceCompatibility = '1.8'
 repositories {
 	mavenCentral()
 }
-	
+
+sourceSets {
+    main {
+        java {
+        	srcDir 'src/main/java'
+            //exclude 'org/minioasis/library/repository/*Impl.java'
+       }
+   }
+}
+
+
 dependencies {
 	implementation 'org.springframework.boot:spring-boot-starter-data-jpa'
 	implementation 'org.springframework.boot:spring-boot-starter-data-rest'
