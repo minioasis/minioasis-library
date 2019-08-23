@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-4 pb-3">
+	
+		<div th:replace="fragments/header.audit :: header_audit"></div>
+		
+		<div class="row">
+		    
+		    <div class="col-6 col-md-2">
+		    	<!----------------- Circulation ---------------------->	
+				<h4>
+					<i class="fas fa-sync-alt text-success"></i>
+					<span th:text="#{circulation}">Circulation</span>
+				</h4>
+		      
+		      	<br/>
+		      			
+				<span th:text="#{checkout}">Check Out </span>
+				<br/>
+				<a href="#" th:href="@{/admin/circ/patronid.form}">
+					<img th:src="@{/images/checkout.png}" alt=""/>
+				</a>
+				
+				<p><p/>
+				
+				<span th:text="#{attachment.checkout}">Attachment Check Out </span>
+				<br>
+				<a href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
+					<img th:src="@{/images/attachmentcheckout.png}" alt=""/>
+				</a>
+			
+				<p><p/>
+				
+				<span th:text="#{reservation.notification}">Reservation Notification</span>		
+				<br>
+				<a href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,sort='reservationDate,desc',states='AVAILABLE',states='NOTIFIED')}">
+					<img th:src="@{/images/reservation.png}" alt=""/>
+				</a>
+			      	
+		    </div>
+		    
+		    <div class="col-6 col-md-2">
+				<!----------------- Cataloging ---------------------->
+				<h4>
+					<i class="fas fa-sitemap text-danger"></i>
+			      	<span th:text="#{cataloging}">Cataloging</span>
+				</h4>
+
+		      	<br/>
+		      	
+				<span th:text="#{biblio}">Bibliography</span>
+				<br>
+				<a th:href="@{/admin/audit/biblio/1/list(page=0,size=10)}">
+				    <img th:src="@{/images/biblio.png}" alt=""/>
+		      	</a>
+		      	
+		      	<p><p/>
+		      	
+				<span th:text="#{item}">Item</span> : <span th:text="#{attachment}">Attachment</span>
+				<br>
+				<a href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				    <img th:src="@{/images/item.png}" alt=""/>
+		      	</a>
+		      	:
+				<a href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+					<img th:src="@{/images/attachment.png}" alt=""/>
+		      	</a>
+		      	
+		      	<p><p/>
+		      	
+				<span th:text="#{publisher}">Publisher</span>
+				<br>
+				<a href="#" th:href="@{/admin/publisher/save}">
+	      			<img th:src="@{/images/publisher.png}" alt=""/>
+		      	</a>
+
+		      	<p><p/>
+
+				<span th:text="#{series}">Series</span>
+				<br>
+				<a href="#" th:href="@{/admin/series/save}">
+	      			<img th:src="@{/images/series.png}" alt=""/>
+		      	</a>
+			      	
+		    </div>
+
+		    <div class="col-6 col-md-2">	    	
+				<!----------------- Patron ---------------------->
+				<h4>
+					<i class="fas fa-user text-info"></i>
+					<span th:text="#{patron}">Patron</span>
+				</h4>
+				
+		      	<br/>
+				
+				<span th:text="#{patron}">Patron</span>
+				<br>
+				<a href="#" th:href="@{/admin/patron/save}">
+					<img th:src="@{/images/patron.png}" alt=""/>
+				</a>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
+					<i class="fas fa-search fa-2x"></i>
+				</a>
+				
+				<p><p/>
+				
+				<span th:text="#{patron.change.group}">Change Group</span>
+				<br>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
+					<i class="fas fa-random fa-2x"></i>
+				</a>
+
+		    </div>
+		    
+		    <div class="col-6 col-md-2">	    	
+				<!----------------- Account ---------------------->
+				<h4>
+					<i class="fas fa-cash-register text-secondary"></i>
+					<span th:text="#{account}">Account</span>
+				</h4>
+				
+		      	<br/>
+				
+				<span th:text="#{account}">Account</span>
+				<br>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/account/save}">
+					<i class="fas fa-archive fa-2x"></i>
+				</a>
+
+				<p><p/>
+				
+				<span th:text="#{journalentry}">Journal Entry</span>
+				<br>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry/patronid.form}">
+					<i class="fas fa-file-invoice-dollar fa-2x"></i>
+				</a>
+								
+				<p><p/>
+				
+				<span th:text="#{journalentry.line}">Journal Entry Line</span>
+				<br>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
+					<i class="fas fa-clipboard-list fa-2x"></i>
+				</a>
+
+		    </div>
+		    
+		    <div class="col-6 col-md-2">	    	
+				<!----------------- Telegram ---------------------->
+				<h4>
+					<i class="fab fa-telegram text-info"></i>
+					<span th:text="#{telegram}">Telegram</span>
+				</h4>
+				
+		      	<br/>
+				
+				<span th:text="#{telegram}">Telegram</span>
+				<br>
+				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
+					<i class="fab fa-telegram-plane fa-2x"></i>
+				</a>
+
+		    </div>
+
+		  </div> <!-- row -->
+		  
+		  <div th:replace="fragments/script :: script"></div>	  
+		  <div th:replace="fragments/footer :: footer"></div>
+  
+	</div>
+	
+</body>
+</html>
