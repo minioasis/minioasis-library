@@ -4,7 +4,6 @@ import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
-import org.minioasis.library.audit.DeletedAuditEntity;
 import org.minioasis.library.audit.service.AuditService;
 import org.minioasis.library.domain.Biblio;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -43,7 +42,7 @@ public class BiblioAuditController {
 	@RequestMapping(value = "/deleted.list", method = RequestMethod.GET)
 	public String deletedBiblios(Model model, Pageable pageable) {
 
-		Page<DeletedAuditEntity> page = this.service.listDeletedBibliosIn(null, 30, pageable);
+		Page<Object[]> page = this.service.listDeletedBibliosIn(null, 30, pageable);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("pagingType", "list");
@@ -52,11 +51,11 @@ public class BiblioAuditController {
 		
 	}
 	
-	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@RequestParam String title, HttpServletRequest request, Map<String,String> params, 
+	@RequestMapping(value = { "/deleted.search" }, method = RequestMethod.GET)
+	public String search(@RequestParam String keyword, HttpServletRequest request, Map<String,String> params, 
 			Model model, Pageable pageable) {
 
-		Page<DeletedAuditEntity> page = this.service.listDeletedBibliosIn(title, 30, pageable);
+		Page<Object[]> page = this.service.listDeletedBibliosIn(keyword, 30, pageable);
 		
 		String next = buildUri(request, page.getNumber() + 1);
 		String previous = buildUri(request, page.getNumber() - 1);

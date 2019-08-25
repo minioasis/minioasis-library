@@ -2,7 +2,6 @@ package org.minioasis.library.audit.service;
 
 import java.util.Optional;
 
-import org.minioasis.library.audit.DeletedAuditEntity;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.repository.BiblioRepository;
 import org.minioasis.library.repository.BiblioRevisionRepository;
@@ -38,7 +37,7 @@ public class AuditServiceImpl implements AuditService {
 		return this.biblioRepository.findLastChangeRevision(id);
 	}
 	
-	public Page<DeletedAuditEntity> listDeletedBibliosIn(String title, int days, Pageable pageable) {
+	public Page<Object[]> listDeletedBibliosIn(String title, int days, Pageable pageable) {
 		return this.biblioRevisionRepository.listDeletedBibliosIn(title, days, pageable);
 	}
 }

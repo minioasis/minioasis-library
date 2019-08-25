@@ -20,6 +20,22 @@
 			</a>	
 		</h4>
 
+		<div class="row pt-3">
+			<div class="col-sm-8">
+				<form action="#" th:action="@{/admin/audit/biblio/deleted.search}" method="get">
+					<input type="hidden" id="page" name="page" value="0" />
+					<input type="hidden" id="size" name="size" value="10" />
+					<input type="hidden" id="days" name="days" value="30" />
+					<div class="form-group">
+						<input name="keyword" class="form-control" autofocus="autofocus" placeholder="Username"/>
+					</div>
+				
+				</form>
+			</div>
+		</div>
+
+		<hr/>
+		
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
 				<a th:if="${page.hasPrevious()}" th:href="@{/admin/audit/biblio/deleted.list(page=${page.number - 1},size=${page.size})}">
@@ -57,12 +73,12 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td th:text="${e.rev}">2</td>
-						<td th:text="${#temporals.format(e.timestamp,'yyyy-MM-dd HH:mm:ss')}">2015-08-31</td>
-						<td th:text="${e.username}">2</td>
+						<td th:text="${e[1].id}">2</td>
+						<td th:text="${#dates.format(new java.util.Date(e[1].timestamp), 'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${e[1].username}">2</td>
 						<td>
-							<a class="btn btn-sm btn-outline-info text-info" href="#" th:href="@{/admin/audit/biblio/{id}/list(page=0,size=10,id=${e.entityId})}">
-								<span th:text="${e.entityId}"></span>
+							<a class="btn btn-sm btn-outline-info text-info" href="#" th:href="@{/admin/audit/biblio/{id}/list(page=0,size=10,id=${e[0].id})}">
+								<span th:text="${e[0].id}"></span>
 							</a>
 						</td>
 							
@@ -70,6 +86,9 @@
 					<tr th:remove="all">
 						<td>1</td>
 						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
 					</tr>
 				</tbody>
 			</table>
