@@ -6,8 +6,6 @@ import javax.persistence.Query;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.Record;
-import org.jooq.Record1;
 import org.jooq.Record7;
 import org.jooq.Record9;
 import org.jooq.Table;

@@ -30,6 +30,11 @@ public class HomeController {
     public String report(Model model) {
         return "reports";
     }
+
+	@GetMapping("/admin/audit")
+    public String audit(Model model) {
+        return "audit";
+    }
 	
     @RequestMapping("/admin/opac")
     String opac(Model model){

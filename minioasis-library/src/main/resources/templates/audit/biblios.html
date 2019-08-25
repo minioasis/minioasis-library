@@ -11,6 +11,7 @@
 	<div class="container pt-2">
 	
 		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+		<div th:replace="fragments/header.audit :: header_audit"></div>
 			
 		<h4>
 			<span th:text="#{biblio.revisions}">Biblio. Revisions</span>
@@ -39,7 +40,10 @@
 						<th>#</th>
 						<th>Rev.#</th>
 						<th>Time</th>
-						<th>Title</th>
+						<th>Title(B)/Author/ISBN/ISSN</th>
+						<th>Type/Language/ClassMark</th>
+						<th>Publisher/Year/place</th>
+						<th>Edition/Pages</th>
 					</tr>
 				</thead>
 	
@@ -47,8 +51,34 @@
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td th:text="${e.revisionNumber.orElse(-1)}">Revision #</td>
-						<td th:text="${#temporals.format(e.revisionInstant.orElse(0),'yyyy-MM-dd <HH:mm:ss>')}">2015-08-31</td>
-						<td th:text="${e.entity.title}">Title</td>
+						<td>
+							<p th:text="${#temporals.format(e.revisionInstant.orElse(0),'yyyy-MM-dd')}"></p>
+							<p th:text="${#temporals.format(e.revisionInstant.orElse(0),'<HH:mm:ss>')}"></p>
+						</td>
+						<td>
+							<p>
+								<span th:text="${e.entity.title}">Feynman Lecture of Physics</span>
+								<span th:text="'( ' + ${e.entity.binding} + ' )'">(H)</span>
+							</p>
+							<p th:text="${e.entity.author}"></p>									
+							<p th:text="${e.entity.isbn}"></p>
+							<p th:text="${e.entity.journal != null ? e.entity.journal.issn : ''}"></p>
+						</td>
+						<td>
+							<p th:text="${e.entity.biblioType}"></p>									
+							<p th:text="${e.entity.language}"></p>
+							<p th:text="${e.entity.classMark}"></p>
+						</td>
+						<td>
+							<p th:text="${e.entity.publisher != null ? e.entity.publisher.id : ''}">Richard P. Feynman</p>
+							<p th:text="${e.entity.publishingYear}"></p>
+							<p th:text="${e.entity.publicationPlace}"></p>
+						</td>
+						<td>
+							<p th:text="${e.entity.series != null ? e.entity.series.id : ''}">Physics Series</p>
+							<p th:text="${e.entity.edition}"></p>									
+							<p th:text="${e.entity.pages}"></p>
+						</td>
 					</tr>
 					<tr th:remove="all">
 						<td>1</td>
@@ -58,10 +88,6 @@
 						<td>5</td>
 						<td>6</td>
 						<td>7</td>
-						<td>8</td>
-						<td>9</td>
-						<td>10</td>
-						<td>11</td>
 					</tr>
 				</tbody>
 			</table>
