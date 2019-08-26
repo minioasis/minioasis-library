@@ -47,6 +47,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.Length;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.validation.Notification;
@@ -111,25 +113,31 @@ public class Item implements Serializable {
 	@Valid
 	private ItemState state = ItemState.IN_LIBRARY;
 
+	@NotAudited
 	@OneToMany(mappedBy="item")
     @OrderBy("checkoutDate ASC")
     @Filter(name = "checkoutStateFilter")
 	private List<Checkout> checkouts = new ArrayList<Checkout>(0);
     
+	@NotAudited
     @OneToMany(mappedBy="item")
 	private Set<Attachment> attachments = new HashSet<Attachment>(0);
     
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="biblio_id" , foreignKey = @ForeignKey(name = "fk_item_biblio"))
 	private Biblio biblio;
     
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @Valid
 	private Volume volume;
     
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="item_status_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_item_itemstatus"))
 	private ItemStatus itemStatus;
     
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="location_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_item_location"))
 	private Location location;

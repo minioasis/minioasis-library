@@ -5,7 +5,7 @@ import java.util.Map;
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.audit.service.AuditService;
-import org.minioasis.library.domain.Biblio;
+import org.minioasis.library.domain.Patron;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
@@ -20,8 +20,8 @@ import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
 @Controller
-@RequestMapping("/admin/audit/biblio")
-public class BiblioAuditController {
+@RequestMapping("/admin/audit/patron")
+public class PatronAuditController {
 
 	@Autowired
 	private AuditService service;
@@ -29,25 +29,25 @@ public class BiblioAuditController {
 	@RequestMapping(value = "/{id}/list", method = RequestMethod.GET)
 	public String biblios(@PathVariable("id") long id, Model model, Pageable pageable) {
 
-		Page<Revision<Integer, Biblio>> page = this.service.findBiblioRevisions(id, pageable);
+		Page<Revision<Integer, Patron>> page = this.service.findPatronRevisions(id, pageable);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("id", id);
 		model.addAttribute("pagingType", "list");
 		
-		return "audit/biblios";
+		return "audit/patrons";
 		
 	}
 	
 	@RequestMapping(value = "/deleted.list", method = RequestMethod.GET)
 	public String deletedBiblios(Model model, Pageable pageable) {
 
-		Page<Object[]> page = this.service.listDeletedBibliosIn(null, 30, pageable);
+		Page<Object[]> page = this.service.listDeletedPatronsIn(null, 30, pageable);
 		
 		model.addAttribute("page", page);
 		model.addAttribute("pagingType", "list");
 		
-		return "audit/biblios.deleted";
+		return "audit/patrons.deleted";
 		
 	}
 	
@@ -55,7 +55,7 @@ public class BiblioAuditController {
 	public String search(@RequestParam String keyword, HttpServletRequest request, Map<String,String> params, 
 			Model model, Pageable pageable) {
 
-		Page<Object[]> page = this.service.listDeletedBibliosIn(keyword, 30, pageable);
+		Page<Object[]> page = this.service.listDeletedPatronsIn(keyword, 30, pageable);
 		
 		String next = buildUri(request, page.getNumber() + 1);
 		String previous = buildUri(request, page.getNumber() - 1);
@@ -65,7 +65,7 @@ public class BiblioAuditController {
 		model.addAttribute("previous", previous);
 		model.addAttribute("pagingType", "search");
 		
-		return "audit/biblios.deleted";
+		return "audit/patrons.deleted";
 
 	}
 	
@@ -76,6 +76,4 @@ public class BiblioAuditController {
 		
 		return uc.toUriString();
 	}
-	
 }
-

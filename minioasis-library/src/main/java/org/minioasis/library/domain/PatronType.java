@@ -35,6 +35,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
 
 @Entity
 @Audited
@@ -112,6 +113,7 @@ public class PatronType implements Serializable {
 	@Column(name = "deposit" , columnDefinition = "DECIMAL(12,2)" , nullable = false)
 	private BigDecimal deposit;
 	
+	@NotAudited
     @OneToMany(mappedBy="patronType")
 	private List<Patron> patrons = new ArrayList<Patron>(0);
 

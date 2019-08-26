@@ -5,7 +5,7 @@ import org.springframework.data.envers.repository.support.EnversRevisionReposito
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 
 @Configuration
-@EnableJpaRepositories(basePackages = "org.minioasis.library.repository",
+@EnableJpaRepositories(basePackages = {"org.minioasis.library.repository", "org.minioasis.library.audit.repository"},
         repositoryFactoryBeanClass = EnversRevisionRepositoryFactoryBean.class
 )
 public class RepositoryConfig {

@@ -22,6 +22,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.Length;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.validation.Notification;
@@ -67,11 +69,13 @@ public class Attachment implements Serializable {
 	@Column(name = "state" , nullable = false , columnDefinition = "CHAR(20)" )
     @Filter(name = "attachmentStateFilter")
 	private AttachmentState state = AttachmentState.IN_LIBRARY;
-    
+  
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne
     @JoinColumn(name="item_id", nullable = false , foreignKey = @ForeignKey(name = "fk_attachment_item"))
 	private Item item;
     
+	@NotAudited
     @OneToMany(mappedBy="attachment")
     @OrderBy("checkoutDate ASC")
     @Filter(name = "attachmentCheckoutStateFilter")

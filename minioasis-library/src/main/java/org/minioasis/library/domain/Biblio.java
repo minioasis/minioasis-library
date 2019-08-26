@@ -29,6 +29,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.Length;
 import org.minioasis.library.domain.util.ReservationComparator;
 
@@ -104,14 +106,17 @@ public class Biblio implements Serializable {
 	private String subject;
     
 	// You should never cascade from a child entity to a parent
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name="publisher_id", foreignKey = @ForeignKey(name = "fk_biblio_publisher"))
 	private Publisher publisher;
 
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@ManyToOne(optional = true, fetch = FetchType.EAGER)
     @JoinColumn(name="series_id", foreignKey = @ForeignKey(name = "fk_biblio_series"))
 	private Series series;
  
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToMany
     @JoinTable(name = "biblio_tag", 
 	joinColumns = @JoinColumn(name = "biblio_id", referencedColumnName = "id"), 
@@ -124,9 +129,11 @@ public class Biblio implements Serializable {
 	@Column(columnDefinition = "TEXT")
 	private String note;
 
+	@NotAudited
 	@OneToMany(mappedBy="biblio" , fetch = FetchType.LAZY)
 	private List<Item> items = new ArrayList<Item>();
     
+	@NotAudited
     @OneToMany(mappedBy="biblio")
     @OrderBy("reservationDate ASC")
     @Filter(name = "reservationStateFilter")

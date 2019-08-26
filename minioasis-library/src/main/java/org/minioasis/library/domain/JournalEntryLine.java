@@ -16,6 +16,7 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
@@ -30,10 +31,12 @@ public class JournalEntryLine implements Serializable {
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="journalentry_id" , nullable = false, foreignKey = @ForeignKey(name = "fk_journalentryline_journalentry"))
 	private JournalEntry journalEntry;
     
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="account_id" , nullable = false, foreignKey = @ForeignKey(name = "fk_journalentryline_account"))
     private Account account;

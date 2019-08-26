@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Entity
 @FilterDef(
@@ -53,14 +54,17 @@ public class AttachmentCheckout implements Serializable {
 	@Column(name = "state" , nullable = false , columnDefinition = "CHAR(20)")
 	private AttachmentCheckoutState state;
     
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne
     @JoinColumn(name="patron_id" , nullable = false , updatable = false , foreignKey = @ForeignKey(name = "fk_attachmentcheckout_patron"))
 	private Patron patron;
     
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.EAGER , cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @JoinColumn(name="attachment_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_attachmentcheckout_attachment"))
 	private Attachment attachment;
 	
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne
     @JoinColumn(name="checkout_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_attachmentcheckout_checkout"))
 	private Checkout checkout;

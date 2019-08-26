@@ -29,6 +29,8 @@ import javax.validation.constraints.NotNull;
 
 import org.hibernate.annotations.Filter;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 import org.hibernate.validator.constraints.Length;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.service.HolidayCalculationStrategy;
@@ -82,10 +84,12 @@ public class Patron implements Serializable {
 	@Length(max = 20)
 	private String ic;
 
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "group_id", foreignKey = @ForeignKey(name = "fk_patron_group") )
 	private Group group;
 
+	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
 	@NotNull(message = "{notnull}")
 	@ManyToOne(fetch = FetchType.EAGER)
 	@JoinColumn(name = "patrontype_id", nullable = false, foreignKey = @ForeignKey(name = "fk_patron_patrontype") )
@@ -112,14 +116,17 @@ public class Patron implements Serializable {
 	@Column(columnDefinition = "TEXT")
 	private String note;
 
+	@NotAudited
 	@OneToMany(mappedBy = "patron", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@OrderBy("checkoutDate ASC")
 	private List<Checkout> checkouts = new ArrayList<Checkout>(0);
 
+	@NotAudited
 	@OneToMany(mappedBy = "patron", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@OrderBy("reservationDate ASC")
 	private List<Reservation> reservations = new ArrayList<Reservation>(0);
 
+	@NotAudited
 	@OneToMany(mappedBy = "patron", cascade = { CascadeType.PERSIST, CascadeType.MERGE })
 	@Filter(name = "attachmentCheckoutStateFilter")
 	private List<AttachmentCheckout> attachmentCheckouts = new ArrayList<AttachmentCheckout>(0);

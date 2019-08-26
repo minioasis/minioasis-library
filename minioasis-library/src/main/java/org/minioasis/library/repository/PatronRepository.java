@@ -9,8 +9,9 @@ import org.minioasis.library.domain.Patron;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.history.RevisionRepository;
 
-public interface PatronRepository extends JpaRepository<Patron, Long>, PatronRepositoryCustom {
+public interface PatronRepository extends RevisionRepository<Patron, Long, Integer>, JpaRepository<Patron, Long>, PatronRepositoryCustom {
 
 	Patron findByCardKey(String key);
 	

@@ -21,6 +21,7 @@ import javax.validation.constraints.NotNull;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Entity
 @FilterDef(
@@ -69,10 +70,12 @@ public class Reservation implements Serializable {
 	@Column(name = "state" , nullable = false , columnDefinition = "CHAR(20)")
 	private ReservationState state;
 	
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="biblio_id" , nullable = true , updatable = false , foreignKey = @ForeignKey(name = "fk_reservation_biblio"))
 	private Biblio biblio;
 	
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="patron_id" , nullable = false , updatable = false , foreignKey = @ForeignKey(name = "fk_reservation_patron"))

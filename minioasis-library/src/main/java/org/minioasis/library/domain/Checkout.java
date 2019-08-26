@@ -46,6 +46,8 @@ import org.hibernate.annotations.Filter;
 import org.hibernate.annotations.FilterDef;
 import org.hibernate.annotations.ParamDef;
 import org.hibernate.envers.Audited;
+import org.hibernate.envers.NotAudited;
+import org.hibernate.envers.RelationTargetAuditMode;
 
 @Entity
 @FilterDef(
@@ -97,16 +99,19 @@ public class Checkout implements Serializable {
 	@Column(name = "state" , nullable = false , columnDefinition = "CHAR(40)")
 	private CheckoutState state;
 	
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="patron_id" , nullable = false , updatable = false , foreignKey = @ForeignKey(name = "fk_checkout_patron"))
 	private Patron patron;
     
+    @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @NotNull
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="item_id", nullable = false , foreignKey = @ForeignKey(name = "fk_checkout_item"))
 	private Item item;
 	
+    @NotAudited
     @OneToMany(mappedBy = "checkout" , cascade = { CascadeType.PERSIST, CascadeType.MERGE })
     @Filter(name = "attachmentCheckoutStateFilter")
 	private List<AttachmentCheckout> attachmentCheckouts = new ArrayList<AttachmentCheckout>(0);
