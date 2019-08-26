@@ -27,7 +27,7 @@ public class PatronAuditController {
 	private AuditService service;
 	
 	@RequestMapping(value = "/{id}/list", method = RequestMethod.GET)
-	public String biblios(@PathVariable("id") long id, Model model, Pageable pageable) {
+	public String patrons(@PathVariable("id") long id, Model model, Pageable pageable) {
 
 		Page<Revision<Integer, Patron>> page = this.service.findPatronRevisions(id, pageable);
 		
@@ -40,7 +40,7 @@ public class PatronAuditController {
 	}
 	
 	@RequestMapping(value = "/deleted.list", method = RequestMethod.GET)
-	public String deletedBiblios(Model model, Pageable pageable) {
+	public String deletedPatrons(Model model, Pageable pageable) {
 
 		Page<Object[]> page = this.service.listDeletedPatronsIn(null, 30, pageable);
 		

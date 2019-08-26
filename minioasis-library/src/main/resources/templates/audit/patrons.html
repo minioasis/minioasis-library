@@ -38,46 +38,53 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Rev</th>
-						<th>Time</th>
-						<th>Name/Name2</th>
-						<th>start/end</th>
-						<th>cardKey/entangled</th>
-						<th>Edition/Pages</th>
+						<th>Rev/Time</th>
+						<th>Name(G)/Name2/ic/cardKey/entangled</th>
+						<th>start/end/group/patronType</th>
+						<th>contact</th>
+						<th>Address</th>
+						<th>note</th>
 					</tr>
 				</thead>
 	
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
-						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td th:text="${e.revisionNumber.orElse(-1)}">Revision #</td>
 						<td>
-							<p th:text="${#temporals.format(e.revisionInstant.orElse(0),'yyyy-MM-dd')}"></p>
-							<p th:text="${#temporals.format(e.revisionInstant.orElse(0),'<HH:mm:ss>')}"></p>
+							<span th:text="${iterator.index + 1} + ${page.number * page.size}"></span>
 						</td>
 						<td>
-							<p>
-								<span th:text="${e.entity.title}">Feynman Lecture of Physics</span>
-								<span th:text="'( ' + ${e.entity.binding} + ' )'">(H)</span>
-							</p>
-							<p th:text="${e.entity.author}"></p>									
-							<p th:text="${e.entity.isbn}"></p>
-							<p th:text="${e.entity.journal != null ? e.entity.journal.issn : ''}"></p>
+							<span th:text="${e.revisionNumber.orElse(-1)}"></span><br>
+							<span th:text="${#temporals.format(e.revisionInstant.orElse(0),'yyyy-MM-dd')}"></span><br>
+							<span th:text="${#temporals.format(e.revisionInstant.orElse(0),'<HH:mm:ss>')}"></span>
+						</td>
+						<td>									
+							<span th:text="${e.entity.name} + '(' + ${e.entity.gender} + ')'"></span><br>
+							<span th:text="${e.entity.name2}"></span><br>
+							<span th:text="${e.entity.ic}"></span><br>
+							<span th:text="${e.entity.cardKey}"></span><br>
+							<span th:text="${e.entity.entangled}"></span><br>	
 						</td>
 						<td>
-							<p th:text="${e.entity.biblioType}"></p>									
-							<p th:text="${e.entity.language}"></p>
-							<p th:text="${e.entity.classMark}"></p>
+							<span th:text="${#temporals.format(e.entity.startDate,'yyyy-MM-dd')}"></span><br>								
+							<span th:text="${#temporals.format(e.entity.endDate,'yyyy-MM-dd')}"></span><br>
+							<span th:text="${e.entity.group.id}"></span><br>
+							<span th:text="${e.entity.patronType.id}"></span>
 						</td>
 						<td>
-							<p th:text="${e.entity.publisher != null ? e.entity.publisher.id : ''}">Richard P. Feynman</p>
-							<p th:text="${e.entity.publishingYear}"></p>
-							<p th:text="${e.entity.publicationPlace}"></p>
+							<span th:text="${e.entity.contact.tel}"></span><br>
+							<span th:text="${e.entity.contact.mobile}"></span><br>
+							<span th:text="${e.entity.contact.email}"></span>
 						</td>
 						<td>
-							<p th:text="${e.entity.series != null ? e.entity.series.id : ''}">Physics Series</p>
-							<p th:text="${e.entity.edition}"></p>									
-							<p th:text="${e.entity.pages}"></p>
+							<span th:text="${e.entity.contact.address.address1}"></span><br>
+							<span th:text="${e.entity.contact.address.address2}"></span><br>
+							<span th:text="${e.entity.contact.address.address3}"></span><br>
+							<span th:text="${e.entity.contact.address.city}"></span><br>
+							<span th:text="${e.entity.contact.address.state}"> <span th:text="${e.entity.contact.address.postcode}"></span></span><br>
+							<span th:text="${e.entity.contact.address.country}"></span><br>
+						</td>
+						<td>
+							<p th:text="${e.entity.note}"></p>
 						</td>
 					</tr>
 					<tr th:remove="all">
