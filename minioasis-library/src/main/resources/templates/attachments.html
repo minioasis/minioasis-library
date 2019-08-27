@@ -173,7 +173,14 @@
 						<td th:text="${#temporals.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
 							<a href="#" th:href="@{/admin/attachment/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
-							| <a href="#" th:href="@{/admin/attachment/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							| 
+							<a href="#" th:href="@{/admin/attachment/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							
+							<p></p>
+							
+							<a class="btn btn-sm btn-outline-info text-info" href="#" th:href="@{/admin/audit/attachment/{id}/list(page=0,size=10,id=${e.id})}">
+								<i class="fas fa-history"></i>
+							</a>
 						</td>
 					</tr>
 					<tr th:remove="all">

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-2">
+	
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+		<div th:replace="fragments/header.audit :: header_audit"></div>
+			
+		<h4>
+			<span th:text="#{telegram.user.revisions}">Deleted Biblio. Revisions</span>
+			<a class="btn btn-outline-light text-primary" href="#" th:href="@{/admin/audit/telegram.user/deleted.list(page=0,size=10)}">
+				<i class="fas fa-search fa-2x"></i>
+			</a>	
+		</h4>
+
+		<div class="row pt-3">
+			<div class="col-sm-8">
+				<form action="#" th:action="@{/admin/audit/telegram.user/deleted.search}" method="get">
+					<input type="hidden" id="page" name="page" value="0" />
+					<input type="hidden" id="size" name="size" value="10" />
+					<input type="hidden" id="days" name="days" value="30" />
+					<div class="form-group">
+						<input name="keyword" class="form-control" autofocus="autofocus" placeholder="Username"/>
+					</div>
+				
+				</form>
+			</div>
+		</div>
+
+		<hr/>
+		
+		<div class="float-right">
+			<div th:if="${pagingType eq 'list'}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/audit/telegram.user/deleted.list(page=${page.number - 1},size=${page.size})}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="@{/admin/audit/telegram.user/deleted.list(page=${page.number + 1},size=${page.size})}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>
+			
+			<div th:if="${pagingType eq 'search'}">
+				<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>		
+		</div>
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive-sm">					
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Rev</th>
+						<th>TimeStamp</th>
+						<th>Username</th>
+						<th>Entity Id</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td th:text="${e[1].id}">2</td>
+						<td th:text="${#dates.format(new java.util.Date(e[1].timestamp), 'yyyy-MM-dd HH:mm:ss')}"></td>
+						<td th:text="${e[1].username}">2</td>
+						<td>
+							<a class="btn btn-sm btn-outline-info text-info" href="#" th:href="@{/admin/audit/telegram.user/{id}/list(page=0,size=10,id=${e[0].id})}">
+								<span th:text="${e[0].id}"></span>
+							</a>
+						</td>
+							
+					</tr>
+					<tr th:remove="all">
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+								
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>

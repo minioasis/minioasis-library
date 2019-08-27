@@ -6,10 +6,11 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationState;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.repository.history.RevisionRepository;
 import org.springframework.stereotype.Repository;
 
 @Repository
-public interface ReservationRepository extends JpaRepository<Reservation, Long>, ReservationRepositoryCustom {
+public interface ReservationRepository extends RevisionRepository<Reservation, Long, Integer>, JpaRepository<Reservation, Long>, ReservationRepositoryCustom {
 
 	@Query("SELECT r FROM Reservation r"
 			+ " JOIN r.biblio"

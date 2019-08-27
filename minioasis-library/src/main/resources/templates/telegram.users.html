@@ -200,6 +200,12 @@
 						<td th:text="${e.preference.sendMePromotion}">sendMePromotion</td>
 						<td>
 							<a href="#" th:href="@{/admin/telegram.user/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
+							
+							<p></p>
+							
+							<a class="btn btn-sm btn-outline-info text-info" href="#" th:href="@{/admin/audit/telegram.user/{id}/list(page=0,size=10,id=${e.id})}">
+								<i class="fas fa-history"></i>
+							</a>
 						</td>
 					</tr>
 					<tr th:remove="all">

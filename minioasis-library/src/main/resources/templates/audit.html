@@ -25,7 +25,7 @@
 				
 				<span th:text="#{reservation.notification}">Reservation Notification</span>		
 				<br>
-				<a href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,sort='reservationDate,desc',states='AVAILABLE',states='NOTIFIED')}">
+				<a href="#" th:href="@{/admin/audit/reservation/deleted.list(page=0,size=10)}">
 					<img th:src="@{/images/reservation.png}" alt=""/>
 				</a>
 			      	
@@ -48,16 +48,20 @@
 		      	
 		      	<p><p/>
 		      	
-				<span th:text="#{item}">Item</span> : <span th:text="#{attachment}">Attachment</span>
+				<span th:text="#{item}">Item</span>
 				<br>
-				<a href="#" th:href="@{/admin/item/list(page=0,size=10,sort='lastCheckin,desc')}">
+				<a href="#" th:href="@{/admin/audit/item/deleted.list(page=0,size=10)}">
 				    <img th:src="@{/images/item.png}" alt=""/>
 		      	</a>
-		      	:
-				<a href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
+
+		      	<p><p/>
+		      	
+				<span th:text="#{attachment}">Attachment</span>
+				<br>
+				<a href="#" th:href="@{/admin/audit/attachment/deleted.list(page=0,size=10)}">
 					<img th:src="@{/images/attachment.png}" alt=""/>
 		      	</a>
-			      	
+		      				      	
 		    </div>
 
 		    <div class="col-6 col-md-2">	    	
@@ -88,27 +92,10 @@
 				
 				<span th:text="#{telegram}">Telegram</span>
 				<br>
-				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/telegram.user/list(page=0,size=10,sort='cardKey,desc')}">
+				<a href="#" th:href="@{/admin/audit/telegram.user/deleted.list(page=0,size=10)}">
 					<i class="fab fa-telegram-plane fa-2x"></i>
 				</a>
 
-		    </div>
-		    
-		    <div class="col-6 col-md-2">
-		    	<!----------------- Circulation ---------------------->	
-				<h4>
-					<i class="fas fa-user-secret"></i>
-					<span th:text="#{user}">User</span>
-				</h4>
-		      
-		      	<br/>
-				
-				<span th:text="#{user}">User</span>		
-				<br>
-				<a class="btn btn-outline-light text-dark" href="#" th:href="@{/admin/audit/user/deleted.list(page=0,size=10)}">
-					<i class="fas fa-user-secret fa-2x"></i>
-				</a>
-			      	
 		    </div>
 
 		  </div> <!-- row -->
