@@ -33,12 +33,9 @@ import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotNull;
 
-import org.hibernate.envers.Audited;
-import org.hibernate.envers.NotAudited;
 import org.hibernate.validator.constraints.Length;
 
 @Entity
-@Audited
 @Table(name = "publisher")
 public class Publisher implements Serializable {
 
@@ -53,8 +50,7 @@ public class Publisher implements Serializable {
 	@Length(max = 128)
 	@Column(name = "name", unique = true , nullable = false)
 	private String name;
-	
-	@NotAudited
+
 	@OneToMany(cascade = CascadeType.ALL, mappedBy = "publisher", orphanRemoval = true)
     private Set<Biblio> biblios = new HashSet<Biblio>();
 

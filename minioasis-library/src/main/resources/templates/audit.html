@@ -22,22 +22,6 @@
 				</h4>
 		      
 		      	<br/>
-		      			
-				<span th:text="#{checkout}">Check Out </span>
-				<br/>
-				<a href="#" th:href="@{/admin/circ/patronid.form}">
-					<img th:src="@{/images/checkout.png}" alt=""/>
-				</a>
-				
-				<p><p/>
-				
-				<span th:text="#{attachment.checkout}">Attachment Check Out </span>
-				<br>
-				<a href="#" th:href="@{/admin/attachment.checkout/list(page=0,size=10,sort='checkoutDate,desc')}">
-					<img th:src="@{/images/attachmentcheckout.png}" alt=""/>
-				</a>
-			
-				<p><p/>
 				
 				<span th:text="#{reservation.notification}">Reservation Notification</span>		
 				<br>
@@ -73,22 +57,6 @@
 				<a href="#" th:href="@{/admin/attachment/list(page=0,size=10,sort='lastCheckin,desc')}">
 					<img th:src="@{/images/attachment.png}" alt=""/>
 		      	</a>
-		      	
-		      	<p><p/>
-		      	
-				<span th:text="#{publisher}">Publisher</span>
-				<br>
-				<a href="#" th:href="@{/admin/publisher/save}">
-	      			<img th:src="@{/images/publisher.png}" alt=""/>
-		      	</a>
-
-		      	<p><p/>
-
-				<span th:text="#{series}">Series</span>
-				<br>
-				<a href="#" th:href="@{/admin/series/save}">
-	      			<img th:src="@{/images/series.png}" alt=""/>
-		      	</a>
 			      	
 		    </div>
 
@@ -110,31 +78,6 @@
 		    </div>
 		    
 		    <div class="col-6 col-md-2">	    	
-				<!----------------- Account ---------------------->
-				<h4>
-					<i class="fas fa-cash-register text-secondary"></i>
-					<span th:text="#{account}">Account</span>
-				</h4>
-				
-		      	<br/>
-				
-				<span th:text="#{journalentry}">Journal Entry</span>
-				<br>
-				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry/patronid.form}">
-					<i class="fas fa-file-invoice-dollar fa-2x"></i>
-				</a>
-								
-				<p><p/>
-				
-				<span th:text="#{journalentry.line}">Journal Entry Line</span>
-				<br>
-				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/journalentry.line/list(page=0,size=60,sort='journalEntry.txnDate,desc')}">
-					<i class="fas fa-clipboard-list fa-2x"></i>
-				</a>
-
-		    </div>
-		    
-		    <div class="col-6 col-md-2">	    	
 				<!----------------- Telegram ---------------------->
 				<h4>
 					<i class="fab fa-telegram text-info"></i>
@@ -149,6 +92,23 @@
 					<i class="fab fa-telegram-plane fa-2x"></i>
 				</a>
 
+		    </div>
+		    
+		    <div class="col-6 col-md-2">
+		    	<!----------------- Circulation ---------------------->	
+				<h4>
+					<i class="fas fa-user-secret"></i>
+					<span th:text="#{user}">User</span>
+				</h4>
+		      
+		      	<br/>
+				
+				<span th:text="#{user}">User</span>		
+				<br>
+				<a class="btn btn-outline-light text-dark" href="#" th:href="@{/admin/audit/user/deleted.list(page=0,size=10)}">
+					<i class="fas fa-user-secret fa-2x"></i>
+				</a>
+			      	
 		    </div>
 
 		  </div> <!-- row -->
