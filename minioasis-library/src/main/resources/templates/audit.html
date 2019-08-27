@@ -103,19 +103,8 @@
 				
 				<span th:text="#{patron}">Patron</span>
 				<br>
-				<a href="#" th:href="@{/admin/patron/save}">
+				<a href="#" th:href="@{/admin/audit/patron/deleted.list(page=0,size=10)}">
 					<img th:src="@{/images/patron.png}" alt=""/>
-				</a>
-				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patron/list(page=0,size=10,sort='cardKey,desc')}">
-					<i class="fas fa-search fa-2x"></i>
-				</a>
-				
-				<p><p/>
-				
-				<span th:text="#{patron.change.group}">Change Group</span>
-				<br>
-				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/patron/group.change/list(page=0,size=60,sort='cardKey,desc')}">
-					<i class="fas fa-random fa-2x"></i>
 				</a>
 
 		    </div>
@@ -128,14 +117,6 @@
 				</h4>
 				
 		      	<br/>
-				
-				<span th:text="#{account}">Account</span>
-				<br>
-				<a class="btn btn-outline-light text-info" href="#" th:href="@{/admin/account/save}">
-					<i class="fas fa-archive fa-2x"></i>
-				</a>
-
-				<p><p/>
 				
 				<span th:text="#{journalentry}">Journal Entry</span>
 				<br>

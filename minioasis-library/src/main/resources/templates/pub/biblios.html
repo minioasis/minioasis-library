@@ -24,9 +24,14 @@
 			<input type="hidden" id="sort" name="sort" value="updated,desc" />
 							
 			<div class="form-row pt-3">
-			    <div class="form-group col-md-6">
+			    <div class="form-group col-md-3">
 			    	<label th:text="#{keyword}">Keyword</label>
 			      	<input type="text" class="form-control" th:field="*{keyword1}" autofocus="autofocus" th:placeholder="#{title} + ', ' + #{author} + ', ' + #{isbn}"/>
+			    </div>
+			    <div class="form-group col-md-3">
+			    	<label th:text="#{keyword2}">Keyword 2</label>
+			      	<input type="text" class="form-control" th:field="*{keyword2}" 
+			      		th:placeholder="#{subject} + ',' + #{classmark} + ',' + #{issn} + ',' + #{coden} + ',' + #{description}"/>
 			    </div>
 			    <div class="form-group col-md-3">
 			    	<label th:text="#{publisher}">Publisher</label>
