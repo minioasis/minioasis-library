@@ -62,7 +62,7 @@
 							</p>
 							<p th:text="${e.entity.author}"></p>									
 							<p th:text="${e.entity.isbn}"></p>
-							<p th:text="${e.entity.journal != null ? e.entity.journal.issn : ''}"></p>
+							<p th:text="${e.entity.journal?.issn}"></p>
 						</td>
 						<td>
 							<p th:text="${e.entity.biblioType}"></p>									
@@ -70,12 +70,12 @@
 							<p th:text="${e.entity.classMark}"></p>
 						</td>
 						<td>
-							<p th:text="${e.entity.publisher != null ? e.entity.publisher.id : ''}">Richard P. Feynman</p>
+							<p th:text="${e.entity.publisher?.id}">Richard P. Feynman</p>
 							<p th:text="${e.entity.publishingYear}"></p>
 							<p th:text="${e.entity.publicationPlace}"></p>
 						</td>
 						<td>
-							<p th:text="${e.entity.series != null ? e.entity.series.id : ''}">Physics Series</p>
+							<p th:text="${e.entity.series?.id}">Physics Series</p>
 							<p th:text="${e.entity.edition}"></p>									
 							<p th:text="${e.entity.pages}"></p>
 						</td>

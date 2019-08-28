@@ -1,0 +1,94 @@
+<!DOCTYPE html>
+
+<html xmlns:th="http://www.thymeleaf.org">
+	<head th:replace="fragments/head :: head(Minioasis)">
+	    <title>Minioasis Library</title>
+	</head>
+<body>
+
+	<div th:replace="fragments/topnav :: topnav"></div>
+
+	<div class="container pt-2">
+	
+		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
+		<div th:replace="fragments/header.audit :: header_audit"></div>
+			
+		<h4>
+			<span th:text="#{attachment.revisions}">Attachment Revisions</span>
+			<a class="btn btn-outline-light text-primary" href="#" th:href="@{/admin/audit/attachment/{id}/list(page=0,size=10,id=${id})}">
+				<i class="fas fa-search fa-2x"></i>
+			</a>	
+		</h4>
+
+		<div class="float-right">
+			<div th:if="${pagingType eq 'list'}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/audit/attachment/{id}/list(page=${page.number - 1},size=${page.size},id=${id})}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+				</a>
+				<a th:if="${page.hasNext()}" th:href="@{/admin/audit/attachment/{id}/list(page=${page.number + 1},size=${page.size},id=${id})}">
+					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+				</a>	
+			</div>		
+		</div>
+		
+		Total : <span th:text="${page.totalElements}">105</span>
+
+		<div class="table-responsive-sm">					
+			<table class="table table-striped">
+				<thead>
+					<tr>
+						<th>#</th>
+						<th>Rev</th>
+						<th>Time</th>
+						<th>Description</th>
+						<th>Barcode/Call No</th>
+						<th>First Checkin/Last Checkin</th>
+						<th>Borrowable/State</th>
+					</tr>
+				</thead>
+	
+				<tbody>
+					<tr th:each="e,iterator : ${page.content}">
+						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
+						<td th:text="${e.revisionNumber.orElse(-1)}">Revision #</td>
+						<td>
+							<p th:text="${#temporals.format(e.revisionInstant.orElse(0),'yyyy-MM-dd')}"></p>
+							<p th:text="${#temporals.format(e.revisionInstant.orElse(0),'<HH:mm:ss>')}"></p>
+						</td>
+						<td>									
+							<p th:text="${e.entity.description}"></p>
+						</td>
+						<td>
+							<p th:text="${e.entity.barcode}"></p>									
+							<p th:text="${e.entity.callNo}"></p>
+						</td>
+						<td th:inline="text">
+							[[${#temporals.format(e.entity.firstCheckin,'yyyy-MM-dd')}]]
+							<br>
+							[[${#temporals.format(e.entity.lastCheckin,'yyyy-MM-dd HH:mm:ss')}]]
+						</td>
+						<td>
+							<p th:text="${e.entity.borrowable}"></p>									
+							<p th:text="${e.entity.state}"></p>
+						</td>
+					</tr>
+					<tr th:remove="all">
+						<td>1</td>
+						<td>2</td>
+						<td>3</td>
+						<td>4</td>
+						<td>5</td>
+						<td>6</td>
+						<td>7</td>
+					</tr>
+				</tbody>
+			</table>
+		</div>
+								
+		<div th:replace="fragments/script :: script"></div>
+		<div th:replace="fragments/footer :: footer"></div>
+
+	</div>
+
+</body>
+</html>
