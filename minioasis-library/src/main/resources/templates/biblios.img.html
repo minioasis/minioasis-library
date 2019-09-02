@@ -202,8 +202,13 @@
 							<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 							<td><input type="checkbox" th:field="*{isbn}" th:value="${e.isbn}" /></td>
 							<td>
-								<img src="@{/images/smiley.png}" 
-									 th:src="@{/photo/biblio/{id}(id=${e.isbn})}" 
+								<img th:if="${e.isbn}" src="@{/images/smiley.png}" 
+									 th:src="@{/thumbnail.photo/biblio/{id}(id=${e.isbn})}" 
+									 class="thumbnail" 
+									 style="min-height:75px;height:95px;width:80px;"/>
+		
+								<img th:if="${e.journal}" src="@{/images/smiley.png}" 
+									 th:src="@{/thumbnail.photo/journal/{id}(id=${e.journal.coden})}" 
 									 class="thumbnail" 
 									 style="min-height:75px;height:95px;width:80px;"/>
 							</td>

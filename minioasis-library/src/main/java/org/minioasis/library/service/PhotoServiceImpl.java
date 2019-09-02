@@ -27,4 +27,11 @@ public class PhotoServiceImpl implements PhotoService {
 		return photoRepository.findBiblioThumbnailByIsbn(isbn);
 	}
 
+	public Photo findJournalByIssnCoden(String id) throws Exception {
+		return photoRepository.findJournalByIssnCoden(id);
+	}
+	
+	public Photo findJournalThumbnailByIssnCoden(String id) throws Exception {
+		return photoRepository.findJournalThumbnailByIssnCoden(id);
+	}
 }

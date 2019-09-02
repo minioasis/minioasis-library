@@ -94,7 +94,7 @@ public class BiblioListSearch {
 		model.addAttribute("previous", previous);
 		model.addAttribute("pagingType", "search");
 		
-		return "biblios";
+		return "biblios.ghost";
 
 	}
 	
@@ -107,7 +107,7 @@ public class BiblioListSearch {
 		model.addAttribute("criteria", new BiblioCriteria());
 		model.addAttribute("pagingType", "list");
 		
-		return "biblios";
+		return "biblios.ghost";
 		
 	}
 	

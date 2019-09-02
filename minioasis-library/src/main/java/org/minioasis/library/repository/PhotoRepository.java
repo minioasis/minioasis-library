@@ -11,6 +11,10 @@ public interface PhotoRepository {
 	Photo findBiblioByIsbn(String isbn) throws Exception;
 	
 	Photo findBiblioThumbnailByIsbn(String isbn) throws Exception;
+	
+	Photo findJournalByIssnCoden(String id) throws Exception;
+	
+	Photo findJournalThumbnailByIssnCoden(String id) throws Exception;
 
 }
 
