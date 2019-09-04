@@ -14,7 +14,7 @@
 			
 		<h4>
 			<i class="fas fa-ghost text-primary fa-lg"></i> <span th:text="#{search.biblio}">Search Biblio.</span>
-			<a class="btn btn-outline-light text-primary" href="#" th:href="@{/admin/biblio/list(page=0,size=10,sort='updated,desc')}">
+			<a class="btn btn-outline-light text-primary" href="#" th:href="@{/admin/biblio/list.uncomplete(page=0,size=10,sort='updated,desc')}">
 				<i class="fas fa-search fa-2x"></i>
 			</a>	
 		</h4>
@@ -46,7 +46,7 @@
 			</li>
 		</ul>
 
-		<form action="#" th:action="@{/admin/biblio/search}" th:object="${criteria}" method="get">
+		<form action="#" th:action="@{/admin/biblio/search.uncomplete}" th:object="${criteria}" method="get">
 
 			<input type="hidden" id="page" name="page" value="0" />
 			<input type="hidden" id="size" name="size" value="10" />
@@ -153,10 +153,10 @@
 
 		<div class="float-right">
 			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/admin/biblio/list(page=${page.number - 1},size=${page.size},sort='updated,desc')}">
+				<a th:if="${page.hasPrevious()}" th:href="@{/admin/biblio/list.uncomplete(page=${page.number - 1},size=${page.size},sort='updated,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
 				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/admin/biblio/list(page=${page.number + 1},size=${page.size},sort='updated,desc')}">
+				<a th:if="${page.hasNext()}" th:href="@{/admin/biblio/list.uncomplete(page=${page.number + 1},size=${page.size},sort='updated,desc')}">
 					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
 				</a>	
 			</div>
