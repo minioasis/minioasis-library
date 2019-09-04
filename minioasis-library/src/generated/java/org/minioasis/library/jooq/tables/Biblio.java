@@ -40,7 +40,7 @@ import org.minioasis.library.jooq.tables.records.BiblioRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Biblio extends TableImpl<BiblioRecord> {
 
-    private static final long serialVersionUID = 1990410715;
+    private static final long serialVersionUID = -424799992;
 
     /**
      * The reference instance of <code>PUBLIC.BIBLIO</code>
@@ -94,6 +94,11 @@ public class Biblio extends TableImpl<BiblioRecord> {
      * The column <code>PUBLIC.BIBLIO.EDITION</code>.
      */
     public final TableField<BiblioRecord, String> EDITION = createField("EDITION", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>PUBLIC.BIBLIO.IMAGE_ID</code>.
+     */
+    public final TableField<BiblioRecord, String> IMAGE_ID = createField("IMAGE_ID", org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
 
     /**
      * The column <code>PUBLIC.BIBLIO.ISBN</code>.

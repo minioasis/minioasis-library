@@ -457,12 +457,12 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		return s.toString();
 	}
 	
-	private Photo getPhoto(String isbn){
+	private Photo getPhoto(String imageId){
 		
 		Photo photo = null;
 		
 		try {
-			photo = this.photoRepository.findBiblioThumbnailByIsbn(isbn);
+			photo = this.photoRepository.findBiblioThumbnailByImageId(imageId);
 		} catch(ConnectException cex) {
 			logger.info("MINIO LOG : Connection failed !");
 		} catch (Exception ex) {

@@ -37,7 +37,7 @@ public class PhotoController {
 		try {
 			photo = this.photoService.findPatronThumbnailByIc(id);
 		} catch(ConnectException cex) {
-			logger.info("MINIO LOG : Connection failed !");
+			logger.info("MINIO LOG : Member Thumbnail Not Found : " + id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -82,7 +82,7 @@ public class PhotoController {
 		try {
 			photo = this.photoService.findPatronByIc(id);
 		} catch(ConnectException cex) {
-			logger.info("MINIO LOG : Connection failed !");
+			logger.info("MINIO LOG : Patron Photo Not Found : " + id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -127,7 +127,7 @@ public class PhotoController {
 		try {
 			photo = this.photoService.findPatronThumbnailByIc(id);
 		} catch(ConnectException cex) {
-			logger.info("MINIO LOG : Connection failed !");
+			logger.info("MINIO LOG : Patron Thumbnail Not Found : " + id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -170,9 +170,9 @@ public class PhotoController {
 		Photo photo = null;
 		
 		try {
-			photo = this.photoService.findBiblioByIsbn(id);
+			photo = this.photoService.findBiblioByImageId(id);
 		} catch(ConnectException cex) {
-			logger.info("MINIO LOG : Connection failed !");
+			logger.info("MINIO LOG : Biblio Image Not Found : " + id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -215,99 +215,9 @@ public class PhotoController {
 		Photo photo = null;
 		
 		try {
-			photo = this.photoService.findBiblioThumbnailByIsbn(id);
+			photo = this.photoService.findBiblioThumbnailByImageId(id);
 		} catch(ConnectException cex) {
-			logger.info("MINIO LOG : Connection failed !");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (photo != null) {
-			URL imgUrl = new URL(photo.getUrl());
-
-			try {
-				response.reset();
-				// TODO : please include png , gif ...etc
-				response.setContentType("image/jpeg");
-				response.setBufferSize(DEFAULT_BUFFER_SIZE);
-				response.setHeader("Content-Length", String.valueOf(photo.getSize()));
-				response.setHeader("Content-Disposition", "inline;filename=\"" + photo.getName() + "\"");
-				OutputStream out = response.getOutputStream();
-
-				byte[] chunk = new byte[4096];
-				int bytesRead;
-				InputStream in = imgUrl.openStream();
-
-				while ((bytesRead = in.read(chunk)) > 0) {
-					out.write(chunk, 0, bytesRead);
-				}
-
-				out.flush();
-				out.close();
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (DataAccessException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-
-	@GetMapping(path = "/photo/journal/{id}")
-	public void journalPhoto(@PathVariable("id") String id, HttpServletResponse response) throws MalformedURLException {
-
-		Photo photo = null;
-		
-		try {
-			photo = this.photoService.findJournalByIssnCoden(id);
-		} catch(ConnectException cex) {
-			logger.info("MINIO LOG : Connection failed !");
-		} catch (Exception e) {
-			// TODO Auto-generated catch block
-			e.printStackTrace();
-		}
-
-		if (photo != null) {
-			URL imgUrl = new URL(photo.getUrl());
-
-			try {
-				response.reset();
-				// TODO : please include png , gif ...etc
-				response.setContentType("image/jpeg");
-				response.setBufferSize(DEFAULT_BUFFER_SIZE);
-				response.setHeader("Content-Length", String.valueOf(photo.getSize()));
-				response.setHeader("Content-Disposition", "inline;filename=\"" + photo.getName() + "\"");
-				OutputStream out = response.getOutputStream();
-
-				byte[] chunk = new byte[4096];
-				int bytesRead;
-				InputStream in = imgUrl.openStream();
-
-				while ((bytesRead = in.read(chunk)) > 0) {
-					out.write(chunk, 0, bytesRead);
-				}
-
-				out.flush();
-				out.close();
-
-			} catch (IOException e) {
-				e.printStackTrace();
-			} catch (DataAccessException e) {
-				e.printStackTrace();
-			}
-		}
-	}
-	
-	@GetMapping(path = "/thumbnail.photo/journal/{id}")
-	public void journalThumbnailPhoto(@PathVariable("id") String id, HttpServletResponse response) throws MalformedURLException {
-
-		Photo photo = null;
-		
-		try {
-			photo = this.photoService.findJournalThumbnailByIssnCoden(id);
-		} catch(ConnectException cex) {
-			logger.info("MINIO LOG : Connection failed !");
+			logger.info("MINIO LOG : Biblio Thumbnail Not Found : " + id);
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();

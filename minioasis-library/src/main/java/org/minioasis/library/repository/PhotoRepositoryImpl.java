@@ -112,7 +112,7 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 
 	}
 	
-	public Photo findBiblioByIsbn(String id) throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
+	public Photo findBiblioByImageId(String id) throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
 		
 		Photo photo = null;
 		
@@ -148,7 +148,7 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 		
 	}
 	
-	public Photo findBiblioThumbnailByIsbn(String id) throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
+	public Photo findBiblioThumbnailByImageId(String id) throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
 		
 		Photo photo = null;
 		
@@ -182,80 +182,6 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 		
 		return photo;
 		
-	}
-	
-	public Photo findJournalByIssnCoden(String id)
-			throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
-		
-		Photo photo = null;
-		
-		try {
-
-			boolean found = minioClient.bucketExists(journalBucket);
-
-			if (found) {
-
-				ObjectStat objectStat = minioClient.statObject(journalBucket, id + ".jpg");
-
-				if (objectStat == null) {
-					objectStat = minioClient.statObject(journalBucket, id + ".jpeg");
-				}
-
-				if (objectStat != null) {
-					
-					String url = minioClient.presignedGetObject(journalBucket, objectStat.name(), 60 * 60 * 24);
-					
-					photo = convert(objectStat, url);
-
-				} else {
-					return photo;
-				}
-
-			}
-
-		} catch (MinioException e) {
-			return null;
-		}
-		
-		return photo;
-
-	}
-	
-	public Photo findJournalThumbnailByIssnCoden(String id)
-			throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {
-
-		Photo photo = null;
-		
-		try {
-
-			boolean found = minioClient.bucketExists(journalThumbnailBucket);
-
-			if (found) {
-
-				ObjectStat objectStat = minioClient.statObject(journalThumbnailBucket, id + ".jpg");
-
-				if (objectStat == null) {
-					objectStat = minioClient.statObject(journalThumbnailBucket, id + ".jpeg");
-				}
-
-				if (objectStat != null) {
-					
-					String url = minioClient.presignedGetObject(journalThumbnailBucket, objectStat.name(), 60 * 60 * 24);
-					
-					photo = convert(objectStat, url);
-
-				} else {
-					return photo;
-				}
-
-			}
-
-		} catch (MinioException e) {
-			return null;
-		}
-		
-		return photo;
-
 	}
 	
 	private Photo convert(ObjectStat object, String url) {

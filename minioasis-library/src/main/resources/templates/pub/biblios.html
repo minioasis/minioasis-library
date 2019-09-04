@@ -90,13 +90,8 @@
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 						<td>
-							<img th:if="${e.isbn}" src="@{/images/smiley.png}" 
-								 th:src="@{/thumbnail.photo/biblio/{id}(id=${e.isbn})}" 
-								 class="thumbnail" 
-								 style="min-height:75px;height:95px;width:80px;"/>
-	
-							<img th:if="${e.journal}" src="@{/images/smiley.png}" 
-								 th:src="@{/thumbnail.photo/journal/{id}(id=${e.journal.coden})}" 
+							<img th:if="${e.imageId}" src="@{/images/smiley.png}" 
+								 th:src="@{/thumbnail.photo/biblio/{id}(id=${e.imageId})}" 
 								 class="thumbnail" 
 								 style="min-height:75px;height:95px;width:80px;"/>
 						</td>

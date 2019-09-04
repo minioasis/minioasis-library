@@ -40,6 +40,12 @@
 				</a>
 			</li>
 			<li class="nav-item">
+				<a class="nav-link" id="image-tab" data-toggle="tab" href="#image" role="tab" aria-controls="image" aria-selected="true">
+					<i class="fab fa-envira"></i>
+					<span th:text="#{image}">Image</span>
+				</a>
+			</li>
+			<li class="nav-item">
 				<a class="nav-link" id="date-tab" data-toggle="tab" href="#date" role="tab" aria-controls="date" aria-selected="false">
 					<i class="fab fa-envira"></i>
 					<span th:text="#{date}">Date</span>
@@ -86,7 +92,16 @@
 					    </div>
 					</div>								
 				</div>
-				
+
+				<div class="tab-pane fade" id="image" role="tabpanel" aria-labelledby="image-tab">			
+					<div class="form-row pt-3">
+					    <div class="form-group col-md-3">
+					    	<label th:text="#{keyword3}">Keyword 3</label>
+					      	<input type="text" class="form-control" th:field="*{keyword3}" autofocus="autofocus" th:placeholder="#{image.id}"/>
+					    </div>
+					</div>								
+				</div>
+								
 				<div class="tab-pane fade" id="date" role="tabpanel" aria-labelledby="date-tab">	
 					<div class="form-row pt-3">
 					    <div class="form-group col-md-2">
@@ -103,7 +118,7 @@
 					</div>
 				</div>
 				
-				<div class="tab-pane fade" id="type" role="tabpanel"	aria-labelledby="type-tab">
+				<div class="tab-pane fade" id="type" role="tabpanel" aria-labelledby="type-tab">
 					<div class="form-row pt-3">
 					    <div class="form-group col-md-3">
 					    	<label th:text="'(T) ' + #{biblio.type}">Biblio Type</label>
@@ -189,8 +204,8 @@
 						<tr>
 							<th>#</th>
 							<th><span th:text="#{all}"></span> | <input type="checkbox" id="checkall" /></th>
-							<th th:text="#{photo}">Photo</th>
-							<th th:text="#{title} + '/' + #{author} + '/' + #{isbn} + '/(B)'">Title/Author/ISBN/(B)</th>
+							<th th:text="#{photo} + '/' + #{image.id}">Photo</th>
+							<th th:text="#{title} + '(B)/' + #{author} + '/' + #{isbn}">Title(B)/Author/ISBN</th>
 							<th>(T)</th>
 							<th>(L)</th>
 							<th th:text="#{actions}">Actions</th>
@@ -202,15 +217,12 @@
 							<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 							<td><input type="checkbox" th:field="*{isbn}" th:value="${e.isbn}" /></td>
 							<td>
-								<img th:if="${e.isbn}" src="@{/images/smiley.png}" 
-									 th:src="@{/thumbnail.photo/biblio/{id}(id=${e.isbn})}" 
+								<img th:if="${e.imageId}" src="@{/images/smiley.png}" 
+									 th:src="@{/thumbnail.photo/biblio/{id}(id=${e.imageId})}" 
 									 class="thumbnail" 
 									 style="min-height:75px;height:95px;width:80px;"/>
-		
-								<img th:if="${e.journal}" src="@{/images/smiley.png}" 
-									 th:src="@{/thumbnail.photo/journal/{id}(id=${e.journal.coden})}" 
-									 class="thumbnail" 
-									 style="min-height:75px;height:95px;width:80px;"/>
+								<br>
+								<code th:text="${e.imageId}"></code>
 							</td>
 							<td>
 								<a href="#" th:href="@{/admin/biblio/{id}(id=${e.id})}" th:text="${e.title}">Feynman Lecture of Physics</a> (<span th:text="${e.binding}"></span>)

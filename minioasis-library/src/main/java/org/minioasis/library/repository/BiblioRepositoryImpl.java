@@ -102,6 +102,7 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 	    
 		final String keyword1 = criteria.getKeyword1();
 		final String keyword2 = criteria.getKeyword2();
+		final String keyword3 = criteria.getKeyword3();
 		final LocalDateTime updatedFrom = criteria.getUpdatedFrom();
 		final LocalDateTime updatedTo = criteria.getUpdatedTo();
 		final String note = criteria.getNote();
@@ -115,13 +116,15 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 	    					.or(b.AUTHOR.likeIgnoreCase("%" + keyword1 + "%"))
 	    					.or(b.ISBN.likeIgnoreCase("%" + keyword1 + "%"));				
 	    }
-
 	    if (keyword2 != null) {
 	    	condition = condition.and(b.TOPIC.likeIgnoreCase("%" + keyword2 + "%"))
 	    					.or(b.CLASS_MARK.likeIgnoreCase("%" + keyword2 + "%"))
 	    					.or(b.ISSN.likeIgnoreCase("%" + keyword2 + "%"))
 	    					.or(b.CODEN.likeIgnoreCase("%" + keyword2 + "%"))
 	    					.or(b.DESCRIPTION.likeIgnoreCase("%" + keyword2 + "%"));				
+	    }
+	    if (keyword3 != null) {
+	    	condition = condition.and(b.IMAGE_ID.likeIgnoreCase("%" + keyword3 + "%"));				
 	    }
 	    if(note != null) {
 	    	condition = condition.and(b.NOTE.likeIgnoreCase("%" + note + "%"));

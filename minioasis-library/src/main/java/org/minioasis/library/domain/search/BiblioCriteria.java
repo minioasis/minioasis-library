@@ -16,6 +16,7 @@ public class BiblioCriteria implements Serializable {
 
 	private String keyword1;
 	private String keyword2;
+	private String keyword3;
 	private String publisher;
 	private String series;
 	private LocalDateTime updatedFrom;
@@ -39,6 +40,12 @@ public class BiblioCriteria implements Serializable {
 	}
 	public void setKeyword2(String keyword2) {
 		this.keyword2 = keyword2;
+	}
+	public String getKeyword3() {
+		return keyword3;
+	}
+	public void setKeyword3(String keyword3) {
+		this.keyword3 = keyword3;
 	}
 	public String getPublisher() {
 		return publisher;

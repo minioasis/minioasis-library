@@ -23,7 +23,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Biblio implements Serializable {
 
-    private static final long serialVersionUID = 1039741312;
+    private static final long serialVersionUID = 1156061130;
 
     private Long      id;
     private String    active;
@@ -33,6 +33,7 @@ public class Biblio implements Serializable {
     private String    classMark;
     private String    description;
     private String    edition;
+    private String    imageId;
     private String    isbn;
     private String    coden;
     private String    issn;
@@ -58,6 +59,7 @@ public class Biblio implements Serializable {
         this.classMark = value.classMark;
         this.description = value.description;
         this.edition = value.edition;
+        this.imageId = value.imageId;
         this.isbn = value.isbn;
         this.coden = value.coden;
         this.issn = value.issn;
@@ -82,6 +84,7 @@ public class Biblio implements Serializable {
         String    classMark,
         String    description,
         String    edition,
+        String    imageId,
         String    isbn,
         String    coden,
         String    issn,
@@ -104,6 +107,7 @@ public class Biblio implements Serializable {
         this.classMark = classMark;
         this.description = description;
         this.edition = edition;
+        this.imageId = imageId;
         this.isbn = isbn;
         this.coden = coden;
         this.issn = issn;
@@ -181,6 +185,14 @@ public class Biblio implements Serializable {
 
     public void setEdition(String edition) {
         this.edition = edition;
+    }
+
+    public String getImageId() {
+        return this.imageId;
+    }
+
+    public void setImageId(String imageId) {
+        this.imageId = imageId;
     }
 
     public String getIsbn() {
@@ -299,6 +311,7 @@ public class Biblio implements Serializable {
         sb.append(", ").append(classMark);
         sb.append(", ").append(description);
         sb.append(", ").append(edition);
+        sb.append(", ").append(imageId);
         sb.append(", ").append(isbn);
         sb.append(", ").append(coden);
         sb.append(", ").append(issn);

@@ -61,6 +61,10 @@ public class Biblio implements Serializable {
 	@Length(max = 16)
 	private String isbn;
 	
+	@Length(max = 36)
+	@Column(name = "image_id")
+	private String imageId;	
+	
 	@Valid
 	private Journal journal = new Journal();
 	
@@ -168,6 +172,14 @@ public class Biblio implements Serializable {
 
 	public String getIsbn() {
 		return isbn;
+	}
+
+	public String getImageId() {
+		return imageId;
+	}
+
+	public void setImageId(String imageId) {
+		this.imageId = imageId;
 	}
 
 	public void setIsbn(String isbn) {

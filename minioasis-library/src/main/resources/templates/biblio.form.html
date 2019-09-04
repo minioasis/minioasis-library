@@ -61,6 +61,11 @@
 							</select>
 							<span class="text-danger" th:if="${#fields.hasErrors('biblioType')}" th:errors="*{biblioType}"></span>
 						</div>
+						<div class="form-group col-sm-4">
+							<label th:text="#{image.id}">Image Id</label>
+							<input type="text" class="form-control" th:field="*{imageId}"	placeholder="Image Id" />
+							<span class="text-danger" th:if="${#fields.hasErrors('imageId')}" th:errors="*{imageId}"></span>
+						</div>
 					</div>
 					<div class="form-row">
 					    <div class="form-group col-sm-6">						      

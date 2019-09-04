@@ -19,19 +19,12 @@ public class PhotoServiceImpl implements PhotoService {
 		return photoRepository.findPatronThumbnailByIc(ic);
 	}
 	
-	public Photo findBiblioByIsbn(String isbn) throws Exception {
-		return photoRepository.findBiblioByIsbn(isbn);
+	public Photo findBiblioByImageId(String imageId) throws Exception {
+		return photoRepository.findBiblioByImageId(imageId);
 	}
 	
-	public Photo findBiblioThumbnailByIsbn(String isbn) throws Exception {
-		return photoRepository.findBiblioThumbnailByIsbn(isbn);
+	public Photo findBiblioThumbnailByImageId(String imageId) throws Exception {
+		return photoRepository.findBiblioThumbnailByImageId(imageId);
 	}
 
-	public Photo findJournalByIssnCoden(String id) throws Exception {
-		return photoRepository.findJournalByIssnCoden(id);
-	}
-	
-	public Photo findJournalThumbnailByIssnCoden(String id) throws Exception {
-		return photoRepository.findJournalThumbnailByIssnCoden(id);
-	}
 }
