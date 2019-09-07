@@ -94,9 +94,11 @@ public class Keys {
     public static final Identity<PatronTypeRecord, Long> IDENTITY_PATRON_TYPE = Identities0.IDENTITY_PATRON_TYPE;
     public static final Identity<PublisherRecord, Long> IDENTITY_PUBLISHER = Identities0.IDENTITY_PUBLISHER;
     public static final Identity<ReservationRecord, Long> IDENTITY_RESERVATION = Identities0.IDENTITY_RESERVATION;
+    public static final Identity<RoleRecord, Long> IDENTITY_ROLE = Identities0.IDENTITY_ROLE;
     public static final Identity<SeriesRecord, Long> IDENTITY_SERIES = Identities0.IDENTITY_SERIES;
     public static final Identity<TagRecord, Long> IDENTITY_TAG = Identities0.IDENTITY_TAG;
     public static final Identity<TelegramUserRecord, Long> IDENTITY_TELEGRAM_USER = Identities0.IDENTITY_TELEGRAM_USER;
+    public static final Identity<UserRecord, Long> IDENTITY_USER = Identities0.IDENTITY_USER;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -191,9 +193,11 @@ public class Keys {
         public static Identity<PatronTypeRecord, Long> IDENTITY_PATRON_TYPE = Internal.createIdentity(PatronType.PATRON_TYPE, PatronType.PATRON_TYPE.ID);
         public static Identity<PublisherRecord, Long> IDENTITY_PUBLISHER = Internal.createIdentity(Publisher.PUBLISHER, Publisher.PUBLISHER.ID);
         public static Identity<ReservationRecord, Long> IDENTITY_RESERVATION = Internal.createIdentity(Reservation.RESERVATION, Reservation.RESERVATION.ID);
+        public static Identity<RoleRecord, Long> IDENTITY_ROLE = Internal.createIdentity(Role.ROLE, Role.ROLE.ROLE_ID);
         public static Identity<SeriesRecord, Long> IDENTITY_SERIES = Internal.createIdentity(Series.SERIES, Series.SERIES.ID);
         public static Identity<TagRecord, Long> IDENTITY_TAG = Internal.createIdentity(Tag.TAG, Tag.TAG.ID);
         public static Identity<TelegramUserRecord, Long> IDENTITY_TELEGRAM_USER = Internal.createIdentity(TelegramUser.TELEGRAM_USER, TelegramUser.TELEGRAM_USER.ID);
+        public static Identity<UserRecord, Long> IDENTITY_USER = Internal.createIdentity(User.USER, User.USER.USER_ID);
     }
 
     private static class UniqueKeys0 {
