@@ -70,5 +70,18 @@ public class Account implements Serializable {
 	public void setType(AccountType type) {
 		this.type = type;
 	}
+	
+	public boolean equals(Object other) {
+
+		if (this == other) return true;
+		if ( !(other instanceof Account) ) return false;
+		final Account that = (Account) other;
+		return this.id.equals(that.getId());
+
+	}
+
+	public int hashCode() {
+		return id == null ? System.identityHashCode(this) : id.hashCode();
+	}
 
 }
