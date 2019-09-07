@@ -85,9 +85,9 @@ dependencies {
 	
 	//jooqRuntime 'com.h2database:${h2Version}'
 	jooqRuntime 'org.mariadb.jdbc:mariadb-java-client:2.4.3'
-	jooqRuntime 'org.jooq:jooq:2.4.3'
-	jooqRuntime 'org.jooq:jooq-meta:2.4.3'
-	jooqRuntime 'org.jooq:jooq-meta-extensions:2.4.3'
+	jooqRuntime 'org.jooq:jooq:${jooqVersion}'
+	jooqRuntime 'org.jooq:jooq-meta:${jooqVersion}'
+	jooqRuntime 'org.jooq:jooq-meta-extensions:${jooqVersion}'
 	jooqRuntime(files(sourceSets.main.output.classesDirs))
 	
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
