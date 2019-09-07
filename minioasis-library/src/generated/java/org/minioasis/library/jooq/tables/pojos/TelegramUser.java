@@ -22,19 +22,19 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser implements Serializable {
 
-    private static final long serialVersionUID = 1003854447;
+    private static final long serialVersionUID = 2084884511;
 
     private final Long    id;
     private final String  cardKey;
     private final Long    chatId;
-    private final Boolean dontRemindAgain;
-    private final Boolean remindAgainInTheLastDay;
-    private final Boolean reminder;
-    private final Boolean sendmeAnnoucement;
-    private final Boolean sendmeArticle;
-    private final Boolean sendmeEvents;
-    private final Boolean sendmeNewRelease;
-    private final Boolean sendmePromotion;
+    private final Integer dontRemindAgain;
+    private final Integer remindAgainInTheLastDay;
+    private final Integer reminder;
+    private final Integer sendmeAnnoucement;
+    private final Integer sendmeArticle;
+    private final Integer sendmeEvents;
+    private final Integer sendmeNewRelease;
+    private final Integer sendmePromotion;
 
     public TelegramUser(TelegramUser value) {
         this.id = value.id;
@@ -54,14 +54,14 @@ public class TelegramUser implements Serializable {
         Long    id,
         String  cardKey,
         Long    chatId,
-        Boolean dontRemindAgain,
-        Boolean remindAgainInTheLastDay,
-        Boolean reminder,
-        Boolean sendmeAnnoucement,
-        Boolean sendmeArticle,
-        Boolean sendmeEvents,
-        Boolean sendmeNewRelease,
-        Boolean sendmePromotion
+        Integer dontRemindAgain,
+        Integer remindAgainInTheLastDay,
+        Integer reminder,
+        Integer sendmeAnnoucement,
+        Integer sendmeArticle,
+        Integer sendmeEvents,
+        Integer sendmeNewRelease,
+        Integer sendmePromotion
     ) {
         this.id = id;
         this.cardKey = cardKey;
@@ -88,35 +88,35 @@ public class TelegramUser implements Serializable {
         return this.chatId;
     }
 
-    public Boolean getDontRemindAgain() {
+    public Integer getDontRemindAgain() {
         return this.dontRemindAgain;
     }
 
-    public Boolean getRemindAgainInTheLastDay() {
+    public Integer getRemindAgainInTheLastDay() {
         return this.remindAgainInTheLastDay;
     }
 
-    public Boolean getReminder() {
+    public Integer getReminder() {
         return this.reminder;
     }
 
-    public Boolean getSendmeAnnoucement() {
+    public Integer getSendmeAnnoucement() {
         return this.sendmeAnnoucement;
     }
 
-    public Boolean getSendmeArticle() {
+    public Integer getSendmeArticle() {
         return this.sendmeArticle;
     }
 
-    public Boolean getSendmeEvents() {
+    public Integer getSendmeEvents() {
         return this.sendmeEvents;
     }
 
-    public Boolean getSendmeNewRelease() {
+    public Integer getSendmeNewRelease() {
         return this.sendmeNewRelease;
     }
 
-    public Boolean getSendmePromotion() {
+    public Integer getSendmePromotion() {
         return this.sendmePromotion;
     }
 

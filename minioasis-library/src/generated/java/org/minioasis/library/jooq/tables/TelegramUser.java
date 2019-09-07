@@ -41,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.TelegramUserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser extends TableImpl<TelegramUserRecord> {
 
-    private static final long serialVersionUID = -1434103060;
+    private static final long serialVersionUID = -1024127292;
 
     /**
      * The reference instance of <code>TELEGRAM_USER</code>
@@ -74,42 +74,42 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
     /**
      * The column <code>TELEGRAM_USER.DONT_REMIND_AGAIN</code>.
      */
-    public final TableField<TelegramUserRecord, Boolean> DONT_REMIND_AGAIN = createField(DSL.name("DONT_REMIND_AGAIN"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<TelegramUserRecord, Integer> DONT_REMIND_AGAIN = createField(DSL.name("DONT_REMIND_AGAIN"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>TELEGRAM_USER.REMIND_AGAIN_IN_THE_LAST_DAY</code>.
      */
-    public final TableField<TelegramUserRecord, Boolean> REMIND_AGAIN_IN_THE_LAST_DAY = createField(DSL.name("REMIND_AGAIN_IN_THE_LAST_DAY"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<TelegramUserRecord, Integer> REMIND_AGAIN_IN_THE_LAST_DAY = createField(DSL.name("REMIND_AGAIN_IN_THE_LAST_DAY"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>TELEGRAM_USER.REMINDER</code>.
      */
-    public final TableField<TelegramUserRecord, Boolean> REMINDER = createField(DSL.name("REMINDER"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<TelegramUserRecord, Integer> REMINDER = createField(DSL.name("REMINDER"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_ANNOUCEMENT</code>.
      */
-    public final TableField<TelegramUserRecord, Boolean> SENDME_ANNOUCEMENT = createField(DSL.name("SENDME_ANNOUCEMENT"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<TelegramUserRecord, Integer> SENDME_ANNOUCEMENT = createField(DSL.name("SENDME_ANNOUCEMENT"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_ARTICLE</code>.
      */
-    public final TableField<TelegramUserRecord, Boolean> SENDME_ARTICLE = createField(DSL.name("SENDME_ARTICLE"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<TelegramUserRecord, Integer> SENDME_ARTICLE = createField(DSL.name("SENDME_ARTICLE"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_EVENTS</code>.
      */
-    public final TableField<TelegramUserRecord, Boolean> SENDME_EVENTS = createField(DSL.name("SENDME_EVENTS"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<TelegramUserRecord, Integer> SENDME_EVENTS = createField(DSL.name("SENDME_EVENTS"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_NEW_RELEASE</code>.
      */
-    public final TableField<TelegramUserRecord, Boolean> SENDME_NEW_RELEASE = createField(DSL.name("SENDME_NEW_RELEASE"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<TelegramUserRecord, Integer> SENDME_NEW_RELEASE = createField(DSL.name("SENDME_NEW_RELEASE"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_PROMOTION</code>.
      */
-    public final TableField<TelegramUserRecord, Boolean> SENDME_PROMOTION = createField(DSL.name("SENDME_PROMOTION"), org.jooq.impl.SQLDataType.BOOLEAN, this, "");
+    public final TableField<TelegramUserRecord, Integer> SENDME_PROMOTION = createField(DSL.name("SENDME_PROMOTION"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * Create a <code>TELEGRAM_USER</code> table reference
@@ -200,7 +200,7 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, String, Long, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean, Boolean> fieldsRow() {
+    public Row11<Long, String, Long, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> fieldsRow() {
         return (Row11) super.fieldsRow();
     }
 }
