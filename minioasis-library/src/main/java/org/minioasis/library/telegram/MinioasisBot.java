@@ -23,6 +23,7 @@ import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
 import org.minioasis.library.domain.TelegramUser;
+import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.BiblioCriteria;
 import org.minioasis.library.exception.LibraryException;
 import org.minioasis.library.repository.PhotoRepository;
@@ -837,7 +838,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 			
 			boolean exist = libraryService.match(cardKey, mobile);		
-			TelegramUser telegramUser = new TelegramUser(chat_id, cardKey, new Preference(true,false,false,false,false,false,false,false));
+			TelegramUser telegramUser = new TelegramUser(chat_id, cardKey, new Preference(YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N));
 					
 			if(exist) {
 				

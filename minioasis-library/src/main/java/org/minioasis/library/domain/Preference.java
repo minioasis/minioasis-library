@@ -12,39 +12,39 @@ public class Preference implements Serializable {
 
 	// due
 	@Column(name = "reminder")
-	private boolean reminder = false;
+	private YesNo reminder = YesNo.N;
 	
 	@Column(name = "dont_remind_again")
-	private boolean dontRemindAgain = false;
+	private YesNo dontRemindAgain = YesNo.N;
 	
 	@Column(name = "remind_again_in_the_last_day")
-	private boolean remindAgainInTheLastDay = false;	
+	private YesNo remindAgainInTheLastDay = YesNo.N;
 	
 	// event
 	@Column(name = "sendme_events")
-	private boolean sendMeEvent = false;
+	private YesNo sendMeEvent = YesNo.N;
 	
 	// new release
 	@Column(name = "sendme_new_release")
-	private boolean sendMeNewRelease = false;
+	private YesNo sendMeNewRelease = YesNo.N;
 	
 	// announcement
 	@Column(name = "sendme_annoucement")
-	private boolean sendMeAnnouncement = false;
+	private YesNo sendMeAnnouncement = YesNo.N;
 	
 	// new article
 	@Column(name = "sendme_article")
-	private boolean sendMeArticle = false;
+	private YesNo sendMeArticle = YesNo.N;
 	
 	// promotion
 	@Column(name = "sendme_promotion")
-	private boolean sendMePromotion = false;
+	private YesNo sendMePromotion = YesNo.N;
 	
 	public Preference() {
 	}
 	
-	public Preference(boolean reminder, boolean dontRemindAgain, boolean remindAgainInTheLastDay, boolean sendMeEvent,
-			boolean sendMeNewRelease, boolean sendMeAnnouncement, boolean sendMeArticle, boolean sendMePromotion) {
+	public Preference(YesNo reminder, YesNo dontRemindAgain, YesNo remindAgainInTheLastDay, YesNo sendMeEvent,
+			YesNo sendMeNewRelease, YesNo sendMeAnnouncement, YesNo sendMeArticle, YesNo sendMePromotion) {
 		super();
 		this.reminder = reminder;
 		this.dontRemindAgain = dontRemindAgain;
@@ -56,52 +56,67 @@ public class Preference implements Serializable {
 		this.sendMePromotion = sendMePromotion;
 	}
 
-	public boolean isReminder() {
+	public YesNo getReminder() {
 		return reminder;
 	}
-	public void setReminder(boolean reminder) {
+
+	public void setReminder(YesNo reminder) {
 		this.reminder = reminder;
 	}
-	public boolean isDontRemindAgain() {
+
+	public YesNo getDontRemindAgain() {
 		return dontRemindAgain;
 	}
-	public void setDontRemindAgain(boolean dontRemindAgain) {
+
+	public void setDontRemindAgain(YesNo dontRemindAgain) {
 		this.dontRemindAgain = dontRemindAgain;
 	}
-	public boolean isRemindAgainInTheLastDay() {
+
+	public YesNo getRemindAgainInTheLastDay() {
 		return remindAgainInTheLastDay;
 	}
-	public void setRemindAgainInTheLastDay(boolean remindAgainInTheLastDay) {
+
+	public void setRemindAgainInTheLastDay(YesNo remindAgainInTheLastDay) {
 		this.remindAgainInTheLastDay = remindAgainInTheLastDay;
 	}
-	public boolean isSendMeEvent() {
+
+	public YesNo getSendMeEvent() {
 		return sendMeEvent;
 	}
-	public void setSendMeEvent(boolean sendMeEvent) {
+
+	public void setSendMeEvent(YesNo sendMeEvent) {
 		this.sendMeEvent = sendMeEvent;
 	}
-	public boolean isSendMeNewRelease() {
+
+	public YesNo getSendMeNewRelease() {
 		return sendMeNewRelease;
 	}
-	public void setSendMeNewRelease(boolean sendMeNewRelease) {
+
+	public void setSendMeNewRelease(YesNo sendMeNewRelease) {
 		this.sendMeNewRelease = sendMeNewRelease;
 	}
-	public boolean isSendMeAnnouncement() {
+
+	public YesNo getSendMeAnnouncement() {
 		return sendMeAnnouncement;
 	}
-	public void setSendMeAnnouncement(boolean sendMeAnnouncement) {
+
+	public void setSendMeAnnouncement(YesNo sendMeAnnouncement) {
 		this.sendMeAnnouncement = sendMeAnnouncement;
 	}
-	public boolean isSendMeArticle() {
+
+	public YesNo getSendMeArticle() {
 		return sendMeArticle;
 	}
-	public void setSendMeArticle(boolean sendMeArticle) {
+
+	public void setSendMeArticle(YesNo sendMeArticle) {
 		this.sendMeArticle = sendMeArticle;
 	}
-	public boolean isSendMePromotion() {
+
+	public YesNo getSendMePromotion() {
 		return sendMePromotion;
 	}
-	public void setSendMePromotion(boolean sendMePromotion) {
+
+	public void setSendMePromotion(YesNo sendMePromotion) {
 		this.sendMePromotion = sendMePromotion;
 	}
 	
