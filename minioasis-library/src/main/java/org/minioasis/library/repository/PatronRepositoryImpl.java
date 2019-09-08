@@ -2,7 +2,6 @@ package org.minioasis.library.repository;
 
 import java.time.LocalDate;
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.Set;
@@ -19,8 +18,6 @@ import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
 import org.jooq.DatePart;
 import org.jooq.Field;
-import org.jooq.Record;
-import org.jooq.Record1;
 import org.jooq.Record3;
 import org.jooq.Record4;
 import org.jooq.Result;
@@ -112,8 +109,8 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 	
 	public Result<Record4<Integer, Integer, String, Integer>> CountPatronsByTypes() {
 		
-		Field<Integer> year = p.START_DATE.extract(DatePart.YEAR);
-		Field<Integer> month = p.START_DATE.extract(DatePart.MONTH);
+		Field<Integer> year = DSL.extract(p.START_DATE, DatePart.YEAR);
+		Field<Integer> month = DSL.extract(p.START_DATE, DatePart.MONTH);
 /*		In MYSQL :
 		select extract(year from p.START_DATE) yr, extract(month from p.START_DATE) m, pt.NAME, count(*) 
 		from PATRON p join PATRON_TYPE pt on pt.ID = p.PATRONTYPE_ID 
@@ -219,7 +216,7 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 	
 	public Result<Record3<Integer, String, Integer>> CountPatronsByTypes3(int year) {
 		
-		Field<Integer> month = p.START_DATE.extract(DatePart.MONTH);
+		Field<Integer> month = DSL.extract(p.START_DATE, DatePart.MONTH);
 
 		Result<Record3<Integer, String, Integer>> records = dsl.select(month, pt.NAME, DSL.count())
 									.from(p)
@@ -234,7 +231,7 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 	
 	public List<Integer> getAllPatronsStartedYears(){
 		
-		Field<Integer> year = p.START_DATE.extract(DatePart.YEAR);
+		Field<Integer> year = DSL.extract(p.START_DATE, DatePart.YEAR);
 		
 		List<Integer> records = dsl.selectDistinct(year)
 				.from(p)
