@@ -150,8 +150,6 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 
 		for (int i = 0; i < period; i++) {
 
-			from = from + i;
-
 			result = CountPatronsByTypes3(from);
 
 			if (result.size() > 0) {
@@ -212,6 +210,8 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 				chartData.setSeries(series);
 				list.add(chartData);
 			}
+			
+			from++;
 		}
 		
 		return list;
