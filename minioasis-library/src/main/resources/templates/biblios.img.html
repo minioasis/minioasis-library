@@ -218,7 +218,7 @@
 							<td><input type="checkbox" th:field="*{isbn}" th:value="${e.isbn}" /></td>
 							<td>
 								<img th:if="${e.imageId}" src="@{/images/smiley.png}" 
-									 th:src="@{/thumbnail.photo/biblio/{id}(id=${e.imageId})}" 
+									 th:src="@{/photo/biblio/{id}(id=${e.imageId})}" 
 									 class="thumbnail" 
 									 style="min-height:75px;height:95px;width:80px;"/>
 								<br>

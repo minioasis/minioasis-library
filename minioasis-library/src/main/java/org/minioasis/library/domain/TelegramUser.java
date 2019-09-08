@@ -47,7 +47,6 @@ public class TelegramUser implements Serializable {
 		this.preference = preference;
 	}
 
-
 	public Long getId() {
 		return id;
 	}

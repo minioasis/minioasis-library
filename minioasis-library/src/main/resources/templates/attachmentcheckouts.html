@@ -153,11 +153,11 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td><a href="#" th:href="@{/admin/circ/patron/{id}(id=${e.patron.id})}" th:text="${e.patron.cardKey}">cardKey</a></td>
+						<td><a href="#" th:href="@{/admin/circ/checkout?pid={id}(id=${e.patron.cardKey})}" th:text="${e.patron.cardKey}">cardKey</a></td>
 						<td th:text="${e.attachment.barcode}">2312131</td>
 						<td th:text="${e.attachment.description}">Feynman Lecture On Physics's CD</td>
 						<td th:text="${#temporals.format(e.checkoutDate,'yyyy-MM-dd')}">2015-08-31</td>
-						<td th:text="${e.completed != null ? #temporals.format(e.done,'yyyy-MM-dd') : ''}">2015-09-30</td>
+						<td th:text="${e.done != null ? #temporals.format(e.done,'yyyy-MM-dd') : ''}">2015-09-30</td>
 						<td th:text="${e.state}">CHECKOUT</td>
 					</tr>
 					<tr th:remove="all">
