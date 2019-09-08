@@ -11,7 +11,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -41,7 +40,7 @@ import org.minioasis.library.jooq.tables.records.RoleRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Role extends TableImpl<RoleRecord> {
 
-    private static final long serialVersionUID = 1589623728;
+    private static final long serialVersionUID = 1829621417;
 
     /**
      * The reference instance of <code>ROLE</code>
@@ -59,7 +58,7 @@ public class Role extends TableImpl<RoleRecord> {
     /**
      * The column <code>ROLE.ROLE_ID</code>.
      */
-    public final TableField<RoleRecord, Long> ROLE_ID = createField(DSL.name("ROLE_ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<RoleRecord, Long> ROLE_ID = createField(DSL.name("ROLE_ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>ROLE.NAME</code>.
@@ -107,11 +106,6 @@ public class Role extends TableImpl<RoleRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_26, Indexes.UK8SEWWNPAMNGI6B1DWAA88ASKK_INDEX_2);
-    }
-
-    @Override
-    public Identity<RoleRecord, Long> getIdentity() {
-        return Keys.IDENTITY_ROLE;
     }
 
     @Override

@@ -14,7 +14,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -44,7 +43,7 @@ import org.minioasis.library.jooq.tables.records.JournalEntryRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class JournalEntry extends TableImpl<JournalEntryRecord> {
 
-    private static final long serialVersionUID = 626888282;
+    private static final long serialVersionUID = 1226743244;
 
     /**
      * The reference instance of <code>JOURNAL_ENTRY</code>
@@ -62,7 +61,7 @@ public class JournalEntry extends TableImpl<JournalEntryRecord> {
     /**
      * The column <code>JOURNAL_ENTRY.ID</code>.
      */
-    public final TableField<JournalEntryRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<JournalEntryRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>JOURNAL_ENTRY.CREATED</code>.
@@ -145,11 +144,6 @@ public class JournalEntry extends TableImpl<JournalEntryRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_E8);
-    }
-
-    @Override
-    public Identity<JournalEntryRecord, Long> getIdentity() {
-        return Keys.IDENTITY_JOURNAL_ENTRY;
     }
 
     @Override

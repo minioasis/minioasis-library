@@ -101,7 +101,7 @@ public class BootstrapData implements CommandLineRunner {
 	
 	public void run(String... args) throws Exception {
 
-		// holiday
+/*		// holiday
 		Holiday h1 = new Holiday();
 		h1.setName("Hari Aidilfitri 2019");
 		h1.setFine(false);
@@ -799,7 +799,7 @@ public class BootstrapData implements CommandLineRunner {
 		Set<Role> rs12 = new HashSet<Role>();
 		rs12.add(r3);
 		u12.setRoles(rs12);
-		userRepository.save(u12);	
+		userRepository.save(u12);*/	
 
 	}
 	

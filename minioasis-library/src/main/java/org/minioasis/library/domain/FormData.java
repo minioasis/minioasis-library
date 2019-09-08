@@ -19,7 +19,7 @@ public class FormData implements Serializable {
 	private static final long serialVersionUID = 5050561580060622111L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

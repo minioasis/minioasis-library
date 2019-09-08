@@ -13,7 +13,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -43,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.PatronTypeRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PatronType extends TableImpl<PatronTypeRecord> {
 
-    private static final long serialVersionUID = 1545561274;
+    private static final long serialVersionUID = -839613368;
 
     /**
      * The reference instance of <code>PATRON_TYPE</code>
@@ -61,7 +60,7 @@ public class PatronType extends TableImpl<PatronTypeRecord> {
     /**
      * The column <code>PATRON_TYPE.ID</code>.
      */
-    public final TableField<PatronTypeRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<PatronTypeRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>PATRON_TYPE.BIBLIO_LIMIT</code>.
@@ -71,7 +70,7 @@ public class PatronType extends TableImpl<PatronTypeRecord> {
     /**
      * The column <code>PATRON_TYPE.CODE</code>.
      */
-    public final TableField<PatronTypeRecord, Integer> CODE = createField(DSL.name("CODE"), org.jooq.impl.SQLDataType.INTEGER.nullable(false), this, "");
+    public final TableField<PatronTypeRecord, String> CODE = createField(DSL.name("CODE"), org.jooq.impl.SQLDataType.VARCHAR(255).nullable(false), this, "");
 
     /**
      * The column <code>PATRON_TYPE.DEPOSIT</code>.
@@ -187,11 +186,6 @@ public class PatronType extends TableImpl<PatronTypeRecord> {
     }
 
     @Override
-    public Identity<PatronTypeRecord, Long> getIdentity() {
-        return Keys.IDENTITY_PATRON_TYPE;
-    }
-
-    @Override
     public UniqueKey<PatronTypeRecord> getPrimaryKey() {
         return Keys.CONSTRAINT_5;
     }
@@ -232,7 +226,7 @@ public class PatronType extends TableImpl<PatronTypeRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row17<Long, Integer, Integer, BigDecimal, Integer, Date, BigDecimal, Integer, Integer, Integer, Integer, Integer, BigDecimal, Integer, String, Integer, Date> fieldsRow() {
+    public Row17<Long, Integer, String, BigDecimal, Integer, Date, BigDecimal, Integer, Integer, Integer, Integer, Integer, BigDecimal, Integer, String, Integer, Date> fieldsRow() {
         return (Row17) super.fieldsRow();
     }
 }

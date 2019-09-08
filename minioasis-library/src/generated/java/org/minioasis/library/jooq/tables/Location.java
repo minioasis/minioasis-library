@@ -11,7 +11,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -41,7 +40,7 @@ import org.minioasis.library.jooq.tables.records.LocationRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Location extends TableImpl<LocationRecord> {
 
-    private static final long serialVersionUID = -2050831395;
+    private static final long serialVersionUID = 1213936082;
 
     /**
      * The reference instance of <code>LOCATION</code>
@@ -59,7 +58,7 @@ public class Location extends TableImpl<LocationRecord> {
     /**
      * The column <code>LOCATION.ID</code>.
      */
-    public final TableField<LocationRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<LocationRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>LOCATION.NAME</code>.
@@ -107,11 +106,6 @@ public class Location extends TableImpl<LocationRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_9, Indexes.UK_SAHIXF1V7F7XNS19CBG12D946_INDEX_9);
-    }
-
-    @Override
-    public Identity<LocationRecord, Long> getIdentity() {
-        return Keys.IDENTITY_LOCATION;
     }
 
     @Override

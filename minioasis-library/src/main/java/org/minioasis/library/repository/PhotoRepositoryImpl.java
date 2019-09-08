@@ -31,12 +31,6 @@ public class PhotoRepositoryImpl implements PhotoRepository {
 	
 	@Value("${minio.biblio.thumbnail.bucket.name}")
 	private String biblioThumbnailBucket;
-	
-	@Value("${minio.journal.bucket.name}")
-	private String journalBucket;
-	
-	@Value("${minio.journal.thumbnail.bucket.name}")
-	private String journalThumbnailBucket;	
 
 	public Photo findPatronByIc(String id)
 			throws IOException, NoSuchAlgorithmException, InvalidKeyException, XmlPullParserException {

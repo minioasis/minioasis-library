@@ -12,7 +12,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.UserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class User extends TableImpl<UserRecord> {
 
-    private static final long serialVersionUID = -833676471;
+    private static final long serialVersionUID = -1824896946;
 
     /**
      * The reference instance of <code>USER</code>
@@ -60,7 +59,7 @@ public class User extends TableImpl<UserRecord> {
     /**
      * The column <code>USER.USER_ID</code>.
      */
-    public final TableField<UserRecord, Long> USER_ID = createField(DSL.name("USER_ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<UserRecord, Long> USER_ID = createField(DSL.name("USER_ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>USER.ENABLED</code>.
@@ -123,11 +122,6 @@ public class User extends TableImpl<UserRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_27, Indexes.UK_SB8BBOUER5WAK8VYIIY4PF2BX_INDEX_2);
-    }
-
-    @Override
-    public Identity<UserRecord, Long> getIdentity() {
-        return Keys.IDENTITY_USER;
     }
 
     @Override

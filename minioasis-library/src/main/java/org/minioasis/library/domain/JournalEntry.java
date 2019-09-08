@@ -31,7 +31,7 @@ public class JournalEntry implements Serializable {
 	private static final long serialVersionUID = 862965136161416526L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

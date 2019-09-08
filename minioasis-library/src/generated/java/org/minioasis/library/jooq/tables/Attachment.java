@@ -12,7 +12,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.AttachmentRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Attachment extends TableImpl<AttachmentRecord> {
 
-    private static final long serialVersionUID = -218618923;
+    private static final long serialVersionUID = -2107788800;
 
     /**
      * The reference instance of <code>ATTACHMENT</code>
@@ -60,7 +59,7 @@ public class Attachment extends TableImpl<AttachmentRecord> {
     /**
      * The column <code>ATTACHMENT.ID</code>.
      */
-    public final TableField<AttachmentRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<AttachmentRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>ATTACHMENT.BARCODE</code>.
@@ -143,11 +142,6 @@ public class Attachment extends TableImpl<AttachmentRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.FK_ATTACHMENT_ITEM_INDEX_A, Indexes.PRIMARY_KEY_A, Indexes.UK_ODYTD07MTGMJLAEF9T1WGKVPC_INDEX_A);
-    }
-
-    @Override
-    public Identity<AttachmentRecord, Long> getIdentity() {
-        return Keys.IDENTITY_ATTACHMENT;
     }
 
     @Override

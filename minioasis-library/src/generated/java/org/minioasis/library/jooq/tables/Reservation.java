@@ -13,7 +13,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -43,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.ReservationRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Reservation extends TableImpl<ReservationRecord> {
 
-    private static final long serialVersionUID = 83885008;
+    private static final long serialVersionUID = -299409839;
 
     /**
      * The reference instance of <code>RESERVATION</code>
@@ -61,7 +60,7 @@ public class Reservation extends TableImpl<ReservationRecord> {
     /**
      * The column <code>RESERVATION.ID</code>.
      */
-    public final TableField<ReservationRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<ReservationRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>RESERVATION.AVAILABLE_DATE</code>.
@@ -154,11 +153,6 @@ public class Reservation extends TableImpl<ReservationRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.FK_RESERVATION_BIBLIO_INDEX_2, Indexes.FK_RESERVATION_PATRON_INDEX_2, Indexes.PRIMARY_KEY_23);
-    }
-
-    @Override
-    public Identity<ReservationRecord, Long> getIdentity() {
-        return Keys.IDENTITY_RESERVATION;
     }
 
     @Override

@@ -23,7 +23,7 @@ public class ItemStatus implements Serializable {
 	private static final long serialVersionUID = 5961019929667652636L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.AUTO)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

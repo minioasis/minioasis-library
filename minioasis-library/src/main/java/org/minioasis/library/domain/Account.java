@@ -21,7 +21,7 @@ public class Account implements Serializable {
 	private static final long serialVersionUID = 5780134880835382324L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

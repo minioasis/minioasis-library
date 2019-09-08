@@ -13,7 +13,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -43,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.CheckoutRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Checkout extends TableImpl<CheckoutRecord> {
 
-    private static final long serialVersionUID = 610573638;
+    private static final long serialVersionUID = -1923598735;
 
     /**
      * The reference instance of <code>CHECKOUT</code>
@@ -61,7 +60,7 @@ public class Checkout extends TableImpl<CheckoutRecord> {
     /**
      * The column <code>CHECKOUT.ID</code>.
      */
-    public final TableField<CheckoutRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<CheckoutRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>CHECKOUT.CHECKOUT_DATE</code>.
@@ -159,11 +158,6 @@ public class Checkout extends TableImpl<CheckoutRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.FK_CHECKOUT_ITEM_INDEX_8, Indexes.FK_CHECKOUT_PATRON_INDEX_8, Indexes.PRIMARY_KEY_8);
-    }
-
-    @Override
-    public Identity<CheckoutRecord, Long> getIdentity() {
-        return Keys.IDENTITY_CHECKOUT;
     }
 
     @Override

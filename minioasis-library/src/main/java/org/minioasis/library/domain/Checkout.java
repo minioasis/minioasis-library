@@ -60,7 +60,7 @@ public class Checkout implements Serializable {
 	private static final long serialVersionUID = -1325747475488445105L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

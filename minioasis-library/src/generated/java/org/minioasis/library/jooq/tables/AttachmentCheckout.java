@@ -12,7 +12,6 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
-import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -42,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.AttachmentCheckoutRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class AttachmentCheckout extends TableImpl<AttachmentCheckoutRecord> {
 
-    private static final long serialVersionUID = 2023629541;
+    private static final long serialVersionUID = -1468708177;
 
     /**
      * The reference instance of <code>ATTACHMENT_CHECKOUT</code>
@@ -60,7 +59,7 @@ public class AttachmentCheckout extends TableImpl<AttachmentCheckoutRecord> {
     /**
      * The column <code>ATTACHMENT_CHECKOUT.ID</code>.
      */
-    public final TableField<AttachmentCheckoutRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
+    public final TableField<AttachmentCheckoutRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
 
     /**
      * The column <code>ATTACHMENT_CHECKOUT.CHECKOUT_DATE</code>.
@@ -133,11 +132,6 @@ public class AttachmentCheckout extends TableImpl<AttachmentCheckoutRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.FK_ATTACHMENTCHECKOUT_ATTACHMENT_INDEX_6, Indexes.FK_ATTACHMENTCHECKOUT_CHECKOUT_INDEX_6, Indexes.FK_ATTACHMENTCHECKOUT_PATRON_INDEX_6, Indexes.PRIMARY_KEY_6);
-    }
-
-    @Override
-    public Identity<AttachmentCheckoutRecord, Long> getIdentity() {
-        return Keys.IDENTITY_ATTACHMENT_CHECKOUT;
     }
 
     @Override

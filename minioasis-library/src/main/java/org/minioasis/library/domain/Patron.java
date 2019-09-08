@@ -44,7 +44,7 @@ public class Patron implements Serializable {
 	private static final long serialVersionUID = -8094767852594052970L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 

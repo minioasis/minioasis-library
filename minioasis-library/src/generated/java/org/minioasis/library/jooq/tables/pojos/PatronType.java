@@ -24,11 +24,11 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class PatronType implements Serializable {
 
-    private static final long serialVersionUID = 252841889;
+    private static final long serialVersionUID = 170353004;
 
     private final Long       id;
     private final Integer    biblioLimit;
-    private final Integer    code;
+    private final String     code;
     private final BigDecimal deposit;
     private final Integer    duration;
     private final Date       expiryDate;
@@ -67,7 +67,7 @@ public class PatronType implements Serializable {
     public PatronType(
         Long       id,
         Integer    biblioLimit,
-        Integer    code,
+        String     code,
         BigDecimal deposit,
         Integer    duration,
         Date       expiryDate,
@@ -110,7 +110,7 @@ public class PatronType implements Serializable {
         return this.biblioLimit;
     }
 
-    public Integer getCode() {
+    public String getCode() {
         return this.code;
     }
 

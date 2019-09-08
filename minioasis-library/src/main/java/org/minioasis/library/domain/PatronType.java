@@ -45,13 +45,13 @@ public class PatronType implements Serializable {
 	private static final long serialVersionUID = 918000566742490418L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.IDENTITY)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	
 	@NotNull
 	@Column(name = "code", unique = true , nullable = false)
-	private Integer code;
+	private String code;
 	
 	@NotNull
 	@Column(name = "name", nullable = false)
@@ -120,7 +120,7 @@ public class PatronType implements Serializable {
 	public PatronType() {
 	}
 
-	public PatronType(Integer code,String name, LocalDate startDate, LocalDate expiryDate, Integer biblioLimit, Integer duration,
+	public PatronType(String code,String name, LocalDate startDate, LocalDate expiryDate, Integer biblioLimit, Integer duration,
 			Integer maxNoOfReservations, Integer maxCollectablePeriod,
 			Integer maxUncollectedNo, Integer maxCantReservePeriod, Integer maxNoOfRenew, Integer minRenewablePeriod,
 			Integer resumeBorrowablePeriod, BigDecimal fineRate, BigDecimal memberFee,
@@ -151,11 +151,11 @@ public class PatronType implements Serializable {
 		this.id = id;
 	}
 
-	public Integer getCode() {
+	public String getCode() {
 		return code;
 	}
 
-	public void setCode(Integer code) {
+	public void setCode(String code) {
 		this.code = code;
 	}
 
