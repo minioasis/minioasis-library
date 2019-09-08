@@ -143,12 +143,12 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 				dsl.select(b.TITLE, b.ISBN, i.FIRST_CHECKIN, p.ACTIVE,pt.NAME.as("patronType"), g.CODE.as("group"), DSL.count().as("total"))
 					.from(table)
 					.where(topPopularBooksCondition(criteria))
-					.groupBy(c.ID).asTable("view");
+					.groupBy(b.ID).asTable("view");
 
 		
 		return dsl.select(view.fields())
 				.from(view)
-				.orderBy(view.field("total"))
+				.orderBy(view.field("total").desc())
 				.fetchInto(TopPopularBooksSummary.class);
 
 	}
@@ -208,11 +208,11 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 					.join(pt).on(p.PATRONTYPE_ID.eq(pt.ID))
 					.join(g).on(p.GROUP_ID.eq(g.ID))
 					.where(topListPatronsCondition(criteria))
-					.groupBy(c.ID).asTable("view");
+					.groupBy(p.ID).asTable("view");
 
 		return dsl.select(view.fields())
 					.from(view)
-					.orderBy(view.field("total"))
+					.orderBy(view.field("total").desc())
 					.fetchInto(TopCheckoutPatronsSummary.class);
 
 	}
