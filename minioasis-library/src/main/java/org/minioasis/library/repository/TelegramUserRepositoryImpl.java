@@ -41,7 +41,7 @@ public class TelegramUserRepositoryImpl implements TelegramUserRepositoryCustom 
 									.limit(pageable.getPageSize())
 									.offset((int)pageable.getOffset());
 		
-		Query q = em.createNativeQuery(jooqQuery.getSQL(), Item.class);
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), TelegramUser.class);
 		setBindParameterValues(q, jooqQuery);
 		
 		List<TelegramUser> list = q.getResultList();
