@@ -58,7 +58,7 @@ import org.springframework.boot.CommandLineRunner;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
-@Service
+//@Service
 public class BootstrapData implements CommandLineRunner {
 
 	@Autowired
@@ -101,7 +101,7 @@ public class BootstrapData implements CommandLineRunner {
 	
 	public void run(String... args) throws Exception {
 
-/*		// holiday
+		// holiday
 		Holiday h1 = new Holiday();
 		h1.setName("Hari Aidilfitri 2019");
 		h1.setFine(false);
@@ -412,7 +412,7 @@ public class BootstrapData implements CommandLineRunner {
 		
 		// Patron Type
 		PatronType pt1 = new PatronType();
-		pt1.setCode(1);
+		pt1.setCode("1");
 		pt1.setName("3-books");
 		pt1.setStartDate(LocalDate.parse("2019-01-02"));
 		pt1.setExpiryDate(LocalDate.parse("2030-12-12"));
@@ -431,7 +431,7 @@ public class BootstrapData implements CommandLineRunner {
 		patronTypeRepository.save(pt1);
 
 		PatronType pt2 = new PatronType();
-		pt2.setCode(2);
+		pt2.setCode("2");
 		pt2.setName("5-books");
 		pt2.setStartDate(LocalDate.parse("2019-01-02"));
 		pt2.setExpiryDate(LocalDate.parse("2030-12-12"));
@@ -799,7 +799,7 @@ public class BootstrapData implements CommandLineRunner {
 		Set<Role> rs12 = new HashSet<Role>();
 		rs12.add(r3);
 		u12.setRoles(rs12);
-		userRepository.save(u12);*/	
+		userRepository.save(u12);	
 
 	}
 	
