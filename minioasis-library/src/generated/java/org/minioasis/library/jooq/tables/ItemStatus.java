@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -40,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.ItemStatusRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class ItemStatus extends TableImpl<ItemStatusRecord> {
 
-    private static final long serialVersionUID = -986326041;
+    private static final long serialVersionUID = -1958142985;
 
     /**
      * The reference instance of <code>ITEM_STATUS</code>
@@ -58,7 +59,7 @@ public class ItemStatus extends TableImpl<ItemStatusRecord> {
     /**
      * The column <code>ITEM_STATUS.ID</code>.
      */
-    public final TableField<ItemStatusRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ItemStatusRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>ITEM_STATUS.BORROWABLE</code>.
@@ -116,6 +117,11 @@ public class ItemStatus extends TableImpl<ItemStatusRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_64, Indexes.UK_GW69EG5BWDJ2BC6GJ8GYXT9AD_INDEX_6);
+    }
+
+    @Override
+    public Identity<ItemStatusRecord, Long> getIdentity() {
+        return Keys.IDENTITY_ITEM_STATUS;
     }
 
     @Override

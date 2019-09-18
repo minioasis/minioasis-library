@@ -14,6 +14,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -43,7 +44,7 @@ import org.minioasis.library.jooq.tables.records.ItemRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item extends TableImpl<ItemRecord> {
 
-    private static final long serialVersionUID = -267537612;
+    private static final long serialVersionUID = -632613247;
 
     /**
      * The reference instance of <code>ITEM</code>
@@ -61,7 +62,7 @@ public class Item extends TableImpl<ItemRecord> {
     /**
      * The column <code>ITEM.ID</code>.
      */
-    public final TableField<ItemRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<ItemRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>ITEM.ACTIVE</code>.
@@ -199,6 +200,11 @@ public class Item extends TableImpl<ItemRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.FK_ITEM_BIBLIO_INDEX_2, Indexes.FK_ITEM_ITEMSTATUS_INDEX_2, Indexes.FK_ITEM_LOCATION_INDEX_2, Indexes.PRIMARY_KEY_2, Indexes.UK_BFO0NHIH8F3JL9M9UBLNXR4UY_INDEX_2);
+    }
+
+    @Override
+    public Identity<ItemRecord, Long> getIdentity() {
+        return Keys.IDENTITY_ITEM;
     }
 
     @Override

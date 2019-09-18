@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -40,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.PublisherRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Publisher extends TableImpl<PublisherRecord> {
 
-    private static final long serialVersionUID = -1400408191;
+    private static final long serialVersionUID = -2029895718;
 
     /**
      * The reference instance of <code>PUBLISHER</code>
@@ -58,7 +59,7 @@ public class Publisher extends TableImpl<PublisherRecord> {
     /**
      * The column <code>PUBLISHER.ID</code>.
      */
-    public final TableField<PublisherRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<PublisherRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>PUBLISHER.NAME</code>.
@@ -106,6 +107,11 @@ public class Publisher extends TableImpl<PublisherRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_FC, Indexes.UK_H9TRV4XHMH6S68VBW9BA6TO70_INDEX_F);
+    }
+
+    @Override
+    public Identity<PublisherRecord, Long> getIdentity() {
+        return Keys.IDENTITY_PUBLISHER;
     }
 
     @Override

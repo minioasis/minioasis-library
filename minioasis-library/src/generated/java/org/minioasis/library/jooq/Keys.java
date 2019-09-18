@@ -7,6 +7,7 @@ package org.minioasis.library.jooq;
 import javax.annotation.Generated;
 
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.UniqueKey;
 import org.jooq.impl.Internal;
 import org.minioasis.library.jooq.tables.Account;
@@ -77,6 +78,28 @@ public class Keys {
     // IDENTITY definitions
     // -------------------------------------------------------------------------
 
+    public static final Identity<AccountRecord, Long> IDENTITY_ACCOUNT = Identities0.IDENTITY_ACCOUNT;
+    public static final Identity<AttachmentRecord, Long> IDENTITY_ATTACHMENT = Identities0.IDENTITY_ATTACHMENT;
+    public static final Identity<AttachmentCheckoutRecord, Long> IDENTITY_ATTACHMENT_CHECKOUT = Identities0.IDENTITY_ATTACHMENT_CHECKOUT;
+    public static final Identity<BiblioRecord, Long> IDENTITY_BIBLIO = Identities0.IDENTITY_BIBLIO;
+    public static final Identity<CheckoutRecord, Long> IDENTITY_CHECKOUT = Identities0.IDENTITY_CHECKOUT;
+    public static final Identity<FormDataRecord, Long> IDENTITY_FORM_DATA = Identities0.IDENTITY_FORM_DATA;
+    public static final Identity<GroupsRecord, Long> IDENTITY_GROUPS = Identities0.IDENTITY_GROUPS;
+    public static final Identity<HolidayRecord, Long> IDENTITY_HOLIDAY = Identities0.IDENTITY_HOLIDAY;
+    public static final Identity<ItemRecord, Long> IDENTITY_ITEM = Identities0.IDENTITY_ITEM;
+    public static final Identity<ItemStatusRecord, Long> IDENTITY_ITEM_STATUS = Identities0.IDENTITY_ITEM_STATUS;
+    public static final Identity<JournalEntryRecord, Long> IDENTITY_JOURNAL_ENTRY = Identities0.IDENTITY_JOURNAL_ENTRY;
+    public static final Identity<JournalEntryLineRecord, Long> IDENTITY_JOURNAL_ENTRY_LINE = Identities0.IDENTITY_JOURNAL_ENTRY_LINE;
+    public static final Identity<LocationRecord, Long> IDENTITY_LOCATION = Identities0.IDENTITY_LOCATION;
+    public static final Identity<PatronRecord, Long> IDENTITY_PATRON = Identities0.IDENTITY_PATRON;
+    public static final Identity<PatronTypeRecord, Long> IDENTITY_PATRON_TYPE = Identities0.IDENTITY_PATRON_TYPE;
+    public static final Identity<PublisherRecord, Long> IDENTITY_PUBLISHER = Identities0.IDENTITY_PUBLISHER;
+    public static final Identity<ReservationRecord, Long> IDENTITY_RESERVATION = Identities0.IDENTITY_RESERVATION;
+    public static final Identity<RoleRecord, Long> IDENTITY_ROLE = Identities0.IDENTITY_ROLE;
+    public static final Identity<SeriesRecord, Long> IDENTITY_SERIES = Identities0.IDENTITY_SERIES;
+    public static final Identity<TagRecord, Long> IDENTITY_TAG = Identities0.IDENTITY_TAG;
+    public static final Identity<TelegramUserRecord, Long> IDENTITY_TELEGRAM_USER = Identities0.IDENTITY_TELEGRAM_USER;
+    public static final Identity<UserRecord, Long> IDENTITY_USER = Identities0.IDENTITY_USER;
 
     // -------------------------------------------------------------------------
     // UNIQUE and PRIMARY KEY definitions
@@ -153,6 +176,31 @@ public class Keys {
     // -------------------------------------------------------------------------
     // [#1459] distribute members to avoid static initialisers > 64kb
     // -------------------------------------------------------------------------
+
+    private static class Identities0 {
+        public static Identity<AccountRecord, Long> IDENTITY_ACCOUNT = Internal.createIdentity(Account.ACCOUNT, Account.ACCOUNT.ID);
+        public static Identity<AttachmentRecord, Long> IDENTITY_ATTACHMENT = Internal.createIdentity(Attachment.ATTACHMENT, Attachment.ATTACHMENT.ID);
+        public static Identity<AttachmentCheckoutRecord, Long> IDENTITY_ATTACHMENT_CHECKOUT = Internal.createIdentity(AttachmentCheckout.ATTACHMENT_CHECKOUT, AttachmentCheckout.ATTACHMENT_CHECKOUT.ID);
+        public static Identity<BiblioRecord, Long> IDENTITY_BIBLIO = Internal.createIdentity(Biblio.BIBLIO, Biblio.BIBLIO.ID);
+        public static Identity<CheckoutRecord, Long> IDENTITY_CHECKOUT = Internal.createIdentity(Checkout.CHECKOUT, Checkout.CHECKOUT.ID);
+        public static Identity<FormDataRecord, Long> IDENTITY_FORM_DATA = Internal.createIdentity(FormData.FORM_DATA, FormData.FORM_DATA.ID);
+        public static Identity<GroupsRecord, Long> IDENTITY_GROUPS = Internal.createIdentity(Groups.GROUPS, Groups.GROUPS.ID);
+        public static Identity<HolidayRecord, Long> IDENTITY_HOLIDAY = Internal.createIdentity(Holiday.HOLIDAY, Holiday.HOLIDAY.ID);
+        public static Identity<ItemRecord, Long> IDENTITY_ITEM = Internal.createIdentity(Item.ITEM, Item.ITEM.ID);
+        public static Identity<ItemStatusRecord, Long> IDENTITY_ITEM_STATUS = Internal.createIdentity(ItemStatus.ITEM_STATUS, ItemStatus.ITEM_STATUS.ID);
+        public static Identity<JournalEntryRecord, Long> IDENTITY_JOURNAL_ENTRY = Internal.createIdentity(JournalEntry.JOURNAL_ENTRY, JournalEntry.JOURNAL_ENTRY.ID);
+        public static Identity<JournalEntryLineRecord, Long> IDENTITY_JOURNAL_ENTRY_LINE = Internal.createIdentity(JournalEntryLine.JOURNAL_ENTRY_LINE, JournalEntryLine.JOURNAL_ENTRY_LINE.ID);
+        public static Identity<LocationRecord, Long> IDENTITY_LOCATION = Internal.createIdentity(Location.LOCATION, Location.LOCATION.ID);
+        public static Identity<PatronRecord, Long> IDENTITY_PATRON = Internal.createIdentity(Patron.PATRON, Patron.PATRON.ID);
+        public static Identity<PatronTypeRecord, Long> IDENTITY_PATRON_TYPE = Internal.createIdentity(PatronType.PATRON_TYPE, PatronType.PATRON_TYPE.ID);
+        public static Identity<PublisherRecord, Long> IDENTITY_PUBLISHER = Internal.createIdentity(Publisher.PUBLISHER, Publisher.PUBLISHER.ID);
+        public static Identity<ReservationRecord, Long> IDENTITY_RESERVATION = Internal.createIdentity(Reservation.RESERVATION, Reservation.RESERVATION.ID);
+        public static Identity<RoleRecord, Long> IDENTITY_ROLE = Internal.createIdentity(Role.ROLE, Role.ROLE.ROLE_ID);
+        public static Identity<SeriesRecord, Long> IDENTITY_SERIES = Internal.createIdentity(Series.SERIES, Series.SERIES.ID);
+        public static Identity<TagRecord, Long> IDENTITY_TAG = Internal.createIdentity(Tag.TAG, Tag.TAG.ID);
+        public static Identity<TelegramUserRecord, Long> IDENTITY_TELEGRAM_USER = Internal.createIdentity(TelegramUser.TELEGRAM_USER, TelegramUser.TELEGRAM_USER.ID);
+        public static Identity<UserRecord, Long> IDENTITY_USER = Internal.createIdentity(User.USER, User.USER.USER_ID);
+    }
 
     private static class UniqueKeys0 {
         public static final UniqueKey<AccountRecord> CONSTRAINT_E = Internal.createUniqueKey(Account.ACCOUNT, "CONSTRAINT_E", Account.ACCOUNT.ID);

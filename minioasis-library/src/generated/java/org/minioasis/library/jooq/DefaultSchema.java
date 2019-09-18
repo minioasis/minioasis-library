@@ -11,7 +11,6 @@ import java.util.List;
 import javax.annotation.Generated;
 
 import org.jooq.Catalog;
-import org.jooq.Sequence;
 import org.jooq.Table;
 import org.jooq.impl.SchemaImpl;
 import org.minioasis.library.jooq.tables.Account;
@@ -53,7 +52,7 @@ import org.minioasis.library.jooq.tables.UserRole;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class DefaultSchema extends SchemaImpl {
 
-    private static final long serialVersionUID = 625662519;
+    private static final long serialVersionUID = -606584618;
 
     /**
      * The reference instance of <code></code>
@@ -191,18 +190,6 @@ public class DefaultSchema extends SchemaImpl {
     @Override
     public Catalog getCatalog() {
         return DefaultCatalog.DEFAULT_CATALOG;
-    }
-
-    @Override
-    public final List<Sequence<?>> getSequences() {
-        List result = new ArrayList();
-        result.addAll(getSequences0());
-        return result;
-    }
-
-    private final List<Sequence<?>> getSequences0() {
-        return Arrays.<Sequence<?>>asList(
-            Sequences.HIBERNATE_SEQUENCE);
     }
 
     @Override

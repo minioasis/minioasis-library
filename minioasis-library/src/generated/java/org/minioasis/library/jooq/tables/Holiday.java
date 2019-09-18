@@ -12,6 +12,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -41,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.HolidayRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Holiday extends TableImpl<HolidayRecord> {
 
-    private static final long serialVersionUID = -1484671536;
+    private static final long serialVersionUID = -467462573;
 
     /**
      * The reference instance of <code>HOLIDAY</code>
@@ -59,7 +60,7 @@ public class Holiday extends TableImpl<HolidayRecord> {
     /**
      * The column <code>HOLIDAY.ID</code>.
      */
-    public final TableField<HolidayRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<HolidayRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>HOLIDAY.END_DATE</code>.
@@ -122,6 +123,11 @@ public class Holiday extends TableImpl<HolidayRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_6B, Indexes.UK_3JJDI9M362Y965LR542FPEJT_INDEX_6);
+    }
+
+    @Override
+    public Identity<HolidayRecord, Long> getIdentity() {
+        return Keys.IDENTITY_HOLIDAY;
     }
 
     @Override

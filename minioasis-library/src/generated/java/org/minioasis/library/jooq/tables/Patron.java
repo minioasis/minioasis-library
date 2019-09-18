@@ -13,6 +13,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -41,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.PatronRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Patron extends TableImpl<PatronRecord> {
 
-    private static final long serialVersionUID = 1046187863;
+    private static final long serialVersionUID = -1755415114;
 
     /**
      * The reference instance of <code>PATRON</code>
@@ -59,7 +60,7 @@ public class Patron extends TableImpl<PatronRecord> {
     /**
      * The column <code>PATRON.ID</code>.
      */
-    public final TableField<PatronRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<PatronRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>PATRON.ACTIVE</code>.
@@ -237,6 +238,11 @@ public class Patron extends TableImpl<PatronRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.FK_PATRON_GROUP_INDEX_8, Indexes.FK_PATRON_PATRONTYPE_INDEX_8, Indexes.PRIMARY_KEY_8C, Indexes.UK_3CND47DLNMG4XI9OQ6JNI97X3_INDEX_8, Indexes.UK_E9FRUVR3H2998KELNJ73YM6CY_INDEX_8);
+    }
+
+    @Override
+    public Identity<PatronRecord, Long> getIdentity() {
+        return Keys.IDENTITY_PATRON;
     }
 
     @Override

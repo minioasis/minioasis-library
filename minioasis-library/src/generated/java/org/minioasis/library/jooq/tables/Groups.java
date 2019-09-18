@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -40,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.GroupsRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Groups extends TableImpl<GroupsRecord> {
 
-    private static final long serialVersionUID = 2002365075;
+    private static final long serialVersionUID = -1422757510;
 
     /**
      * The reference instance of <code>GROUPS</code>
@@ -58,7 +59,7 @@ public class Groups extends TableImpl<GroupsRecord> {
     /**
      * The column <code>GROUPS.ID</code>.
      */
-    public final TableField<GroupsRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<GroupsRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>GROUPS.CODE</code>.
@@ -111,6 +112,11 @@ public class Groups extends TableImpl<GroupsRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_7D, Indexes.UK_16FAME6JE5OYJNCQMBL1N5177_INDEX_7);
+    }
+
+    @Override
+    public Identity<GroupsRecord, Long> getIdentity() {
+        return Keys.IDENTITY_GROUPS;
     }
 
     @Override

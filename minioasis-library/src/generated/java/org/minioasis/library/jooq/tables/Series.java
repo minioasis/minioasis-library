@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -40,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.SeriesRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Series extends TableImpl<SeriesRecord> {
 
-    private static final long serialVersionUID = 325537277;
+    private static final long serialVersionUID = -1759423776;
 
     /**
      * The reference instance of <code>SERIES</code>
@@ -58,7 +59,7 @@ public class Series extends TableImpl<SeriesRecord> {
     /**
      * The column <code>SERIES.ID</code>.
      */
-    public final TableField<SeriesRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<SeriesRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>SERIES.NAME</code>.
@@ -106,6 +107,11 @@ public class Series extends TableImpl<SeriesRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_91, Indexes.UK_S4JD0PRFGED1PUCSTGAOH8QJ4_INDEX_9);
+    }
+
+    @Override
+    public Identity<SeriesRecord, Long> getIdentity() {
+        return Keys.IDENTITY_SERIES;
     }
 
     @Override

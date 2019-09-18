@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -40,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.TelegramUserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser extends TableImpl<TelegramUserRecord> {
 
-    private static final long serialVersionUID = -947676828;
+    private static final long serialVersionUID = -1024127292;
 
     /**
      * The reference instance of <code>TELEGRAM_USER</code>
@@ -58,7 +59,7 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
     /**
      * The column <code>TELEGRAM_USER.ID</code>.
      */
-    public final TableField<TelegramUserRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<TelegramUserRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>TELEGRAM_USER.CARD_KEY</code>.
@@ -151,6 +152,11 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_B, Indexes.UK_8FJRX8Y7KIFVM13XIF72SY5BF_INDEX_B, Indexes.UK_ABIUVF67GFNDN35NGQDPKQ7DY_INDEX_B);
+    }
+
+    @Override
+    public Identity<TelegramUserRecord, Long> getIdentity() {
+        return Keys.IDENTITY_TELEGRAM_USER;
     }
 
     @Override

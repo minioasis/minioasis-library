@@ -12,6 +12,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -41,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.BiblioRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Biblio extends TableImpl<BiblioRecord> {
 
-    private static final long serialVersionUID = 1300887974;
+    private static final long serialVersionUID = -41947015;
 
     /**
      * The reference instance of <code>BIBLIO</code>
@@ -59,7 +60,7 @@ public class Biblio extends TableImpl<BiblioRecord> {
     /**
      * The column <code>BIBLIO.ID</code>.
      */
-    public final TableField<BiblioRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<BiblioRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>BIBLIO.ACTIVE</code>.
@@ -207,6 +208,11 @@ public class Biblio extends TableImpl<BiblioRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.FK_BIBLIO_PUBLISHER_INDEX_7, Indexes.FK_BIBLIO_SERIES_INDEX_7, Indexes.PRIMARY_KEY_7);
+    }
+
+    @Override
+    public Identity<BiblioRecord, Long> getIdentity() {
+        return Keys.IDENTITY_BIBLIO;
     }
 
     @Override

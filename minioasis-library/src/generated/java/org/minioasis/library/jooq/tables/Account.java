@@ -11,6 +11,7 @@ import javax.annotation.Generated;
 
 import org.jooq.Field;
 import org.jooq.ForeignKey;
+import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
@@ -40,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.AccountRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Account extends TableImpl<AccountRecord> {
 
-    private static final long serialVersionUID = 1274651738;
+    private static final long serialVersionUID = 2138897813;
 
     /**
      * The reference instance of <code>ACCOUNT</code>
@@ -58,7 +59,7 @@ public class Account extends TableImpl<AccountRecord> {
     /**
      * The column <code>ACCOUNT.ID</code>.
      */
-    public final TableField<AccountRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
+    public final TableField<AccountRecord, Long> ID = createField(DSL.name("ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false).identity(true), this, "");
 
     /**
      * The column <code>ACCOUNT.CODE</code>.
@@ -116,6 +117,11 @@ public class Account extends TableImpl<AccountRecord> {
     @Override
     public List<Index> getIndexes() {
         return Arrays.<Index>asList(Indexes.PRIMARY_KEY_E, Indexes.UK_K9QLQIJT38KMRYAFDHHQ04LON_INDEX_E);
+    }
+
+    @Override
+    public Identity<AccountRecord, Long> getIdentity() {
+        return Keys.IDENTITY_ACCOUNT;
     }
 
     @Override
