@@ -21,7 +21,7 @@ public class TelegramUser implements Serializable {
 	private static final long serialVersionUID = -579873276633955420L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

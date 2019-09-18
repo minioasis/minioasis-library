@@ -103,7 +103,7 @@ public class FirstTimeBootstrapData implements CommandLineRunner {
 		userRepository.save(admin);
 		
 		Set<Role> roles = new HashSet<Role>();
-		roles.add(role_admin);
+		roles.add(roleRepository.findById(1l).orElse(null));
 		admin.setRoles(roles);
 		userRepository.save(admin);
 		

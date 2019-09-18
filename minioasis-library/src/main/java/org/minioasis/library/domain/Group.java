@@ -23,7 +23,7 @@ public class Group implements Serializable {
 	private static final long serialVersionUID = -497523418404719743L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

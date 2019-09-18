@@ -38,7 +38,7 @@ public class Reservation implements Serializable {
 	private static final long serialVersionUID = -2106656926264523126L;
 	
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

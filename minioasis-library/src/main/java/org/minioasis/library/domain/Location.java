@@ -23,7 +23,7 @@ public class Location implements Serializable {
 	private static final long serialVersionUID = 6842583819937083371L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

@@ -42,7 +42,7 @@ public class Publisher implements Serializable {
 	private static final long serialVersionUID = -1730646322073379545L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 	

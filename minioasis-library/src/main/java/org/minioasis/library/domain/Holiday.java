@@ -40,7 +40,7 @@ public class Holiday implements Serializable {
 	private static final long serialVersionUID = -4136926588336101898L;
 
 	@Id
-	@GeneratedValue(strategy = GenerationType.SEQUENCE)
+	@GeneratedValue(strategy = GenerationType.IDENTITY)
 	@Column(name = "id", unique = true, nullable = false)
 	private Long id;
 
