@@ -316,8 +316,6 @@ CREATE TABLE `kelipkelip`.`telegram_user_aud`  (
   `revtype` tinyint(4) NULL DEFAULT NULL,
   `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
   `chat_id` bigint(20) NULL DEFAULT NULL,
-  `dont_remind_again` int(11) NULL DEFAULT NULL,
-  `remind_again_in_the_last_day` int(11) NULL DEFAULT NULL,
   `reminder` int(11) NULL DEFAULT NULL,
   `sendme_annoucement` int(11) NULL DEFAULT NULL,
   `sendme_article` int(11) NULL DEFAULT NULL,
@@ -447,7 +445,7 @@ ALTER TABLE `kelipkelip`.`user` DROP COLUMN `created`;
 
 ALTER TABLE `kelipkelip`.`telegram_user` CHANGE COLUMN `telegram_id` chat_id bigint(20) NOT NULL AFTER `card_key`;
 
-ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `reminder` int(11) NULL DEFAULT NULL AFTER `remind_again_in_the_last_day`;
+ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `reminder` int(11) NULL DEFAULT NULL AFTER `chat_id`;
 
 ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `sendme_annoucement` int(11) NULL DEFAULT NULL AFTER `reminder`;
 
@@ -469,8 +467,6 @@ ALTER TABLE `kelipkelip`.`telegram_user` ADD UNIQUE INDEX `UK_abiuvf67gfndn35ngq
 
 ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `id`;
 
-ALTER TABLE `minioasis`.`telegram_user` DROP INDEX `UK_8fjrx8y7kifvm13xif72sy5bf`;
-
 ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `id` bigint(20) NOT NULL FIRST;
 
 ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `id`;
@@ -478,5 +474,7 @@ ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) C
 ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `id` bigint(20) NOT NULL AUTO_INCREMENT;
 
 ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `id`;
+
+INSERT INTO hibernate_sequence(next_val) VALUES (10);
 
 SET FOREIGN_KEY_CHECKS=1;
