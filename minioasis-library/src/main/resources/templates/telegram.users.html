@@ -72,22 +72,6 @@
 							</select>
 					    </div>
 					    <div class="form-group col-md-3">
-					    	<label th:text="#{dont.remind.again}">Don't Remind Again</label>
-							<select	class="form-control" th:field="*{dontRemindAgains}" multiple="multiple">						
-								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
-								<option th:remove="all" value="true">TRUE</option>
-								<option th:remove="all" value="false">FALSE</option>
-							</select>
-					    </div>
-					    <div class="form-group col-md-3">
-					    	<label th:text="#{remind.again.in.the.last.day}">Remind Again In The Last Day</label>
-							<select	class="form-control" th:field="*{remindAgainInTheLastDays}" multiple="multiple">						
-								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
-								<option th:remove="all" value="true">TRUE</option>
-								<option th:remove="all" value="false">FALSE</option>
-							</select>
-					    </div>
-					    <div class="form-group col-md-3">
 					    	<label th:text="#{sendme.events}">Send Me Events</label>
 							<select	class="form-control" th:field="*{sendMeEvents}" multiple="multiple">						
 								<option th:each="r : ${truefalse}" th:value="${r}" th:text="${r}"/>
@@ -174,8 +158,6 @@
 						<th th:text="#{card.key}">Card Key</th>
 						<th th:text="#{chat.id}">Chat Id</th>
 						<th th:text="#{reminder}">Active</th>
-						<th th:text="#{dont.remind.again}">P.Type</th>
-						<th th:text="#{remind.again.in.the.last.day}">remind.again.in.the.last.day</th>
 						<th th:text="#{sendme.events}">sendme.events</th>
 						<th th:text="#{sendme.new.release}">sendme.new.release</th>
 						<th th:text="#{sendme.announcement}">sendme.announcement</th>
@@ -191,8 +173,6 @@
 						<td th:text="${e.cardKey}">cardKey</td>
 						<td th:text="${e.chatId}">chatId</td>
 						<td th:text="${e.preference?.reminder}">reminder</td>
-						<td th:text="${e.preference?.dontRemindAgain}">dontRemindAgain</td>
-						<td th:text="${e.preference?.remindAgainInTheLastDay}">remindAgainInTheLastDay</td>
 						<td th:text="${e.preference?.sendMeEvent}">sendMeEvent</td>
 						<td th:text="${e.preference?.sendMeNewRelease}">sendMeNewRelease</td>
 						<td th:text="${e.preference?.sendMeAnnouncement}">sendMeAnnouncement</td>
@@ -209,8 +189,6 @@
 						</td>
 					</tr>
 					<tr th:remove="all">
-						<td>2</td>
-						<td>2</td>
 						<td>2</td>
 						<td>2</td>
 						<td>2</td>

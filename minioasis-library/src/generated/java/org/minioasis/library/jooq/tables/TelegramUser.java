@@ -15,7 +15,7 @@ import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row11;
+import org.jooq.Row9;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -41,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.TelegramUserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser extends TableImpl<TelegramUserRecord> {
 
-    private static final long serialVersionUID = -1024127292;
+    private static final long serialVersionUID = 53972902;
 
     /**
      * The reference instance of <code>TELEGRAM_USER</code>
@@ -70,16 +70,6 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
      * The column <code>TELEGRAM_USER.CHAT_ID</code>.
      */
     public final TableField<TelegramUserRecord, Long> CHAT_ID = createField(DSL.name("CHAT_ID"), org.jooq.impl.SQLDataType.BIGINT.nullable(false), this, "");
-
-    /**
-     * The column <code>TELEGRAM_USER.DONT_REMIND_AGAIN</code>.
-     */
-    public final TableField<TelegramUserRecord, Integer> DONT_REMIND_AGAIN = createField(DSL.name("DONT_REMIND_AGAIN"), org.jooq.impl.SQLDataType.INTEGER, this, "");
-
-    /**
-     * The column <code>TELEGRAM_USER.REMIND_AGAIN_IN_THE_LAST_DAY</code>.
-     */
-    public final TableField<TelegramUserRecord, Integer> REMIND_AGAIN_IN_THE_LAST_DAY = createField(DSL.name("REMIND_AGAIN_IN_THE_LAST_DAY"), org.jooq.impl.SQLDataType.INTEGER, this, "");
 
     /**
      * The column <code>TELEGRAM_USER.REMINDER</code>.
@@ -196,11 +186,11 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row11 type methods
+    // Row9 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row11<Long, String, Long, Integer, Integer, Integer, Integer, Integer, Integer, Integer, Integer> fieldsRow() {
-        return (Row11) super.fieldsRow();
+    public Row9<Long, String, Long, Integer, Integer, Integer, Integer, Integer, Integer> fieldsRow() {
+        return (Row9) super.fieldsRow();
     }
 }

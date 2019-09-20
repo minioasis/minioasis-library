@@ -8,7 +8,6 @@ import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
-import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.TelegramUserCriteria;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -79,8 +78,6 @@ public class TelegramUserRepositoryImpl implements TelegramUserRepositoryCustom 
 		final Long chatId = criteria.getChatId();
 
 		final Set<Boolean> reminders = criteria.getReminders();
-		final Set<Boolean> dontRemindAgains = criteria.getDontRemindAgains();
-		final Set<Boolean> remindAgainInTheLastDays = criteria.getRemindAgainInTheLastDays();
 		final Set<Boolean> sendMeEvents = criteria.getSendMeEvents();
 		final Set<Boolean> sendMeNewReleases = criteria.getSendMeNewReleases();
 		final Set<Boolean> sendMeAnnouncements = criteria.getSendMeAnnouncements();
@@ -95,12 +92,6 @@ public class TelegramUserRepositoryImpl implements TelegramUserRepositoryCustom 
 	    }
 		if(reminders != null && reminders.size() > 0){
 			condition = condition.and(tu.REMINDER.in(reminders));
-		}
-		if(dontRemindAgains != null && dontRemindAgains.size() > 0){
-			condition = condition.and(tu.DONT_REMIND_AGAIN.in(dontRemindAgains));
-		}
-		if(remindAgainInTheLastDays != null && remindAgainInTheLastDays.size() > 0){
-			condition = condition.and(tu.REMIND_AGAIN_IN_THE_LAST_DAY.in(remindAgainInTheLastDays));
 		}
 		if(sendMeEvents != null && sendMeEvents.size() > 0){
 			condition = condition.and(tu.SENDME_EVENTS.in(sendMeEvents));

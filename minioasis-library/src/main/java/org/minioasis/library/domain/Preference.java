@@ -14,12 +14,6 @@ public class Preference implements Serializable {
 	@Column(name = "reminder")
 	private YesNo reminder = YesNo.N;
 	
-	@Column(name = "dont_remind_again")
-	private YesNo dontRemindAgain = YesNo.N;
-	
-	@Column(name = "remind_again_in_the_last_day")
-	private YesNo remindAgainInTheLastDay = YesNo.N;
-	
 	// event
 	@Column(name = "sendme_events")
 	private YesNo sendMeEvent = YesNo.N;
@@ -43,12 +37,10 @@ public class Preference implements Serializable {
 	public Preference() {
 	}
 	
-	public Preference(YesNo reminder, YesNo dontRemindAgain, YesNo remindAgainInTheLastDay, YesNo sendMeEvent,
-			YesNo sendMeNewRelease, YesNo sendMeAnnouncement, YesNo sendMeArticle, YesNo sendMePromotion) {
+	public Preference(YesNo reminder, YesNo sendMeEvent, YesNo sendMeNewRelease, 
+			YesNo sendMeAnnouncement, YesNo sendMeArticle, YesNo sendMePromotion) {
 		super();
 		this.reminder = reminder;
-		this.dontRemindAgain = dontRemindAgain;
-		this.remindAgainInTheLastDay = remindAgainInTheLastDay;
 		this.sendMeEvent = sendMeEvent;
 		this.sendMeNewRelease = sendMeNewRelease;
 		this.sendMeAnnouncement = sendMeAnnouncement;
@@ -62,22 +54,6 @@ public class Preference implements Serializable {
 
 	public void setReminder(YesNo reminder) {
 		this.reminder = reminder;
-	}
-
-	public YesNo getDontRemindAgain() {
-		return dontRemindAgain;
-	}
-
-	public void setDontRemindAgain(YesNo dontRemindAgain) {
-		this.dontRemindAgain = dontRemindAgain;
-	}
-
-	public YesNo getRemindAgainInTheLastDay() {
-		return remindAgainInTheLastDay;
-	}
-
-	public void setRemindAgainInTheLastDay(YesNo remindAgainInTheLastDay) {
-		this.remindAgainInTheLastDay = remindAgainInTheLastDay;
 	}
 
 	public YesNo getSendMeEvent() {

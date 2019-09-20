@@ -1,0 +1,482 @@
+SET FOREIGN_KEY_CHECKS=0;
+
+DROP TABLE `kelipkelip`.`author`;
+
+DROP TABLE `kelipkelip`.`block`;
+
+DROP TABLE `kelipkelip`.`image`;
+
+DROP TABLE `kelipkelip`.`item_duration`;
+
+DROP TABLE `kelipkelip`.`photo`;
+
+DROP TABLE `kelipkelip`.`publication_type`;
+
+DROP TABLE `kelipkelip`.`subject`;
+
+CREATE TABLE `kelipkelip`.`account`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `code` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `name` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `type` int(11) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  UNIQUE INDEX `UK_k9qlqijt38kmryafdhhq04lon`(`code`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`account_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `type` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKaexie5n0kol2mjlvo03ii45d0`(`rev`) USING BTREE,
+  CONSTRAINT `FKaexie5n0kol2mjlvo03ii45d0` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`attachment_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `barcode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `borrowable` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `call_no` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `first_checkin` date NULL DEFAULT NULL,
+  `last_checkin` date NULL DEFAULT NULL,
+  `state` char(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `item_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKg5d9474r1oeaw1mus6wno60p1`(`rev`) USING BTREE,
+  CONSTRAINT `FKg5d9474r1oeaw1mus6wno60p1` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`biblio_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `active` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `author` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `biblio_type` varchar(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `binding` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `class_mark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `edition` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `image_id` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `isbn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `coden` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `issn` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `language` char(2) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `note` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `pages` int(10) UNSIGNED NULL DEFAULT NULL,
+  `publication_place` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `publishing_year` int(11) NULL DEFAULT NULL,
+  `topic` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `title` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `updated` datetime(6) NULL DEFAULT NULL,
+  `publisher_id` bigint(20) NULL DEFAULT NULL,
+  `series_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKpgurwy4gf9kce58e42rt7ikn2`(`rev`) USING BTREE,
+  CONSTRAINT `FKpgurwy4gf9kce58e42rt7ikn2` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`biblio_tag_aud`  (
+  `rev` int(11) NOT NULL,
+  `biblio_id` bigint(20) NOT NULL,
+  `tag_id` bigint(20) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  PRIMARY KEY (`rev`, `biblio_id`, `tag_id`) USING BTREE,
+  CONSTRAINT `FKsnbxse1vfmf3uvxwlom765xc8` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`form_data`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `data` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `data_type` varchar(30) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`hibernate_sequence`  (
+  `next_val` bigint(20) NULL DEFAULT NULL
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`holiday_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `end_date` date NULL DEFAULT NULL,
+  `fine` bit(1) NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `start_date` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FK9sii8g68wggngh19kjyn4m4k4`(`rev`) USING BTREE,
+  CONSTRAINT `FK9sii8g68wggngh19kjyn4m4k4` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`item_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `active` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'Y',
+  `barcode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `checked` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` date NULL DEFAULT NULL,
+  `expired` datetime(6) NULL DEFAULT NULL,
+  `first_checkin` date NULL DEFAULT NULL,
+  `last_checkin` datetime(6) NULL DEFAULT NULL,
+  `last_full_renew_person` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `price` decimal(12, 2) NULL DEFAULT NULL,
+  `shelf_mark` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `source` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `borrowable` bit(1) NULL DEFAULT NULL,
+  `reservable` bit(1) NULL DEFAULT NULL,
+  `state` varchar(25) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `publishing_date` date NULL DEFAULT NULL,
+  `volume_no` varchar(32) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `biblio_id` bigint(20) NULL DEFAULT NULL,
+  `item_status_id` bigint(20) NULL DEFAULT NULL,
+  `location_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FK7xdof9iyt6pjrlx6nqb7wlbir`(`rev`) USING BTREE,
+  CONSTRAINT `FK7xdof9iyt6pjrlx6nqb7wlbir` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`journal_entry`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `created` datetime(6) NULL DEFAULT NULL,
+  `created_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `credit` decimal(12, 2) NOT NULL,
+  `debit` decimal(12, 2) NOT NULL,
+  `description` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `txn_date` date NULL DEFAULT NULL,
+  `updated` datetime(6) NULL DEFAULT NULL,
+  `updated_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`journal_entry_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `created` datetime(6) NULL DEFAULT NULL,
+  `created_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `credit` decimal(12, 2) NULL DEFAULT NULL,
+  `debit` decimal(12, 2) NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `txn_date` date NULL DEFAULT NULL,
+  `updated` datetime(6) NULL DEFAULT NULL,
+  `updated_by` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKlb9vxi77v8skcypf9p9ofr8wu`(`rev`) USING BTREE,
+  CONSTRAINT `FKlb9vxi77v8skcypf9p9ofr8wu` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`journal_entry_line`  (
+  `id` bigint(20) NOT NULL AUTO_INCREMENT,
+  `credit` decimal(12, 2) NOT NULL,
+  `debit` decimal(12, 2) NOT NULL,
+  `description` varchar(128) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  `reference` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `account_id` bigint(20) NOT NULL,
+  `journalentry_id` bigint(20) NOT NULL,
+  PRIMARY KEY (`id`) USING BTREE,
+  INDEX `fk_journalentryline_account`(`account_id`) USING BTREE,
+  INDEX `fk_journalentryline_journalentry`(`journalentry_id`) USING BTREE,
+  CONSTRAINT `fk_journalentryline_account` FOREIGN KEY (`account_id`) REFERENCES `kelipkelip`.`account` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT,
+  CONSTRAINT `fk_journalentryline_journalentry` FOREIGN KEY (`journalentry_id`) REFERENCES `kelipkelip`.`journal_entry` (`id`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`journal_entry_line_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `credit` decimal(12, 2) NULL DEFAULT NULL,
+  `debit` decimal(12, 2) NULL DEFAULT NULL,
+  `description` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `reference` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `account_id` bigint(20) NULL DEFAULT NULL,
+  `journalentry_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKlqy82p1sh8lmtabeeu14uyatr`(`rev`) USING BTREE,
+  CONSTRAINT `FKlqy82p1sh8lmtabeeu14uyatr` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`patron_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `active` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT 'Y',
+  `card_key` char(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `address1` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `address2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `address3` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `city` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `country` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `postcode` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `state` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `email` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `mobile` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `tel` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `created` datetime(6) NULL DEFAULT NULL,
+  `end_date` date NULL DEFAULT NULL,
+  `entangled` char(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `gender` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `ic` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `name2` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `note` text CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `order_no` smallint(6) NULL DEFAULT NULL,
+  `reservable_date` date NULL DEFAULT NULL,
+  `start_date` date NULL DEFAULT NULL,
+  `uncollected_no` smallint(6) NULL DEFAULT NULL,
+  `updated` datetime(6) NULL DEFAULT NULL,
+  `group_id` bigint(20) NULL DEFAULT NULL,
+  `patrontype_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKe46drprtfwe0v8wt00byjjqgg`(`rev`) USING BTREE,
+  CONSTRAINT `FKe46drprtfwe0v8wt00byjjqgg` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`patron_type_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `biblio_limit` int(11) NULL DEFAULT NULL,
+  `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `deposit` decimal(12, 2) NULL DEFAULT NULL,
+  `duration` int(11) NULL DEFAULT NULL,
+  `expiry_date` date NULL DEFAULT NULL,
+  `fine_rate` decimal(12, 2) NULL DEFAULT NULL,
+  `max_cant_reserve_period` int(11) NULL DEFAULT NULL,
+  `max_collectable_period` int(11) NULL DEFAULT NULL,
+  `max_no_of_renew` int(11) NULL DEFAULT NULL,
+  `max_no_of_reservations` int(11) NULL DEFAULT NULL,
+  `max_uncollected_no` int(11) NULL DEFAULT NULL,
+  `member_fee` decimal(12, 2) NULL DEFAULT NULL,
+  `min_renewable_period` int(11) NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `resume_borrowable_period` int(11) NULL DEFAULT NULL,
+  `start_date` date NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FK25ppqmaiuafxnmnldi473t518`(`rev`) USING BTREE,
+  CONSTRAINT `FK25ppqmaiuafxnmnldi473t518` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`reservation_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `available_date` date NULL DEFAULT NULL,
+  `cancel_date` date NULL DEFAULT NULL,
+  `collected_date` date NULL DEFAULT NULL,
+  `expiry_date` date NULL DEFAULT NULL,
+  `notification_date` date NULL DEFAULT NULL,
+  `reservation_date` datetime(6) NULL DEFAULT NULL,
+  `state` char(20) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `uncollected_date` date NULL DEFAULT NULL,
+  `biblio_id` bigint(20) NULL DEFAULT NULL,
+  `patron_id` bigint(20) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKhrfcc92gwdmlepdq64otgkj2f`(`rev`) USING BTREE,
+  CONSTRAINT `FKhrfcc92gwdmlepdq64otgkj2f` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`revinfo`  (
+  `rev` int(11) NOT NULL,
+  `revtstmp` bigint(20) NULL DEFAULT NULL,
+  `username` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL,
+  PRIMARY KEY (`rev`) USING BTREE
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`role_aud`  (
+  `role_id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`role_id`, `rev`) USING BTREE,
+  INDEX `FKrks7qtsmup3w81fdp0d6omfk7`(`rev`) USING BTREE,
+  CONSTRAINT `FKrks7qtsmup3w81fdp0d6omfk7` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`tag_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `name` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKep272jdrgxgmq608l5y3792jn`(`rev`) USING BTREE,
+  CONSTRAINT `FKep272jdrgxgmq608l5y3792jn` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`telegram_user_aud`  (
+  `id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `chat_id` bigint(20) NULL DEFAULT NULL,
+  `dont_remind_again` int(11) NULL DEFAULT NULL,
+  `remind_again_in_the_last_day` int(11) NULL DEFAULT NULL,
+  `reminder` int(11) NULL DEFAULT NULL,
+  `sendme_annoucement` int(11) NULL DEFAULT NULL,
+  `sendme_article` int(11) NULL DEFAULT NULL,
+  `sendme_events` int(11) NULL DEFAULT NULL,
+  `sendme_new_release` int(11) NULL DEFAULT NULL,
+  `sendme_promotion` int(11) NULL DEFAULT NULL,
+  PRIMARY KEY (`id`, `rev`) USING BTREE,
+  INDEX `FKitxp2awfo350oxve9jd7vlvlt`(`rev`) USING BTREE,
+  CONSTRAINT `FKitxp2awfo350oxve9jd7vlvlt` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`user_aud`  (
+  `user_id` bigint(20) NOT NULL,
+  `rev` int(11) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  `enabled` bit(1) NULL DEFAULT NULL,
+  `last_login` datetime(6) NULL DEFAULT NULL,
+  `password` varchar(90) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  `username` varchar(16) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL,
+  PRIMARY KEY (`user_id`, `rev`) USING BTREE,
+  INDEX `FK89ntto9kobwahrwxbne2nqcnr`(`rev`) USING BTREE,
+  CONSTRAINT `FK89ntto9kobwahrwxbne2nqcnr` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+CREATE TABLE `kelipkelip`.`user_role_aud`  (
+  `rev` int(11) NOT NULL,
+  `user_id` bigint(20) NOT NULL,
+  `role_id` bigint(20) NOT NULL,
+  `revtype` tinyint(4) NULL DEFAULT NULL,
+  PRIMARY KEY (`rev`, `user_id`, `role_id`) USING BTREE,
+  CONSTRAINT `FK2ax4xks5sy1yh2a2gxdndkcmc` FOREIGN KEY (`rev`) REFERENCES `kelipkelip`.`revinfo` (`rev`) ON DELETE RESTRICT ON UPDATE RESTRICT
+) ENGINE = InnoDB CHARACTER SET = utf8 COLLATE = utf8_general_ci ROW_FORMAT = Dynamic;
+
+ALTER TABLE `kelipkelip`.`attachment_checkout` ADD COLUMN `done` date NULL DEFAULT NULL AFTER `checkout_date`;
+
+ALTER TABLE `kelipkelip`.`attachment_checkout` DROP COLUMN `completed`;
+
+ALTER TABLE `kelipkelip`.`biblio` DROP INDEX `FK5h0n8htb4igkji1c5fcv1hvy9`;
+
+ALTER TABLE `kelipkelip`.`biblio` DROP INDEX `fk_biblio_publicationtype`;
+
+ALTER TABLE `kelipkelip`.`biblio` DROP FOREIGN KEY `FK5h0n8htb4igkji1c5fcv1hvy9`;
+
+ALTER TABLE `kelipkelip`.`biblio` DROP FOREIGN KEY `fk_biblio_publicationtype`;
+
+ALTER TABLE `kelipkelip`.`biblio` MODIFY COLUMN `author` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `active`;
+
+ALTER TABLE `kelipkelip`.`biblio` MODIFY COLUMN `image_id` varchar(36) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `edition`;
+
+ALTER TABLE `kelipkelip`.`biblio` MODIFY COLUMN `topic` varchar(256) CHARACTER SET utf8 COLLATE utf8_general_ci NULL DEFAULT NULL AFTER `publishing_year`;
+
+ALTER TABLE `kelipkelip`.`biblio` MODIFY COLUMN `updated` datetime(6) NULL DEFAULT NULL AFTER `title`;
+
+ALTER TABLE `kelipkelip`.`biblio` DROP COLUMN `publication_type_id`;
+
+ALTER TABLE `kelipkelip`.`biblio_tag` DROP INDEX `fk_bibliotag_biblio`;
+
+ALTER TABLE `kelipkelip`.`biblio_tag` DROP FOREIGN KEY `fk_bibliotag_biblio`;
+
+ALTER TABLE `kelipkelip`.`biblio_tag` ADD INDEX `FK6wr2ousd2b6d5e9edoya9c7oi`(`tag_id`) USING BTREE;
+
+ALTER TABLE `kelipkelip`.`checkout` DROP INDEX `fk_checkout_patrontype`;
+
+ALTER TABLE `kelipkelip`.`checkout` DROP FOREIGN KEY `fk_checkout_patrontype`;
+
+ALTER TABLE `kelipkelip`.`checkout` DROP COLUMN `patrontype_id`;
+
+ALTER TABLE `kelipkelip`.`item` DROP INDEX `fk_item_itemduration`;
+
+ALTER TABLE `kelipkelip`.`item` DROP FOREIGN KEY `fk_item_itemduration`;
+
+ALTER TABLE `kelipkelip`.`item` MODIFY COLUMN `created` date NOT NULL AFTER `checked`;
+
+ALTER TABLE `kelipkelip`.`item` MODIFY COLUMN `expired` datetime(6) NULL DEFAULT NULL AFTER `created`;
+
+ALTER TABLE `kelipkelip`.`item` MODIFY COLUMN `first_checkin` date NOT NULL AFTER `expired`;
+
+ALTER TABLE `kelipkelip`.`item` MODIFY COLUMN `last_checkin` datetime(6) NULL DEFAULT NULL AFTER `first_checkin`;
+
+ALTER TABLE `kelipkelip`.`item` DROP COLUMN `item_duration_id`;
+
+ALTER TABLE `kelipkelip`.`patron` DROP INDEX `UK_6ao4mchw281wtixa2ft86esfk`;
+
+ALTER TABLE `kelipkelip`.`patron` DROP FOREIGN KEY `FKf9h2jwfduy0akisopkrlpi37d`;
+
+ALTER TABLE `kelipkelip`.`patron` ADD COLUMN `reservable_date` date NOT NULL AFTER `order_no`;
+
+ALTER TABLE `kelipkelip`.`patron` MODIFY COLUMN `created` datetime(6) NULL DEFAULT NULL AFTER `tel`;
+
+ALTER TABLE `kelipkelip`.`patron` MODIFY COLUMN `updated` datetime(6) NULL DEFAULT NULL AFTER `uncollected_no`;
+
+ALTER TABLE `kelipkelip`.`patron` DROP COLUMN `photo_id`;
+
+ALTER TABLE `kelipkelip`.`patron_type` DROP INDEX `UK_cgntofxbombe12sp4x8en1unl`;
+
+ALTER TABLE `kelipkelip`.`patron_type` ADD COLUMN `code` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `biblio_limit`;
+
+ALTER TABLE `kelipkelip`.`patron_type` DROP COLUMN `max_arrearage`;
+
+ALTER TABLE `kelipkelip`.`patron_type` DROP COLUMN `max_lost_payment_duration`;
+
+ALTER TABLE `kelipkelip`.`patron_type` DROP COLUMN `max_no_of_overdue_biblios`;
+
+ALTER TABLE `kelipkelip`.`patron_type` DROP COLUMN `max_overdue_period_per_biblio`;
+
+ALTER TABLE `kelipkelip`.`patron_type` DROP COLUMN `max_owing_fine_period_per_biblio`;
+
+UPDATE `kelipkelip`.`patron_type` SET `code` = `name`;
+
+ALTER TABLE `kelipkelip`.`patron_type` ADD UNIQUE INDEX `UK_t54v4235xb53jp0oyg9qxybbm`(`code`) USING BTREE;
+
+ALTER TABLE `kelipkelip`.`reservation` DROP INDEX `fk_reservation_patrontype`;
+
+ALTER TABLE `kelipkelip`.`reservation` DROP FOREIGN KEY `fk_reservation_patrontype`;
+
+ALTER TABLE `kelipkelip`.`reservation` ADD COLUMN `uncollected_date` date NULL DEFAULT NULL AFTER `state`;
+
+ALTER TABLE `kelipkelip`.`reservation` MODIFY COLUMN `reservation_date` datetime(6) NOT NULL AFTER `notification_date`;
+
+ALTER TABLE `kelipkelip`.`reservation` DROP COLUMN `un_collected_date`;
+
+ALTER TABLE `kelipkelip`.`reservation` DROP COLUMN `patrontype_id`;
+
+ALTER TABLE `kelipkelip`.`user` ADD COLUMN `last_login` datetime(6) NULL DEFAULT NULL AFTER `enabled`;
+
+ALTER TABLE `kelipkelip`.`user` DROP COLUMN `created`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` CHANGE COLUMN `telegram_id` chat_id bigint(20) NOT NULL AFTER `card_key`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `reminder` int(11) NULL DEFAULT NULL AFTER `remind_again_in_the_last_day`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `sendme_annoucement` int(11) NULL DEFAULT NULL AFTER `reminder`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `sendme_article` int(11) NULL DEFAULT NULL AFTER `sendme_annoucement`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `sendme_events` int(11) NULL DEFAULT NULL AFTER `sendme_article`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `sendme_new_release` int(11) NULL DEFAULT NULL AFTER `sendme_events`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `sendme_promotion` int(11) NULL DEFAULT NULL AFTER `sendme_new_release`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `id` bigint(20) NOT NULL FIRST;
+
+ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `id`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` DROP COLUMN `notification`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` ADD UNIQUE INDEX `UK_abiuvf67gfndn35ngqdpkq7dy`(`card_key`) USING BTREE;
+
+ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `id`;
+
+ALTER TABLE `minioasis`.`telegram_user` DROP INDEX `UK_8fjrx8y7kifvm13xif72sy5bf`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `id` bigint(20) NOT NULL FIRST;
+
+ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `id`;
+
+ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `id` bigint(20) NOT NULL AUTO_INCREMENT;
+
+ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `id`;
+
+SET FOREIGN_KEY_CHECKS=1;

@@ -12,8 +12,6 @@ public class TelegramUserCriteria implements Serializable {
 	private String cardKey;
 	
 	private Set<Boolean> reminders = new HashSet<Boolean>();
-	private Set<Boolean> dontRemindAgains = new HashSet<Boolean>();
-	private Set<Boolean> remindAgainInTheLastDays = new HashSet<Boolean>();	
 	// event
 	private Set<Boolean> sendMeEvents = new HashSet<Boolean>();
 	// new release
@@ -42,18 +40,6 @@ public class TelegramUserCriteria implements Serializable {
 	}
 	public void setReminders(Set<Boolean> reminders) {
 		this.reminders = reminders;
-	}
-	public Set<Boolean> getDontRemindAgains() {
-		return dontRemindAgains;
-	}
-	public void setDontRemindAgains(Set<Boolean> dontRemindAgains) {
-		this.dontRemindAgains = dontRemindAgains;
-	}
-	public Set<Boolean> getRemindAgainInTheLastDays() {
-		return remindAgainInTheLastDays;
-	}
-	public void setRemindAgainInTheLastDays(Set<Boolean> remindAgainInTheLastDays) {
-		this.remindAgainInTheLastDays = remindAgainInTheLastDays;
 	}
 	public Set<Boolean> getSendMeEvents() {
 		return sendMeEvents;

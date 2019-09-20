@@ -618,9 +618,9 @@ public class BootstrapData implements CommandLineRunner {
 		formDataRepository.save(fd3);
 		
 		// TelegramUser
-		Preference preference1 = new Preference(YesNo.Y,YesNo.Y,YesNo.Y,YesNo.Y,YesNo.Y,YesNo.Y,YesNo.Y,YesNo.Y);
-		Preference preference2 = new Preference(YesNo.Y,YesNo.Y,YesNo.Y,YesNo.N,YesNo.N,YesNo.Y,YesNo.Y,YesNo.Y);
-		Preference preference3 = new Preference(YesNo.N,YesNo.N,YesNo.N,YesNo.Y,YesNo.N,YesNo.N,YesNo.Y,YesNo.Y);
+		Preference preference1 = new Preference(YesNo.Y,YesNo.Y,YesNo.Y,YesNo.Y,YesNo.Y,YesNo.Y);
+		Preference preference2 = new Preference(YesNo.Y,YesNo.Y,YesNo.N,YesNo.Y,YesNo.Y,YesNo.Y);
+		Preference preference3 = new Preference(YesNo.N,YesNo.Y,YesNo.N,YesNo.N,YesNo.Y,YesNo.Y);
 
 		TelegramUser tu1 = new TelegramUser(271419751l,"1", preference1);
 		TelegramUser tu2 = new TelegramUser(291605247l,"2", preference2);

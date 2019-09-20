@@ -77,6 +77,43 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String START = "*Welcome to the BOT !*\n"
 								+ "/register : 1st time user\n"
 								+ "Other commands : /help";
+
+	private static String SETTINGS = "*Please send me :*\n"
+									+ "----------------------------------\n"
+									+ "*All*\n"
+									+ "/all\\_on"
+									+ "\n"
+									+ "/all\\_off"
+									+ "\n"
+									+ "*Reminder*\n"
+									+ "/reminder\\_on"
+									+ "\n"
+									+ "/reminder\\_off"
+									+ "\n"
+									+ "*Event*\n"
+									+ "/event\\_on"
+									+ "\n"
+									+ "/event\\_off"
+									+ "\n"
+									+ "*New Release*\n"
+									+ "/new\\_release\\_on"
+									+ "\n"
+									+ "/new\\_release\\_off"
+									+ "\n"
+									+ "*Anouncement*\n"
+									+ "/annoucement\\_on"
+									+ "\n"
+									+ "/annoucement\\_off"
+									+ "\n"
+									+ "*Article*\n"
+									+ "/article\\_on"
+									+ "\n"
+									+ "/article\\_off"
+									+ "\n"
+									+ "*Promotion*\n"
+									+ "/promotion\\_on"
+									+ "\n"
+									+ "/promotion\\_off";
 	
 	private static String HELP = "*Member :*\n"
 								+ "/register : 1st time member\n"
@@ -122,6 +159,27 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String VERIFICATION_SUCCESS = "verification success !";
 	private static String ALREADY_REGISTERED = "already registered !";
 	private static String MEMBER_NOT_FOUND = "member not found !";
+
+	private static String ALL_ON = "ALL ON";
+	private static String ALL_OFF = "ALL OFF";
+	
+	private static String REMINDER_ON = "reminder ON";
+	private static String REMINDER_OFF = "reminder OFF";
+	
+	private static String EVENT_ON = "event ON";
+	private static String EVENT_OFF = "event OFF";
+	
+	private static String NEW_RELEASE_ON = "new release ON";
+	private static String NEW_RELEASE_OFF = "new release OFF";
+
+	private static String NEW_ANNOUCEMENT_ON = "new annoucement ON";
+	private static String NEW_ANNOUCEMENT_OFF = "new annoucement OFF";
+	
+	private static String ARTICLE_ON = "article ON";
+	private static String ARTICLE_OFF = "article OFF";
+	
+	private static String PROMOTION_ON = "promotion ON";
+	private static String PROMOTION_OFF = "promotion OFF";
 	
 	@Override
 	public void onUpdateReceived(Update update) {	
@@ -134,6 +192,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			sendMessage("/start", update, START);
 			
 			sendMessage("/help", update, HELP);
+			
+			sendMessage("/settings", update, SETTINGS);
 			
 			registerMessage("/register", update, REGISTER);
 
@@ -148,6 +208,27 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			reservations("/reservation", update);
 			
 			search("/search", update);
+			
+			allOn("/all_on", update);
+			allOff("/all_off", update);
+			
+			reminderOn("/reminder_on", update);
+			reminderOff("/reminder_off", update);
+			
+			eventOn("/event_on", update);
+			eventOff("/event_off", update);
+			
+			newReleaseOn("/new_release_on", update);
+			newReleaseOff("/new_release_off", update);
+			
+			annoucementOn("/annoucement_on", update);
+			annoucementOff("/annoucement_off", update);
+			
+			articleOn("/article_on", update);
+			articleOff("/article_off", update);
+			
+			promotionOn("/promotion_on", update);
+			promotionOff("/promotion_off", update);
 
 		} else if (update.hasCallbackQuery()) {
 
@@ -170,7 +251,279 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 		}	
 	}
+	
+	
+	// setting *************************************************
+	
+	private void sendResponse(Update update, String response) {
 
+		Long chat_id = update.getMessage().getChatId();
+		SendMessage message = new SendMessage().setChatId(chat_id)
+												.setText(response)
+												.setParseMode(ParseMode.MARKDOWN);
+
+		try {
+			execute(message);
+			logger.info("TELEGRAM LOG : " + chat_id + " - [ " + response + " ] ");
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+
+	}
+
+	// [all_on]
+	private void allOn(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				
+				telegramUser.getPreference().setReminder(YesNo.Y);
+				telegramUser.getPreference().setSendMeEvent(YesNo.Y);
+				telegramUser.getPreference().setSendMeNewRelease(YesNo.Y);
+				telegramUser.getPreference().setSendMeAnnouncement(YesNo.Y);
+				telegramUser.getPreference().setSendMeArticle(YesNo.Y);
+				telegramUser.getPreference().setSendMePromotion(YesNo.Y);
+				
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, ALL_ON);			
+			}		
+		}	
+	}
+	
+	// [all_off]
+	private void allOff(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				
+				telegramUser.getPreference().setReminder(YesNo.N);
+				telegramUser.getPreference().setSendMeEvent(YesNo.N);
+				telegramUser.getPreference().setSendMeNewRelease(YesNo.N);
+				telegramUser.getPreference().setSendMeAnnouncement(YesNo.N);
+				telegramUser.getPreference().setSendMeArticle(YesNo.N);
+				telegramUser.getPreference().setSendMePromotion(YesNo.N);
+				
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, ALL_OFF);			
+			}		
+		}	
+	}
+	
+	// [reminder_on]
+	private void reminderOn(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setReminder(YesNo.Y);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, REMINDER_ON);			
+			}		
+		}	
+	}
+	
+	// [reminder_off]
+	private void reminderOff(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setReminder(YesNo.N);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, REMINDER_OFF);
+			}		
+		}		
+	}
+	
+	// [event_on]
+	private void eventOn(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMeEvent(YesNo.Y);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, EVENT_ON);			
+			}		
+		}	
+	}
+	
+	// [event_off]
+	private void eventOff(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMeEvent(YesNo.N);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, EVENT_OFF);			
+			}		
+		}	
+	}
+
+	// [new_release_on]
+	private void newReleaseOn(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMeNewRelease(YesNo.Y);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, NEW_RELEASE_ON);			
+			}		
+		}	
+	}
+	
+	// [new_release_off]
+	private void newReleaseOff(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMeNewRelease(YesNo.N);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, NEW_RELEASE_OFF);			
+			}		
+		}	
+	}
+	
+	
+	// [annoucement_on]
+	private void annoucementOn(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMeAnnouncement(YesNo.Y);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, NEW_ANNOUCEMENT_ON);			
+			}		
+		}	
+	}
+
+	// [annoucement_off]
+	private void annoucementOff(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMeAnnouncement(YesNo.N);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, NEW_ANNOUCEMENT_OFF);			
+			}		
+		}	
+	}
+	
+	// [article_on]
+	private void articleOn(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMeArticle(YesNo.Y);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, ARTICLE_ON);			
+			}		
+		}	
+	}
+
+	// [article_off]
+	private void articleOff(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMeArticle(YesNo.N);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, ARTICLE_OFF);			
+			}		
+		}	
+	}
+	
+	// [promotion_on]
+	private void promotionOn(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMePromotion(YesNo.Y);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, PROMOTION_ON);			
+			}		
+		}	
+	}
+
+	// [promotion_off]
+	private void promotionOff(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				telegramUser.getPreference().setSendMePromotion(YesNo.N);
+				telegramService.save(telegramUser);
+				
+				sendResponse(update, PROMOTION_OFF);			
+			}		
+		}	
+	}
+	
 	// [/reservation] **********************************************************************
 	private void reservations(String command, Update update) {
 		
@@ -679,7 +1032,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			TelegramUser telegramUser = telegramService.findTelegramUserByCardKey(cardKey);
 			
-			if(telegramUser != null) {
+			if(telegramUser != null && telegramUser.getPreference().getReminder().equals(YesNo.Y)) {
 				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now.plusDays(reminderDays));
 				sendMessage(telegramUser.getChatId(), cardKey, checkouts);
 			}
@@ -845,7 +1198,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 			
 			boolean exist = libraryService.match(cardKey, mobile);		
-			TelegramUser telegramUser = new TelegramUser(chat_id, cardKey, new Preference(YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N));
+			TelegramUser telegramUser = new TelegramUser(chat_id, cardKey, new Preference(YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N));
 					
 			if(exist) {
 				
