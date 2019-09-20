@@ -150,7 +150,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 									+ "reg#*0415*#*0124444333*";
 	
 	private static String REGISTRATION_FAILED_MESSAGE = "*FAILED*\n"
-														+ "> member with this mobile not found";
+														+ "> no member found with this mobile no.";
 	
 	private static String REGISTRATION_FAILED = "registration failed !";
 	
