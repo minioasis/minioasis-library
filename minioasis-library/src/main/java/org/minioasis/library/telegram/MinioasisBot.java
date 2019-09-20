@@ -49,7 +49,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-//@Component
+@Component
 public class MinioasisBot extends TelegramLongPollingBot {
 
 	private static final Logger logger = LoggerFactory.getLogger(MinioasisBot.class);
@@ -103,12 +103,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 								+ "/settings : settings";
 	
 	private static String REGISTER = "Key in your\n" 
-									+ "*1) 4-digit member id*\n"
+									+ "*1) member id*\n"
 									+ "*2) mobile no.*\n"
-									+ "in the following format :"
-									+ "\n\n" 
-									+ "#*memberId*#*mobile*\n"
-									+ "example: #*0415*#*0124444333*";
+									+ "\n"
+									+ "in the following format :\n"
+									+ "reg#*memberId*#*mobile*\n"
+									+ "\n"
+									+ "example :\n"
+									+ "reg#*0415*#*0124444333*";
 	
 	private static String REGISTRATION_FAILED_MESSAGE = "*FAILED*\n"
 														+ "> member with this mobile not found";
@@ -124,6 +126,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	@Override
 	public void onUpdateReceived(Update update) {	
 
+		String incoming = update.getMessage().getText();
+		
 		// We check if the update has a message and the message has text
 		if (update.hasMessage() && update.getMessage().hasText()) {
 			
@@ -133,8 +137,10 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			registerMessage("/register", update, REGISTER);
 
-			registrationVerification(update);
-			
+			if(incoming.startsWith("reg#")) {
+				registrationVerification(update);
+			}
+
 			checkouts("/due", update);
 			
 			renewAll("/renew", update);
@@ -795,19 +801,20 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private void registrationVerification(Update update) {
 		
 		Long chat_id = update.getMessage().getChatId();
-		
+
+		String msg = update.getMessage().getText();
+		String[] words = msg.split("#");
+
 		// registration
-		if (update.getMessage().getText().startsWith("#") && 
-				update.getMessage().getText().startsWith("#", 5)) {
+		if (words.length == 3 && msg.startsWith("reg#")) {
 
 			SendMessage message = new SendMessage().setChatId(chat_id);
 			
-			String msg = update.getMessage().getText();
-			String cardKey = msg.substring(1,5);
-			String mobile = msg.substring(6);
+			String cardKey = words[1];
+			String mobile = words[2];
 			
 			// validation
-			if(mobile.length() > 12) {
+			if(mobile.length() > 11) {
 				
 				message.setText(MOBILE_LENGTH_ERROR);
 				
