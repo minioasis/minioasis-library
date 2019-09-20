@@ -41,10 +41,12 @@
 						<th>Rev</th>
 						<th>Time</th>
 						<th>ChatId/<br>CardKey</th>
-						<th>reminder/<br>dontRemindAgain</th>
-						<th>remindAgainInTheLastDay/<br>sendMeEvent</th>
-						<th>sendMeNewRelease/<br>sendMeAnnouncement</th>
-						<th>sendMeArticle/<br>sendMePromotion</th>
+						<th>reminder</th>
+						<th>sendMeEvent</th>
+						<th>sendMeNewRelease</th>
+						<th>sendMeAnnouncement</th>
+						<th>sendMeArticle</th>
+						<th>sendMePromotion</th>
 					</tr>
 				</thead>
 	
@@ -62,18 +64,20 @@
 						</td>
 						<td>
 							<p th:text="${e.entity.preference?.reminder}"></p>									
-							<p th:text="${e.entity.preference?.dontRemindAgain}"></p>
 						</td>
-						<td>
-							<p th:text="${e.entity.preference?.remindAgainInTheLastDay}"></p>									
+						<td>								
 							<p th:text="${e.entity.preference?.sendMeEvent}"></p>
 						</td>
 						<td>
 							<p th:text="${e.entity.preference?.sendMeNewRelease}"></p>									
+						</td>
+						<td>									
 							<p th:text="${e.entity.preference?.sendMeAnnouncement}"></p>
 						</td>
 						<td>
 							<p th:text="${e.entity.preference?.sendMeArticle}"></p>									
+						</td>
+						<td>								
 							<p th:text="${e.entity.preference?.sendMePromotion}"></p>
 						</td>
 					</tr>
@@ -87,6 +91,7 @@
 						<td>7</td>
 						<td>8</td>
 						<td>9</td>
+						<td>10</td>
 					</tr>
 				</tbody>
 			</table>
