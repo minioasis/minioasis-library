@@ -4,6 +4,9 @@ import java.io.Serializable;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
+import javax.persistence.EnumType;
+import javax.persistence.Enumerated;
+import javax.validation.constraints.NotNull;
 
 @Embeddable
 public class Preference implements Serializable {
@@ -11,27 +14,34 @@ public class Preference implements Serializable {
 	private static final long serialVersionUID = -2696610857283010537L;
 
 	// due
-	@Column(name = "reminder")
+	@Column(name = "reminder", nullable = false , columnDefinition = "CHAR(1)")
+	@Enumerated(EnumType.STRING)
 	private YesNo reminder = YesNo.N;
 	
 	// event
-	@Column(name = "sendme_events")
+	@NotNull
+	@Column(name = "sendme_events", nullable = false , columnDefinition = "CHAR(1)")
+	@Enumerated(EnumType.STRING)
 	private YesNo sendMeEvent = YesNo.N;
 	
 	// new release
-	@Column(name = "sendme_new_release")
+	@Column(name = "sendme_new_release", nullable = false , columnDefinition = "CHAR(1)")
+	@Enumerated(EnumType.STRING)
 	private YesNo sendMeNewRelease = YesNo.N;
 	
 	// announcement
-	@Column(name = "sendme_annoucement")
+	@Column(name = "sendme_annoucement", nullable = false , columnDefinition = "CHAR(1)")
+	@Enumerated(EnumType.STRING)
 	private YesNo sendMeAnnouncement = YesNo.N;
 	
 	// new article
-	@Column(name = "sendme_article")
+	@Column(name = "sendme_article", nullable = false , columnDefinition = "CHAR(1)")
+	@Enumerated(EnumType.STRING)
 	private YesNo sendMeArticle = YesNo.N;
 	
 	// promotion
-	@Column(name = "sendme_promotion")
+	@Column(name = "sendme_promotion", nullable = false , columnDefinition = "CHAR(1)")
+	@Enumerated(EnumType.STRING)
 	private YesNo sendMePromotion = YesNo.N;
 	
 	public Preference() {

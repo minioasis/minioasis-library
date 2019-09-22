@@ -1,5 +1,7 @@
 package org.minioasis.library.repository;
 
+import java.util.List;
+
 import org.minioasis.library.domain.TelegramUser;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
@@ -15,4 +17,7 @@ public interface TelegramUserRepository extends RevisionRepository<TelegramUser,
 	
 	@Query("SELECT u FROM TelegramUser u WHERE u.cardKey = ?1")
 	TelegramUser findTelegramUserByCardKey(String cardKey);
+	
+	@Query("SELECT u FROM TelegramUser u WHERE u.preference.sendMeAnnouncement = 'Y'")
+	List<TelegramUser> findAllTelegramUsersByAnnoucementOn();
 }

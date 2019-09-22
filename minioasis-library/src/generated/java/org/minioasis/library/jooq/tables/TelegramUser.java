@@ -41,7 +41,7 @@ import org.minioasis.library.jooq.tables.records.TelegramUserRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser extends TableImpl<TelegramUserRecord> {
 
-    private static final long serialVersionUID = 53972902;
+    private static final long serialVersionUID = -1433831836;
 
     /**
      * The reference instance of <code>TELEGRAM_USER</code>
@@ -74,32 +74,32 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
     /**
      * The column <code>TELEGRAM_USER.REMINDER</code>.
      */
-    public final TableField<TelegramUserRecord, Integer> REMINDER = createField(DSL.name("REMINDER"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TelegramUserRecord, String> REMINDER = createField(DSL.name("REMINDER"), org.jooq.impl.SQLDataType.CHAR(1).nullable(false), this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_ANNOUCEMENT</code>.
      */
-    public final TableField<TelegramUserRecord, Integer> SENDME_ANNOUCEMENT = createField(DSL.name("SENDME_ANNOUCEMENT"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TelegramUserRecord, String> SENDME_ANNOUCEMENT = createField(DSL.name("SENDME_ANNOUCEMENT"), org.jooq.impl.SQLDataType.CHAR(1).nullable(false), this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_ARTICLE</code>.
      */
-    public final TableField<TelegramUserRecord, Integer> SENDME_ARTICLE = createField(DSL.name("SENDME_ARTICLE"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TelegramUserRecord, String> SENDME_ARTICLE = createField(DSL.name("SENDME_ARTICLE"), org.jooq.impl.SQLDataType.CHAR(1).nullable(false), this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_EVENTS</code>.
      */
-    public final TableField<TelegramUserRecord, Integer> SENDME_EVENTS = createField(DSL.name("SENDME_EVENTS"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TelegramUserRecord, String> SENDME_EVENTS = createField(DSL.name("SENDME_EVENTS"), org.jooq.impl.SQLDataType.CHAR(1).nullable(false), this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_NEW_RELEASE</code>.
      */
-    public final TableField<TelegramUserRecord, Integer> SENDME_NEW_RELEASE = createField(DSL.name("SENDME_NEW_RELEASE"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TelegramUserRecord, String> SENDME_NEW_RELEASE = createField(DSL.name("SENDME_NEW_RELEASE"), org.jooq.impl.SQLDataType.CHAR(1).nullable(false), this, "");
 
     /**
      * The column <code>TELEGRAM_USER.SENDME_PROMOTION</code>.
      */
-    public final TableField<TelegramUserRecord, Integer> SENDME_PROMOTION = createField(DSL.name("SENDME_PROMOTION"), org.jooq.impl.SQLDataType.INTEGER, this, "");
+    public final TableField<TelegramUserRecord, String> SENDME_PROMOTION = createField(DSL.name("SENDME_PROMOTION"), org.jooq.impl.SQLDataType.CHAR(1).nullable(false), this, "");
 
     /**
      * Create a <code>TELEGRAM_USER</code> table reference
@@ -190,7 +190,7 @@ public class TelegramUser extends TableImpl<TelegramUserRecord> {
     // -------------------------------------------------------------------------
 
     @Override
-    public Row9<Long, String, Long, Integer, Integer, Integer, Integer, Integer, Integer> fieldsRow() {
+    public Row9<Long, String, Long, String, String, String, String, String, String> fieldsRow() {
         return (Row9) super.fieldsRow();
     }
 }

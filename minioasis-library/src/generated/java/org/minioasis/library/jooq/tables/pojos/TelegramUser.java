@@ -22,17 +22,17 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class TelegramUser implements Serializable {
 
-    private static final long serialVersionUID = -1364881252;
+    private static final long serialVersionUID = -710521014;
 
-    private final Long    id;
-    private final String  cardKey;
-    private final Long    chatId;
-    private final Integer reminder;
-    private final Integer sendmeAnnoucement;
-    private final Integer sendmeArticle;
-    private final Integer sendmeEvents;
-    private final Integer sendmeNewRelease;
-    private final Integer sendmePromotion;
+    private final Long   id;
+    private final String cardKey;
+    private final Long   chatId;
+    private final String reminder;
+    private final String sendmeAnnoucement;
+    private final String sendmeArticle;
+    private final String sendmeEvents;
+    private final String sendmeNewRelease;
+    private final String sendmePromotion;
 
     public TelegramUser(TelegramUser value) {
         this.id = value.id;
@@ -47,15 +47,15 @@ public class TelegramUser implements Serializable {
     }
 
     public TelegramUser(
-        Long    id,
-        String  cardKey,
-        Long    chatId,
-        Integer reminder,
-        Integer sendmeAnnoucement,
-        Integer sendmeArticle,
-        Integer sendmeEvents,
-        Integer sendmeNewRelease,
-        Integer sendmePromotion
+        Long   id,
+        String cardKey,
+        Long   chatId,
+        String reminder,
+        String sendmeAnnoucement,
+        String sendmeArticle,
+        String sendmeEvents,
+        String sendmeNewRelease,
+        String sendmePromotion
     ) {
         this.id = id;
         this.cardKey = cardKey;
@@ -80,27 +80,27 @@ public class TelegramUser implements Serializable {
         return this.chatId;
     }
 
-    public Integer getReminder() {
+    public String getReminder() {
         return this.reminder;
     }
 
-    public Integer getSendmeAnnoucement() {
+    public String getSendmeAnnoucement() {
         return this.sendmeAnnoucement;
     }
 
-    public Integer getSendmeArticle() {
+    public String getSendmeArticle() {
         return this.sendmeArticle;
     }
 
-    public Integer getSendmeEvents() {
+    public String getSendmeEvents() {
         return this.sendmeEvents;
     }
 
-    public Integer getSendmeNewRelease() {
+    public String getSendmeNewRelease() {
         return this.sendmeNewRelease;
     }
 
-    public Integer getSendmePromotion() {
+    public String getSendmePromotion() {
         return this.sendmePromotion;
     }
 

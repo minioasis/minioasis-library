@@ -62,6 +62,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	
 	@Value("${reminder.days}")
 	private long reminderDays;
+
+	@Value("${message.command}")
+	private String messageCommand;
 	
 	@Autowired
 	private TelegramService telegramService;
@@ -183,11 +186,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	
 	@Override
 	public void onUpdateReceived(Update update) {	
-
-		String incoming = update.getMessage().getText();
 		
 		// We check if the update has a message and the message has text
 		if (update.hasMessage() && update.getMessage().hasText()) {
+			
+			String incoming = update.getMessage().getText();
 			
 			sendMessage("/start", update, START);
 			
@@ -200,7 +203,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			if(incoming.startsWith("reg#")) {
 				registrationVerification(update);
 			}
-
+			
+			if(incoming.startsWith(messageCommand)) {
+				sendAnnouncement(messageCommand, update);
+			}
+			
 			checkouts("/due", update);
 			
 			renewAll("/renew", update);
@@ -252,6 +259,39 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}	
 	}
 	
+	private void sendAnnouncement(String command, Update update) {
+		System.out.println("************1**************");
+		
+		String msg = update.getMessage().getText();
+		System.out.println("************msg**************" + msg);
+		int spaceIndex = command.length() + 1;
+		System.out.println("************spaceIndex**************" + spaceIndex);
+		String annoucement = msg.substring(spaceIndex);
+		System.out.println("************annoucement**************" + annoucement);
+
+		if(msg.startsWith(command) && msg.substring(spaceIndex-1, spaceIndex).equals(" ")
+						&& (annoucement != null && !annoucement.isEmpty())) {
+			System.out.println("************2**************");
+			List<TelegramUser> telegramUsers = telegramService.findAllTelegramUsersByAnnoucementOn();
+			
+			for(TelegramUser t : telegramUsers) {
+				sendAnnoucement(t, annoucement);
+			}	
+		}
+	}
+	
+	private void sendAnnoucement(TelegramUser t, String annoucement) {
+		Long chat_id = t.getChatId();
+		SendMessage message = new SendMessage().setChatId(chat_id)
+				.setText(annoucement)
+				.setParseMode(ParseMode.MARKDOWN);
+		try {
+			execute(message);
+			logger.info("TELEGRAM LOG : " + chat_id + " - [ annoucement send ] ");
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+	}
 	
 	// setting *************************************************
 	

@@ -1,5 +1,7 @@
 package org.minioasis.library.service;
 
+import java.util.List;
+
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.search.TelegramUserCriteria;
 import org.springframework.data.domain.Page;
@@ -15,6 +17,7 @@ public interface TelegramService {
 	TelegramUser findTelegramUserByCardKey(String cardKey);
 	void delete(TelegramUser entity);
 	void deleteTelegramUser(long id);
+	List<TelegramUser> findAllTelegramUsersByAnnoucementOn();
 	Page<TelegramUser> findAllTelegramUsers(Pageable pageable);
 	Page<TelegramUser> findByCriteria(TelegramUserCriteria criteria, Pageable pageable);
 	
