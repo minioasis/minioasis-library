@@ -72,6 +72,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -312,18 +313,22 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	
 	// Account
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void save(Account entity) {
 		this.accountRepository.save(entity);
 	}
-
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void edit(Account entity) {
 		this.accountRepository.save(entity);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(Account entity) {
 		this.accountRepository.delete(entity);
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteAccount(long id) {
 		this.accountRepository.deleteById(id);
 	}
@@ -347,16 +352,23 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	
 	// Attachment
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(Attachment entity){
 		entity.setLastCheckin(entity.getFirstCheckin());
 		this.attachmentRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void edit(Attachment entity){
 		this.attachmentRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(Attachment entity){
 		this.attachmentRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deleteAttachment(long id){
 		this.attachmentRepository.deleteById(id);
 	}
@@ -443,6 +455,7 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	/****************************************  Biblio  *****************************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(Biblio entity){
 		
 		Publisher p = entity.getPublisher();
@@ -489,12 +502,18 @@ public class LibraryServiceImpl implements LibraryService {
 		this.biblioRepository.save(entity);
 		
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void edit(Biblio entity){
 		this.biblioRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(Biblio entity){
 		this.biblioRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deleteBiblio(long id){
 		this.biblioRepository.deleteById(id);
 	}
@@ -528,15 +547,22 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	/****************************************  Checkout  ******************************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(Checkout entity){
 		this.checkoutRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void update(Checkout entity){
 		this.checkoutRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(Checkout entity){
 		this.checkoutRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deleteCheckout(long id){
 		this.checkoutRepository.deleteById(id);
 	}
@@ -621,12 +647,17 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	/************************************  Group  *************************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void save(Group entity){
 		this.groupRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(Group entity){
 		this.groupRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteGroup(long id){
 		this.groupRepository.deleteById(id);
 	}
@@ -648,12 +679,17 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	/****************************************  Holiday  *****************************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(Holiday entity){
 		this.holidayRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(Holiday entity){
 		this.holidayRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deleteHoliday(long id){
 		this.holidayRepository.deleteById(id);
 	}
@@ -690,10 +726,13 @@ public class LibraryServiceImpl implements LibraryService {
 
 	/****************************************  Item  ********************************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(Item entity){
 		entity.setState(ItemState.IN_LIBRARY);
 		this.itemRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void edit(Item entity){
 		
 		Item origin = this.itemRepository.getOne(entity.getId());
@@ -702,9 +741,13 @@ public class LibraryServiceImpl implements LibraryService {
 		
 		this.itemRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(Item entity){
 		this.itemRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deleteItem(long id){
 		this.itemRepository.deleteById(id);
 	}
@@ -799,12 +842,17 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	/****************************************  ItemStatus  **************************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void save(ItemStatus entity){
 		this.itemStatusRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(ItemStatus entity){
 		this.itemStatusRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteItemStatus(long id){
 		this.itemStatusRepository.deleteById(id);
 	}
@@ -823,12 +871,17 @@ public class LibraryServiceImpl implements LibraryService {
 
 	/*************************************  JournalEntry  ************************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(JournalEntry entity) {
 		this.journalEntryRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(JournalEntry entity){
 		this.journalEntryRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deleteJournalEntry(long id){
 		this.journalEntryRepository.deleteById(id);
 	}
@@ -849,12 +902,18 @@ public class LibraryServiceImpl implements LibraryService {
 	}
 	
 	/*************************************  JournalEntryLine  ************************************/
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(JournalEntryLine entity) {
 		this.journalEntryLineRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(JournalEntryLine entity){
 		this.journalEntryLineRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deleteJournalEntryLine(long id){
 		this.journalEntryLineRepository.deleteById(id);
 	}
@@ -876,12 +935,17 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	/****************************************  Location  ****************************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void save(Location entity){
 		this.locationRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(Location entity){
 		this.locationRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteLocation(long id){
 		this.locationRepository.deleteById(id);
 	}
@@ -900,15 +964,22 @@ public class LibraryServiceImpl implements LibraryService {
 
 	/****************************************  Patron  *********************************/
 
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(Patron entity){
 		this.patronRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void edit(Patron entity){
 		this.patronRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(Patron entity){
 		this.patronRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deletePatron(long id){
 		this.patronRepository.deleteById(id);
 	}
@@ -989,18 +1060,24 @@ public class LibraryServiceImpl implements LibraryService {
 		return dueDate;
 	}
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public int bulkUpdateGroup(List<Long> ids , Group group, LocalDateTime now){
 		return this.patronRepository.bulkUpdateGroup(ids, group, now);
 	}
 	
 	/****************************************  PatronType  *********************************/
 	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void save(PatronType entity){
 		this.patronTypeRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void delete(PatronType entity){
 		this.patronTypeRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deletePatronType(long id){
 		this.patronTypeRepository.deleteById(id);
 	}

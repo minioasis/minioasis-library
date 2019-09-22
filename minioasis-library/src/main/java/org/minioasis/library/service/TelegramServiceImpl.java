@@ -8,6 +8,7 @@ import org.minioasis.library.repository.TelegramUserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
@@ -34,9 +35,13 @@ public class TelegramServiceImpl implements TelegramService{
 	public TelegramUser findTelegramUserByCardKey(String cardKey) {
 		return this.telegramUserRepository.findTelegramUserByCardKey(cardKey);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void delete(TelegramUser entity) {
 		this.telegramUserRepository.delete(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void deleteTelegramUser(long id) {
 		this.telegramUserRepository.deleteById(id);
 	}
