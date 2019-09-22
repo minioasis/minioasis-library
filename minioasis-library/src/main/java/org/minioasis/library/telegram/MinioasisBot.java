@@ -260,18 +260,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	}
 	
 	private void sendAnnouncement(String command, Update update) {
-		System.out.println("************1**************");
 		
 		String msg = update.getMessage().getText();
-		System.out.println("************msg**************" + msg);
 		int spaceIndex = command.length() + 1;
-		System.out.println("************spaceIndex**************" + spaceIndex);
 		String annoucement = msg.substring(spaceIndex);
-		System.out.println("************annoucement**************" + annoucement);
 
 		if(msg.startsWith(command) && msg.substring(spaceIndex-1, spaceIndex).equals(" ")
 						&& (annoucement != null && !annoucement.isEmpty())) {
-			System.out.println("************2**************");
+
 			List<TelegramUser> telegramUsers = telegramService.findAllTelegramUsersByAnnoucementOn();
 			
 			for(TelegramUser t : telegramUsers) {
