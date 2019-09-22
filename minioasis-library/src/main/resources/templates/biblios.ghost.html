@@ -234,13 +234,7 @@
 						<td>
 							<a href="#" th:href="@{/admin/biblio/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>
 							| 
-							<a href="#" th:href="@{/admin/biblio/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>
-							
-							<p></p>
-							
-							<a class="btn btn-sm btn-outline-info text-info" href="#" th:href="@{/admin/audit/biblio/{id}/list(page=0,size=10,id=${e.id})}">
-								<i class="fas fa-history"></i>
-							</a>		
+							<a href="#" th:href="@{/admin/biblio/delete/{id}(id=${e.id})}"><i class="far fa-trash-alt"></i></a>	
 						</td>
 					</tr>
 					<tr th:remove="all">

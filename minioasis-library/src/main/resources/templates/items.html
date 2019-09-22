@@ -231,7 +231,7 @@
 							
 							<p></p>
 							
-							<a class="btn btn-sm btn-outline-info text-info" href="#" th:href="@{/admin/audit/item/{id}/list(page=0,size=10,id=${e.id})}">
+							<a sec:authorize="hasRole('ROLE_ADMIN')" class="btn btn-sm btn-outline-info text-info" href="#" th:href="@{/admin/audit/item/{id}/list(page=0,size=10,id=${e.id})}">
 								<i class="fas fa-history"></i>
 							</a>
 						</td>
