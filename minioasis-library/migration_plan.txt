@@ -447,8 +447,6 @@ ALTER TABLE `kelipkelip`.`reservation` DROP COLUMN `patrontype_id`;
 
 ALTER TABLE `kelipkelip`.`telegram_user` CHANGE COLUMN `telegram_id` chat_id bigint(20) NOT NULL AFTER `card_key`;
 
-ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `chat_id` bigint(20) NOT NULL AFTER `card_key`;
-
 ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `reminder` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `chat_id`;
 
 ALTER TABLE `kelipkelip`.`telegram_user` ADD COLUMN `sendme_annoucement` char(1) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `reminder`;
@@ -465,15 +463,11 @@ ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) C
 
 ALTER TABLE `kelipkelip`.`telegram_user` DROP COLUMN `notification`;
 
-ALTER TABLE `kelipkelip`.`telegram_user` DROP COLUMN `telegram_id`;
-
 ALTER TABLE `kelipkelip`.`telegram_user` ADD UNIQUE INDEX `UK_abiuvf67gfndn35ngqdpkq7dy`(`card_key`) USING BTREE;
 
 ALTER TABLE `kelipkelip`.`telegram_user` ADD UNIQUE INDEX `UK_8fjrx8y7kifvm13xif72sy5bf`(`chat_id`) USING BTREE;
 
 ALTER TABLE `kelipkelip`.`telegram_user` MODIFY COLUMN `card_key` varchar(255) CHARACTER SET utf8 COLLATE utf8_general_ci NOT NULL AFTER `id`;
-
-ALTER TABLE `kelipkelip`.`telegram_user` DROP COLUMN `telegram_id`;
 
 INSERT INTO hibernate_sequence(next_val) VALUES (10);
 
