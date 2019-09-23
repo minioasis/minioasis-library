@@ -839,10 +839,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		s.append("*" + biblio.getTitle() + "*\n");
 		s.append("\n");
 		s.append("*Author*\n");
-		s.append("_" + biblio.getAuthor() + "_\n");
+		if(biblio.getAuthor() != null) {
+			s.append("_" + biblio.getAuthor() + "_\n");
+		}
 		s.append("\n");
 		s.append("*Publisher*\n");
-		s.append("_" + biblio.getPublisher().getName() + "_\n");
+		if(biblio.getPublisher() != null) {
+			s.append("_" + biblio.getPublisher().getName() + "_\n");	
+		}
 		s.append("\n");
 		s.append("*Status*\n");
 		
