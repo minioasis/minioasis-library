@@ -520,8 +520,8 @@ public class LibraryServiceImpl implements LibraryService {
 	public Biblio getBiblio(long id){
 		return this.biblioRepository.getOne(id);
 	}
-	public Biblio getBiblioDetails(long id){
-		return this.biblioRepository.getBiblioDetails(id);
+	public Biblio findByBiblioId(long id){
+		return this.biblioRepository.findById(id);
 	}
 	public Biblio getBiblioFetchItems(long id){
 		return this.biblioRepository.getBiblioFetchItems(id);
@@ -769,8 +769,8 @@ public class LibraryServiceImpl implements LibraryService {
 	public Item findByBarcode(String barcode) {
 		return this.itemRepository.findByBarcode(barcode);
 	}
-	public List<Item> findItemsByIsbn(String isbn){
-		return this.itemRepository.findItemsByIsbn(isbn);
+	public List<Item> findItemsByBiblioId(Long id){
+		return this.itemRepository.findItemsByBiblioId(id);
 	}
 	public List<Item> findItemsByIsbnAndStates(String isbn, String[] states) {
 		return this.itemRepository.findItemsByIsbnAndStates(isbn, states);

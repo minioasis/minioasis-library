@@ -715,7 +715,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		for (int i = 0; i < biblios.size(); i++) {
 			if(page*pageSize + (i-1) <= total) {
 				String num = String.valueOf(page*pageSize + (i+1));
-				rowInline.add(new InlineKeyboardButton().setText(num).setCallbackData("/biblioinfo." + biblios.get(i).getIsbn()));
+				rowInline.add(new InlineKeyboardButton().setText(num).setCallbackData("/biblioinfo." + biblios.get(i).getId()));
 			}
 		}
 		
@@ -770,19 +770,21 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	// [/search] create callback buttons -> 1,2,3,4,5.. 
 	private void biblioInfoCallBack(String call_data, long chat_id, long message_id) {
 		
-		String isbn = StringUtils.substringAfter(call_data,"/biblioinfo.");
+		String id = StringUtils.substringAfter(call_data,"/biblioinfo.");
 		
-		Biblio biblio = libraryService.findByIsbn(isbn);
+		Biblio biblio = libraryService.findByBiblioId(Long.valueOf(id));
+		String isbn = biblio.getIsbn();
+		String imageId = biblio.getImageId();
 		
 		String[] states = new String[1];
 		states[0] = ItemState.IN_LIBRARY.toString();
-		List<Item> items = libraryService.findItemsByIsbn(isbn);
+		List<Item> items = libraryService.findItemsByBiblioId(Long.valueOf(id));
 
 		biblio.setItems(items);
 
 		try {
 			
-			Photo photo = getPhoto(isbn);
+			Photo photo = getPhoto(imageId);
 			
 			if(photo != null) {
 				
@@ -791,7 +793,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 				SendPhoto new_message = new SendPhoto()
 										.setChatId(chat_id)
-										.setPhoto(isbn, in)
+										.setPhoto(imageId, in)
 										.setCaption(biblioView(biblio))
 										.setParseMode(ParseMode.MARKDOWN);
 				
@@ -834,7 +836,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		
 		StringBuffer s = new StringBuffer();
 		
-		s.append("_*" + biblio.getTitle() + "*_\n");
+		s.append("*" + biblio.getTitle() + "*\n");
 		s.append("\n");
 		s.append("*Author*\n");
 		s.append("_" + biblio.getAuthor() + "_\n");
@@ -915,6 +917,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String searchView(Page<Biblio> page) {
 
 		long total = page.getTotalElements();
+		int pageNum = page.getPageable().getPageNumber();
+		int size = page.getPageable().getPageSize();
 		List<Biblio> biblios = page.getContent();
 		
 		StringBuffer s = new StringBuffer();
@@ -929,7 +933,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			for(Biblio b : biblios) {
 				String title = b.getTitle();
-				s.append(i + ". _" + title + "_\n");
+				s.append((pageNum*size + i) + ". _" + title + "_\n");
 				i++;
 			}
 		}

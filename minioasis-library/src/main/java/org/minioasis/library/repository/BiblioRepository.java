@@ -12,7 +12,7 @@ import org.springframework.stereotype.Repository;
 public interface BiblioRepository extends RevisionRepository<Biblio, Long, Integer>, JpaRepository<Biblio, Long>, BiblioRepositoryCustom {
 
 	@Query("SELECT b FROM Biblio b WHERE b.id = ?1")
-	public Biblio getBiblioDetails(long id);
+	public Biblio findById(long id);
 	
 	@Query("SELECT b FROM Biblio b LEFT JOIN FETCH b.items i LEFT JOIN FETCH i.itemStatus WHERE b.id = ?1")
 	public Biblio getBiblioFetchItems(long id);

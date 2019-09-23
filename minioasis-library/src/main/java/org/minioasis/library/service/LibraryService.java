@@ -118,7 +118,7 @@ public interface LibraryService {
 	void delete(Biblio entity);
 	void deleteBiblio(long id);
 	Biblio getBiblio(long id);
-	Biblio getBiblioDetails(long id);
+	Biblio findByBiblioId(long id);
 	Biblio getBiblioFetchItems(long id);
 	Biblio findByIsbn(String isbn);
 	List<Biblio> findAllBiblios(Sort sort);
@@ -189,7 +189,7 @@ public interface LibraryService {
 	Item getItemFetchItemStatus(String barcode);
 	Item getItemFetchRelatedBiblio(String barcode);
 	Item findByBarcode(String barcode);
-	List<Item> findItemsByIsbn(String isbn);
+	List<Item> findItemsByBiblioId(Long id);
 	List<Item> findItemsByIsbnAndStates(String isbn, String[] states);
 	List<Item> findAllItems(Sort sort);
 	List<Item> findAllItemsOrderByBarcode(long id);

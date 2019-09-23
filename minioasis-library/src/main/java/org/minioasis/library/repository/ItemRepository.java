@@ -54,8 +54,8 @@ public interface ItemRepository extends RevisionRepository<Item, Long, Integer>,
 	@Query("SELECT i FROM Item i"
 			+ " LEFT JOIN FETCH i.itemStatus"
 			+ " LEFT JOIN FETCH i.biblio b"
-			+ " WHERE b.isbn = ?1")
-	List<Item> findItemsByIsbn(String isbn);
+			+ " WHERE b.id = ?1")
+	List<Item> findItemsByBiblioId(Long id);
 	
 	@Query("SELECT i FROM Item i"
 			+ " LEFT JOIN FETCH i.biblio b"
