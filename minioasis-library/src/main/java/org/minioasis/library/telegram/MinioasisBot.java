@@ -75,7 +75,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	@Autowired
 	private PhotoRepository photoRepository;
 	
-	private static int pageSize = 3;
+	private static int pageSize = 5;
 	
 	private static String START = "*Welcome to the BOT !*\n"
 								+ "/register : 1st time user\n"
