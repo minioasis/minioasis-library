@@ -814,6 +814,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 						.setText(biblioView(biblio))
 						.setParseMode(ParseMode.MARKDOWN);
 				
+				new_message.setReplyMarkup(createInlineReserveButton(biblio.getId()));
+				
 				try {
 					execute(new_message);
 					logger.info("TELEGRAM LOG : " + chat_id + " - [ /biblioinfo : "+ isbn + " ] ");
