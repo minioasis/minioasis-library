@@ -83,6 +83,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 	private static String SETTINGS = "*Please send me :*\n"
 									+ "----------------------------------\n"
+									+ "*My Settings*\n"
+									+ "/show\\_settings : show my settings"
+									+ "\n"
 									+ "*All*\n"
 									+ "/all\\_on"
 									+ "\n"
@@ -93,30 +96,31 @@ public class MinioasisBot extends TelegramLongPollingBot {
 									+ "\n"
 									+ "/reminder\\_off"
 									+ "\n"
-									+ "*Event*\n"
-									+ "/event\\_on"
-									+ "\n"
-									+ "/event\\_off"
-									+ "\n"
-									+ "*New Release*\n"
-									+ "/new\\_release\\_on"
-									+ "\n"
-									+ "/new\\_release\\_off"
-									+ "\n"
 									+ "*Anouncement*\n"
 									+ "/annoucement\\_on"
 									+ "\n"
 									+ "/annoucement\\_off"
 									+ "\n"
-									+ "*Article*\n"
-									+ "/article\\_on"
-									+ "\n"
-									+ "/article\\_off"
-									+ "\n"
-									+ "*Promotion*\n"
-									+ "/promotion\\_on"
-									+ "\n"
-									+ "/promotion\\_off";
+//									+ "*Event*\n"
+//									+ "/event\\_on"
+//									+ "\n"
+//									+ "/event\\_off"
+//									+ "\n"
+//									+ "*New Release*\n"
+//									+ "/new\\_release\\_on"
+//									+ "\n"
+//									+ "/new\\_release\\_off"
+//									+ "\n"
+//									+ "*Article*\n"
+//									+ "/article\\_on"
+//									+ "\n"
+//									+ "/article\\_off"
+//									+ "\n"
+//									+ "*Promotion*\n"
+//									+ "/promotion\\_on"
+//									+ "\n"
+//									+ "/promotion\\_off"
+									;
 	
 	private static String HELP = "*Member :*\n"
 								+ "/register : 1st time member\n"
@@ -126,21 +130,22 @@ public class MinioasisBot extends TelegramLongPollingBot {
 								+ "\n\n"
 								+ "*Public User :*\n"
 								+ "/search : search books by title, author\n"
-								+ "/recommendation : recommendation of book"
-								+ "\n\n"
-								+ "*Library Information :*\n"
-								+ "/openinghours : opening hours\n"
-								+ "/holidays : library holidays\n"
-								+ "/news : library news\n"
-								+ "/releases : new book releases\n"
-								+ "/annoucements : new annoucements\n"
-								+ "/events : library events\n"
-								+ "/articles : blog articles\n"
-								+ "/bookstoread : books recommended by library\n"
-								+ "/promotions : library promotions"
-								+ "\n\n"
+//								+ "/recommendation : recommendation of book"
+//								+ "\n\n"
+//								+ "*Library Information :*\n"
+//								+ "/openinghours : opening hours\n"
+//								+ "/holidays : library holidays\n"
+//								+ "/news : library news\n"
+//								+ "/releases : new book releases\n"
+//								+ "/annoucements : new annoucements\n"
+//								+ "/events : library events\n"
+//								+ "/articles : blog articles\n"
+//								+ "/bookstoread : books recommended by library\n"
+//								+ "/promotions : library promotions"
+//								+ "\n"
+								+ "\n"
 								+ "*Settings :*\n"
-								+ "/settings : settings";
+								+ "/settings : settings\n";
 	
 	private static String REGISTER = "Key in your\n" 
 									+ "*1) member id*\n"
@@ -198,6 +203,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			sendMessage("/settings", update, SETTINGS);
 			
+			showSettings("/show_settings", update);
+			
 			registerMessage("/register", update, REGISTER);
 
 			if(incoming.startsWith("reg#")) {
@@ -221,21 +228,21 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			reminderOn("/reminder_on", update);
 			reminderOff("/reminder_off", update);
-			
-			eventOn("/event_on", update);
-			eventOff("/event_off", update);
-			
-			newReleaseOn("/new_release_on", update);
-			newReleaseOff("/new_release_off", update);
-			
+
 			annoucementOn("/annoucement_on", update);
 			annoucementOff("/annoucement_off", update);
 			
-			articleOn("/article_on", update);
-			articleOff("/article_off", update);
-			
-			promotionOn("/promotion_on", update);
-			promotionOff("/promotion_off", update);
+//			eventOn("/event_on", update);
+//			eventOff("/event_off", update);
+//			
+//			newReleaseOn("/new_release_on", update);
+//			newReleaseOff("/new_release_off", update);
+//
+//			articleOn("/article_on", update);
+//			articleOff("/article_off", update);
+//			
+//			promotionOn("/promotion_on", update);
+//			promotionOff("/promotion_off", update);
 
 		} else if (update.hasCallbackQuery()) {
 
@@ -257,6 +264,44 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 			
 		}	
+	}
+	
+	private void showSettings(String command, Update update) {
+		
+		if(update.getMessage().getText().equals(command)){
+			
+			Long chat_id = update.getMessage().getChatId();
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+			
+			if(telegramUser != null) {
+				sendMessage(command, update, settingsView(telegramUser));
+			}	
+		}
+	}
+	
+	private static String settingsView(TelegramUser t) {
+
+		YesNo reminder = t.getPreference().getReminder();
+		YesNo announcement = t.getPreference().getSendMeAnnouncement();
+		YesNo article = t.getPreference().getSendMeArticle();
+		YesNo event = t.getPreference().getSendMeEvent();
+		YesNo newRelease = t.getPreference().getSendMeNewRelease();
+		YesNo promotion = t.getPreference().getSendMePromotion();
+
+		StringBuffer s = new StringBuffer();
+
+		s.append("-----------------------------------------------\n");
+		s.append("*My Settings*\n");
+		s.append("-----------------------------------------------\n");
+		s.append(reminder + " : reminder" + "\n");
+		s.append(announcement + " : announcement" + "\n");
+		s.append(article + " : article" + "\n");
+		s.append(event + " : event" + "\n");
+		s.append(newRelease + " : new release" + "\n");
+		s.append(promotion + " : promotion" + "\n");
+		s.append("\n");
+
+		return s.toString();
 	}
 	
 	private void sendAnnouncement(String command, Update update) {
@@ -1077,7 +1122,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		for(String cardKey : cardKeys) {
 			
 			TelegramUser telegramUser = telegramService.findTelegramUserByCardKey(cardKey);
-			
+
 			if(telegramUser != null && telegramUser.getPreference().getReminder().equals(YesNo.Y)) {
 				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now.plusDays(reminderDays));
 				sendMessage(telegramUser.getChatId(), cardKey, checkouts);
@@ -1244,7 +1289,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 			
 			boolean exist = libraryService.match(cardKey, mobile);		
-			TelegramUser telegramUser = new TelegramUser(chat_id, cardKey, new Preference(YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N,YesNo.N));
+			TelegramUser telegramUser = new TelegramUser(chat_id, cardKey, new Preference(YesNo.Y,YesNo.N,YesNo.N,YesNo.Y,YesNo.N,YesNo.N));
 					
 			if(exist) {
 				
