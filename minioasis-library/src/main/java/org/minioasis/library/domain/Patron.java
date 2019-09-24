@@ -1052,7 +1052,6 @@ public class Patron implements Serializable {
 	}
 
 	private void checkEnableReservationDate(LocalDate given, Notification notification) {
-		System.out.println("********************" + given);
 		if(this.reservableDate != null && given.isBefore(this.reservableDate)) {
 			notification.addError(CirculationCode.USER_UNDER_RESERVATION_DATE_RESTRICTION);
 		}

@@ -16,6 +16,7 @@ import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemState;
+import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Preference;
@@ -821,10 +822,18 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		String isbn = biblio.getIsbn();
 		String imageId = biblio.getImageId();
 		
-		String[] states = new String[1];
-		states[0] = ItemState.IN_LIBRARY.toString();
 		List<Item> items = libraryService.findItemsByBiblioId(Long.valueOf(id));
 
+		boolean reservable = false;
+		
+		for(Item item : items) {
+			if(item.getState().equals(ItemState.CHECKOUT) && 
+					item.getState().equals(ItemState.RESERVED_IN_LIBRARY) && 
+					item.getItemStatus().getReservable().equals(Boolean.TRUE)) {
+				reservable =  true;
+			}
+		}
+		
 		biblio.setItems(items);
 
 		try {
@@ -842,7 +851,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 										.setCaption(biblioView(biblio))
 										.setParseMode(ParseMode.MARKDOWN);
 				
-				new_message.setReplyMarkup(createInlineReserveButton(biblio.getId()));	
+				if(reservable) {
+					new_message.setReplyMarkup(createInlineReserveButton(biblio.getId()));	
+				}
 				
 				try {
 					execute(new_message);
@@ -859,7 +870,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 						.setText(biblioView(biblio))
 						.setParseMode(ParseMode.MARKDOWN);
 				
-				new_message.setReplyMarkup(createInlineReserveButton(biblio.getId()));
+				if(reservable) {
+					new_message.setReplyMarkup(createInlineReserveButton(biblio.getId()));	
+				}
 				
 				try {
 					execute(new_message);
