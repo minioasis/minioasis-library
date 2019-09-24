@@ -824,14 +824,13 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		
 		List<Item> items = libraryService.findItemsByBiblioId(Long.valueOf(id));
 
-		boolean reservable = false;
+		boolean reservable = true;
 		
+		// if an item is found to be available for reservation, then hidden reservation button !
 		for(Item item : items) {
-			if((item.getState().equals(ItemState.CHECKOUT) || 
-					item.getState().equals(ItemState.RESERVED_IN_LIBRARY)) && 
+			if(item.getState().equals(ItemState.IN_LIBRARY) && 
 					item.getItemStatus().getReservable().equals(Boolean.TRUE)) {
-				reservable =  true;
-				break;
+				reservable =  false;
 			}
 		}
 		
