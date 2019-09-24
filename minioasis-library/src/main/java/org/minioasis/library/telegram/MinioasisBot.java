@@ -827,10 +827,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		boolean reservable = false;
 		
 		for(Item item : items) {
-			if(item.getState().equals(ItemState.CHECKOUT) && 
-					item.getState().equals(ItemState.RESERVED_IN_LIBRARY) && 
+			if((item.getState().equals(ItemState.CHECKOUT) || 
+					item.getState().equals(ItemState.RESERVED_IN_LIBRARY)) && 
 					item.getItemStatus().getReservable().equals(Boolean.TRUE)) {
 				reservable =  true;
+				break;
 			}
 		}
 		
