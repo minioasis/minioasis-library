@@ -17,7 +17,6 @@ import org.springframework.transaction.annotation.Transactional;
 
 
 @Service
-@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 @Transactional
 public class SecurityServiceImpl implements SecurityService {
 	
@@ -28,15 +27,20 @@ public class SecurityServiceImpl implements SecurityService {
 	private RoleRepository roleRepository;
 	
 	// User
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void add(User entity){
 		this.userRepository.save(entity);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void edit(User entity){
 		this.userRepository.save(entity);
 	}
 	public Optional<User> getUser(long id){
 		return this.userRepository.findById(id);
 	}
+	
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public void deleteUser(long id){
 		this.userRepository.deleteById(id);
 	}
@@ -57,10 +61,12 @@ public class SecurityServiceImpl implements SecurityService {
 	}
 
 	// Role
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public Role getRole(long id){
 		return this.roleRepository.getOne(id);
 	}
 
+	@PreAuthorize("hasRole('ROLE_ADMIN')")
 	public List<Role> findAllRoles(Sort sort){
 		return this.roleRepository.findAll(sort);
 	}
