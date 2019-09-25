@@ -13,7 +13,7 @@
 		<div th:replace="fragments/nav.favourite :: navfavourite"></div>
 		
 		<h4>
-			<span th:text="#{search.active.reservation}">Search Active Reservations</span>
+			<span th:text="#{search.available.reservation}">Search Available Reservations</span>
 			<a href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,states='AVAILABLE',states='NOTIFIED',sort='availableDate,asc')}">
 				<img th:src="@{/images/reservation.png}" alt=""/>
 			</a>
