@@ -607,6 +607,39 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	}
 	
 	// [/reservation] **********************************************************************
+	
+	@Scheduled(cron = "0 15 8 * * ?")
+	public void notification() {
+		
+		List<Reservation> reservations = libraryService.findAvailableReservations();
+		
+		for(Reservation r : reservations) {
+			
+			Patron p = r.getPatron();
+			String cardKey = p.getCardKey();
+			
+			TelegramUser telegramUser = telegramService.findTelegramUserByCardKey(cardKey);
+
+			if(telegramUser != null) {
+				
+				Biblio b = r.getBiblio();
+				String title = b.getTitle();
+				
+				Long chat_id = telegramUser.getChatId();		
+				SendMessage message = new SendMessage().setChatId(chat_id);
+				
+				message.setText("Your reservation [ " + title + " ] is AVAILABLE.");
+				
+				try {
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ NOTIFICATION ] " + title);
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}			
+			}		
+		}	
+	}
+	
 	private void reservations(String command, Update update) {
 		
 		if(update.getMessage().getText().equals(command)){
@@ -1143,10 +1176,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			if(telegramUser != null && telegramUser.getPreference().getReminder().equals(YesNo.Y)) {
 				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now.plusDays(reminderDays));
 				sendMessage(telegramUser.getChatId(), cardKey, checkouts);
-			}
-			
-		}
-		
+			}		
+		}	
 	}
 	
 	// [reminder - send msg]

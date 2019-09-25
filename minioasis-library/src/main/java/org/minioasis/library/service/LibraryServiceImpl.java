@@ -1164,6 +1164,10 @@ public class LibraryServiceImpl implements LibraryService {
 		return this.reservationRepository.findByCriteria(criteria, pageable);
 	}
 	
+	public List<Reservation> findAvailableReservations(){
+		return this.reservationRepository.findAvailableReservations();
+	}
+	
 	//Map findReservationsByCriteria(ReservationCmd command);
 	//Collection findPageReservationsByCriteria(ReservationCmd command);
 	//Long findTotalReservationsByCriteria(ReservationCmd command);

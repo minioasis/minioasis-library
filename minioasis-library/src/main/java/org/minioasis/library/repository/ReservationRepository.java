@@ -28,5 +28,10 @@ public interface ReservationRepository extends RevisionRepository<Reservation, L
 			+ " WHERE b IS NOT NULL"
 			+ " AND r.patron.cardKey = ?1")
 	List<Reservation> findReservationsByCardKeyFetchBiblioReservations(String cardKey);
-
+	
+	@Query("SELECT r FROM Reservation r"
+			+ " JOIN r.patron p"
+			+ " JOIN r.biblio b"
+			+ " WHERE r.state = 'AVAILABLE'")
+	List<Reservation> findAvailableReservations();
 }

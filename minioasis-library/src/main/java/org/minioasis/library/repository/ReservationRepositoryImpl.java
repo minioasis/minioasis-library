@@ -17,6 +17,7 @@ import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.Table;
 import org.jooq.impl.DSL;
+import org.minioasis.library.domain.CheckoutState;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationState;

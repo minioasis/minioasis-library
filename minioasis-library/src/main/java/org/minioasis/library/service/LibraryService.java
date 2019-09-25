@@ -297,6 +297,8 @@ public interface LibraryService {
 	Page<Reservation> findAllReservations(Pageable pageable);
 	Page<Reservation> findByCriteria(ReservationCriteria criteria, Pageable pageable);
 	
+	List<Reservation> findAvailableReservations();
+	
 	void refreshReservationStates();
 	
 	// Series
