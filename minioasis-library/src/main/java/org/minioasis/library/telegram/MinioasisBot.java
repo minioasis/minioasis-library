@@ -826,14 +826,18 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 		boolean reservable = true;
 		
-		// if an item is found to be available for reservation, then hidden reservation button !
-		for(Item item : items) {
-			if(item.getState().equals(ItemState.IN_LIBRARY) && 
-					item.getItemStatus().getReservable().equals(Boolean.TRUE)) {
-				reservable =  false;
+		if(items.size() == 0) {
+			reservable = false;
+		}else {
+			// if an item is found to be available for reservation, then hidden reservation button !
+			for(Item item : items) {
+				if(item.getState().equals(ItemState.IN_LIBRARY) && 
+						item.getItemStatus().getReservable().equals(Boolean.TRUE)) {
+					reservable =  false;
+				}
 			}
 		}
-		
+
 		biblio.setItems(items);
 
 		try {

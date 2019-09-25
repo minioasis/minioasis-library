@@ -213,6 +213,10 @@ public class CirculationController {
 			}
 
 			r = checkoutResult.getReservation();
+			
+			if(r != null) {
+				model.addAttribute("HAS_RESERVATION", "THIS BOOK HAS RESERVATION !");
+			}
 
 		} else {
 
