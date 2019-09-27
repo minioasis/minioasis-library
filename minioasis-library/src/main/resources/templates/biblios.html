@@ -187,7 +187,7 @@
 						<th th:text="#{add.item}">Add Item</th>
 						<th th:text="#{publisher} + '/' + #{series}">Publisher / Series</th>
 						<th th:text="#{classmark}">ClassMark</th>
-						<th th:text="#{issn}">ISSN</th>
+						<th th:text="#{issn} + '/' + #{volume.no}">ISSN / Volume No.</th>
 						<th th:text="#{updated}">Start / End</th>
 						<th th:text="#{actions}">Actions</th>
 					</tr>
@@ -229,7 +229,10 @@
 							<p th:text="${e.series != null ? e.series.name : ''}">Physics Series</p>
 						</td>
 						<td th:text="${e.classMark}">555.55 HA1</td>
-						<td th:text="${e.journal != null ? e.journal.issn : ''}">Issn</td>
+						<td>
+							<span th:text="${e.journal?.issn}">issn</span><br>
+							<span th:text="${e.journal?.volumeNo}">volume no.</span>
+						</td>
 						<td th:text="${#temporals.format(e.updated,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
 							<a href="#" th:href="@{/admin/biblio/edit?id={id}(id=${e.id})}"><i class="far fa-edit"></i></a>

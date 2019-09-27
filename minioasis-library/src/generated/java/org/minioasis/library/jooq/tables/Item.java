@@ -18,7 +18,7 @@ import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row20;
+import org.jooq.Row18;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -44,7 +44,7 @@ import org.minioasis.library.jooq.tables.records.ItemRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item extends TableImpl<ItemRecord> {
 
-    private static final long serialVersionUID = -632613247;
+    private static final long serialVersionUID = -87978224;
 
     /**
      * The reference instance of <code>ITEM</code>
@@ -133,16 +133,6 @@ public class Item extends TableImpl<ItemRecord> {
      * The column <code>ITEM.STATE</code>.
      */
     public final TableField<ItemRecord, String> STATE = createField(DSL.name("STATE"), org.jooq.impl.SQLDataType.VARCHAR(25).nullable(false), this, "");
-
-    /**
-     * The column <code>ITEM.PUBLISHING_DATE</code>.
-     */
-    public final TableField<ItemRecord, Date> PUBLISHING_DATE = createField(DSL.name("PUBLISHING_DATE"), org.jooq.impl.SQLDataType.DATE, this, "");
-
-    /**
-     * The column <code>ITEM.VOLUME_NO</code>.
-     */
-    public final TableField<ItemRecord, String> VOLUME_NO = createField(DSL.name("VOLUME_NO"), org.jooq.impl.SQLDataType.VARCHAR(32), this, "");
 
     /**
      * The column <code>ITEM.BIBLIO_ID</code>.
@@ -261,11 +251,11 @@ public class Item extends TableImpl<ItemRecord> {
     }
 
     // -------------------------------------------------------------------------
-    // Row20 type methods
+    // Row18 type methods
     // -------------------------------------------------------------------------
 
     @Override
-    public Row20<Long, String, String, String, Date, Timestamp, Date, Timestamp, String, BigDecimal, String, String, Boolean, Boolean, String, Date, String, Long, Long, Long> fieldsRow() {
-        return (Row20) super.fieldsRow();
+    public Row18<Long, String, String, String, Date, Timestamp, Date, Timestamp, String, BigDecimal, String, String, Boolean, Boolean, String, Long, Long, Long> fieldsRow() {
+        return (Row18) super.fieldsRow();
     }
 }

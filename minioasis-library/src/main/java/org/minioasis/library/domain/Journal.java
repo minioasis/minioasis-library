@@ -1,6 +1,7 @@
 package org.minioasis.library.domain;
 
 import java.io.Serializable;
+import java.time.LocalDate;
 
 import javax.persistence.Column;
 import javax.persistence.Embeddable;
@@ -19,11 +20,22 @@ public class Journal implements Serializable {
 	@Length(max = 16)
 	private String coden;
 	
-	public Journal(){}
+	@Column(name = "publishing_date")
+	private LocalDate publishingDate;
 	
-	public Journal(String issn, String coden) {
+	@Length(max = 64)
+	@Column(name = "volume_no" , length = 64)
+	private String volumeNo;
+	
+	public Journal(){}
+
+	public Journal(@Length(max = 15) String issn, @Length(max = 16) String coden, LocalDate publishingDate,
+			@Length(max = 32) String volumeNo) {
+		super();
 		this.issn = issn;
 		this.coden = coden;
+		this.publishingDate = publishingDate;
+		this.volumeNo = volumeNo;
 	}
 
 	public String getIssn() {
@@ -40,6 +52,22 @@ public class Journal implements Serializable {
 
 	public void setCoden(String coden) {
 		this.coden = coden;
+	}
+
+	public LocalDate getPublishingDate() {
+		return publishingDate;
+	}
+
+	public void setPublishingDate(LocalDate publishingDate) {
+		this.publishingDate = publishingDate;
+	}
+
+	public String getVolumeNo() {
+		return volumeNo;
+	}
+
+	public void setVolumeNo(String volumeNo) {
+		this.volumeNo = volumeNo;
 	}
 
 }

@@ -25,7 +25,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Item implements Serializable {
 
-    private static final long serialVersionUID = 3460489;
+    private static final long serialVersionUID = -523099730;
 
     private final Long       id;
     private final String     active;
@@ -42,8 +42,6 @@ public class Item implements Serializable {
     private final Boolean    borrowable;
     private final Boolean    reservable;
     private final String     state;
-    private final Date       publishingDate;
-    private final String     volumeNo;
     private final Long       biblioId;
     private final Long       itemStatusId;
     private final Long       locationId;
@@ -64,8 +62,6 @@ public class Item implements Serializable {
         this.borrowable = value.borrowable;
         this.reservable = value.reservable;
         this.state = value.state;
-        this.publishingDate = value.publishingDate;
-        this.volumeNo = value.volumeNo;
         this.biblioId = value.biblioId;
         this.itemStatusId = value.itemStatusId;
         this.locationId = value.locationId;
@@ -87,8 +83,6 @@ public class Item implements Serializable {
         Boolean    borrowable,
         Boolean    reservable,
         String     state,
-        Date       publishingDate,
-        String     volumeNo,
         Long       biblioId,
         Long       itemStatusId,
         Long       locationId
@@ -108,8 +102,6 @@ public class Item implements Serializable {
         this.borrowable = borrowable;
         this.reservable = reservable;
         this.state = state;
-        this.publishingDate = publishingDate;
-        this.volumeNo = volumeNo;
         this.biblioId = biblioId;
         this.itemStatusId = itemStatusId;
         this.locationId = locationId;
@@ -175,14 +167,6 @@ public class Item implements Serializable {
         return this.state;
     }
 
-    public Date getPublishingDate() {
-        return this.publishingDate;
-    }
-
-    public String getVolumeNo() {
-        return this.volumeNo;
-    }
-
     public Long getBiblioId() {
         return this.biblioId;
     }
@@ -214,8 +198,6 @@ public class Item implements Serializable {
         sb.append(", ").append(borrowable);
         sb.append(", ").append(reservable);
         sb.append(", ").append(state);
-        sb.append(", ").append(publishingDate);
-        sb.append(", ").append(volumeNo);
         sb.append(", ").append(biblioId);
         sb.append(", ").append(itemStatusId);
         sb.append(", ").append(locationId);

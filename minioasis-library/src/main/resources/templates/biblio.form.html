@@ -152,7 +152,6 @@
 							
 						</script>					
 					</div>
-					<hr>
 					<div class="form-row">
 				      	<div class="form-group col-sm-3">
 				      		<label th:text="#{edition}">Edition</label>
@@ -194,7 +193,10 @@
 									<option th:remove="all" value="my">malay</option>
 								</select>
 								<span class="help-inline error" th:if="${#fields.hasErrors('language')}" th:errors="*{language}"></span>
-						</div>
+						</div>				
+					</div>
+					<hr>
+					<div class="form-row">
 						<div class="form-group col-sm-3">
 					      		<label th:text="#{issn}">Issn</label>
 								<input type="text" class="form-control" th:field="*{journal.issn}"	placeholder="Issn" />
@@ -204,8 +206,19 @@
 					      		<label th:text="#{coden}">Coden</label>
 								<input type="text" class="form-control" th:field="*{journal.coden}"	placeholder="Coden" />
 								<span class="help-inline error" th:if="${#fields.hasErrors('journal.coden')}" th:errors="*{journal.coden}"></span>
+						</div>
+						<div class="form-group col-sm-3">
+					      		<label th:text="#{volume.no}">Volume No.</label>
+								<input type="text" class="form-control" th:field="*{journal.volumeNo}"	placeholder="Volume No" />
+								<span class="help-inline error" th:if="${#fields.hasErrors('journal.volumeNo')}" th:errors="*{journal.volumeNo}"></span>
+						</div>
+						<div class="form-group col-sm-3">
+					      		<label th:text="#{publishing.date}">Publishing Date</label>
+								<input type="text" class="form-control" th:field="*{journal.publishingDate}"	placeholder="Publishing Date" />
+								<span class="help-inline error" th:if="${#fields.hasErrors('journal.publishingDate')}" th:errors="*{journal.publishingDate}"></span>
 						</div>					
 					</div>
+					<hr>
 					<div class="form-row">
 						<div class="form-group col-sm-12">
 				      		<label th:text="#{description}">Description</label>

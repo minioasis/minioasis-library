@@ -96,11 +96,19 @@
 								</tr>
 								<tr>
 									<td><i class="fab fa-envira text-label"></i> <span th:text="#{issn}">ISSN</span></td>
-									<td class="text-info" th:text="${biblio.journal != null ? biblio.journal.issn : ''}">654651651</td>
+									<td class="text-info" th:text="${biblio.journal?.issn}">654651651</td>
 								</tr>
 								<tr>
 									<td><i class="fab fa-envira text-label"></i> <span th:text="#{coden}">Coden</span></td>
-									<td class="text-info" th:text="${biblio.journal != null ? biblio.journal.coden : ''}">AS125</td>
+									<td class="text-info" th:text="${biblio.journal?.coden}">AS125</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{volume.no}">Volume No</span></td>
+									<td class="text-info" th:text="${biblio.journal?.volumeNo}">120</td>
+								</tr>
+								<tr>
+									<td><i class="fab fa-envira text-label"></i> <span th:text="#{publishing.date}">Publishing Date</span></td>
+									<td class="text-info" th:text="${biblio.journal?.publishingDate}">2019-09-09</td>
 								</tr>
 								<tr>
 									<td><i class="fab fa-envira text-label"></i> <span th:text="#{edition}">Edition</span></td>

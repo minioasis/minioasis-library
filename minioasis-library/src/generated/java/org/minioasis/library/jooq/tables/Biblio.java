@@ -4,6 +4,7 @@
 package org.minioasis.library.jooq.tables;
 
 
+import java.sql.Date;
 import java.sql.Timestamp;
 import java.util.Arrays;
 import java.util.List;
@@ -16,7 +17,6 @@ import org.jooq.Identity;
 import org.jooq.Index;
 import org.jooq.Name;
 import org.jooq.Record;
-import org.jooq.Row22;
 import org.jooq.Schema;
 import org.jooq.Table;
 import org.jooq.TableField;
@@ -42,7 +42,7 @@ import org.minioasis.library.jooq.tables.records.BiblioRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Biblio extends TableImpl<BiblioRecord> {
 
-    private static final long serialVersionUID = -41947015;
+    private static final long serialVersionUID = -1466788855;
 
     /**
      * The reference instance of <code>BIBLIO</code>
@@ -116,6 +116,16 @@ public class Biblio extends TableImpl<BiblioRecord> {
      * The column <code>BIBLIO.ISSN</code>.
      */
     public final TableField<BiblioRecord, String> ISSN = createField(DSL.name("ISSN"), org.jooq.impl.SQLDataType.VARCHAR(255), this, "");
+
+    /**
+     * The column <code>BIBLIO.PUBLISHING_DATE</code>.
+     */
+    public final TableField<BiblioRecord, Date> PUBLISHING_DATE = createField(DSL.name("PUBLISHING_DATE"), org.jooq.impl.SQLDataType.DATE, this, "");
+
+    /**
+     * The column <code>BIBLIO.VOLUME_NO</code>.
+     */
+    public final TableField<BiblioRecord, String> VOLUME_NO = createField(DSL.name("VOLUME_NO"), org.jooq.impl.SQLDataType.VARCHAR(64), this, "");
 
     /**
      * The column <code>BIBLIO.LANGUAGE</code>.
@@ -262,14 +272,5 @@ public class Biblio extends TableImpl<BiblioRecord> {
     @Override
     public Biblio rename(Name name) {
         return new Biblio(name, null);
-    }
-
-    // -------------------------------------------------------------------------
-    // Row22 type methods
-    // -------------------------------------------------------------------------
-
-    @Override
-    public Row22<Long, String, String, String, String, String, String, String, String, String, String, String, String, String, Integer, String, Integer, String, String, Timestamp, Long, Long> fieldsRow() {
-        return (Row22) super.fieldsRow();
     }
 }

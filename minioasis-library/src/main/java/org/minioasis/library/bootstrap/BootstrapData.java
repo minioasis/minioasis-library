@@ -34,7 +34,6 @@ import org.minioasis.library.domain.Role;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.TelegramUser;
 import org.minioasis.library.domain.User;
-import org.minioasis.library.domain.Volume;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.repository.AccountRepository;
 import org.minioasis.library.repository.AttachmentRepository;
@@ -278,7 +277,6 @@ public class BootstrapData implements CommandLineRunner {
 //		i3.setPrice(new BigDecimal(12.50));
 //		i3.setShelfMark("530.78 HY1");
 //		i3.setSource("Karuna");
-//		i3.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 //		itemRepository.save(i3);	
 //
 //		Item i4 = new Item();
@@ -297,7 +295,6 @@ public class BootstrapData implements CommandLineRunner {
 //		i4.setPrice(new BigDecimal(12.50));
 //		i4.setShelfMark("530.78 HY2");
 //		i4.setSource("Karuna");
-//		i4.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 //		itemRepository.save(i4);
 //		
 //		Item i5 = new Item();
@@ -316,7 +313,6 @@ public class BootstrapData implements CommandLineRunner {
 //		i5.setPrice(new BigDecimal(12.50));
 //		i5.setShelfMark("530.78 HY3 ");
 //		i5.setSource("Karuna");
-//		i5.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 //		itemRepository.save(i5);
 //		
 //		Item i6 = new Item();
@@ -335,7 +331,6 @@ public class BootstrapData implements CommandLineRunner {
 //		i6.setPrice(new BigDecimal(12.50));
 //		i6.setShelfMark("230.38 HY1  ");
 //		i6.setSource("Karuna");
-//		i6.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 //		itemRepository.save(i6);
 //		
 //		Item i7 = new Item();
@@ -354,7 +349,6 @@ public class BootstrapData implements CommandLineRunner {
 //		i7.setPrice(new BigDecimal(12.50));
 //		i7.setShelfMark("130.78");
 //		i7.setSource("Karuna");
-//		i7.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 //		itemRepository.save(i7);
 //		
 //		Item i8 = new Item();
@@ -373,7 +367,6 @@ public class BootstrapData implements CommandLineRunner {
 //		i8.setPrice(new BigDecimal(12.50));
 //		i8.setShelfMark("570.99 HY3 c.1");
 //		i8.setSource("Karuna");
-//		i8.setVolume(new Volume(LocalDate.parse("2015-10-10"), "234"));
 //		itemRepository.save(i8);
 //		
 //		// attachments

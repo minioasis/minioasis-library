@@ -129,10 +129,6 @@ public class Item implements Serializable {
 	private Biblio biblio;
     
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-    @Valid
-	private Volume volume;
-    
-	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="item_status_id" , nullable = false , foreignKey = @ForeignKey(name = "fk_item_itemstatus"))
 	private ItemStatus itemStatus;
@@ -254,14 +250,6 @@ public class Item implements Serializable {
 
 	public void setBiblio(Biblio biblio) {
 		this.biblio = biblio;
-	}
-
-	public Volume getVolume() {
-		return this.volume;
-	}
-
-	public void setVolume(Volume volume) {
-		this.volume = volume;
 	}
 
 	public ItemStatus getItemStatus() {

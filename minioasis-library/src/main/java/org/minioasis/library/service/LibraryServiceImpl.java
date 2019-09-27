@@ -1168,18 +1168,6 @@ public class LibraryServiceImpl implements LibraryService {
 		return this.reservationRepository.findAvailableReservations();
 	}
 	
-	//Map findReservationsByCriteria(ReservationCmd command);
-	//Collection findPageReservationsByCriteria(ReservationCmd command);
-	//Long findTotalReservationsByCriteria(ReservationCmd command);
-	
-	//Map findAvailableBiblioReservationsByBarcode(KeywordCmd keywordCmd);
-	//Collection findPageAvailableBiblioReservationsByBarcode(KeywordCmd keywordCmd);
-	//Long findTotalAvailableBiblioReservationsByBarcode(KeywordCmd keywordCmd);
-	
-	//Map findAvailableVolumeReservationsByBarcode(KeywordCmd keywordCmd);
-	//Collection findPageAvailableVolumeReservationsByBarcode(KeywordCmd keywordCmd);
-	//Long findTotalAvailableVolumeReservationsByBarcode(KeywordCmd keywordCmd);
-	
 	public void refreshReservationStates(){
 		logger.info("*** REFRESHING RESERVATIONS' STATE *** : " + LocalDate.now());
 		this.reservationRepository.refreshReservationStates();

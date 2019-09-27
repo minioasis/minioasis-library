@@ -18,7 +18,6 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long>, Check
 	@Query("SELECT c FROM Checkout c"
 			+ " LEFT JOIN FETCH c.item i"
 			+ " LEFT JOIN FETCH i.biblio"
-			+ " LEFT JOIN FETCH i.volume"
 			+ " WHERE c.patron.cardKey = ?1 AND c.state in (?2)")
 	List<Checkout> findByCardKeyAndFilterByStates(String cardKey, List<CheckoutState> states);
 	
@@ -31,7 +30,6 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long>, Check
 	@Query("SELECT c FROM Checkout c"
 			+ " LEFT JOIN FETCH c.item i"
 			+ " LEFT JOIN FETCH i.biblio"
-			+ " LEFT JOIN FETCH i.volume"
 			+ " LEFT JOIN FETCH c.attachmentCheckouts ac"
 			+ " WHERE i.barcode = ?1 AND c.state in (?2) AND (ac.state is null OR ac.state in (?3))")
 	List<Checkout> findByBarcodeAndFilterByStates(String barcode, List<CheckoutState> cStates, List<AttachmentCheckoutState> acStates);
@@ -39,7 +37,6 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long>, Check
 	@Query("SELECT c FROM Checkout c"
 			+ " LEFT JOIN FETCH c.item i"
 			+ " LEFT JOIN FETCH i.biblio"
-			+ " LEFT JOIN FETCH i.volume"
 			+ " WHERE i.barcode = ?1 AND c.state in (?2)")
 	List<Checkout> findByBarcodeAndFilterByStates(String barcode, List<CheckoutState> cStates);
 	
@@ -47,7 +44,6 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long>, Check
 			+ " JOIN c.patron p"
 			+ " JOIN c.item i"
 			+ " JOIN i.biblio b"
-			+ " JOIN i.volume v"
 			+ " WHERE c.state in (?1) AND c.dueDate < ?2"
 			+ " ORDER BY c.dueDate asc, p.cardKey asc")
 	public Page<Checkout> findAllOverDueOrderByDueDateCardKey(List<CheckoutState> cStates, LocalDate given, Pageable pageable); 
@@ -56,7 +52,6 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long>, Check
 			+ " JOIN c.patron p"
 			+ " JOIN c.item i"
 			+ " JOIN i.biblio b"
-			+ " JOIN i.volume v"
 			+ " WHERE c.state in (?1) AND c.dueDate < ?2"
 			+ " ORDER BY p.group.id asc, p.patronType.code asc, c.dueDate asc, p.cardKey asc")
 	public Page<Checkout> findAllOverDueOrderByGroupPatronTypeDueDateCardKey(List<CheckoutState> cStates, LocalDate given, Pageable pageable);

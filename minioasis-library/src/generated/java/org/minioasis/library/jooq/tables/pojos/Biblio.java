@@ -5,6 +5,7 @@ package org.minioasis.library.jooq.tables.pojos;
 
 
 import java.io.Serializable;
+import java.sql.Date;
 import java.sql.Timestamp;
 
 import javax.annotation.Generated;
@@ -23,7 +24,7 @@ import javax.annotation.Generated;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Biblio implements Serializable {
 
-    private static final long serialVersionUID = 1734418138;
+    private static final long serialVersionUID = -1472963389;
 
     private final Long      id;
     private final String    active;
@@ -37,6 +38,8 @@ public class Biblio implements Serializable {
     private final String    isbn;
     private final String    coden;
     private final String    issn;
+    private final Date      publishingDate;
+    private final String    volumeNo;
     private final String    language;
     private final String    note;
     private final Integer   pages;
@@ -61,6 +64,8 @@ public class Biblio implements Serializable {
         this.isbn = value.isbn;
         this.coden = value.coden;
         this.issn = value.issn;
+        this.publishingDate = value.publishingDate;
+        this.volumeNo = value.volumeNo;
         this.language = value.language;
         this.note = value.note;
         this.pages = value.pages;
@@ -86,6 +91,8 @@ public class Biblio implements Serializable {
         String    isbn,
         String    coden,
         String    issn,
+        Date      publishingDate,
+        String    volumeNo,
         String    language,
         String    note,
         Integer   pages,
@@ -109,6 +116,8 @@ public class Biblio implements Serializable {
         this.isbn = isbn;
         this.coden = coden;
         this.issn = issn;
+        this.publishingDate = publishingDate;
+        this.volumeNo = volumeNo;
         this.language = language;
         this.note = note;
         this.pages = pages;
@@ -169,6 +178,14 @@ public class Biblio implements Serializable {
         return this.issn;
     }
 
+    public Date getPublishingDate() {
+        return this.publishingDate;
+    }
+
+    public String getVolumeNo() {
+        return this.volumeNo;
+    }
+
     public String getLanguage() {
         return this.language;
     }
@@ -225,6 +242,8 @@ public class Biblio implements Serializable {
         sb.append(", ").append(isbn);
         sb.append(", ").append(coden);
         sb.append(", ").append(issn);
+        sb.append(", ").append(publishingDate);
+        sb.append(", ").append(volumeNo);
         sb.append(", ").append(language);
         sb.append(", ").append(note);
         sb.append(", ").append(pages);
