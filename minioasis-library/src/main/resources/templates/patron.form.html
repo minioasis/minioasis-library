@@ -85,7 +85,7 @@
 					    <label class="col-sm-3 col-form-label"  th:text="#{card.key}">Card Key</label>
 					    <div class="col-sm-9">
 					      <input type="text" class="form-control" th:field="*{cardKey}"/>
-					      <span class="text-danger" th:if="${#fields.hasErrors('name')}" th:errors="*{name}"></span>
+					      <span class="text-danger" th:if="${#fields.hasErrors('cardKey')}" th:errors="*{cardKey}"></span>
 					    </div>
 					  </div>
 					  <div class="form-group row">
