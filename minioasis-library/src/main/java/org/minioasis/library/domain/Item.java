@@ -123,6 +123,7 @@ public class Item implements Serializable {
     @OneToMany(mappedBy="item")
 	private Set<Attachment> attachments = new HashSet<Attachment>(0);
     
+	@NotNull
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
     @ManyToOne(fetch = FetchType.EAGER)
     @JoinColumn(name="biblio_id" , foreignKey = @ForeignKey(name = "fk_item_biblio"))
