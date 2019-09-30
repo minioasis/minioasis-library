@@ -34,6 +34,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
+import org.minioasis.library.domain.Role;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.search.AccountCriteria;
 import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
@@ -65,6 +66,7 @@ import org.minioasis.library.repository.PatronTypeRepository;
 import org.minioasis.library.repository.LocationRepository;
 import org.minioasis.library.repository.PublisherRepository;
 import org.minioasis.library.repository.ReservationRepository;
+import org.minioasis.library.repository.RoleRepository;
 import org.minioasis.library.repository.SeriesRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
@@ -117,6 +119,8 @@ public class LibraryServiceImpl implements LibraryService {
 	private PublisherRepository publisherRepository;
 	@Autowired
 	private ReservationRepository reservationRepository;
+	@Autowired
+	private RoleRepository roleRepository;
 	@Autowired
 	private SeriesRepository seriesRepository;
 	@Autowired
@@ -1171,6 +1175,21 @@ public class LibraryServiceImpl implements LibraryService {
 	public void refreshReservationStates(){
 		logger.info("*** REFRESHING RESERVATIONS' STATE *** : " + LocalDate.now());
 		this.reservationRepository.refreshReservationStates();
+	}
+	
+	/****************************************  Role  **************************************/ 
+	
+	public void save(Role entity){
+		this.roleRepository.save(entity);
+	}
+	public void delete(Role entity){
+		this.roleRepository.delete(entity);
+	}
+	public void deleteRole(long id){
+		this.roleRepository.deleteById(id);
+	}
+	public Role findRoleByName(String name){
+		return this.roleRepository.findByName(name);
 	}
 	
 	/****************************************  Series  *******************************************/

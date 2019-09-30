@@ -29,6 +29,7 @@ import org.minioasis.library.domain.Publisher;
 import org.minioasis.library.domain.Reservation;
 import org.minioasis.library.domain.ReservationResult;
 import org.minioasis.library.domain.ReservationState;
+import org.minioasis.library.domain.Role;
 import org.minioasis.library.domain.Series;
 import org.minioasis.library.domain.search.AccountCriteria;
 import org.minioasis.library.domain.search.AttachmentCheckoutCriteria;
@@ -300,6 +301,12 @@ public interface LibraryService {
 	List<Reservation> findAvailableReservations();
 	
 	void refreshReservationStates();
+	
+	// Role
+	void save(Role entity);
+	void delete(Role entity);
+	void deleteRole(long id);
+	Role findRoleByName(String name);
 	
 	// Series
 	void save(Series entity);

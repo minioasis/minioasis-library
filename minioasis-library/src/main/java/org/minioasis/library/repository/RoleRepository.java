@@ -10,4 +10,6 @@ import org.springframework.stereotype.Repository;
 public interface RoleRepository extends JpaRepository<Role, Long> {
 
 	Page<Role> findByNameContainingIgnoreCase(String name , Pageable pageable);
+	
+	Role findByName(String name);
 }
