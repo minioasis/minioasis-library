@@ -29,10 +29,10 @@ public class ReservationTaskScheduler {
 	 * 
 	 */
 
-	@Scheduled(fixedRate = 5000)
-	public void reportCurrentTime() {
-		logger.info("Reservation Scheduler LOG : Testing : " + LocalDate.now());
-	}
+//	@Scheduled(fixedRate = 5000)
+//	public void reportCurrentTime() {
+//		logger.info("Reservation Scheduler LOG : Testing : " + LocalDate.now());
+//	}
 
 	@Scheduled(cron = "0 0 0 * * ?")
 	public void refreshReservationStatesMidnight() {
