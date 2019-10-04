@@ -2,6 +2,7 @@ package org.minioasis.library.audit.service;
 
 import java.util.Optional;
 
+import org.minioasis.library.audit.AuditRevisionEntity;
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Item;
@@ -42,6 +43,10 @@ public interface AuditService {
 	Optional<Revision<Integer, Patron>> findPatronRevisions(Long id, Integer revisionNumber);
 	Optional<Revision<Integer, Patron>> findPatronLastChangeRevision(Long id);
 	Page<Object[]> listDeletedPatronsIn(String title, int days, Pageable pageable);
+	
+	// RevisionEntity
+	
+	AuditRevisionEntity getRevisionEntity(Integer rev);
 	
 	// Reservation
 	Revisions<Integer, Reservation> findReservationRevisions(Long id);

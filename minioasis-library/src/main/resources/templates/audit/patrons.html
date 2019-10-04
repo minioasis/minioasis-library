@@ -53,7 +53,10 @@
 							<span th:text="${iterator.index + 1} + ${page.number * page.size}"></span>
 						</td>
 						<td>
-							<span th:text="${e.revisionNumber.orElse(-1)}"></span><br>
+							<a href="#" th:href="@{/admin/audit/revision/{rev}(rev=${e.revisionNumber.orElse(-1)})}">
+								<span th:text="${e.revisionNumber.orElse(-1)}"></span>
+							</a>
+							<br>
 							<span th:text="${#temporals.format(e.revisionInstant.orElse(0),'yyyy-MM-dd')}"></span><br>
 							<span th:text="${#temporals.format(e.revisionInstant.orElse(0),'<HH:mm:ss>')}"></span>
 						</td>

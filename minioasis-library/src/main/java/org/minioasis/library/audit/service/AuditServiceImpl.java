@@ -2,11 +2,13 @@ package org.minioasis.library.audit.service;
 
 import java.util.Optional;
 
+import org.minioasis.library.audit.AuditRevisionEntity;
 import org.minioasis.library.audit.repository.AttachmentRevisionRepository;
 import org.minioasis.library.audit.repository.BiblioRevisionRepository;
 import org.minioasis.library.audit.repository.ItemRevisionRepository;
 import org.minioasis.library.audit.repository.PatronRevisionRepository;
 import org.minioasis.library.audit.repository.ReservationRevisionRepository;
+import org.minioasis.library.audit.repository.RevisionEntityRepository;
 import org.minioasis.library.audit.repository.TelegramUserRevisionRepository;
 import org.minioasis.library.domain.Attachment;
 import org.minioasis.library.domain.Biblio;
@@ -38,22 +40,25 @@ public class AuditServiceImpl implements AuditService {
 	@Autowired
 	private BiblioRepository biblioRepository;
 	@Autowired
-	BiblioRevisionRepository biblioRevisionRepository;
+	private BiblioRevisionRepository biblioRevisionRepository;
 	
 	@Autowired
 	private ItemRepository itemRepository;
 	@Autowired
-	ItemRevisionRepository itemRevisionRepository;
+	private ItemRevisionRepository itemRevisionRepository;
 	
 	@Autowired
 	private PatronRepository patronRepository;
 	@Autowired
-	PatronRevisionRepository patronRevisionRepository;
+	private PatronRevisionRepository patronRevisionRepository;
+	
+	@Autowired
+	private RevisionEntityRepository revisionEntityRepository;
 	
 	@Autowired
 	private ReservationRepository reservationRepository;
 	@Autowired
-	ReservationRevisionRepository reservationRevisionRepository;
+	private ReservationRevisionRepository reservationRevisionRepository;
 	
 	@Autowired
 	private TelegramUserRepository telegramUserRepository;
@@ -126,6 +131,11 @@ public class AuditServiceImpl implements AuditService {
 	}
 	public Page<Object[]> listDeletedPatronsIn(String title, int days, Pageable pageable) {
 		return this.patronRevisionRepository.listDeletedPatronsIn(title, days, pageable);
+	}
+	
+	// RevisionEntity
+	public AuditRevisionEntity getRevisionEntity(Integer rev) {
+		return this.revisionEntityRepository.getRevisionEntity(rev);
 	}
 	
 	// Reservation
