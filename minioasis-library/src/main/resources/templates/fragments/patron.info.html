@@ -12,7 +12,7 @@
 				<div class="row">
 					<div class="col-md-2">
 						<!-- th:src="@{/patron/photo/{id}(id=${dto.patron.id})}" -->
-						<img src="/images/bookworm.png"
+						<img th:if="${dto.patron.ic != null}" src="/images/bookworm.png"
 							th:src="@{/admin/thumbnail.photo/patron/{id}(id=${dto.patron.ic})}"
 							class="rounded-circle"
 							style="min-height: 150px; height: 185px; width: 150px;" />

@@ -9,7 +9,9 @@ import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.LinkedHashSet;
 import java.util.List;
+import java.util.Set;
 
 import org.apache.commons.lang3.StringUtils;
 import org.minioasis.library.domain.Biblio;
@@ -607,8 +609,16 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	}
 	
 	// [/reservation] **********************************************************************
+
+	/*
+	 * @Scheduled(cron = "[Seconds] [Minutes] [Hours] [Day of month] [Month] [Day of week] [Year]")
+	 * 
+	 * Fires at 12 PM every day : 						@Scheduled(cron = "0 0 12 * * ?") 
+	 * Fires at 10:15AM every day in the year 2005 : 	@Scheduled(cron = "0 15 10 * * ? 2005") 
+	 * Fires every 20 seconds : 						@Scheduled(cron = "0/20 * * * * ?") 
+	 */
 	
-	@Scheduled(cron = "0 15 8 * * ?")
+	@Scheduled(cron = "0 15 9 * * ?")
 	public void notification() {
 		
 		List<Reservation> reservations = libraryService.findAvailableReservations();
@@ -694,7 +704,6 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 			LocalDate end = r1.getPatron().getEndDate();
 			
-			s.append("-------------------------------------------------------------\n");
 			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
 			s.append("-------------------------------------------------------------\n");
 			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
@@ -1063,11 +1072,17 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				}
 				
 			}else {
+				
 				String cardKey = telegramUser.getCardKey();
 				final LocalDate now = LocalDate.now();
 				
 				Patron patron = this.libraryService.preparingPatronForCirculation(cardKey, now);
-				libraryService.renewAll(patron, now);
+				
+				try {		
+					libraryService.renewAll(patron, now);				
+				}catch(LibraryException ex) {
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ex + " ] ");
+				}	
 				
 				List<Checkout> checkouts = patron.getCheckouts();
 				
@@ -1127,6 +1142,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	// [/due] checkout view
 	private static String checkoutsView(String cardKey, List<Checkout> checkouts) {
 		
+		final LocalDate now = LocalDate.now();
+		
 		Integer total = checkouts.size();
 		
 		StringBuffer s = new StringBuffer();
@@ -1139,10 +1156,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 			LocalDate end = c1.getPatron().getEndDate();
 			
-			s.append("-------------------------------------------------------------\n");
 			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
 			s.append("-------------------------------------------------------------\n");
-			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
+			s.append("_Total : " + total + "                 Date : " + now + "_\n");
 			s.append("\n");
 			
 			int i = 1;
@@ -1152,8 +1168,15 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				String title = c.getItem().getBiblio().getTitle();
 				LocalDate dueDate = c.getDueDate();
 				
-				s.append(i + ". _" + title + "_\n");
-				s.append("    _Due: " + dueDate + "_\n");
+				if(dueDate.isBefore(now)) {
+					s.append(i + ". _" + title + "_\n");
+					s.append("    *Due: " + dueDate + " (o)*\n");
+					
+				}else {
+					s.append(i + ". _" + title + "_\n");
+					s.append("    _Due: " + dueDate + "_\n");
+				}
+				
 				i++;
 			}
 		}
@@ -1162,12 +1185,23 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	}
 	
 	// [reminder] ********************************************************************************
-	@Scheduled(cron = "0 0 8 * * ?")
+	
+	/*
+	 * @Scheduled(cron = "[Seconds] [Minutes] [Hours] [Day of month] [Month] [Day of week] [Year]")
+	 * 
+	 * Fires at 12 PM every day : 						@Scheduled(cron = "0 0 12 * * ?") 
+	 * Fires at 10:15AM every day in the year 2005 : 	@Scheduled(cron = "0 15 10 * * ? 2005") 
+	 * Fires every 20 seconds : 						@Scheduled(cron = "0/20 * * * * ?") 
+	 */
+	
+	@Scheduled(cron = "0 0 9 * * ?")
 	public void reminder() {
 		
 		final LocalDate now = LocalDate.now();
 		
-		List<String> cardKeys = libraryService.allOverDuePatrons(now.plusDays(reminderDays));
+		List<String> list = libraryService.allOverDuePatrons(now.plusDays(reminderDays));
+		
+		Set<String> cardKeys = new LinkedHashSet<String>(list); 
 		
 		for(String cardKey : cardKeys) {
 			
@@ -1175,13 +1209,13 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 			if(telegramUser != null && telegramUser.getPreference().getReminder().equals(YesNo.Y)) {
 				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now.plusDays(reminderDays));
-				sendMessage(telegramUser.getChatId(), cardKey, checkouts);
+				sendMessage(telegramUser.getChatId(), cardKey, now, checkouts);
 			}		
 		}	
 	}
 	
 	// [reminder - send msg]
-	private void sendMessage(Long chat_id, String cardKey, List<Checkout> checkouts) {
+	private void sendMessage(Long chat_id, String cardKey, LocalDate given, List<Checkout> checkouts) {
 
 		SendMessage message = new SendMessage().setChatId(chat_id);
 		
@@ -1199,6 +1233,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	// [reminder - overdue view]
 	private static String overdueView(String cardKey, List<Checkout> checkouts) {
 		
+		final LocalDate now = LocalDate.now();
+		
 		Integer total = checkouts.size();
 		
 		StringBuffer s = new StringBuffer();	
@@ -1211,11 +1247,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 			LocalDate end = c1.getPatron().getEndDate();
 			
-			s.append("Reminder : /renew or overdue.\n");
+			s.append("Reminder : please /renew to prevent overdue.\n");
 			s.append("-------------------------------------------------------------\n");
 			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
 			s.append("-------------------------------------------------------------\n");
-			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
+			s.append("_Total : " + total + "                 Date : " + now + "_\n");
 			s.append("\n");
 			
 			int i = 1;
@@ -1225,8 +1261,15 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				String title = c.getItem().getBiblio().getTitle();
 				LocalDate dueDate = c.getDueDate();
 				
-				s.append(i + ". _" + title + "_\n");
-				s.append("    _Due: " + dueDate + "_\n");
+				if(dueDate.isBefore(now)) {
+					s.append(i + ". _" + title + "_\n");
+					s.append("    *Due: " + dueDate + " (o)*\n");
+					
+				}else {
+					s.append(i + ". _" + title + "_\n");
+					s.append("    _Due: " + dueDate + "_\n");
+				}
+				
 				i++;
 			}
 		}

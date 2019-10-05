@@ -20,13 +20,11 @@ public class ReservationTaskScheduler {
 	private LibraryService service;
 
 	/*
-	 * @Scheduled(cron =
-	 * "[Seconds] [Minutes] [Hours] [Day of month] [Month] [Day of week] [Year]")
+	 * @Scheduled(cron = "[Seconds] [Minutes] [Hours] [Day of month] [Month] [Day of week] [Year]")
 	 * 
-	 * Fires at 12 PM every day : @Scheduled(cron = "0 0 12 * * ?") Fires at 10:15
-	 * AM every day in the year 2005 : @Scheduled(cron = "0 15 10 * * ? 2005") Fires
-	 * every 20 seconds : @Scheduled(cron = "0/20 * * * * ?")
-	 * 
+	 * Fires at 12 PM every day : 						@Scheduled(cron = "0 0 12 * * ?") 
+	 * Fires at 10:15AM every day in the year 2005 : 	@Scheduled(cron = "0 15 10 * * ? 2005") 
+	 * Fires every 20 seconds : 						@Scheduled(cron = "0/20 * * * * ?") 
 	 */
 
 //	@Scheduled(fixedRate = 5000)

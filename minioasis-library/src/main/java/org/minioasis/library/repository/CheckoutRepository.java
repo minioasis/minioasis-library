@@ -18,7 +18,7 @@ public interface CheckoutRepository extends JpaRepository<Checkout, Long>, Check
 	@Query("SELECT c FROM Checkout c"
 			+ " LEFT JOIN FETCH c.item i"
 			+ " LEFT JOIN FETCH i.biblio"
-			+ " WHERE c.patron.cardKey = ?1 AND c.state in (?2)")
+			+ " WHERE c.patron.cardKey = ?1 AND c.state in (?2) order by c.dueDate asc")
 	List<Checkout> findByCardKeyAndFilterByStates(String cardKey, List<CheckoutState> states);
 	
 	@Query("SELECT c FROM Checkout c"
