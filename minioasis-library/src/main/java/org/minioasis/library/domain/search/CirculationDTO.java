@@ -6,6 +6,7 @@ import java.time.LocalDate;
 
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Reservation;
+import org.springframework.format.annotation.DateTimeFormat;
 
 public class CirculationDTO implements Serializable {
 
@@ -14,6 +15,8 @@ public class CirculationDTO implements Serializable {
 	private Patron patron;
 	private String cardKey;
 	private String barcode;
+	
+	@DateTimeFormat(pattern = "yyyy-MM-dd")
 	private LocalDate given;
 	private boolean damage = false;
 	private String msg = null;

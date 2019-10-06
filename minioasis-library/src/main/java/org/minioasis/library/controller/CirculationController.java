@@ -28,6 +28,8 @@ import org.springframework.web.bind.annotation.RequestParam;
 @RequestMapping("/admin/circ")
 public class CirculationController {
 
+	//private static final Log logger = LogFactory.getLog(CirculationController.class);
+	
 	@Autowired
 	private LibraryService service;
 
@@ -106,11 +108,17 @@ public class CirculationController {
 
 	// Checkout
 	@RequestMapping(value = { "/checkout" }, method = RequestMethod.POST)
-	public String checkout(@ModelAttribute("dto") CirculationDTO dto, BindingResult result, Model model) {
-
-		if (result.hasErrors())
+	public String checkout(@Valid @ModelAttribute("dto") CirculationDTO dto, BindingResult result, Model model) {
+		
+		if (result.hasErrors()) {
+			
+			String cardKey = dto.getCardKey();
+			Patron patron = this.service.preparingPatronForCirculation(cardKey, LocalDate.now());
+			preparingCirculation(patron, dto, cardKey);
+			
 			return "circ.checkout.form";
-
+		}
+			
 		// given Date
 		LocalDate given = dto.getGiven();
 		if (given == null)
@@ -173,8 +181,14 @@ public class CirculationController {
 	@RequestMapping(value = { "/checkin" }, method = RequestMethod.POST)
 	public String checkin(@ModelAttribute("dto") CirculationDTO dto, BindingResult result, Model model) {
 
-		if (result.hasErrors())
+		if (result.hasErrors()) {
+			
+			String cardKey = dto.getCardKey();
+			Patron patron = this.service.preparingPatronForCirculation(cardKey, LocalDate.now());
+			preparingCirculation(patron, dto, cardKey);
+			
 			return "circ.checkin.form";
+		}			
 
 		// given Date
 		boolean damage = dto.isDamage();
@@ -253,8 +267,14 @@ public class CirculationController {
 	@RequestMapping(value = { "/renew" }, method = RequestMethod.POST)
 	public String renew(@ModelAttribute("dto") CirculationDTO dto, BindingResult result, Model model) {
 
-		if (result.hasErrors())
+		if (result.hasErrors()) {
+			
+			String cardKey = dto.getCardKey();
+			Patron patron = this.service.preparingPatronForCirculation(cardKey, LocalDate.now());
+			preparingCirculation(patron, dto, cardKey);
+			
 			return "circ.renew.form";
+		}	
 
 		// given Date
 		LocalDate given = dto.getGiven();
@@ -295,8 +315,14 @@ public class CirculationController {
 	@RequestMapping(value = { "/reportlost" }, method = RequestMethod.POST)
 	public String reportLost(@ModelAttribute("dto") CirculationDTO dto, BindingResult result, Model model) {
 
-		if (result.hasErrors())
+		if (result.hasErrors()) {
+			
+			String cardKey = dto.getCardKey();
+			Patron patron = this.service.preparingPatronForCirculation(cardKey, LocalDate.now());
+			preparingCirculation(patron, dto, cardKey);
+			
 			return "circ.reportlost.form";
+		}			
 
 		// given Date
 		LocalDate given = dto.getGiven();
@@ -358,8 +384,11 @@ public class CirculationController {
 	public String payFine(@Valid @ModelAttribute("dto") CirculationDTO dto,  BindingResult result, Model model) {
 
 		if (result.hasErrors()) {
-			Patron patron = this.service.preparingPatronForCirculation(dto.getCardKey(), LocalDate.now());
-			preparingCirculation(patron, dto, dto.getCardKey());
+			
+			String cardKey = dto.getCardKey();
+			Patron patron = this.service.preparingPatronForCirculation(cardKey, LocalDate.now());
+			preparingCirculation(patron, dto, cardKey);
+			
 			return "circ.payfine.form";
 		}
 
