@@ -38,8 +38,7 @@
 				<thead>
 					<tr>
 						<th>#</th>
-						<th>Rev</th>
-						<th>Time</th>
+						<th>Rev/Time</th>
 						<th>Active/Barcode/Shelfmark</th>
 						<th>Last Full Renew Person</th>
 						<th>Created/First Checkin/Last Checkin</th>
@@ -51,9 +50,12 @@
 				<tbody>
 					<tr th:each="e,iterator : ${page.content}">
 						<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
-						<td th:text="${e.revisionNumber.orElse(-1)}">Revision #</td>
 						<td>
-							<span th:text="${#temporals.format(e.revisionInstant.orElse(0),'yyyy-MM-dd')}"></span>
+							<a href="#" th:href="@{/admin/audit/revision/{rev}(rev=${e.revisionNumber.orElse(-1)})}">
+								<span th:text="${e.revisionNumber.orElse(-1)}"></span>
+							</a>
+							<br>
+							<span th:text="${#temporals.format(e.revisionInstant.orElse(0),'yyyy-MM-dd')}"></span><br>
 							<span th:text="${#temporals.format(e.revisionInstant.orElse(0),'<HH:mm:ss>')}"></span>
 						</td>
 						<td>
@@ -89,7 +91,6 @@
 						<td>5</td>
 						<td>6</td>
 						<td>7</td>
-						<td>8</td>
 					</tr>
 				</tbody>
 			</table>
