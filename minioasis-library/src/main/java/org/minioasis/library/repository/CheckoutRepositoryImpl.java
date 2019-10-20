@@ -108,7 +108,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	    Condition condition = DSL.trueCondition();
 	    condition = condition.and(p.CARD_KEY.eq(cardKey))
 	    						.and(c.STATE.in(CheckoutState.getActives()))
-	    						.and(c.DUE_DATE.ge(java.sql.Date.valueOf(given)));
+	    						.and(c.DUE_DATE.le(java.sql.Date.valueOf(given)));
 		
 	    return condition;
 	}
@@ -130,7 +130,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		
 	    Condition condition = DSL.trueCondition();
 	    condition = condition.and(c.STATE.in(CheckoutState.getActives()))
-	    						.and(c.DUE_DATE.ge(java.sql.Date.valueOf(given)));
+	    						.and(c.DUE_DATE.le(java.sql.Date.valueOf(given)));
 		
 	    return condition;
 	}
