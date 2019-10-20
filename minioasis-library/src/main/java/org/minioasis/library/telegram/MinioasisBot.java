@@ -1199,7 +1199,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		
 		final LocalDate now = LocalDate.now();
 		
-		List<String> list = libraryService.allOverDuePatrons(now.plusDays(reminderDays));
+		List<String> list = libraryService.allOverDuePatrons(now.minusDays(reminderDays));
 		
 		Set<String> cardKeys = new LinkedHashSet<String>(list); 
 		
@@ -1208,7 +1208,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			TelegramUser telegramUser = telegramService.findTelegramUserByCardKey(cardKey);
 
 			if(telegramUser != null && telegramUser.getPreference().getReminder().equals(YesNo.Y)) {
-				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now.plusDays(reminderDays));
+				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now.minusDays(reminderDays));
 				sendMessage(telegramUser.getChatId(), cardKey, now, checkouts);
 			}		
 		}	
