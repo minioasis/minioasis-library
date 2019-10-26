@@ -66,7 +66,7 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		final Set<Long> groups = criteria.getGroups();		
 	    
 	    if (cardkey != null) {
-	    	condition = condition.and(p.CARD_KEY.eq(cardkey));
+	    	condition = condition.and(p.CARD_KEY.likeIgnoreCase("%" + cardkey + "%"));
 	    }
 	        
 	    if (keyword != null) {

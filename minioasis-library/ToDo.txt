@@ -1,27 +1,25 @@
 TODO list
 ----------------------------------
-Java Model Status [Cannot nest 'xxx' inside 'src/main/java'. To enable the nesting exclude 'com/' from 'src/main/java']
-=======================================================
-Project Properties --> Java Build Path --> Uncheck "Allow Output folder for Source Folder"
 
+* implement reminder for membership renewal
+* biblios.html title/volume no.
+* add title/volume no. to telegram
+* lost item found after complete transaction
+* implementation of new book recommendation
+* write unit testing code
+* Handle DataIntergrityException !
 
 Road Map
 ===========
-new website for library
-implementation of new book recommandation 
-embedded telegram 
+
 
 Upgrade 
 ===========
-Upgrade all to Spring 5.1 , Java 11
 Docs using asciidocs
-integrate telegram into the system
 
 Feature
 ===========
 Monitoring with Metrics 
-i18n international
-Audit Log (Hibernate Envers)
 
 Installation
 ===========
@@ -40,10 +38,6 @@ Performance
 ===========
 cache
 
-GUI
-===========
-bootstrap --> bulma
-
 Security
 ============
 keycloak security
@@ -53,7 +47,6 @@ various ROLES implementation
 JPA
 ========
 JPA performance tuning
-Jooq
 
 Search
 ========
@@ -61,14 +54,11 @@ Elasticsearch support
 
 Reports
 ========
-print shelfmarks
 reports
 
 Testing
 ==============
 write TEST code
-
-
 
 
 Monitoring with Metrics and the ELK Stack
@@ -78,53 +68,19 @@ Log management with Logback, configurable at runtime
 Connection pooling with HikariCP for optimum performance
 Builds a standard WAR file or an executable JAR file
 Full Docker and Docker Compose support
-Support for all major cloud providers: AWS, Cloud Foundry, Heroku, Kubernetes, OpenShift, Azure, Docker…
+Support for all major cloud providers: AWS, Cloud Foundry, Heroku, Kubernetes, OpenShift, Azure, Dockerâ€¦
 
 Spring Boot for easy application configuration
 Maven or Gradle configuration for building, testing and running the application
-“development” and “production” profiles (both for Maven and Gradle)
+â€œdevelopmentâ€� and â€œproductionâ€� profiles (both for Maven and Gradle)
 Spring Security
 Spring MVC REST + Jackson
 Optional WebSocket support with Spring Websocket
 Spring Data JPA + Bean Validation
 Database updates with Liquibase
 Elasticsearch support if you want to have search capabilities on top of your database
-MongoDB and Couchbase support if you’d rather use a document-oriented NoSQL database instead of JPA
-Cassandra support if you’d rather use a column-oriented NoSQL database instead of JPA
+MongoDB and Couchbase support if youâ€™d rather use a document-oriented NoSQL database instead of JPA
+Cassandra support if youâ€™d rather use a column-oriented NoSQL database instead of JPA
 Kafka support if you want to use a publish-subscribe messaging system
 Technology stack for microservices
-
-
-2. Hobby
-10. image META data
-15. write unit testing code
-16. do reporting
-17. lost item found after complete transaction
-18. Othertitle
-19. Handle DataIntergrityException !
-20. publicationType
-
-21. Patron : 
-	patron's expiryDate & patron's type expiryDate
-	logic checking of them to be considered again !
-
-****************************************************
-
-1. database migration
-2. biblio	- author
-			- Subject
-			- publisher
-			- Series
-	Modify Search
-3. Delete Permission !
-4. Photo & Image - file system
-5. introduce books for the library
-6. transaction
-
-******************************************************
-publisher,series table 'name' make change to 128 
-
-Project Properties --> Java Build Path --> Uncheck "Allow Output folder for Source Folder"
-=======================================================
-	
 	
