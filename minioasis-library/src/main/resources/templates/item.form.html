@@ -34,7 +34,7 @@
 						<label class="col-sm-3 col-form-label" th:text="#{title}">Title</label>
 						<div class="col-sm-9">
 							<input type="text" class="form-control" th:field="*{biblio.title}" disabled="disabled"/>
-							<span class="text-danger" th:if="${#fields.hasErrors('biblio.id')}" th:errors="*{biblio.id}"></span>		        
+							<span class="text-danger" th:if="${#fields.hasErrors('biblio.title')}" th:errors="*{biblio.title}"></span>		        
 						</div>
 					</div>
 					<div class="form-group row">

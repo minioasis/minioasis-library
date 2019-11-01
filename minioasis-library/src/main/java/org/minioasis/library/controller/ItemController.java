@@ -78,11 +78,15 @@ public class ItemController {
 	}
 	
 	@RequestMapping(value = { "/save" }, method = RequestMethod.POST)
-	public String itemAdd(@ModelAttribute("item") @Valid Item item, BindingResult result) {
-
+	public String itemAdd(@ModelAttribute("item") @Valid Item item, BindingResult result, Model model) {
+		
 		String barcode = item.getBarcode();
 		
 		if (result.hasErrors()) {
+			
+			Biblio biblio = this.service.getBiblio(item.getBiblio().getId());
+			item.setBiblio(biblio);
+			model.addAttribute("item", item);
 			
 			return "item.form";
 			
@@ -136,11 +140,16 @@ public class ItemController {
 	}
 
 	@RequestMapping(value = { "/edit" }, method = RequestMethod.POST)
-	public String itemEdit(@ModelAttribute("item") @Valid Item item , BindingResult result) {
+	public String itemEdit(@ModelAttribute("item") @Valid Item item , BindingResult result, Model model) {
 
 		String barcode = item.getBarcode();
 		
 		if(result.hasErrors()){
+
+			Biblio biblio = this.service.getBiblio(item.getBiblio().getId());
+			item.setBiblio(biblio);
+			model.addAttribute("item", item);
+			
 			return "item.form";
 		} else {
 
