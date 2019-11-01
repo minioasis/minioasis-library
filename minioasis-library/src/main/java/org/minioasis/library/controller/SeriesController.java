@@ -14,6 +14,9 @@ import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -151,15 +154,17 @@ public class SeriesController {
 
 	}
 	
-	@RequestMapping(value = "/phase", method = RequestMethod.GET)
-	public @ResponseBody List<Series> findSeries(@RequestParam("phase") String phase) {
+	@RequestMapping(value = "/phase/{name}", method = RequestMethod.GET)
+	public @ResponseBody ResponseEntity<List<String>> findSeries(@PathVariable("name") String name) {
 		
-		if(phase != null && !phase.isEmpty()) {
-			List<Series> seriez = service.findSeriesByNameContaining(phase);
-			return seriez;
+		List<Series> seriez = service.findFirst10SeriesByNameContaining(name, Sort.by("name"));
+		
+		List<String> seriesNames = new ArrayList<String>();
+		for(Series s : seriez) {
+			seriesNames.add(s.getName());
 		}
 		
-		return null;
+		return new ResponseEntity<List<String>>(seriesNames, HttpStatus.OK);
 	}
 	
 	private String buildUri(HttpServletRequest request, int page){

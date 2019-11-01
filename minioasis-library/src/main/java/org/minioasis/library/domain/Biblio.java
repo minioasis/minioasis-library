@@ -111,12 +111,12 @@ public class Biblio implements Serializable {
     
 	// You should never cascade from a child entity to a parent
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	@ManyToOne(optional = true)
     @JoinColumn(name="publisher_id", foreignKey = @ForeignKey(name = "fk_biblio_publisher"))
 	private Publisher publisher;
 
 	@Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
-	@ManyToOne(optional = true, fetch = FetchType.EAGER)
+	@ManyToOne(optional = true)
     @JoinColumn(name="series_id", foreignKey = @ForeignKey(name = "fk_biblio_series"))
 	private Series series;
  

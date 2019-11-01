@@ -1,6 +1,7 @@
 TODO list
 ----------------------------------
 
+* implement sort for barcode, classmark 
 * implement reminder for membership renewal
 * biblios.html title/volume no.
 * add title/volume no. to telegram
@@ -8,6 +9,7 @@ TODO list
 * implementation of new book recommendation
 * write unit testing code
 * Handle DataIntergrityException !
+
 
 Road Map
 ===========

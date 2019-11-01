@@ -13,9 +13,10 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.data.domain.Sort;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -25,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
@@ -154,15 +154,18 @@ public class PublisherController {
 
 	}
 	
-	@RequestMapping(value = "/phase", method = RequestMethod.GET)
-	public @ResponseBody List<Publisher> findPublishers(@RequestParam("phase") String phase) {
+	@RequestMapping(value = "/phase/{name}", method = RequestMethod.GET)
+	public ResponseEntity<List<String>> findPublishers(@PathVariable("name") String name) {
 
-		if(phase != null && !phase.isEmpty()) {
-			List<Publisher> publishers = service.findPublishersByNameContaining(phase, PageRequest.of(0, 10, Sort.by("name"))).getContent();
-			return publishers;
+		List<Publisher> publishers = service.findFirst10PublisherByNameContaining(name, Sort.by("name"));
+		
+		List<String> publisherNames = new ArrayList<String>();
+		for(Publisher p : publishers) {
+			publisherNames.add(p.getName());
 		}
-	
-		return null;
+		
+		return new ResponseEntity<List<String>>(publisherNames, HttpStatus.OK);
+
 	}
 	
 	private String buildUri(HttpServletRequest request, int page){

@@ -11,13 +11,14 @@
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 			integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 			crossorigin="anonymous">
+  		<link rel="stylesheet" type="text/css" href="/css/autocomplete.css" th:href="@{/css/autocomplete.css}">
 		<link rel="stylesheet" type="text/css" href="/css/minioasis.css" th:href="@{/css/minioasis.css}"/>
-		<link rel="stylesheet" type="text/css" href="/css/easy-autocomplete.min.css" th:href="@{/css/easy-autocomplete.min.css}">
-		<script src="//code.jquery.com/jquery-1.11.2.min.js"></script>
+		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
+		<script type="text/javascript" th:src="@{/js/autocomplete.js}"></script>
+		<script src="https://kraaden.github.io/autocomplete/autocomplete.js"></script>
 		<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
-		<script src="/js/jquery.easy-autocomplete.min.js" th:src="@{/js/jquery.easy-autocomplete.min.js}"></script>
 			
-		<title th:text="${title}">Page Title</title>
+		<title th:text="${title}">Biblio Form</title>
 	</head>
 <body>
 
@@ -95,26 +96,60 @@
 				      		<label th:text="#{publisher}">Publisher</label>
 				      		<input type="text" id="autopublisher" class="form-control" th:field="*{publisher.name}" placeholder="Publisher" />
 							<span class="text-danger" th:if="${#fields.hasErrors('publisher.name')}" th:errors="*{publisher.name}"></span>
-							<script>
+							<script type="text/javascript">
+								var publishers = [];
+								var url = '';
 								
-								var options = {
+								var publisherInputElement = document.getElementById('autopublisher');
+								
+								publisherInputElement.addEventListener('input', function(){
+									url = '/admin/publisher/phase/' + this.value;
+									axios.get(url).then(response => {
 
-									url : function(phrase) {
-										return "/publisher/phase?phase=" + phrase;
-									},
+										publishers = response.data;
 
-									getValue : "name",
+										var items = publishers.map(function (n) { return { label: n }});
+										var allowedChars = new RegExp(/^[a-zA-Z\s]+$/);
 
-									list : {
-										maxNumberOfElements: 10,
-										match : {
-											enabled : true
+										function charsAllowed(value) {
+											return allowedChars.test(value);
 										}
-									}
-								};
 
-								$('#autopublisher').easyAutocomplete(options);
-								
+										autocomplete({
+											input: document.getElementById('autopublisher'),
+											minLength: 1,
+											onSelect: function (item, inputfield) {
+												inputfield.value = item.label
+											},
+											fetch: function (text, callback) {
+												var match = text.toLowerCase();
+												callback(items.filter(function(n) { return n.label.toLowerCase().indexOf(match) !== -1; }));
+											},
+											render: function(item, value) {
+												var itemElement = document.createElement("div");
+												if (charsAllowed(value)) {
+													var regex = new RegExp(value, 'gi');
+													var inner = item.label.replace(regex, function(match) { return "<strong>" + match + "</strong>" });
+													itemElement.innerHTML = inner;
+												} else {
+													itemElement.textContent = item.label;
+												}
+												return itemElement;
+											},
+											emptyMsg: "No publisher found",
+											customize: function(input, inputRect, container, maxHeight) {
+												if (maxHeight < 100) {
+													container.style.top = "";
+													container.style.bottom = (window.innerHeight - inputRect.bottom + input.offsetHeight) + "px";
+													container.style.maxHeight = "140px";
+												}
+											}
+										})
+									 }, error => {
+									    console.log(error);
+									 });
+							     });
+						
 							</script>
 						</div>					
 					</div>
@@ -129,28 +164,64 @@
 				      		<label th:text="#{series}">Series</label>
 				      		<input type="text" id="autoseries" class="form-control" th:field="*{series.name}" placeholder="Series" />
 							<span class="text-danger" th:if="${#fields.hasErrors('series.name')}" th:errors="*{series.name}"></span>
+							
+							<script type="text/javascript">
+								var seriez = [];
+								var url = '';
+								
+								var seriesInputElement = document.getElementById('autoseries');
+								
+								seriesInputElement.addEventListener('input', function(){
+									url = '/admin/series/phase/' + this.value;
+									axios.get(url).then(response => {
+
+										seriez = response.data;
+
+										var items = seriez.map(function (n) { return { label: n }});
+										var allowedChars = new RegExp(/^[a-zA-Z\s]+$/);
+
+										function charsAllowed(value) {
+											return allowedChars.test(value);
+										}
+
+										autocomplete({
+											input: document.getElementById('autoseries'),
+											minLength: 1,
+											onSelect: function (item, inputfield) {
+												inputfield.value = item.label
+											},
+											fetch: function (text, callback) {
+												var match = text.toLowerCase();
+												callback(items.filter(function(n) { return n.label.toLowerCase().indexOf(match) !== -1; }));
+											},
+											render: function(item, value) {
+												var itemElement = document.createElement("div");
+												if (charsAllowed(value)) {
+													var regex = new RegExp(value, 'gi');
+													var inner = item.label.replace(regex, function(match) { return "<strong>" + match + "</strong>" });
+													itemElement.innerHTML = inner;
+												} else {
+													itemElement.textContent = item.label;
+												}
+												return itemElement;
+											},
+											emptyMsg: "No series found",
+											customize: function(input, inputRect, container, maxHeight) {
+												if (maxHeight < 100) {
+													container.style.top = "";
+													container.style.bottom = (window.innerHeight - inputRect.bottom + input.offsetHeight) + "px";
+													container.style.maxHeight = "140px";
+												}
+											}
+										})
+									 }, error => {
+									    console.log(error);
+									 });
+							     });
+						
+							</script>
 						</div>
-						<script>
-							
-							var options = {
-
-								url : function(phrase) {
-									return "/series/phase?phase=" + phrase;
-								},
-
-								getValue : "name",
-
-								list : {
-									maxNumberOfElements: 10,
-									match : {
-										enabled : true
-									}
-								}
-							};
-
-							$('#autoseries').easyAutocomplete(options);
-							
-						</script>					
+				
 					</div>
 					<div class="form-row">
 				      	<div class="form-group col-sm-3">
@@ -245,10 +316,6 @@
  
  		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>
-		<!-- to prevent 2 version of jquery conflict -->
-		<script>
-		   var $y = jQuery.noConflict();
-		</script>
 		
 	</div>
 

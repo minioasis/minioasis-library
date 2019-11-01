@@ -1115,11 +1115,14 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<Publisher> findAllPublishers(Sort sort){
 		return this.publisherRepository.findAll(sort);
 	}
+	public List<Publisher> findFirst10PublisherByNameContaining(String name, Sort sort){
+		return this.publisherRepository.findFirst10PublisherByNameContainingIgnoreCase(name, sort);
+	}
 	public Page<Publisher> findAllPublishers(Pageable pageable){
 		return this.publisherRepository.findAll(pageable);
 	}
 	public Page<Publisher> findPublishersByNameContaining(String name, Pageable pageable){
-		return this.publisherRepository.findByNameContainingIgnoreCase(name, pageable);
+		return this.publisherRepository.findPublishersByNameContaining(name, pageable);
 	}
 
 	/****************************************  Reservation  **************************************/ 
@@ -1212,8 +1215,8 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<Series> findAllSeries(Sort sort){
 		return this.seriesRepository.findAll(sort);
 	}
-	public List<Series> findSeriesByNameContaining(String name){
-		return this.seriesRepository.findByNameContainingIgnoreCase(name);
+	public List<Series> findFirst10SeriesByNameContaining(String name, Sort sort){
+		return this.seriesRepository.findFirst10ByNameContainingIgnoreCase(name,sort);
 	}
 	public Page<Series> findAllSeries(Pageable pageable){
 		return this.seriesRepository.findAll(pageable);

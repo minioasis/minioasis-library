@@ -280,6 +280,7 @@ public interface LibraryService {
 	Publisher getPublisher(long id);
 	Publisher findPublisherByName(String name);
 	List<Publisher> findAllPublishers(Sort sort);
+	List<Publisher> findFirst10PublisherByNameContaining(String name, Sort sort);
 	Page<Publisher> findAllPublishers(Pageable pageable);
 	Page<Publisher> findPublishersByNameContaining(String name, Pageable pageable);
 
@@ -315,7 +316,7 @@ public interface LibraryService {
 	Series getSeries(long id);
 	Series findSeriesByName(String name);
 	List<Series> findAllSeries(Sort sort);
-	List<Series> findSeriesByNameContaining(String name);
+	List<Series> findFirst10SeriesByNameContaining(String name, Sort sort);
 	Page<Series> findAllSeries(Pageable pageable);
 	Page<Series> findSeriesByNameContaining(String name, Pageable pageable);
 	
