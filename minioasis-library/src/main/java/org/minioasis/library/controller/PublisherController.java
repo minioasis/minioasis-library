@@ -154,8 +154,8 @@ public class PublisherController {
 
 	}
 	
-	@RequestMapping(value = "/phase/{name}", method = RequestMethod.GET)
-	public ResponseEntity<List<String>> findPublishers(@PathVariable("name") String name) {
+	@RequestMapping(value = "/phase", method = RequestMethod.GET)
+	public ResponseEntity<List<String>> findPublishers(@RequestParam("query") String name) {
 
 		List<Publisher> publishers = service.findFirst10PublisherByNameContaining(name, Sort.by("name"));
 		

@@ -11,10 +11,13 @@
 			href="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/css/bootstrap.min.css"
 			integrity="sha384-GJzZqFGwb1QTTN6wy59ffF1BuGJpLSa9DkKMp0DgiMDm4iYMj70gZWKYbI706tWS"
 			crossorigin="anonymous">
-  		<link rel="stylesheet" type="text/css" href="/css/autocomplete.css" th:href="@{/css/autocomplete.css}">
 		<link rel="stylesheet" type="text/css" href="/css/minioasis.css" th:href="@{/css/minioasis.css}"/>
+		
+	    <script src="https://code.jquery.com/jquery-3.3.1.min.js" integrity="sha256-FgpCb/KJQlLNfOu91ta32o/NMZxltwRo8QtmkMRdAu8=" crossorigin="anonymous"></script>
+	    <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.6/umd/popper.min.js" integrity="sha384-wHAiFfRlMFy6i5SRaxvfOCifBUQy1xHdJ/yoi7FRNXMRBu5WHdZYu1hA6ZOblgut" crossorigin="anonymous"></script>
+		<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.2.1/js/bootstrap.min.js" integrity="sha384-B0UglyR+jN6CkvvICOB2joaf5I4l3gm9GU6Hc1og6Ls7i6U/mkkaduKaBhlAXv9k" crossorigin="anonymous"></script>
 		<script src="https://unpkg.com/axios/dist/axios.min.js"></script>
-		<script type="text/javascript" th:src="@{/js/autocomplete.js}"></script>
+		<script th:src="@{/js/bootstrap3-typeahead.min.js}"></script>
 		<script defer src="https://use.fontawesome.com/releases/v5.6.3/js/all.js"></script>
 			
 		<title th:text="${title}">Biblio Form</title>
@@ -93,62 +96,49 @@
 						
 				      	<div class="form-group col-sm-6">
 				      		<label th:text="#{publisher}">Publisher</label>
-				      		<input type="text" id="autopublisher" class="form-control" th:field="*{publisher.name}" placeholder="Publisher" />
+				      		<input type="text" id="autopublisher" class="form-control" data-provide="typeahead" autocomplete="off" th:field="*{publisher.name}" placeholder="Publisher" />
 							<span class="text-danger" th:if="${#fields.hasErrors('publisher.name')}" th:errors="*{publisher.name}"></span>
 							<script type="text/javascript">
-								var publishers = [];
-								var url = '';
+							
+								$("#autopublisher").typeahead({ 
 								
-								var publisherInputElement = document.getElementById('autopublisher');
+									 source:  function (query, process) {
+										      	return $.get('/admin/publisher/phase', { query: query}, function (data) {
+											        	return process(data);
+											    });
+											  },
+	
+									  // how many items to show
+									  items: 10,
+	
+									  // default template
+									  menu: '<ul class="typeahead dropdown-menu" role="listbox"></ul>',
+									  item: '<li><a class="dropdown-item" href="#" role="option"></a></li>',
+									  headerHtml: '<li class="dropdown-header"></li>',
+									  headerDivider: '<li class="divider" role="separator"></li>',
+									  itemContentSelector:'a',
+	
+									  // min length to trigger the suggestion list
+									  minLength: 1,
+	
+									  // number of pixels the scrollable parent container scrolled down
+									  scrollHeight: 0,
+	
+									  // auto selects the first item
+									  autoSelect: true,
+	
+									  // callbacks
+									  afterSelect: $.noop,
+									  afterEmptySelect: $.noop,
+	
+									  // adds an item to the end of the list
+									  addItem: false,
+	
+									  // delay between lookups
+									  delay: 0,
+								  
+								});
 								
-								publisherInputElement.addEventListener('input', function(){
-									url = '/admin/publisher/phase/' + this.value;
-									axios.get(url).then(response => {
-
-										publishers = response.data;
-
-										var items = publishers.map(function (n) { return { label: n }});
-										var allowedChars = new RegExp(/^[a-zA-Z\s]+$/);
-
-										function charsAllowed(value) {
-											return allowedChars.test(value);
-										}
-
-										autocomplete({
-											input: document.getElementById('autopublisher'),
-											minLength: 1,
-											onSelect: function (item, inputfield) {
-												inputfield.value = item.label
-											},
-											fetch: function (text, callback) {
-												var match = text.toLowerCase();
-												callback(items.filter(function(n) { return n.label.toLowerCase().indexOf(match) !== -1; }));
-											},
-											render: function(item, value) {
-												var itemElement = document.createElement("div");
-												if (charsAllowed(value)) {
-													var regex = new RegExp(value, 'gi');
-													var inner = item.label.replace(regex, function(match) { return "<strong>" + match + "</strong>" });
-													itemElement.innerHTML = inner;
-												} else {
-													itemElement.textContent = item.label;
-												}
-												return itemElement;
-											},
-											emptyMsg: "No publisher found",
-											customize: function(input, inputRect, container, maxHeight) {
-												if (maxHeight < 100) {
-													container.style.top = "";
-													container.style.bottom = (window.innerHeight - inputRect.bottom + input.offsetHeight) + "px";
-													container.style.maxHeight = "140px";
-												}
-											}
-										})
-									 }, error => {
-									    console.log(error);
-									 });
-							     });
-						
 							</script>
 						</div>					
 					</div>
@@ -165,59 +155,46 @@
 							<span class="text-danger" th:if="${#fields.hasErrors('series.name')}" th:errors="*{series.name}"></span>
 							
 							<script type="text/javascript">
-								var seriez = [];
-								var url = '';
+							
+								$("#autoseries").typeahead({ 
 								
-								var seriesInputElement = document.getElementById('autoseries');
+									 source:  function (query, process) {
+										      	return $.get('/admin/series/phase', { query: query}, function (data) {
+											        	return process(data);
+											    });
+											  },
+	
+									  // how many items to show
+									  items: 10,
+	
+									  // default template
+									  menu: '<ul class="typeahead dropdown-menu" role="listbox"></ul>',
+									  item: '<li><a class="dropdown-item" href="#" role="option"></a></li>',
+									  headerHtml: '<li class="dropdown-header"></li>',
+									  headerDivider: '<li class="divider" role="separator"></li>',
+									  itemContentSelector:'a',
+	
+									  // min length to trigger the suggestion list
+									  minLength: 1,
+	
+									  // number of pixels the scrollable parent container scrolled down
+									  scrollHeight: 0,
+	
+									  // auto selects the first item
+									  autoSelect: true,
+	
+									  // callbacks
+									  afterSelect: $.noop,
+									  afterEmptySelect: $.noop,
+	
+									  // adds an item to the end of the list
+									  addItem: false,
+	
+									  // delay between lookups
+									  delay: 0,
+								  
+								});
 								
-								seriesInputElement.addEventListener('input', function(){
-									url = '/admin/series/phase/' + this.value;
-									axios.get(url).then(response => {
-
-										seriez = response.data;
-
-										var items = seriez.map(function (n) { return { label: n }});
-										var allowedChars = new RegExp(/^[a-zA-Z\s]+$/);
-
-										function charsAllowed(value) {
-											return allowedChars.test(value);
-										}
-
-										autocomplete({
-											input: document.getElementById('autoseries'),
-											minLength: 1,
-											onSelect: function (item, inputfield) {
-												inputfield.value = item.label
-											},
-											fetch: function (text, callback) {
-												var match = text.toLowerCase();
-												callback(items.filter(function(n) { return n.label.toLowerCase().indexOf(match) !== -1; }));
-											},
-											render: function(item, value) {
-												var itemElement = document.createElement("div");
-												if (charsAllowed(value)) {
-													var regex = new RegExp(value, 'gi');
-													var inner = item.label.replace(regex, function(match) { return "<strong>" + match + "</strong>" });
-													itemElement.innerHTML = inner;
-												} else {
-													itemElement.textContent = item.label;
-												}
-												return itemElement;
-											},
-											emptyMsg: "No series found",
-											customize: function(input, inputRect, container, maxHeight) {
-												if (maxHeight < 100) {
-													container.style.top = "";
-													container.style.bottom = (window.innerHeight - inputRect.bottom + input.offsetHeight) + "px";
-													container.style.maxHeight = "140px";
-												}
-											}
-										})
-									 }, error => {
-									    console.log(error);
-									 });
-							     });
-						
 							</script>
 						</div>
 				
@@ -313,7 +290,6 @@
 			</div>
 		</div>
  
- 		<div th:replace="fragments/script :: script"></div>
 		<div th:replace="fragments/footer :: footer"></div>
 		
 	</div>

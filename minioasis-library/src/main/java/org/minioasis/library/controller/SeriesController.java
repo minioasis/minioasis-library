@@ -26,7 +26,6 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
 import org.springframework.web.util.UriComponents;
 
@@ -154,8 +153,8 @@ public class SeriesController {
 
 	}
 	
-	@RequestMapping(value = "/phase/{name}", method = RequestMethod.GET)
-	public @ResponseBody ResponseEntity<List<String>> findSeries(@PathVariable("name") String name) {
+	@RequestMapping(value = "/phase", method = RequestMethod.GET)
+	public ResponseEntity<List<String>> findSeries(@RequestParam("query") String name) {
 		
 		List<Series> seriez = service.findFirst10SeriesByNameContaining(name, Sort.by("name"));
 		
