@@ -1,0 +1,8 @@
+report for each months checkout
+-------------------------------------
+
+select p.CARD_KEY, name2, p.name, b.title, c.checkout_date, c.done, c.STATE,from checkout c 
+inner join patron p on c.patron_id = p.id 
+inner join item i on c.ITEM_ID = i.id
+inner join biblio b on i.BIBLIO_ID = b.id
+where '2019-10-01' <= c.checkout_date and c.checkout_date <= '2019-10-31' ORDER BY p.CARD_KEY asc
