@@ -618,7 +618,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	 * Fires every 20 seconds : 						@Scheduled(cron = "0/20 * * * * ?") 
 	 */
 	
-	@Scheduled(cron = "0 15 9 * * ?")
+	@Scheduled(cron = "0 15 12 * * ?")
 	public void notification() {
 		
 		List<Reservation> reservations = libraryService.findAvailableReservations();
@@ -1194,7 +1194,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	 * Fires every 20 seconds : 						@Scheduled(cron = "0/20 * * * * ?") 
 	 */
 	
-	@Scheduled(cron = "0 0 9 * * ?")
+	@Scheduled(cron = "0 0 12 * * ?")
 	public void reminder() {
 		
 		final LocalDate now = LocalDate.now();
