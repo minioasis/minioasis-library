@@ -296,7 +296,6 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
         						dsl.select(c.ID)
         						.from(table)
         						.where(condition(criteria))
-        						.orderBy(c.DONE.desc())
         );
 
         return total;
