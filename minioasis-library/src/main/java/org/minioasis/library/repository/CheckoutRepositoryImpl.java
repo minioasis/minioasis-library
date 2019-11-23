@@ -61,7 +61,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		org.jooq.Query jooqQuery = dsl.select()
 									.from(table)
 									.where(activeStatesCondition(cardKey))
-									.orderBy(c.DUE_DATE.asc());
+									.orderBy(c.DUE_DATE.desc());
 		
 		Query q = em.createNativeQuery(jooqQuery.getSQL(), Checkout.class);
 		setBindParameterValues(q, jooqQuery);
