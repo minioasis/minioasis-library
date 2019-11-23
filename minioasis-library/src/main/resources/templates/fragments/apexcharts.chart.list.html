@@ -13,18 +13,23 @@
 		
 	    <script th:inline="javascript">
 	    
-		    var options[[${index}]] = {
+		    var options = {
 		    		
 		            chart: {
 		                height: 400,
 		                type: 'bar',
 		                stacked: true,
+		                toolbar: {
+		                    show: true
+		                },
+		                zoom: {
+		                    enabled: true
+		                }
 		            },
 		            plotOptions: {
 		                bar: {
 		                    horizontal: false,
-		                },
-		                
+		                },      
 		            },
 		            stroke: {
 		                width: 1,
@@ -32,7 +37,7 @@
 		            },
 		            series: /*[[${series}]]*/ [],
 		            title: {
-		                text: [[${title}]]
+		                text: /*[[${title}]]*/[]
 		            },
 		            xaxis: {
 		                categories: ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'],
@@ -47,31 +52,34 @@
 		            yaxis: {
 		                title: {
 		                    text: 'Number of Patrons'
-		                },
-		                
+		                }      
 		            },
 		            tooltip: {
 		                y: {
 		                    formatter: function(val) {
-		                    return val
-		                }
+		                    	return val
+		                	}
 		                }
 		            },
 		            fill: {
-		                opacity: 1
-		                
+		                opacity: 1		                
 		            },
 		            
 		            legend: {
+		            	show: true,
 		                position: 'top',
 		                horizontalAlign: 'right',
-		                offsetX: 0
+		                offsetX: 0,
+		                labels: {
+		                    colors: undefined,
+		                    useSeriesColors: true
+		                },
 		            }
 		        };
 	
 		       var chart[[${index}]] = new ApexCharts(
 		            document.querySelector("#chart[[${index}]]"),
-		            options[[${index}]]
+		            options
 		        );
 		        
 		        chart[[${index}]].render();
