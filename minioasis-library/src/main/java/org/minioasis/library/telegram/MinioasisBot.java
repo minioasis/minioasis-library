@@ -210,7 +210,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			registerMessage("/register", update, REGISTER);
 
-			if(incoming.startsWith("reg#")) {
+			if(incoming.startsWith("reg#") || incoming.startsWith("Reg#")) {
 				registrationVerification(update);
 			}
 			
@@ -1341,7 +1341,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		String[] words = msg.split("#");
 
 		// registration
-		if (words.length == 3 && msg.startsWith("reg#")) {
+		if (words.length == 3 && (msg.startsWith("reg#") || msg.startsWith("Reg#"))) {
 
 			SendMessage message = new SendMessage().setChatId(chat_id);
 			
