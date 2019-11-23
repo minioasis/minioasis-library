@@ -7,6 +7,7 @@ import static org.minioasis.library.jooq.tables.Item.ITEM;
 import static org.minioasis.library.jooq.tables.Patron.PATRON;
 import static org.minioasis.library.jooq.tables.PatronType.PATRON_TYPE;
 
+import java.lang.reflect.Field;
 import java.sql.Date;
 import java.time.LocalDate;
 import java.util.ArrayList;
@@ -21,7 +22,6 @@ import javax.persistence.Query;
 
 import org.jooq.Condition;
 import org.jooq.DSLContext;
-import org.jooq.Field;
 import org.jooq.Record7;
 import org.jooq.Record9;
 import org.jooq.SortField;
@@ -403,8 +403,8 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	    return condition;
 	}
 	
-	@SuppressWarnings("unused")
 	private Collection<SortField<?>> getSortFields(Sort sortSpecification) {
+
         LOGGER.debug("Getting sort fields from sort specification: {}", sortSpecification);
         Collection<SortField<?>> querySortFields = new ArrayList<>();
 
@@ -419,6 +419,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
             Sort.Order specifiedField = specifiedFields.next();
 
             String sortFieldName = specifiedField.getProperty();
+
             Sort.Direction sortDirection = specifiedField.getDirection();
             LOGGER.debug("Getting sort field with name: {} and direction: {}", sortFieldName, sortDirection);
 
@@ -433,8 +434,9 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
     private TableField<?, ?> getTableField(String sortFieldName) {
         TableField<?, ?> sortField = null;
         try {
-            java.lang.reflect.Field tableField = CHECKOUT.getClass().getField(sortFieldName);
-            sortField = (TableField<?, ?>) tableField.get(CHECKOUT);
+
+            Field tableField = c.getClass().getField(sortFieldName.toUpperCase());
+            sortField = (TableField<?, ?>) tableField.get(c);
         } catch (NoSuchFieldException | IllegalAccessException ex) {
             String errorMessage = String.format("Could not find table field: {}", sortFieldName);
             throw new InvalidDataAccessApiUsageException(errorMessage, ex);
