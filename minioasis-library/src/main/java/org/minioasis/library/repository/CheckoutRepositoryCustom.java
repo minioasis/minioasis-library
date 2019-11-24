@@ -24,8 +24,8 @@ public interface CheckoutRepositoryCustom {
 	
 	String topListPatronsForCheckouts_JSON();
 	
-	List<String> allOverDuePatrons(LocalDate given);
+	List<String> allOverDuePatrons(LocalDate given, int reminderDays);
 	
-	List<Checkout> patronOverDues(String cardKey, LocalDate given);
+	List<Checkout> patronOverDues(String cardKey, LocalDate given, int reminderDays);
 
 }

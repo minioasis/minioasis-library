@@ -94,7 +94,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	
 	// ************************************************************************
 	
-	public List<Checkout> patronOverDues(String cardKey, LocalDate given){
+	public List<Checkout> patronOverDues(String cardKey, LocalDate given, int reminderDays){
 		
 		Table<?> table = c;
 		table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID))
@@ -103,7 +103,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		
 		org.jooq.Query jooqQuery = dsl.select()
 				.from(table)
-				.where(patronOvedueCondition(cardKey,given))
+				.where(patronOvedueCondition(cardKey, given, reminderDays))
 				.orderBy(c.DUE_DATE.asc());
 		
 		Query q = em.createNativeQuery(jooqQuery.getSQL(), Checkout.class);
@@ -115,35 +115,34 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		
 	}
 
-	private Condition patronOvedueCondition(String cardKey, LocalDate given) {
+	private Condition patronOvedueCondition(String cardKey, LocalDate given, int reminderDays) {
 		
 	    Condition condition = DSL.trueCondition();
 	    condition = condition.and(p.CARD_KEY.eq(cardKey))
 	    						.and(c.STATE.in(CheckoutState.getActives()))
-	    						.and(c.DUE_DATE.le(java.sql.Date.valueOf(given)));
+	    						.and(c.DUE_DATE.minus(reminderDays).le(java.sql.Date.valueOf(given)));
 		
 	    return condition;
 	}
 	
 	// ************************************************************************
-	public List<String> allOverDuePatrons(LocalDate given){
+	public List<String> allOverDuePatrons(LocalDate given, int reminderDays){
 		
 		Table<?> table = c;
 		table = table.innerJoin(p).on(c.PATRON_ID.eq(p.ID));
 
 		List<String> result = dsl.select().from(table)
-											.where(ovedueCondition(given))
+											.where(ovedueCondition(given, reminderDays))
 											.fetch(p.CARD_KEY, String.class);
 		
 		return result;
 	}
 	
-	private Condition ovedueCondition(LocalDate given) {
+	private Condition ovedueCondition(LocalDate given, int reminderDays) {
 		
 	    Condition condition = DSL.trueCondition();
 	    condition = condition.and(c.STATE.in(CheckoutState.getActives()))
-	    						.and(c.DUE_DATE.le(java.sql.Date.valueOf(given)));
-		
+	    						.and(c.DUE_DATE.minus(reminderDays).le(java.sql.Date.valueOf(given)));
 	    return condition;
 	}
 

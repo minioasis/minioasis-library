@@ -614,12 +614,12 @@ public class LibraryServiceImpl implements LibraryService {
 		return checkoutsPage;
 	}
 	
-	public List<String> allOverDuePatrons(LocalDate given){
-		return this.checkoutRepository.allOverDuePatrons(given);
+	public List<String> allOverDuePatrons(LocalDate given, int reminderDays){
+		return this.checkoutRepository.allOverDuePatrons(given, reminderDays);
 	}
 	
-	public List<Checkout> patronOverDues(String cardKey, LocalDate given){
-		return this.checkoutRepository.patronOverDues(cardKey, given);
+	public List<Checkout> patronOverDues(String cardKey, LocalDate given, int reminderDays){
+		return this.checkoutRepository.patronOverDues(cardKey, given, reminderDays);
 	}
 
 	/************************************  FormData  *************************************/

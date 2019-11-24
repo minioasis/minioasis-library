@@ -18,7 +18,6 @@ import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemState;
-import org.minioasis.library.domain.ItemStatus;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.Photo;
 import org.minioasis.library.domain.Preference;
@@ -52,7 +51,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-//@Component
+@Component
 public class MinioasisBot extends TelegramLongPollingBot {
 
 	private static final Logger logger = LoggerFactory.getLogger(MinioasisBot.class);
@@ -64,7 +63,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private String username;
 	
 	@Value("${reminder.days}")
-	private long reminderDays;
+	private int reminderDays;
 
 	@Value("${message.command}")
 	private String messageCommand;
@@ -1194,12 +1193,12 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	 * Fires every 20 seconds : 						@Scheduled(cron = "0/20 * * * * ?") 
 	 */
 	
-	@Scheduled(cron = "0 0 12 * * ?")
+	@Scheduled(cron = "0 35 14 * * ?")
 	public void reminder() {
 		
 		final LocalDate now = LocalDate.now();
 		
-		List<String> list = libraryService.allOverDuePatrons(now.minusDays(reminderDays));
+		List<String> list = libraryService.allOverDuePatrons(now, reminderDays);
 		
 		Set<String> cardKeys = new LinkedHashSet<String>(list); 
 		
@@ -1208,7 +1207,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			TelegramUser telegramUser = telegramService.findTelegramUserByCardKey(cardKey);
 
 			if(telegramUser != null && telegramUser.getPreference().getReminder().equals(YesNo.Y)) {
-				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now.minusDays(reminderDays));
+				List<Checkout> checkouts = libraryService.patronOverDues(cardKey, now, reminderDays);
 				sendMessage(telegramUser.getChatId(), cardKey, now, checkouts);
 			}		
 		}	
