@@ -156,6 +156,7 @@ public class BiblioScraper {
 			
 			// isbn
 			biblio.setIsbn(_isbn);
+			biblio.setImageId(_isbn);
 			
 			// subjects
 			Element subject = doc.getElementById("subject-terms");
@@ -285,6 +286,7 @@ public class BiblioScraper {
         
         // isbn
         biblio.setIsbn(_isbn);
+        biblio.setImageId(_isbn);
         
         // language
         String language = volumeInfo.has("language") ? volumeInfo.get("language").asText() : null;
