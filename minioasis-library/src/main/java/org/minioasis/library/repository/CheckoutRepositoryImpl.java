@@ -286,7 +286,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		org.jooq.Query jooqQuery = dsl.select()
 									.from(table)
 									.where(condition(criteria))
-									 .orderBy(getSortFields(pageable.getSort()))
+									.orderBy(getSortFields(pageable.getSort()))
 									.limit(pageable.getPageSize())
 									.offset((int)pageable.getOffset());
 		

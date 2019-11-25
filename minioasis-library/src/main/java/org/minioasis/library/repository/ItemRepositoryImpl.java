@@ -1,7 +1,11 @@
 package org.minioasis.library.repository;
 
+import java.lang.reflect.Field;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
+import java.util.Collection;
+import java.util.Iterator;
 import java.util.List;
 import java.util.Set;
 
@@ -13,16 +17,22 @@ import org.hibernate.ScrollableResults;
 import org.hibernate.Session;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
+import org.jooq.SortField;
 import org.jooq.Table;
+import org.jooq.TableField;
 import org.jooq.impl.DSL;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.ItemCriteria;
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.dao.InvalidDataAccessApiUsageException;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageImpl;
 import org.springframework.data.domain.Pageable;
+import org.springframework.data.domain.Sort;
 
 import static org.minioasis.library.jooq.tables.Biblio.BIBLIO;
 import static org.minioasis.library.jooq.tables.Item.ITEM;
@@ -32,6 +42,8 @@ import static org.minioasis.library.jooq.tables.Item.ITEM;
 // by default, the name should be ItemRepositoryImpl instead of ItemRepositoryCustomImpl
 public class ItemRepositoryImpl implements ItemRepositoryCustom {
 
+	private static final Logger LOGGER = LoggerFactory.getLogger(ItemRepositoryImpl.class);
+	
 	@PersistenceContext
 	private EntityManager em;
 
@@ -48,6 +60,7 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 		org.jooq.Query jooqQuery = dsl.select()
 									.from(table)
 									.where(condition(criteria))
+									.orderBy(getSortFields(pageable.getSort()))
 									.limit(pageable.getPageSize())
 									.offset((int)pageable.getOffset());
 		
@@ -259,5 +272,56 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 		return biblios;
 		
 	}
+	
+	private Collection<SortField<?>> getSortFields(Sort sortSpecification) {
+
+        LOGGER.debug("Getting sort fields from sort specification: {}", sortSpecification);
+        Collection<SortField<?>> querySortFields = new ArrayList<>();
+
+        if (sortSpecification == null) {
+            LOGGER.debug("No sort specification found. Returning empty collection -> no sorting is done.");
+            return querySortFields;
+        }
+
+        Iterator<Sort.Order> specifiedFields = sortSpecification.iterator();
+
+        while (specifiedFields.hasNext()) {
+            Sort.Order specifiedField = specifiedFields.next();
+
+            String sortFieldName = specifiedField.getProperty();
+
+            Sort.Direction sortDirection = specifiedField.getDirection();
+            LOGGER.debug("Getting sort field with name: {} and direction: {}", sortFieldName, sortDirection);
+
+            TableField<?, ?> tableField = getTableField(sortFieldName);
+            SortField<?> querySortField = convertTableFieldToSortField(tableField, sortDirection);
+            querySortFields.add(querySortField);
+        }
+
+        return querySortFields;
+    }
+
+    private TableField<?, ?> getTableField(String sortFieldName) {
+        TableField<?, ?> sortField = null;
+        try {
+
+            Field tableField = i.getClass().getField(sortFieldName.toUpperCase());
+            sortField = (TableField<?, ?>) tableField.get(i);
+        } catch (NoSuchFieldException | IllegalAccessException ex) {
+            String errorMessage = String.format("Could not find table field: {}", sortFieldName);
+            throw new InvalidDataAccessApiUsageException(errorMessage, ex);
+        }
+
+        return sortField;
+    }
+
+    private SortField<?> convertTableFieldToSortField(TableField<?, ?> tableField, Sort.Direction sortDirection) {
+        if (sortDirection == Sort.Direction.ASC) {
+            return tableField.asc();
+        }
+        else {
+            return tableField.desc();
+        }
+    }
 
 }
