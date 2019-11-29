@@ -220,9 +220,10 @@
 							<th>#</th>
 							<th><span th:text="#{all}"></span> | <input type="checkbox" id="checkall" /></th>
 							<th th:text="#{group}">Group</th>
-							<th th:text="#{entangled}">Entangled</th>
-							<th th:text="#{card.key}">Card Key</th>
 							<th th:text="#{name}">Name</th>
+							<th th:text="#{ic}">IC</th>
+							<th th:text="#{entangled}">Entangled</th>
+							<th th:text="#{card.key}">Card Key</th>	
 							<th th:text="#{active}">Active</th>
 							<th th:text="#{updated}">Updated</th>
 							<th th:text="#{start.date}">Start Date</th>
@@ -235,9 +236,13 @@
 							<td th:text="${iterator.index + 1} + ${page.number * page.size}">1</td>
 							<td><input type="checkbox" th:field="*{ids}" th:value="${e.id}"/></td>					
 							<td th:text="${e.group.code}">4S1S</td>
+							<td>
+								<span>[[${e.name}]]</span><br>
+								<span>[[${e.name2}]]</span>
+							</td>
+							<td th:text="${e.ic}">1616516</td>
 							<td th:text="${e.entangled}">2132131</td>
 							<td th:text="${e.cardKey}">Card Key</td>
-							<td th:text="${e.name}">Moan Wai Meng</td>
 							<td th:text="${e.active}">ACTIVE</td>
 							<td th:text="${e.updated != null ? #temporals.format(e.updated,'yyyy-MM-dd') : ''}">2015-08-31</td>
 							<td th:text="${#temporals.format(e.startDate,'yyyy-MM-dd')}">2015-08-31</td>
@@ -247,6 +252,7 @@
 							<td>2</td>
 							<td><input type="checkbox" name="ids" value="1"/></td>
 							<td>4S1S</td>
+							<td>2131321</td>
 							<td>2131321</td>
 							<td>2131321</td>
 							<td>Moon</td>

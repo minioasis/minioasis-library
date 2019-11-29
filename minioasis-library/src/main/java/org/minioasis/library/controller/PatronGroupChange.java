@@ -50,7 +50,7 @@ public class PatronGroupChange {
 	
 	@ModelAttribute("gps")
 	public List<Group> populateGroups() {
-		return this.service.findAllGroups();	
+		return this.service.findAllGroups(Sort.by("code").ascending());	
 	}
 	
 	@ModelAttribute("pts")
