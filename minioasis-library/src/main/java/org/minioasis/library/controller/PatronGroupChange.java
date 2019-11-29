@@ -107,14 +107,12 @@ public class PatronGroupChange {
 
 		LocalDateTime updated = LocalDateTime.parse(time);
 		
-		Date nearestSecond = DateUtils.round(updated, Calendar.SECOND);
-		
 		if(group != null){
 			
 			List<Patron> patrons = this.service.findByGroupAndUpdatedOrderByUpdatedDesc(group,updated);
 
 			model.addAttribute("patrons", patrons);
-			model.addAttribute("updated", nearestSecond);
+			model.addAttribute("updated", updated);
 			
 		}
 		
