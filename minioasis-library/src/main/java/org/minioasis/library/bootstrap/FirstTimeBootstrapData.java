@@ -105,7 +105,7 @@ public class FirstTimeBootstrapData implements CommandLineRunner {
 		String encodedPassword = passwordEncoder.encode("admin");
 
 		User admin = new User();
-		admin.setUsername("moon");
+		admin.setUsername("admin");
 		admin.setPassword(encodedPassword);
 		admin.setEnabled(true);
 		userRepository.save(admin);

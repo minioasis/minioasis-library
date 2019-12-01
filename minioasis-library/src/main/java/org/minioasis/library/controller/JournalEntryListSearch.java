@@ -1,7 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.JournalEntry;
@@ -26,7 +24,7 @@ public class JournalEntryListSearch {
 	private LibraryService service;
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") JournalEntryCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") JournalEntryCriteria criteria, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 
 		Page<JournalEntry> page = this.service.findByCriteria(criteria, pageable);
@@ -37,20 +35,23 @@ public class JournalEntryListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "journalentries";
 
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String journalEntries(Model model, Pageable pageable) {
+	public String journalEntries(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<JournalEntry> page = this.service.findAllJournalEntries(pageable);		
 		
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
+		
 		model.addAttribute("page", page);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("criteria", new JournalEntryCriteria());
-		model.addAttribute("pagingType", "list");
 		
 		return "journalentries";
 		

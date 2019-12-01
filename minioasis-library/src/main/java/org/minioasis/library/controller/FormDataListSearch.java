@@ -1,7 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.DataType;
@@ -33,7 +31,7 @@ public class FormDataListSearch {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") FormDataCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") FormDataCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {
 
 		final String data = criteria.getData();
@@ -46,21 +44,24 @@ public class FormDataListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "formdatas";
 
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String biblios(Model model, Pageable pageable) {
+	public String biblios(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<FormData> page = this.service.findAllFormDatas(pageable);
 		
-		model.addAttribute("page", page);
-		model.addAttribute("criteria", new FormDataCriteria());
-		model.addAttribute("pagingType", "list");
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
+		model.addAttribute("page", page);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
+		model.addAttribute("criteria", new FormDataCriteria());
+	
 		return "formdatas";
 		
 	}

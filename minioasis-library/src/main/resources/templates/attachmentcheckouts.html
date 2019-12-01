@@ -115,23 +115,12 @@
 		<hr/>
 
 		<div class="float-right">
-			<div th:if="${pagingType eq 'list'}">
-				<a th:if="${page.hasPrevious()}" th:href="@{/admin/attachment.checkout/list(page=${page.number - 1},size=${page.size},sort='checkoutDate,desc')}">
-					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
-				</a>
-				<a th:if="${page.hasNext()}" th:href="@{/admin/attachment.checkout/list(page=${page.number + 1},size=${page.size},sort='checkoutDate,desc')}">
-					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
-				</a>	
-			</div>
-					
-			<div th:if="${pagingType eq 'search'}">
-				<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
-					<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
-				</a>
-				<a th:if="${page.hasNext()}" th:href="${next}" id="next">
-					<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
-				</a>	
-			</div>		
+			<a th:if="${page.hasPrevious()}" th:href="${previous}" id="previous">
+				<button type="button" class="btn btn-outline-info rounded-pill">Previous</button>
+			</a>
+			<a th:if="${page.hasNext()}" th:href="${next}" id="next">
+				<button type="button" class="btn btn-outline-info rounded-pill">Next</button>
+			</a>	
 		</div>
 		
 		Total : <span th:text="${page.totalElements}">105</span>

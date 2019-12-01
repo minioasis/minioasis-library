@@ -3,7 +3,6 @@ package org.minioasis.library.controller;
 import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -205,8 +204,8 @@ public class HolidayController {
 	}
 
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") HolidayCriteria criteria, HttpServletRequest request,
-			Map<String, String> params, Model model, Pageable pageable) {
+	public String search(@ModelAttribute("criteria") HolidayCriteria criteria, HttpServletRequest request, 
+			Model model, Pageable pageable) {
 
 		Page<Holiday> page = this.service.findByCriteria(criteria, pageable);
 
@@ -216,20 +215,23 @@ public class HolidayController {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 
 		return "holidays";
 
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String holidays(Model model, Pageable pageable) {
+	public String holidays(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Holiday> page = this.service.findAllHolidays(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("criteria", new HolidayCriteria());
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		
 		return "holidays";
 

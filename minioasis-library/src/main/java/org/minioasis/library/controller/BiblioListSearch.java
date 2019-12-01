@@ -1,7 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.Biblio;
@@ -50,7 +48,7 @@ public class BiblioListSearch {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 
 		Page<Biblio> page = this.service.findByCriteria(criteria, pageable);
@@ -61,27 +59,30 @@ public class BiblioListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "biblios";
 
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String biblios(Model model, Pageable pageable) {
+	public String biblios(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Biblio> page = this.service.findAllBiblios(pageable);
 		
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
+		
 		model.addAttribute("page", page);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("criteria", new BiblioCriteria());
-		model.addAttribute("pagingType", "list");
 		
 		return "biblios";
 		
 	}
 
 	@RequestMapping(value = { "/search.uncomplete" }, method = RequestMethod.GET)
-	public String umcompleteSearch(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String umcompleteSearch(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {
 
 		Page<Biblio> page = this.service.findByCriteria(criteria, pageable);
@@ -92,20 +93,23 @@ public class BiblioListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "biblios.ghost";
 
 	}
 	
 	@RequestMapping(value = "/list.uncomplete", method = RequestMethod.GET)
-	public String umcompleteBiblios(Model model, Pageable pageable) {
+	public String umcompleteBiblios(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Biblio> page = this.service.findAllUncompleteBiblios(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("criteria", new BiblioCriteria());
-		model.addAttribute("pagingType", "list");
 		
 		return "biblios.ghost";
 		

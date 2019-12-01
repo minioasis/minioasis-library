@@ -1,7 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.AttachmentCheckout;
@@ -32,11 +30,16 @@ public class AttachmentCheckoutListSearch {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String attachmentCheckouts(Model model, Pageable pageable) {
+	public String attachmentCheckouts(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<AttachmentCheckout> page = this.service.findAllAttachmentCheckouts(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("criteria", new AttachmentCheckoutCriteria());
 		
 		return "attachmentcheckouts";
@@ -44,7 +47,7 @@ public class AttachmentCheckoutListSearch {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") AttachmentCheckoutCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") AttachmentCheckoutCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {
 		
 		Page<AttachmentCheckout> page = this.service.findByCriteria(criteria, pageable);
@@ -55,7 +58,6 @@ public class AttachmentCheckoutListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "attachmentcheckouts";
 

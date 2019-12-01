@@ -2,7 +2,6 @@ package org.minioasis.library.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -120,19 +119,23 @@ public class PublisherController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String publishers(Model model, Pageable pageable) {
+	public String publishers(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Publisher> page = this.service.findAllPublishers(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		
 		return "publishers";
 		
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@RequestParam(value = "keyword", required = false) String keyword, HttpServletRequest request, Map<String,String> params,
+	public String search(@RequestParam(value = "keyword", required = false) String keyword, HttpServletRequest request,
 			Model model, Pageable pageable) {
 
 		Page<Publisher> page = new PageImpl<Publisher>(new ArrayList<Publisher>(), pageable, 0);
@@ -145,11 +148,10 @@ public class PublisherController {
 		}
 
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "search");
-		
+
 		return "publishers";
 
 	}

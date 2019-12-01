@@ -51,7 +51,7 @@ public class UserListSearch {
 			model.addAttribute("page", page);
 			model.addAttribute("next", next);
 			model.addAttribute("previous", previous);
-			model.addAttribute("pagingType", "search");
+
 		}
 
 		return "security/users";
@@ -59,12 +59,16 @@ public class UserListSearch {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String users(Model model, Pageable pageable) {
+	public String users(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<User> page = this.securityService.findAllUsers(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		
 		return "security/users";
 

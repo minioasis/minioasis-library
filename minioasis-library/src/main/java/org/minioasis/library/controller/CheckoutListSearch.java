@@ -1,7 +1,6 @@
 package org.minioasis.library.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -52,12 +51,16 @@ public class CheckoutListSearch {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String checkouts(Model model, Pageable pageable) {
+	public String checkouts(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Checkout> page = this.service.findAllCheckouts(pageable);	
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("criteria", new CheckoutCriteria());
 		
 		return "checkouts";
@@ -65,7 +68,7 @@ public class CheckoutListSearch {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") CheckoutCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") CheckoutCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {
 
 		Page<Checkout> page = this.service.findByCriteria(criteria, pageable);
@@ -76,7 +79,6 @@ public class CheckoutListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "checkouts";
 

@@ -1,7 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.Attachment;
@@ -38,11 +36,16 @@ public class AttachmentListSearch {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String attachments(Model model, Pageable pageable) {
+	public String attachments(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Attachment> page = this.service.findAllAttachments(pageable);
+	
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("criteria",new AttachmentCriteria());
 		
 		return "attachments";
@@ -50,7 +53,7 @@ public class AttachmentListSearch {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") AttachmentCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") AttachmentCriteria criteria, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 		
 		Page<Attachment> page = this.service.findByCriteria(criteria, pageable);
@@ -61,7 +64,6 @@ public class AttachmentListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagerType", "search");
 		
 		return "attachments";
 

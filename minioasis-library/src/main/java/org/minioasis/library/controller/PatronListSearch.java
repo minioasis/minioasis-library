@@ -1,7 +1,6 @@
 package org.minioasis.library.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -67,20 +66,24 @@ public class PatronListSearch {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String patrons(Model model, Pageable pageable) {
+	public String patrons(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Patron> page = this.service.findAllPatrons(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("criteria", new PatronCriteria());
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
 		
 		return "patrons";
 		
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") PatronCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") PatronCriteria criteria, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 
 		Page<Patron> page = this.service.findByCriteria(criteria, pageable);
@@ -91,7 +94,6 @@ public class PatronListSearch {
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "search");
 		
 		return "patrons";
 

@@ -1,7 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.domain.Reservation;
@@ -32,12 +30,16 @@ public class ReservationListSearch {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String reservations(Model model, Pageable pageable) {
+	public String reservations(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Reservation> page = this.service.findAllReservations(pageable);	
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("criteria", new ReservationCriteria());
 		
 		return "reservations";
@@ -45,7 +47,7 @@ public class ReservationListSearch {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") ReservationCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") ReservationCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {
 		
 		Page<Reservation> page = this.service.findByCriteria(criteria, pageable);
@@ -56,7 +58,6 @@ public class ReservationListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "reservations";
 

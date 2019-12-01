@@ -1,16 +1,13 @@
 package org.minioasis.library.controller;
 
-import java.util.Calendar;
-import java.util.Date;
 import java.util.List;
-import java.util.Map;
+
 import java.time.LocalDateTime;
 import java.util.Arrays;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
-import org.apache.commons.lang3.time.DateUtils;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.GroupEditor;
 import org.minioasis.library.domain.Patron;
@@ -121,7 +118,7 @@ public class PatronGroupChange {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") PatronCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") PatronCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {
 
 		Page<Patron> page = this.service.findByCriteria(criteria, pageable);
@@ -132,20 +129,23 @@ public class PatronGroupChange {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "patrons.group.change";	
 
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String patrons(Model model, Pageable pageable) {
+	public String patrons(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Patron> page = this.service.findAllPatrons(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("criteria", new PatronCriteria());
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		
 		return "patrons.group.change";	
 		

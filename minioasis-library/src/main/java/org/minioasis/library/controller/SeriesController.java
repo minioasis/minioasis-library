@@ -2,7 +2,6 @@ package org.minioasis.library.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
@@ -120,18 +119,22 @@ public class SeriesController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String seriez(Model model, Pageable pageable) {
+	public String seriez(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Series> page = this.service.findAllSeries(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		
 		return "seriez";		
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@RequestParam(value = "keyword", required = false) String keyword, HttpServletRequest request, Map<String,String> params,
+	public String search(@RequestParam(value = "keyword", required = false) String keyword, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 
 		Page<Series> page = new PageImpl<Series>(new ArrayList<Series>(), pageable, 0);
@@ -144,10 +147,9 @@ public class SeriesController {
 		}
 
 		model.addAttribute("keyword", keyword);
+		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "search");
 		
 		return "seriez";
 

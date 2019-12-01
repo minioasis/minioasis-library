@@ -2,7 +2,6 @@ package org.minioasis.library.controller;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -51,20 +50,24 @@ public class TelegramUserController {
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String telegramUsers(Model model, Pageable pageable) {
+	public String telegramUsers(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<TelegramUser> page = this.service.findAllTelegramUsers(pageable);
-		
-		model.addAttribute("criteria", new TelegramUserCriteria());
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
+
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
+		model.addAttribute("criteria", new TelegramUserCriteria());
 		
 		return "telegram.users";
 		
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") TelegramUserCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") TelegramUserCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {
 
 		Page<TelegramUser> page = this.service.findByCriteria(criteria, pageable);
@@ -72,11 +75,10 @@ public class TelegramUserController {
 		String next = buildUri(request, page.getNumber() + 1);
 		String previous = buildUri(request, page.getNumber() - 1);
 
+		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "search");
-		
+	
 		return "telegram.users";
 
 	}
