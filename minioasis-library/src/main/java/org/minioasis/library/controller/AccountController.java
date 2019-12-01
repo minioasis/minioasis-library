@@ -1,7 +1,5 @@
 package org.minioasis.library.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 import javax.validation.Valid;
 
@@ -120,18 +118,22 @@ public class AccountController {
 	}
 
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String groups(Model model, Pageable pageable) {
+	public String groups(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Account> page = this.service.findAllAccount(pageable);
+
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
 		
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		
 		return "accounts";
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") AccountCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") AccountCriteria criteria, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 
 		Page<Account> page = this.service.findByCriteria(criteria, pageable);
@@ -139,10 +141,9 @@ public class AccountController {
 		String next = buildUri(request, page.getNumber() + 1);
 		String previous = buildUri(request, page.getNumber() - 1);
 
+		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "search");
 		
 		return "accounts";
 

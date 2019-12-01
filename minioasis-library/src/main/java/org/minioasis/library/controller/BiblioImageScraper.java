@@ -6,7 +6,6 @@ import java.io.InputStream;
 import java.io.OutputStream;
 import java.net.URL;
 import java.time.LocalDateTime;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -72,7 +71,7 @@ public class BiblioImageScraper {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {
 
 		Page<Biblio> page = this.service.findByCriteria(criteria, pageable);
@@ -83,20 +82,23 @@ public class BiblioImageScraper {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "biblios.img";
 
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String biblios(Model model, Pageable pageable) {
+	public String biblios(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Biblio> page = this.service.findAllBiblios(pageable);
 		
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
+		
 		model.addAttribute("page", page);
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		model.addAttribute("criteria", new BiblioCriteria());
-		model.addAttribute("pagingType", "list");
 		
 		return "biblios.img";
 		
@@ -139,13 +141,13 @@ public class BiblioImageScraper {
 
 		try {
 			
-			logger.info("★★★ " + LocalDateTime.now() + " ★★★" + " Connecting DOUBAN");
+			logger.info("-----" + LocalDateTime.now() + "-----" + " Connecting DOUBAN");
 
 			doc = Jsoup.connect(url)
 						.timeout(20000)
 						.get();
 			
-			logger.info("★★★ " + LocalDateTime.now() + " ★★★" + " Connected");
+			logger.info("-----" + LocalDateTime.now() + "-----" + " Connected");
 			
 			elements = doc.getElementsByClass("nbg");
 
@@ -165,7 +167,7 @@ public class BiblioImageScraper {
 	
 	private void downloadImage(String strImageURL, String isbn) {
 
-		logger.info("★★★ " + LocalDateTime.now() + " ★★★" +" Saving : " + isbn + ", from: " + strImageURL);
+		logger.info("-----" + LocalDateTime.now() + "-----" +" Saving : " + isbn + ", from: " + strImageURL);
 
 		try {
 
@@ -186,7 +188,7 @@ public class BiblioImageScraper {
 			// close the stream
 			os.close();
 
-			logger.info("★★★ " + LocalDateTime.now() + " ★★★" +" Image saved in " + IMAGE_DESTINATION_FOLDER );
+			logger.info("-----" + LocalDateTime.now() + "-----" +" Image saved in " + IMAGE_DESTINATION_FOLDER );
 
 		} catch (IOException e) {
 			e.printStackTrace();

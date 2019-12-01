@@ -1,7 +1,6 @@
 package org.minioasis.library.controller;
 
 import java.util.List;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -62,7 +61,7 @@ public class PublicBiblioListSearch {
 	}
 	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") BiblioCriteria criteria, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 
 		Page<Biblio> page = this.service.findByCriteria(criteria, pageable);
@@ -73,14 +72,13 @@ public class PublicBiblioListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "pub/biblios";
 
 	}
 	
 	@RequestMapping(value = { "/simple.search" }, method = RequestMethod.GET)
-	public String simpleSearch(@RequestParam("keyword") String keyword, HttpServletRequest request, Map<String,String> params,
+	public String simpleSearch(@RequestParam("keyword") String keyword, HttpServletRequest request,
 			Model model, Pageable pageable) {
 		
 		BiblioCriteria criteria = new BiblioCriteria();
@@ -94,7 +92,6 @@ public class PublicBiblioListSearch {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		model.addAttribute("criteria", new BiblioCriteria());
 		

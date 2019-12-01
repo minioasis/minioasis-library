@@ -1,7 +1,5 @@
 package org.minioasis.library.audit.controller;
 
-import java.util.Map;
-
 import javax.servlet.http.HttpServletRequest;
 
 import org.minioasis.library.audit.service.AuditService;
@@ -40,19 +38,23 @@ public class TelegramUserAuditController {
 	}
 	
 	@RequestMapping(value = "/deleted.list", method = RequestMethod.GET)
-	public String deletedTelegramUsers(Model model, Pageable pageable) {
+	public String deletedTelegramUsers(Model model, HttpServletRequest request, Pageable pageable) {
 
 		Page<Object[]> page = this.service.listDeletedTelegramUsersIn(null, 30, pageable);
 		
+		String next = buildUri(request, page.getNumber() + 1);
+		String previous = buildUri(request, page.getNumber() - 1);
+		
 		model.addAttribute("page", page);
-		model.addAttribute("pagingType", "list");
+		model.addAttribute("next", next);
+		model.addAttribute("previous", previous);
 		
 		return "audit/telegram.users.deleted";
 		
 	}
 	
 	@RequestMapping(value = { "/deleted.search" }, method = RequestMethod.GET)
-	public String search(@RequestParam String keyword, HttpServletRequest request, Map<String,String> params, 
+	public String search(@RequestParam String keyword, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 
 		Page<Object[]> page = this.service.listDeletedTelegramUsersIn(keyword, 30, pageable);
@@ -63,7 +65,6 @@ public class TelegramUserAuditController {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagingType", "search");
 		
 		return "audit/telegram.users.deleted";
 

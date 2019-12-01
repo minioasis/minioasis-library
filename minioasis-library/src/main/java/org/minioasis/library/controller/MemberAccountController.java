@@ -2,7 +2,6 @@ package org.minioasis.library.controller;
 
 import java.time.LocalDate;
 import java.util.Arrays;
-import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -84,7 +83,7 @@ public class MemberAccountController {
 	}
 	
 	@RequestMapping(value = { "/history/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") CheckoutCriteria criteria, HttpServletRequest request, Map<String,String> params, 
+	public String search(@ModelAttribute("criteria") CheckoutCriteria criteria, HttpServletRequest request, 
 			Model model, Pageable pageable) {
 
 		String username = getCurrentUsername();
@@ -103,7 +102,6 @@ public class MemberAccountController {
 		model.addAttribute("page", page);
 		model.addAttribute("next", next);
 		model.addAttribute("previous", previous);
-		model.addAttribute("pagerType", "search");
 		
 		return "member/histories";
 
