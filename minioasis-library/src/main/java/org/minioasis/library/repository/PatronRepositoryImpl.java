@@ -95,13 +95,13 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 			}			
 		}
 	    
-	    if(createdFrom != null || createdTo != null) {
+	    if(createdFrom != null && createdTo != null) {
 	    	condition = condition.and(p.CREATED.between(java.sql.Timestamp.valueOf(createdFrom), java.sql.Timestamp.valueOf(createdTo)));
 	    }
-		if(startDateFrom != null || startDateTo != null){
+		if(startDateFrom != null && startDateTo != null){
 			condition = condition.and(p.START_DATE.between(java.sql.Date.valueOf(startDateFrom),java.sql.Date.valueOf(startDateTo)));
 		}
-		if(endDateFrom != null || endDateTo != null){
+		if(endDateFrom != null && endDateTo != null){
 			condition = condition.and(p.START_DATE.between(java.sql.Date.valueOf(endDateFrom), java.sql.Date.valueOf(endDateTo)));
 		}
 		if(patronTypes != null && patronTypes.size() > 0){
