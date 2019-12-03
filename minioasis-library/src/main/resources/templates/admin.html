@@ -52,10 +52,10 @@
 				
 				<span th:text="#{reservation.notification}">Reservation Notification</span>		
 				<br>
-				<a href="#" th:href="@{/admin/reservation/notification/list(page=0,size=10,sort='reservationDate,desc',states='AVAILABLE',states='NOTIFIED')}">
+				<a href="#" th:href="@{/admin/reservation/notification/search(page=0,size=10,sort='reservation_date,desc',states='AVAILABLE',states='NOTIFIED')}">
 					<img th:src="@{/images/reservation.png}" alt=""/>
 				</a>
-				<a href="#" th:href="@{/admin/reservation/list(page=0,size=10,sort='reservationDate,desc')}" class="btn btn-outline-light text-info">
+				<a href="#" th:href="@{/admin/reservation/search(page=0,size=10,sort='reservation_date,desc')}" class="btn btn-outline-light text-info">
 					<i class="fas fa-search fa-2x"></i>
 				</a>
 			      	

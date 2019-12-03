@@ -29,23 +29,6 @@ public class ReservationListSearch {
 		return ReservationState.values();	
 	}
 	
-	@RequestMapping(value = "/list", method = RequestMethod.GET)
-	public String reservations(Model model, HttpServletRequest request, Pageable pageable) {
-
-		Page<Reservation> page = this.service.findAllReservations(pageable);	
-
-		String next = buildUri(request, page.getNumber() + 1);
-		String previous = buildUri(request, page.getNumber() - 1);
-		
-		model.addAttribute("page", page);
-		model.addAttribute("next", next);
-		model.addAttribute("previous", previous);
-		model.addAttribute("criteria", new ReservationCriteria());
-		
-		return "reservations";
-		
-	}
-	
 	@RequestMapping(value = { "/search" }, method = RequestMethod.GET)
 	public String search(@ModelAttribute("criteria") ReservationCriteria criteria, HttpServletRequest request,
 			Model model, Pageable pageable) {

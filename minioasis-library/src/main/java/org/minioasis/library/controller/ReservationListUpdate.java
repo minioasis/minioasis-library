@@ -40,26 +40,8 @@ public class ReservationListUpdate {
 		return states;	
 	}
 	
-	@RequestMapping(value = "/notification/list", method = RequestMethod.GET)
-	public String reservations(@ModelAttribute("criteria") ReservationCriteria criteria, HttpServletRequest request, Model model, Pageable pageable) {
-
-		Page<Reservation> page = this.service.findByCriteria(criteria,pageable);
-
-		String next = buildUri(request, page.getNumber() + 1);
-		String previous = buildUri(request, page.getNumber() - 1);
-		
-		model.addAttribute("page", page);
-		model.addAttribute("next", next);
-		model.addAttribute("previous", previous);
-		model.addAttribute("criteria", new ReservationCriteria());
-		
-		return "reservations.notification";
-		
-	}
-	
 	@RequestMapping(value = { "/notification/search" }, method = RequestMethod.GET)
-	public String search(@ModelAttribute("criteria") ReservationCriteria criteria, HttpServletRequest request, 
-			Model model, Pageable pageable) {
+	public String search(@ModelAttribute("criteria") ReservationCriteria criteria, HttpServletRequest request, Model model, Pageable pageable) {
 		
 		Page<Reservation> page = this.service.findByCriteria(criteria, pageable);
 		
@@ -92,7 +74,7 @@ public class ReservationListUpdate {
 
 		this.service.save(r);
 
-		return "redirect:/admin/reservation/notification/list?page=0&size=10&states=AVAILABLE&states=NOTIFIED&sort=availableDate,asc";
+		return "redirect:/admin/reservation/notification/search?page=0&size=10&states=AVAILABLE&states=NOTIFIED&sort=available_date,asc";
 
 	}
 	
