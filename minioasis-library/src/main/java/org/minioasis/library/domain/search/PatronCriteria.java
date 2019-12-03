@@ -1,7 +1,6 @@
 package org.minioasis.library.domain.search;
 
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -14,8 +13,8 @@ public class PatronCriteria {
 	private String keyword;
 	private String cardKey;
 	private String note;
-	private LocalDateTime createdFrom;
-	private LocalDateTime createdTo;
+	private LocalDate createdFrom;
+	private LocalDate createdTo;
 	private LocalDate startDateFrom;
 	private LocalDate startDateTo;
 	private LocalDate endDateFrom;
@@ -46,16 +45,16 @@ public class PatronCriteria {
 	public void setNote(String note) {
 		this.note = note;
 	}
-	public LocalDateTime getCreatedFrom() {
+	public LocalDate getCreatedFrom() {
 		return createdFrom;
 	}
-	public void setCreatedFrom(LocalDateTime createdFrom) {
+	public void setCreatedFrom(LocalDate createdFrom) {
 		this.createdFrom = createdFrom;
 	}
-	public LocalDateTime getCreatedTo() {
+	public LocalDate getCreatedTo() {
 		return createdTo;
 	}
-	public void setCreatedTo(LocalDateTime createdTo) {
+	public void setCreatedTo(LocalDate createdTo) {
 		this.createdTo = createdTo;
 	}
 	public LocalDate getStartDateFrom() {

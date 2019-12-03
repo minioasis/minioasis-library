@@ -66,8 +66,8 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		final String cardkey = criteria.getCardKey();
 		final String keyword = criteria.getKeyword();
 		final String note = criteria.getNote();
-		final LocalDateTime createdFrom = criteria.getCreatedFrom();
-		final LocalDateTime createdTo = criteria.getCreatedTo();
+		final LocalDate createdFrom = criteria.getCreatedFrom();
+		final LocalDate createdTo = criteria.getCreatedTo();
 		final LocalDate startDateFrom = criteria.getStartDateFrom();
 		final LocalDate startDateTo = criteria.getStartDateTo();
 		final LocalDate endDateFrom = criteria.getEndDateFrom();
@@ -96,7 +96,7 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		}
 	    
 	    if(createdFrom != null && createdTo != null) {
-	    	condition = condition.and(p.CREATED.between(java.sql.Timestamp.valueOf(createdFrom), java.sql.Timestamp.valueOf(createdTo)));
+	    	condition = condition.and(p.CREATED.between(java.sql.Timestamp.valueOf(createdFrom.atStartOfDay()), java.sql.Timestamp.valueOf(createdTo.atStartOfDay())));
 	    }
 		if(startDateFrom != null && startDateTo != null){
 			condition = condition.and(p.START_DATE.between(java.sql.Date.valueOf(startDateFrom),java.sql.Date.valueOf(startDateTo)));

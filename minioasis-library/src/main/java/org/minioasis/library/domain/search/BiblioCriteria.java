@@ -1,7 +1,7 @@
 package org.minioasis.library.domain.search;
 
 import java.io.Serializable;
-import java.time.LocalDateTime;
+import java.time.LocalDate;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -19,8 +19,8 @@ public class BiblioCriteria implements Serializable {
 	private String keyword3;
 	private String publisher;
 	private String series;
-	private LocalDateTime updatedFrom;
-	private LocalDateTime updatedTo;
+	private LocalDate updatedFrom;
+	private LocalDate updatedTo;
 	private String note;
 	private String[] isbn;
 	
@@ -59,16 +59,16 @@ public class BiblioCriteria implements Serializable {
 	public void setSeries(String series) {
 		this.series = series;
 	}
-	public LocalDateTime getUpdatedFrom() {
+	public LocalDate getUpdatedFrom() {
 		return updatedFrom;
 	}
-	public void setUpdatedFrom(LocalDateTime updatedFrom) {
+	public void setUpdatedFrom(LocalDate updatedFrom) {
 		this.updatedFrom = updatedFrom;
 	}
-	public LocalDateTime getUpdatedTo() {
+	public LocalDate getUpdatedTo() {
 		return updatedTo;
 	}
-	public void setUpdatedTo(LocalDateTime updatedTo) {
+	public void setUpdatedTo(LocalDate updatedTo) {
 		this.updatedTo = updatedTo;
 	}
 	public String getNote() {

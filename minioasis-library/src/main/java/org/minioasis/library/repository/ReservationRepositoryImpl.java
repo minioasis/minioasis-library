@@ -2,7 +2,6 @@ package org.minioasis.library.repository;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Collections;
@@ -140,8 +139,8 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 		
 	    Condition condition = DSL.trueCondition();
 	    
-		final LocalDateTime reservationDateFrom = criteria.getReservationDateFrom();
-		final LocalDateTime reservationDateTo = criteria.getReservationDateTo();
+		final LocalDate reservationDateFrom = criteria.getReservationDateFrom();
+		final LocalDate reservationDateTo = criteria.getReservationDateTo();
 		final LocalDate availableDateFrom = criteria.getAvailableDateFrom();
 		final LocalDate availableDateTo = criteria.getAvailableDateTo();
 		final LocalDate notificationDateFrom = criteria.getNotificationDateFrom();
@@ -149,8 +148,8 @@ public class ReservationRepositoryImpl implements ReservationRepositoryCustom {
 		final Set<ReservationState> states = criteria.getStates();
 		
 		if(reservationDateFrom != null && reservationDateTo != null){
-			condition = condition.and(r.RESERVATION_DATE.ge(java.sql.Timestamp.valueOf(reservationDateFrom)))
-							.and(r.RESERVATION_DATE.le(java.sql.Timestamp.valueOf(reservationDateTo)));
+			condition = condition.and(r.RESERVATION_DATE.ge(java.sql.Timestamp.valueOf(reservationDateFrom.atStartOfDay())))
+							.and(r.RESERVATION_DATE.le(java.sql.Timestamp.valueOf(reservationDateTo.atStartOfDay())));
 		}
 		if(availableDateFrom != null && availableDateTo != null){
 			condition = condition.and(r.AVAILABLE_DATE.ge(java.sql.Date.valueOf(availableDateFrom))

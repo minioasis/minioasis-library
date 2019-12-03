@@ -2,7 +2,6 @@ package org.minioasis.library.repository;
 
 import java.lang.reflect.Field;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.Collection;
 import java.util.Iterator;
@@ -114,10 +113,10 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 		final String keyword = criteria.getKeyword();
 		final LocalDate firstFrom = criteria.getFirstCheckinFrom();
 		final LocalDate firstTo = criteria.getFirstCheckinTo();
-		final LocalDateTime lastFrom = criteria.getLastCheckinFrom();
-		final LocalDateTime lastTo = criteria.getLastCheckinTo();
-		final LocalDateTime expiredFrom = criteria.getExpiredFrom();
-		final LocalDateTime expiredTo = criteria.getExpiredTo();
+		final LocalDate lastFrom = criteria.getLastCheckinFrom();
+		final LocalDate lastTo = criteria.getLastCheckinTo();
+		final LocalDate expiredFrom = criteria.getExpiredFrom();
+		final LocalDate expiredTo = criteria.getExpiredTo();
 		
 		final Set<YesNo> actives = criteria.getActives();
 		final Set<Long> itemstatuz = criteria.getItemStatuz();
@@ -135,12 +134,12 @@ public class ItemRepositoryImpl implements ItemRepositoryCustom {
 							.and(i.FIRST_CHECKIN.le(java.sql.Date.valueOf(firstTo))));
 		}
 		if(lastFrom != null && lastTo != null){
-			condition = condition.and(i.LAST_CHECKIN.ge(java.sql.Timestamp.valueOf(lastFrom))
-							.and(i.LAST_CHECKIN.le(java.sql.Timestamp.valueOf(lastTo))));
+			condition = condition.and(i.LAST_CHECKIN.ge(java.sql.Timestamp.valueOf(lastFrom.atStartOfDay()))
+							.and(i.LAST_CHECKIN.le(java.sql.Timestamp.valueOf(lastTo.atStartOfDay()))));
 		}
 		if(expiredFrom != null && expiredTo != null){
-			condition = condition.and(i.EXPIRED.ge(java.sql.Timestamp.valueOf(expiredFrom))
-							.and(i.EXPIRED.le(java.sql.Timestamp.valueOf(expiredTo))));
+			condition = condition.and(i.EXPIRED.ge(java.sql.Timestamp.valueOf(expiredFrom.atStartOfDay()))
+							.and(i.EXPIRED.le(java.sql.Timestamp.valueOf(expiredTo.atStartOfDay()))));
 		}
 		if(actives != null && actives.size() > 0){
 			condition = condition.and(i.ACTIVE.in(actives));

@@ -12,7 +12,7 @@ import org.springframework.format.support.FormattingConversionService;
 @Configuration
 public class DateTimeConfig {
  
-/*    @Bean
+    @Bean
     public FormattingConversionService conversionService() {
     	
         DefaultFormattingConversionService conversionService = new DefaultFormattingConversionService(false);
@@ -21,12 +21,12 @@ public class DateTimeConfig {
         conversionService.addFormatterForFieldAnnotation(new NumberFormatAnnotationFormatterFactory());
  
         DateTimeFormatterRegistrar registrar = new DateTimeFormatterRegistrar();
-        
+
         registrar.setDateFormatter(DateTimeFormatter.ofPattern("yyyy-MM-dd"));
         registrar.setDateTimeFormatter(DateTimeFormatter.ofPattern("yyyy-MM-dd HH:mm:ss"));
 
         registrar.registerFormatters(conversionService);
  
         return conversionService;
-    }*/
+    }
 }

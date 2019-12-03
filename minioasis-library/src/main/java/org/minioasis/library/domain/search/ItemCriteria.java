@@ -2,7 +2,6 @@ package org.minioasis.library.domain.search;
 
 import java.io.Serializable;
 import java.time.LocalDate;
-import java.time.LocalDateTime;
 import java.util.HashSet;
 import java.util.Set;
 
@@ -16,10 +15,10 @@ public class ItemCriteria implements Serializable {
 	private String biblio;
 	private LocalDate firstCheckinFrom;
 	private LocalDate firstCheckinTo;
-	private LocalDateTime lastCheckinFrom;
-	private LocalDateTime lastCheckinTo;
-	private LocalDateTime expiredFrom;
-	private LocalDateTime expiredTo;
+	private LocalDate lastCheckinFrom;
+	private LocalDate lastCheckinTo;
+	private LocalDate expiredFrom;
+	private LocalDate expiredTo;
 
 	private Set<Long> itemStatuz = new HashSet<Long>();
 	private Set<Long> locations = new HashSet<Long>();
@@ -45,28 +44,28 @@ public class ItemCriteria implements Serializable {
 	public void setFirstCheckinTo(LocalDate firstCheckinTo) {
 		this.firstCheckinTo = firstCheckinTo;
 	}
-	public LocalDateTime getLastCheckinFrom() {
+	public LocalDate getLastCheckinFrom() {
 		return lastCheckinFrom;
 	}
-	public void setLastCheckinFrom(LocalDateTime lastCheckinFrom) {
+	public void setLastCheckinFrom(LocalDate lastCheckinFrom) {
 		this.lastCheckinFrom = lastCheckinFrom;
 	}
-	public LocalDateTime getLastCheckinTo() {
+	public LocalDate getLastCheckinTo() {
 		return lastCheckinTo;
 	}
-	public void setLastCheckinTo(LocalDateTime lastCheckinTo) {
+	public void setLastCheckinTo(LocalDate lastCheckinTo) {
 		this.lastCheckinTo = lastCheckinTo;
 	}
-	public LocalDateTime getExpiredFrom() {
+	public LocalDate getExpiredFrom() {
 		return expiredFrom;
 	}
-	public void setExpiredFrom(LocalDateTime expiredFrom) {
+	public void setExpiredFrom(LocalDate expiredFrom) {
 		this.expiredFrom = expiredFrom;
 	}
-	public LocalDateTime getExpiredTo() {
+	public LocalDate getExpiredTo() {
 		return expiredTo;
 	}
-	public void setExpiredTo(LocalDateTime expiredTo) {
+	public void setExpiredTo(LocalDate expiredTo) {
 		this.expiredTo = expiredTo;
 	}
 	public String getBiblio() {
