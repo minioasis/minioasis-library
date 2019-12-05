@@ -102,7 +102,7 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 			condition = condition.and(p.START_DATE.between(java.sql.Date.valueOf(startDateFrom),java.sql.Date.valueOf(startDateTo)));
 		}
 		if(endDateFrom != null && endDateTo != null){
-			condition = condition.and(p.START_DATE.between(java.sql.Date.valueOf(endDateFrom), java.sql.Date.valueOf(endDateTo)));
+			condition = condition.and(p.END_DATE.between(java.sql.Date.valueOf(endDateFrom), java.sql.Date.valueOf(endDateTo)));
 		}
 		if(patronTypes != null && patronTypes.size() > 0){
 			condition = condition.and(p.PATRONTYPE_ID.in(patronTypes));
