@@ -89,17 +89,17 @@ public class FirstTimeBootstrapData implements CommandLineRunner {
 //		patronTypeRepository.save(pt);
 //
 		// role
-//		Role role_admin = new Role();
-//		role_admin.setName("ROLE_ADMIN");
-//		roleRepository.save(role_admin);
-//		
-//		Role role_librarian = new Role();
-//		role_librarian.setName("ROLE_LIBRARIAN");
-//		roleRepository.save(role_librarian);
-//		
-//		Role role_user = new Role();
-//		role_user.setName("ROLE_USER");
-//		roleRepository.save(role_user);		
+		Role role_admin = new Role();
+		role_admin.setName("ROLE_ADMIN");
+		roleRepository.save(role_admin);
+		
+		Role role_librarian = new Role();
+		role_librarian.setName("ROLE_LIBRARIAN");
+		roleRepository.save(role_librarian);
+		
+		Role role_user = new Role();
+		role_user.setName("ROLE_USER");
+		roleRepository.save(role_user);		
 
 		// user
 		String encodedPassword = passwordEncoder.encode("admin");
