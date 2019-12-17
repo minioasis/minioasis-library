@@ -191,6 +191,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String PROMOTION_ON = "promotion ON";
 	private static String PROMOTION_OFF = "promotion OFF";
 	
+	private static String RENEW_UNSUCCESSFULLY = "renew unsuccessfully !";
+	
 	@Override
 	public void onUpdateReceived(Update update) {	
 		
@@ -1080,7 +1082,15 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				try {		
 					libraryService.renewAll(patron, now);				
 				}catch(LibraryException ex) {
+					
 					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ex + " ] ");
+					message.setText(RENEW_UNSUCCESSFULLY);
+					
+					try {
+						execute(message);
+					} catch (TelegramApiException e) {
+						e.printStackTrace();
+					}	
 				}	
 				
 				List<Checkout> checkouts = patron.getCheckouts();

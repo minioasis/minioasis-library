@@ -918,6 +918,8 @@ public class Patron implements Serializable {
 					if (c.getRenewedNo().equals(patronType.getMaxNoOfRenew())) {
 						item.setLastFullRenewPerson(this.entangled);
 					}
+				}else {
+					throw new LibraryException(errors.getAllMessages());
 				}
 			}
 		}	
