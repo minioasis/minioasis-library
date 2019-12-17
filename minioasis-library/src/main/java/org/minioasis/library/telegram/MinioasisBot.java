@@ -191,7 +191,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String PROMOTION_ON = "promotion ON";
 	private static String PROMOTION_OFF = "promotion OFF";
 	
-	private static String RENEW_UNSUCCESSFULLY = "renew unsuccessfully !";
+	private static String RENEW_UNSUCCESSFULLY_INVALIDATE = "renew unsuccessfully : patron or patron type date expired";
 	
 	@Override
 	public void onUpdateReceived(Update update) {	
@@ -1077,14 +1077,16 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				String cardKey = telegramUser.getCardKey();
 				final LocalDate now = LocalDate.now();
 				
+				List<Checkout> successRenews =  null;
+				
 				Patron patron = this.libraryService.preparingPatronForCirculation(cardKey, now);
 				
 				try {		
-					libraryService.renewAll(patron, now);				
+					successRenews = libraryService.renewAll(patron, now);				
 				}catch(LibraryException ex) {
 					
 					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ex + " ] ");
-					message.setText(RENEW_UNSUCCESSFULLY);
+					message.setText(RENEW_UNSUCCESSFULLY_INVALIDATE);
 					
 					try {
 						execute(message);
@@ -1095,8 +1097,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				
 				List<Checkout> checkouts = patron.getCheckouts();
 				
-				message.setText(checkoutsView(cardKey, checkouts))
-				   .setParseMode(ParseMode.MARKDOWN);
+				message.setText(renewsView(cardKey, checkouts, successRenews))
+				   		.setParseMode(ParseMode.MARKDOWN);
 				
 				try {
 					execute(message);
@@ -1106,6 +1108,66 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				}	
 			}
 		}
+	}
+	
+	// [/renew] renew view
+	private static String renewsView(String cardKey, List<Checkout> checkouts, List<Checkout> renews) {
+		
+		List<Long> successRenewIds = new ArrayList<Long>();
+		
+		for(Checkout r : renews) {
+			successRenewIds.add(r.getId());
+		}
+		
+		final LocalDate now = LocalDate.now();
+		
+		Integer total = checkouts.size();
+		
+		StringBuffer s = new StringBuffer();
+		
+		if(total < 1) {
+			s.append("You have no borrowing.");
+		}else {
+			
+			Checkout c1 = checkouts.get(0);
+
+			LocalDate end = c1.getPatron().getEndDate();
+			
+			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
+			s.append("-------------------------------------------------------------\n");
+			s.append("_Total : " + total + "                 Date : " + now + "_\n");
+			s.append("\n");
+			
+			int i = 1;
+			
+			for(Checkout c : checkouts) {
+
+				String title = c.getItem().getBiblio().getTitle();
+				LocalDate dueDate = c.getDueDate();
+				
+				if(dueDate.isBefore(now)) {
+					s.append(i + ". _" + title + "_\n");
+					s.append("    *Due: " + dueDate + " (o)*\n");
+					
+				}else {
+					
+					s.append(i + ". _" + title + "_\n");
+					
+					if(successRenewIds.contains(c.getId())) {
+						s.append("    _Due: " + dueDate + "(r)_\n");
+					}else {
+						s.append("    _Due: " + dueDate + "_\n");
+					}	
+				}
+				
+				i++;
+			}
+		}
+		
+		s.append("(o) - overdue \n");
+		s.append("(r) - renewed \n");
+		
+		return s.toString();
 	}
 	
 	// [/due] ***********************************************************************************
@@ -1189,6 +1251,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				i++;
 			}
 		}
+		
+		s.append("(o) - overdue");
 		
 		return s.toString();
 	}
@@ -1282,6 +1346,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				i++;
 			}
 		}
+		
+		s.append("(o) - overdue");
 		
 		return s.toString();
 	}

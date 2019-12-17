@@ -877,9 +877,11 @@ public class Patron implements Serializable {
 
 	}
 	
-	public void renewAll(LocalDate given, LocalDate newDueDate) {
+	public List<Checkout> renewAll(LocalDate given, LocalDate newDueDate) {
 		
 		Notification errors = new Notification();
+		
+		List<Checkout> successRenews = new ArrayList<Checkout>();
 		
 		// given date validation
 		givenDateValidation(given, errors);
@@ -918,11 +920,13 @@ public class Patron implements Serializable {
 					if (c.getRenewedNo().equals(patronType.getMaxNoOfRenew())) {
 						item.setLastFullRenewPerson(this.entangled);
 					}
-				}else {
-					throw new LibraryException(errors.getAllMessages());
+					
+					successRenews.add(c);
 				}
 			}
-		}	
+		}
+		
+		return successRenews;
 	}
 
 	private void renewValidation(Checkout renew, LocalDate given, Notification error) {

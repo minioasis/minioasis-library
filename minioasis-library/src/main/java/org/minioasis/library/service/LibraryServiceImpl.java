@@ -157,15 +157,17 @@ public class LibraryServiceImpl implements LibraryService {
 		
 	}
 	
-	public void renewAll(Patron patron, LocalDate given) throws LibraryException {
+	public List<Checkout> renewAll(Patron patron, LocalDate given) throws LibraryException {
 		
 		LocalDate dueDate = calculateDueDate(patron,given);
 		LocalDate newDueDate = holidayStrategy.getNewDueDateAfterHolidays(dueDate);
 		
 		patron.preparingCheckoutsOn(given);
-		patron.renewAll(given, newDueDate);
+		List<Checkout> sucessRenews = patron.renewAll(given, newDueDate);
 		
 		this.patronRepository.save(patron);
+		
+		return sucessRenews;
 		
 	}
 	
