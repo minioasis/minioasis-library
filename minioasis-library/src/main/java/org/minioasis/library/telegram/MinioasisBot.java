@@ -1164,6 +1164,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 		}
 
+		s.append("-------------------------------------------------------------\n");
 		s.append("*(o) - overdue*, *(r) - renewed*");
 		
 		return s.toString();
