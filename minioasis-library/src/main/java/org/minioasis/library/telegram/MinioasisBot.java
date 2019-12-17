@@ -1164,8 +1164,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 		}
 
-		s.append("_(o) - overdue_ \n");
-		s.append("_(r) - renewed_ \n");
+		s.append("_o - overdue_");
+		s.append("_r - renewed_ \n");
 		
 		return s.toString();
 	}
@@ -1253,7 +1253,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 		
 		s.append("-------------------------------------------------------------\n");
-		s.append("_(o) - overdue_");
+		s.append("_o - overdue_");
 		
 		return s.toString();
 	}
@@ -1349,7 +1349,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 		
 		s.append("-------------------------------------------------------------\n");
-		s.append("_(o) - overdue_");
+		s.append("_o - overdue_");
 		
 		return s.toString();
 	}
