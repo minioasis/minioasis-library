@@ -141,7 +141,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 	private Condition ovedueCondition(LocalDate given, int reminderDays) {
 		
 	    Condition condition = DSL.trueCondition();
-	    condition = condition.and(c.STATE.in(CheckoutState.getActives()))
+	    condition = condition.and(c.STATE.in(CheckoutState.getCheckouts()))
 	    						.and(c.DUE_DATE.minus(reminderDays).le(java.sql.Date.valueOf(given)));
 	    return condition;
 	}
