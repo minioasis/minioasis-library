@@ -245,7 +245,7 @@ public class CheckoutRepositoryImpl implements CheckoutRepositoryCustom {
 		
 		if(startDateFrom != null && startDateTo != null){
 			condition = condition.and(p.START_DATE.ge(java.sql.Date.valueOf(startDateFrom))
-							.and(p.END_DATE.le(java.sql.Date.valueOf(startDateTo))));
+							.and(p.START_DATE.le(java.sql.Date.valueOf(startDateTo))));
 		}
 		if(endDateFrom != null && endDateTo != null){
 			condition = condition.and(p.END_DATE.ge(java.sql.Date.valueOf(endDateFrom))
