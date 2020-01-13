@@ -259,6 +259,7 @@ public interface LibraryService {
 	List<Patron> findByNameOrCardKeyContaining(String key,Pageable pageable);
 	List<Patron> findByIdIn(Collection<Long> ids);
 	List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, LocalDateTime updated);
+	List<Patron> expiringMembershipPatrons(LocalDate given, int firstRemind, int secondRemind);
 	Page<Patron> findAllPatrons(Pageable pageable);
 	Page<Patron> findByCriteria(PatronCriteria criteria, Pageable pageable);
 	boolean match(String cardKey, String mobile);

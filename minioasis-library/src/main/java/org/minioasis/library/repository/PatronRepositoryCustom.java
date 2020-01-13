@@ -1,5 +1,6 @@
 package org.minioasis.library.repository;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.List;
 
@@ -26,5 +27,7 @@ public interface PatronRepositoryCustom {
 	List<Integer> getAllPatronsStartedYears();
 	
 	List<ChartData> CountPatronsByTypes(int from, int to);
+	
+	List<Patron> expiringMembershipPatrons(LocalDate given, int firstRemind, int secondRemind);
 	
 }

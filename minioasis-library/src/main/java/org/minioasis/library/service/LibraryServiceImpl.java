@@ -1019,6 +1019,9 @@ public class LibraryServiceImpl implements LibraryService {
 	public List<Patron> findByGroupAndUpdatedOrderByUpdatedDesc(Group group, LocalDateTime updated){
 		return this.patronRepository.findByGroupAndUpdatedOrderByUpdatedDesc(group, updated);
 	}
+	public List<Patron> expiringMembershipPatrons(LocalDate given, int firstRemind, int secondRemind){
+		return this.patronRepository.expiringMembershipPatrons(given, firstRemind, secondRemind);
+	}
 	public Page<Patron> findAllPatrons(Pageable pageable){
 		return this.patronRepository.findAll(pageable);
 	}

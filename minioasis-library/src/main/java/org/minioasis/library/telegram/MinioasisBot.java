@@ -8,6 +8,7 @@ import java.net.ConnectException;
 import java.net.URL;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.LinkedHashSet;
 import java.util.List;
@@ -1498,7 +1499,65 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 		}	
 	}
+	
+	// [/reminder (expiring membership)] ***********************************************************************************
+	@Scheduled(cron = "0 30 10 * * ?")
+	public void expiringMembershipsReminder() {
+		
+		final int firstRemind = 14;
+		final int secondRemind = 7;
+		
+		final LocalDate now = LocalDate.now();
+		
+		List<Patron> patrons = libraryService.expiringMembershipPatrons(now, firstRemind, secondRemind);
+		
+		for(Patron p : patrons) {
+			
+			String cardKey = p.getCardKey();
+			LocalDate endDate = p.getEndDate();
+			
+			TelegramUser telegramUser = telegramService.findTelegramUserByCardKey(cardKey);
 
+			if(telegramUser != null) {
+				sendMessage(telegramUser.getChatId(), cardKey, now, endDate);
+			}		
+		}	
+	}
+	
+	// [/reminder (expiring membership) - send msg]
+	private void sendMessage(Long chat_id, String cardKey, LocalDate given, LocalDate endDate) {
+
+		SendMessage message = new SendMessage().setChatId(chat_id);
+		
+		message.setText(expiringMembershipsView(cardKey, given, endDate))
+				.setParseMode(ParseMode.MARKDOWN);
+
+		try {
+			execute(message);
+		} catch (TelegramApiException e) {
+			e.printStackTrace();
+		}
+
+	}
+	
+	// [/reminder (expiring membership) - overdue view]
+	private static String expiringMembershipsView(String cardKey, LocalDate given, LocalDate endDate) {
+
+		DateTimeFormatter formatter = DateTimeFormatter.ofPattern("YYYY-MM-dd"); 
+	    String expireDate = formatter.format(endDate); 
+	        
+		StringBuffer s = new StringBuffer();
+
+		s.append("======================================= \n");
+		s.append("This is a reminder that your membership \n");
+		s.append("with member id. *[" + cardKey + "]* \n");
+		s.append("will be expired on *[" + expireDate + "]* \n");
+		s.append("======================================= \n");
+
+		return s.toString();
+		
+	}
+	
 	@Override
 	public String getBotUsername() {
 		return username;

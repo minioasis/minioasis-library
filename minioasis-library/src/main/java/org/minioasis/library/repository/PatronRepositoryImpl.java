@@ -25,6 +25,7 @@ import org.jooq.Record3;
 import org.jooq.Record4;
 import org.jooq.Result;
 import org.jooq.SortField;
+import org.jooq.Table;
 import org.jooq.TableField;
 import org.minioasis.library.domain.Group;
 import org.minioasis.library.domain.Patron;
@@ -59,6 +60,33 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 	private org.minioasis.library.jooq.tables.PatronType pt = PATRON_TYPE.as("pt");
 	private org.minioasis.library.jooq.tables.Groups g = GROUPS.as("g");
 
+
+	public List<Patron> expiringMembershipPatrons(LocalDate given, int firstRemind, int secondRemind){
+		
+		Table<?> table = p;
+
+		org.jooq.Query jooqQuery = dsl.select()
+				.from(table)
+				.where(remindCondition(given, firstRemind, secondRemind));
+		
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), Patron.class);
+		setBindParameterValues(q, jooqQuery);
+		
+		List<Patron> result = q.getResultList();
+		
+		return result;
+	}
+	
+	private Condition remindCondition(LocalDate given, int firstRemind, int secondRemind) {
+		
+	    Condition condition = DSL.trueCondition();
+	    condition = condition.and(p.END_DATE.minus(firstRemind).eq(java.sql.Date.valueOf(given)))
+	    						.or(p.END_DATE.minus(secondRemind).eq(java.sql.Date.valueOf(given)));
+	    return condition;
+	}
+
+	// ************************************************************************
+	
 	private Condition condition(PatronCriteria criteria) {
 		
 	    Condition condition = DSL.trueCondition();
