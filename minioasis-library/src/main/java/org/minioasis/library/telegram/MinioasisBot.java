@@ -17,6 +17,7 @@ import java.util.Set;
 import org.apache.commons.lang3.StringUtils;
 import org.minioasis.library.domain.Biblio;
 import org.minioasis.library.domain.Checkout;
+import org.minioasis.library.domain.CheckoutState;
 import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.ItemState;
 import org.minioasis.library.domain.Patron;
@@ -192,6 +193,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private static String PROMOTION_ON = "promotion ON";
 	private static String PROMOTION_OFF = "promotion OFF";
 	
+	private static String RENEW_UNSUCCESSFULL = "renew unsuccessfull !";
 	private static String RENEW_UNSUCCESSFULLY_INVALIDATE = "renew unsuccessfully : patron or patron type date expired";
 	
 	@Override
@@ -222,7 +224,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			checkouts("/due", update);
 			
-			renewAll("/renew", update);
+			renewOneByOne("/renew", update);
 			
 			reservations("/reservation", update);
 			
@@ -1051,6 +1053,60 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 		
 		return s.toString(); 
+	}
+	
+	// [/renew one by one] ***********************************************************************************
+	private void renewOneByOne(String command, Update update) {
+		
+		if (update.getMessage().getText().equals(command)) {
+
+			Long chat_id = update.getMessage().getChatId();
+			SendMessage message = new SendMessage().setChatId(chat_id);
+			TelegramUser telegramUser = telegramService.findTelegramUserByChatId(chat_id);
+
+			if (telegramUser == null) {
+
+				message.setText(MEMBER_NOT_FOUND);
+
+				try {
+					execute(message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ " + command + " ] " + MEMBER_NOT_FOUND);
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}
+
+			} else {
+
+				String cardKey = telegramUser.getCardKey();
+				final LocalDate now = LocalDate.now();
+
+				Patron patron = this.libraryService.preparingPatronForCirculation(cardKey, now);
+				
+				List<Checkout> checkouts = patron.getCheckouts();
+				
+				for(Checkout c : checkouts) {
+					if(c.getState().equals(CheckoutState.CHECKOUT) || c.getState().equals(CheckoutState.RENEW)) {
+						
+						Patron p = c.getPatron();
+						Item i = c.getItem();
+						
+						try {
+							libraryService.renew(p, i, now);
+						} catch (LibraryException ex) {
+
+							logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ex + " ] - renew unsuccessfull !");
+							message.setText(RENEW_UNSUCCESSFULL);
+
+							try {
+								execute(message);
+							} catch (TelegramApiException e) {
+								e.printStackTrace();
+							}
+						}
+					}	
+				}
+			}
+		}
 	}
 	
 	// [/renew] ***********************************************************************************
