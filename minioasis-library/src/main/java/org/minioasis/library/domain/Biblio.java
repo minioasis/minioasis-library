@@ -58,6 +58,7 @@ public class Biblio implements Serializable {
 	@Column(name = "title", nullable = false)
 	private String title;
 
+	// change from 16 -> 17, 2020-02-21
 	@Length(max = 17)
 	private String isbn;
 	
