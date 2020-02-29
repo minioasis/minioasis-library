@@ -1104,7 +1104,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 						} catch (LibraryException ex) {
 
 							logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ex + " ] - renew unsuccessfull !");
-							message.setText(RENEW_UNSUCCESSFULL);
+							message.setText(renewView(c, now));
 
 							try {
 								execute(message);
@@ -1135,6 +1135,20 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		LocalDate dueDate = c.getDueDate();
 
 		s.append(">> " + title + " *RENEWED*\n");
+		s.append("    *Due: " + dueDate + "*\n");
+
+		return s.toString();
+	}
+	
+	// [/renew] RENEW_UNSUCCESSFULL view
+	private static String renewUnsuccessfulView(Checkout c, LocalDate now) {
+
+		StringBuffer s = new StringBuffer();
+
+		String title = c.getItem().getBiblio().getTitle();
+		LocalDate dueDate = c.getDueDate();
+
+		s.append(">> " + title + " *FAILED*\n");
 		s.append("    *Due: " + dueDate + "*\n");
 
 		return s.toString();
