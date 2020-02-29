@@ -86,7 +86,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 								+ "Other commands : /help";
 
 	private static String SETTINGS = "*Please send me :*\n"
-									+ "----------------------------------\n"
+									+ "--------------------------------\n"
 									+ "*My Settings*\n"
 									+ "/show\\_settings : show my settings"
 									+ "\n"
@@ -297,9 +297,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 		StringBuffer s = new StringBuffer();
 
-		s.append("-----------------------------------------------\n");
+		s.append("--------------------------------\n");
 		s.append("*My Settings*\n");
-		s.append("-----------------------------------------------\n");
+		s.append("--------------------------------\n");
 		s.append(reminder + " : reminder" + "\n");
 		s.append(announcement + " : announcement" + "\n");
 		s.append(article + " : article" + "\n");
@@ -709,7 +709,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			LocalDate end = r1.getPatron().getEndDate();
 			
 			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
-			s.append("-------------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			s.append("_Total : " + total + "                 Date : " + LocalDate.now() + "_\n");
 			s.append("\n");
 			
@@ -1041,7 +1041,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			s.append("No book found.");
 		}else {
 			s.append("_Total books found : " + total + "_\n");
-			s.append("-------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			
 			int i = 1;
 			
@@ -1191,7 +1191,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			LocalDate end = c1.getPatron().getEndDate();
 			
 			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
-			s.append("-------------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			s.append("_Total : " + total + "                 Date : " + now + "_\n");
 			s.append("\n");
 			
@@ -1220,7 +1220,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				i++;
 			}
 			
-			s.append("-------------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			s.append("*(o) - overdue*, *(r) - renewed*");
 		}
 
@@ -1285,7 +1285,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			LocalDate end = c1.getPatron().getEndDate();
 			
 			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
-			s.append("-------------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			s.append("_Total : " + total + "                 Date : " + now + "_\n");
 			s.append("\n");
 			
@@ -1308,7 +1308,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				i++;
 			}
 			
-			s.append("-------------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			s.append("*(o) - overdue*");
 		}
 		
@@ -1379,9 +1379,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			LocalDate end = c1.getPatron().getEndDate();
 			
 			s.append("Reminder : please /renew to prevent overdue.\n");
-			s.append("-------------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			s.append("_Member :_ *" + cardKey + "* _[ Exp : " + end + " ]_\n");
-			s.append("-------------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			s.append("_Total : " + total + "                 Date : " + now + "_\n");
 			s.append("\n");
 			
@@ -1404,7 +1404,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				i++;
 			}
 			
-			s.append("-------------------------------------------------------------\n");
+			s.append("--------------------------------\n");
 			s.append("*(o) - overdue*");
 		}
 		
