@@ -1135,7 +1135,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		Integer renewNo = c.getRenewedNo();
 		LocalDate dueDate = c.getDueDate();
 
-		s.append(">> " + title + " [" + renewNo + "] *RENEWED*\n");
+		s.append(">> " + title + "*RENEWED*" + " [" + renewNo + "]\n");
 		s.append("    *Due: " + dueDate + "*\n");
 
 		return s.toString();
