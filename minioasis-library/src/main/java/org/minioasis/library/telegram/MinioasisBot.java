@@ -1132,9 +1132,10 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		StringBuffer s = new StringBuffer();
 
 		String title = c.getItem().getBiblio().getTitle();
+		Integer renewNo = c.getRenewedNo();
 		LocalDate dueDate = c.getDueDate();
 
-		s.append(">> " + title + " *RENEWED*\n");
+		s.append(">> " + title + " [" + renewNo + "] *RENEWED*\n");
 		s.append("    *Due: " + dueDate + "*\n");
 
 		return s.toString();
