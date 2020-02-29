@@ -1092,6 +1092,15 @@ public class MinioasisBot extends TelegramLongPollingBot {
 						
 						try {
 							libraryService.renew(p, i, now);
+							
+							message.setText(renewView(c,now));
+
+							try {
+								execute(message);
+							} catch (TelegramApiException e) {
+								e.printStackTrace();
+							}
+
 						} catch (LibraryException ex) {
 
 							logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ex + " ] - renew unsuccessfull !");
@@ -1107,6 +1116,20 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				}
 			}
 		}
+	}
+	
+	// [/renew] renew view
+	private static String renewView(Checkout c, LocalDate now) {
+
+		StringBuffer s = new StringBuffer();
+
+		String title = c.getItem().getBiblio().getTitle();
+		LocalDate dueDate = c.getDueDate();
+
+		s.append("_" + title + "_ *RENEWED*\n");
+		s.append("    *Due: " + dueDate + " (o)*\n");
+
+		return s.toString();
 	}
 	
 	// [/renew] ***********************************************************************************
@@ -1167,7 +1190,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 	}
 	
-	// [/renew] renew view
+	// [/renew] renews view
 	private static String renewsView(String cardKey, List<Checkout> checkouts, List<Checkout> renews) {
 		
 		List<Long> successRenewIds = new ArrayList<Long>();
