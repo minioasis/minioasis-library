@@ -1104,7 +1104,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 						} catch (LibraryException ex) {
 
 							logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ex + " ] - renew unsuccessfull !");
-							message.setText(renewView(c, now));
+							message.setText(renewUnsuccessfulView(c, now));
 
 							try {
 								execute(message);
