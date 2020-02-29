@@ -1115,6 +1115,14 @@ public class MinioasisBot extends TelegramLongPollingBot {
 					}	
 				}
 			}
+			
+			message.setText("check your renew status : /due");
+
+			try {
+				execute(message);
+			} catch (TelegramApiException e) {
+				e.printStackTrace();
+			}
 		}
 	}
 	
@@ -1126,8 +1134,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		String title = c.getItem().getBiblio().getTitle();
 		LocalDate dueDate = c.getDueDate();
 
-		s.append("_" + title + "_ *RENEWED*\n");
-		s.append("    *Due: " + dueDate + " (o)*\n");
+		s.append(">> " + title + " *RENEWED*\n");
+		s.append("    *Due: " + dueDate + "*\n");
 
 		return s.toString();
 	}
