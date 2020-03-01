@@ -1350,7 +1350,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 					s.append("    *Due: " + dueDate + " (o)*\n");
 					
 				}else {
-					s.append(i + ". _" + title + "_\n");
+					s.append(i + ". _" + title + "_ " + "[" + renewNo + "]\n");
 					s.append("    _Due: " + dueDate + "_\n");
 				}
 				
