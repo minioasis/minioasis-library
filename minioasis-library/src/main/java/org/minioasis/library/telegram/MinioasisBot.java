@@ -1093,7 +1093,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 						try {
 							libraryService.renew(p, i, now);
 							
-							message.setText(renewView(c,now));
+							message.setText(renewView(c,now))
+									.setParseMode(ParseMode.MARKDOWN);
 
 							try {
 								execute(message);
@@ -1104,7 +1105,8 @@ public class MinioasisBot extends TelegramLongPollingBot {
 						} catch (LibraryException ex) {
 
 							logger.info("TELEGRAM LOG : " + chat_id + " - [ " + ex + " ] - renew unsuccessfull !");
-							message.setText(renewUnsuccessfulView(c, now));
+							message.setText(renewUnsuccessfulView(c, now))
+									.setParseMode(ParseMode.MARKDOWN);
 
 							try {
 								execute(message);
@@ -1341,9 +1343,10 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 				String title = c.getItem().getBiblio().getTitle();
 				LocalDate dueDate = c.getDueDate();
+				Integer renewNo = c.getRenewedNo();
 				
 				if(dueDate.isBefore(now)) {
-					s.append(i + ". _" + title + "_\n");
+					s.append(i + ". _" + title + "_ " + "[" + renewNo + "]\n");
 					s.append("    *Due: " + dueDate + " (o)*\n");
 					
 				}else {
@@ -1355,7 +1358,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 			
 			s.append("--------------------------------\n");
-			s.append("*(o) - overdue*");
+			s.append("*(o) - overdue*, *[n] - renew no.*");
 		}
 		
 		return s.toString();
