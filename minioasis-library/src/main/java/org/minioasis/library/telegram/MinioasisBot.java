@@ -1346,11 +1346,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 				Integer renewNo = c.getRenewedNo();
 				
 				if(dueDate.isBefore(now)) {
-					s.append(i + ". _" + title + "_ " + " *(r " + renewNo + ")*\n");
+					s.append(i + ". _" + title + "_ " + " *(R" + renewNo + ")*\n");
 					s.append("    *Due: " + dueDate + " (o)*\n");
 					
 				}else {
-					s.append(i + ". _" + title + "_ " + " *(r " + renewNo + ")*\n");
+					s.append(i + ". _" + title + "_ " + " *(R" + renewNo + ")*\n");
 					s.append("    _Due: " + dueDate + "_\n");
 				}
 				
@@ -1358,7 +1358,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			}
 			
 			s.append("--------------------------------\n");
-			s.append("*(o) - overdue*, *(r n) - renew no.*");
+			s.append("*(o) - overdue*, *(Rn) - renew no.*");
 		}
 		
 		return s.toString();
