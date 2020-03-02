@@ -407,7 +407,6 @@ public class Patron implements Serializable {
 	private void stateChangeToCompleted(Item item, LocalDate given) {
 
 		Biblio b = item.getBiblio();
-
 		Long biblioId = b.getId();
 
 		for (Reservation r : reservations) {
@@ -417,15 +416,11 @@ public class Patron implements Serializable {
 				if (biblioId.equals(r.getBiblio().getId())) {
 					r.setState(ReservationState.COLLECTED);
 					r.setCollectedDate(given);
+					reservations.remove(r);
+					break;
 				}
-				
-				reservations.remove(r);
-				
-				return;
-
 			}
 		}
-
 	}
 
 	// A.1
