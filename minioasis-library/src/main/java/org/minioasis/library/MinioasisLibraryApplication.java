@@ -8,7 +8,7 @@ import org.telegram.telegrambots.ApiContextInitializer;
 public class MinioasisLibraryApplication {
 
 	public static void main(String[] args) {
-		
+
 		ApiContextInitializer.init();
 		SpringApplication.run(MinioasisLibraryApplication.class, args);
 		

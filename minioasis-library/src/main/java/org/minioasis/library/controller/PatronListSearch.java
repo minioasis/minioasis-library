@@ -17,7 +17,6 @@ import org.springframework.data.domain.Sort;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.ModelAttribute;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestMethod;
 import org.springframework.web.servlet.support.ServletUriComponentsBuilder;
@@ -43,26 +42,6 @@ public class PatronListSearch {
 	@ModelAttribute("pts")
 	public List<PatronType> populatePatronTypes() {
 		return this.service.findAllPatronTypes(Sort.by("name").ascending());	
-	}
-
-	@RequestMapping(value = { "/{id}" }, method = RequestMethod.GET)
-	public String view(@PathVariable("id") long id, Model model) {
-
-		model.addAttribute("patron", this.service.getPatron(id));
-		return "patron";
-
-	}
-	
-	@RequestMapping(value = { "/delete/{id}" }, method = RequestMethod.GET)
-	public String delete(@PathVariable("id") long id, Model model) {
-
-		Patron patron = this.service.getPatron(id);
-		if(patron != null)
-			this.service.deletePatron(id);
-		
-		model.addAttribute("id", id);
-		return "deleted";
-		
 	}
 	
 	@RequestMapping(value = "/list", method = RequestMethod.GET)
