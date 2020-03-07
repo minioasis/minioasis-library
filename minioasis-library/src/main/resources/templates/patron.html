@@ -63,6 +63,10 @@
 									<td class="text-info" th:text="${#temporals.format(patron.endDate,'yyyy-MM-dd')}">Moon</td>
 								</tr>
 								<tr>
+									<td><i class="fas fa-toggle-on text-label"></i> <span th:text="#{reservable.date}"></span></td>
+									<td class="text-info" th:text="${#temporals.format(patron.reservableDate,'yyyy-MM-dd')}">Moon</td>
+								</tr>
+								<tr>
 									<td><i class="fas fa-id-card-alt text-label"></i> <span th:text="#{card.key}"></span></td>
 									<td class="text-info" th:text="${patron.cardKey}">Moon</td>
 								</tr>
