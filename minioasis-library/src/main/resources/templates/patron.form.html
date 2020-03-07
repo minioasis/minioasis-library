@@ -136,9 +136,8 @@
 					    </div>
 					  </div>
 					  <div class="form-group row">
-					    <label class="col-sm-3 col-form-label"></label>
+					    <label class="col-sm-3 col-form-label">Reservable Date</label>
 					    <div class="col-sm-4">
-					      	<label th:text="#{reservable.date}">Reservable Date</label>
 					      	<input type="text" class="form-control" th:field="*{reservableDate}" placeholder="yyyy-MM-dd" disabled="disabled"/>
 					      	<span class="text-danger" th:if="${#fields.hasErrors('reservableDate')}" th:errors="*{reservableDate}"></span>
 					      </div>
