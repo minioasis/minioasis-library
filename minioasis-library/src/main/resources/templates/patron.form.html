@@ -139,7 +139,7 @@
 					    <label class="col-sm-3 col-form-label"></label>
 					    <div class="col-sm-4">
 					      	<label th:text="#{reservable.date}">Reservable Date</label>
-					      	<input type="text" class="form-control" th:field="*{reservableDate}" disabled="disabled" placeholder="yyyy-MM-dd"/>
+					      	<input type="text" class="form-control" th:field="*{reservableDate}" placeholder="yyyy-MM-dd" disabled="disabled"/>
 					      	<span class="text-danger" th:if="${#fields.hasErrors('reservableDate')}" th:errors="*{reservableDate}"></span>
 					      </div>
 					  </div>
