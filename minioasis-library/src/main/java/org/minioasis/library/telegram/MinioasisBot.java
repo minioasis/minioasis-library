@@ -1048,7 +1048,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			for(Biblio b : biblios) {
 				String title = b.getTitle();
 				String classMark = b.getClassMark();
-				s.append((pageNum*size + i) + ". _" + title + "_ *" + classMark + "*\n");
+				s.append((pageNum*size + i) + ". _" + title + "_ *[" + classMark + "]*\n");
 				i++;
 			}
 		}
