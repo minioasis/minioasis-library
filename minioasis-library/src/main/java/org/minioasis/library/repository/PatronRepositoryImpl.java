@@ -16,6 +16,8 @@ import javax.persistence.criteria.CriteriaBuilder;
 import javax.persistence.criteria.CriteriaUpdate;
 import javax.persistence.criteria.Root;
 
+import org.hibernate.ScrollableResults;
+import org.hibernate.Session;
 import org.jooq.Condition;
 import org.jooq.DSLContext;
 import org.jooq.impl.DSL;
@@ -28,6 +30,7 @@ import org.jooq.SortField;
 import org.jooq.Table;
 import org.jooq.TableField;
 import org.minioasis.library.domain.Group;
+import org.minioasis.library.domain.Item;
 import org.minioasis.library.domain.Patron;
 import org.minioasis.library.domain.YesNo;
 import org.minioasis.library.domain.search.PatronCriteria;
@@ -338,6 +341,28 @@ public class PatronRepositoryImpl implements PatronRepositoryCustom {
 		
 		return result;
 		
+	}
+	
+	public void fixBug() {
+
+		// ****** 2020-03-07 ******
+		// patron's reservableDate is not null, 
+		// the previous version patron update will cause reservableDate null.
+		Session session = em.unwrap(Session.class);
+		ScrollableResults patronCursor = session.createQuery("from Patron").scroll();
+
+		int count = 0;
+		
+		while (patronCursor.next()) {
+			Patron patron = (Patron) patronCursor.get(0);
+			if (patron.getReservableDate() == null) {
+				patron.setReservableDate(LocalDate.now());
+			}
+			if (++count % 100 == 0) {
+				session.flush();
+				session.clear();
+			}
+		}
 	}
 	
 	private Collection<SortField<?>> getSortFields(Sort sortSpecification) {

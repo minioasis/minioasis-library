@@ -30,4 +30,6 @@ public interface PatronRepositoryCustom {
 	
 	List<Patron> expiringMembershipPatrons(LocalDate given, int firstRemind, int secondRemind);
 	
+	void fixBug();
+	
 }

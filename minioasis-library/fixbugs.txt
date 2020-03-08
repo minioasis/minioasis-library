@@ -1,0 +1,9 @@
+before running the application
+execute the sql query in your database:
+
+*** IMPORTANT : BACK UP YOUR DATABASE BEFORE ANY SQL QUERY BEING EXECUTE !!!!! ****
+
+ALTER TABLE reservation MODIFY state VARCHAR(30) ;
+ALTER TABLE reservation_aud MODIFY state VARCHAR(30) ;
+
+UPDATE patron p SET p.reservable_date = '2020-01-01' WHERE p.reservable_date IS NULL

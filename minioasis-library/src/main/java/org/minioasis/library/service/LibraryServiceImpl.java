@@ -126,6 +126,12 @@ public class LibraryServiceImpl implements LibraryService {
 	@Autowired
 	private HolidayCalculationStrategy holidayStrategy;
 
+	/****************************************  Bug Cleaner **************************************/
+	
+	public void fixBug() {
+		patronRepository.fixBug();
+	}
+	
 	/****************************************  Business Logic **************************************/	
 	
 	private LocalDate calculateDueDate(Patron patron, LocalDate given) {

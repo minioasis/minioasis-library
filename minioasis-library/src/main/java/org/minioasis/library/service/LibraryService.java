@@ -49,6 +49,9 @@ import org.springframework.data.domain.Sort;
 
 public interface LibraryService {
 
+	// Fix Bugs
+	void fixBug();
+	
 	// Business Logic
 	// Checkout
 	void checkout(Patron patron, Item item, LocalDate given) throws LibraryException;

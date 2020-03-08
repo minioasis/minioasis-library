@@ -67,7 +67,7 @@ public class Reservation implements Serializable {
 	
     @NotNull
 	@Enumerated(EnumType.STRING)
-	@Column(name = "state" , nullable = false , columnDefinition = "CHAR(20)")
+	@Column(name = "state" , nullable = false , columnDefinition = "CHAR(30)")
 	private ReservationState state;
 	
     @Audited(targetAuditMode = RelationTargetAuditMode.NOT_AUDITED)
