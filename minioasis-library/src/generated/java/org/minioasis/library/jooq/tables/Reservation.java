@@ -43,7 +43,7 @@ import org.minioasis.library.jooq.tables.records.ReservationRecord;
 @SuppressWarnings({ "all", "unchecked", "rawtypes" })
 public class Reservation extends TableImpl<ReservationRecord> {
 
-    private static final long serialVersionUID = 83885008;
+    private static final long serialVersionUID = 928711697;
 
     /**
      * The reference instance of <code>RESERVATION</code>
@@ -96,7 +96,7 @@ public class Reservation extends TableImpl<ReservationRecord> {
     /**
      * The column <code>RESERVATION.STATE</code>.
      */
-    public final TableField<ReservationRecord, String> STATE = createField(DSL.name("STATE"), org.jooq.impl.SQLDataType.CHAR(20).nullable(false), this, "");
+    public final TableField<ReservationRecord, String> STATE = createField(DSL.name("STATE"), org.jooq.impl.SQLDataType.CHAR(30).nullable(false), this, "");
 
     /**
      * The column <code>RESERVATION.UNCOLLECTED_DATE</code>.
