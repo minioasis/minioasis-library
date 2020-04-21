@@ -53,7 +53,7 @@ import org.telegram.telegrambots.meta.api.objects.replykeyboard.InlineKeyboardMa
 import org.telegram.telegrambots.meta.api.objects.replykeyboard.buttons.InlineKeyboardButton;
 import org.telegram.telegrambots.meta.exceptions.TelegramApiException;
 
-//@Component
+@Component
 public class MinioasisBot extends TelegramLongPollingBot {
 
 	private static final Logger logger = LoggerFactory.getLogger(MinioasisBot.class);
@@ -133,7 +133,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 								+ "/reservation : my reservations"
 								+ "\n\n"
 								+ "*Public User :*\n"
-								+ "/search : search books by title, author\n"
+								+ "/search : search books by title, author & publisher\n"
 //								+ "/recommendation : recommendation of book"
 //								+ "\n\n"
 //								+ "*Library Information :*\n"
@@ -834,12 +834,9 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			int page = Integer.parseInt(parameters[1]);
 			String keyword = parameters[2];
 			
-			BiblioCriteria criteria = new BiblioCriteria();			
-			criteria.setKeyword1(keyword);
-			
 			Pageable pageable = PageRequest.of(page, pageSize);
 			
-			Page<Biblio> biblioPage = libraryService.findByCriteria(criteria, pageable);
+			Page<Biblio> biblioPage = libraryService.findByOrCriteria(keyword, pageable);
 			
 			EditMessageText new_message = new EditMessageText()
 					.setChatId(chat_id)
@@ -999,14 +996,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 			
 			if(!keyword.equals("")) {
 				
-				BiblioCriteria criteria = new BiblioCriteria();			
-				criteria.setKeyword1(keyword);
-				
 				int page = 0;
 				
 				Pageable pageable = PageRequest.of(page, pageSize);
 				
-				Page<Biblio> biblioPage = libraryService.findByCriteria(criteria, pageable);
+				Page<Biblio> biblioPage = libraryService.findByOrCriteria(keyword, pageable);
 
 				Long chat_id = update.getMessage().getChatId();	
 				SendMessage new_message = new SendMessage().setChatId(chat_id);

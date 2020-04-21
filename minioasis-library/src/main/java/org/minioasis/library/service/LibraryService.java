@@ -130,6 +130,7 @@ public interface LibraryService {
 	Page<Biblio> findAllUncompleteBiblios(Pageable pageable);
 	Page<Biblio> findByTitleAndIsbnAndNoteContaining(String title, Pageable pageable);
 	Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable);
+	 Page<Biblio> findByOrCriteria(String  keyword, Pageable pageable);
 	
 	// Checkout
 	void save(Checkout entity);

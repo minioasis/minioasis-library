@@ -8,4 +8,5 @@ import org.springframework.data.domain.Pageable;
 public interface BiblioRepositoryCustom {
 
 	Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable);
+	Page<Biblio> findByOrCriteria(String keyword, Pageable pageable);
 }

@@ -556,7 +556,9 @@ public class LibraryServiceImpl implements LibraryService {
 	public Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable){
 		return this.biblioRepository.findByCriteria(criteria, pageable);
 	}
-	
+	public Page<Biblio> findByOrCriteria(String  keyword, Pageable pageable){
+		return this.biblioRepository.findByOrCriteria(keyword, pageable);
+	}
 	/****************************************  Checkout  ******************************************/
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
