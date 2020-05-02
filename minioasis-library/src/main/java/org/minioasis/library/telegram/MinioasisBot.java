@@ -1647,11 +1647,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	        
 		StringBuffer s = new StringBuffer();
 
-		s.append("======================================= \n");
+		s.append("==============================\n");
 		s.append("This is a reminder that your membership \n");
 		s.append("with member id. *[" + cardKey + "]* \n");
 		s.append("will be expired on *[" + expireDate + "]* \n");
-		s.append("======================================= \n");
+		s.append("============================== \n");
 
 		return s.toString();
 		
