@@ -331,8 +331,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 	private void sendAnnoucement(TelegramUser t, String annoucement) {
 		Long chat_id = t.getChatId();
 		SendMessage message = new SendMessage().setChatId(chat_id)
-				.setText(annoucement)
-				.setParseMode(ParseMode.MARKDOWN);
+				.setText(annoucement);
 		try {
 			execute(message);
 			logger.info("TELEGRAM LOG : " + chat_id + " - [ annoucement send ] ");
