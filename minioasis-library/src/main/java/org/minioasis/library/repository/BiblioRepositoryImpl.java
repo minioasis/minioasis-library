@@ -51,13 +51,14 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 	private org.minioasis.library.jooq.tables.Publisher p = PUBLISHER.as("p");
 	private org.minioasis.library.jooq.tables.Series s = SERIES.as("s");
 	
-	public Page<Biblio> findByOrCriteria(String  keyword, Pageable pageable){
+	// findByPublisher(..)
+	public Page<Biblio> findByPublisher(String  name, Pageable pageable){
 
-		Table<?> table = createOrTable(keyword);
+		Table<?> table = joinPublisherTable(name);
 	
 		org.jooq.Query jooqQuery = dsl.select()
 									.from(table)
-									.where(conditionOr(keyword))
+									.where(conditionPublisher(name))
 									.orderBy(getSortFields(pageable.getSort()))
 									.limit(pageable.getPageSize())
 									.offset((int)pageable.getOffset());
@@ -67,43 +68,88 @@ public class BiblioRepositoryImpl implements BiblioRepositoryCustom {
 		
 		List<Biblio> biblios = q.getResultList();
 		
-		long total = findCountByOrCriteriaLikeExpression(keyword);
+		long total = findCountByPublisherLikeExpression(name);
 		
 		return new PageImpl<>(biblios, pageable, total);
 	}
 	
-	private long findCountByOrCriteriaLikeExpression(String keyword) {
+	private long findCountByPublisherLikeExpression(String name) {
 
-		Table<?> table = createOrTable(keyword);
+		Table<?> table = b;
 		
         long total = dsl.fetchCount(
         						dsl.select(b.ID)
-        						.from(table)
-        						.where(conditionOr(keyword))
+        						.from(joinPublisherTable(name))
+        						.where(conditionPublisher(name))
         );
 
         return total;
     }
 	
-	private Table<?> createOrTable(String keyword) {
+	private Table<?> joinPublisherTable(String name) {
 		
 		Table<?> table = b;
 		
-		if(keyword != null) {
+		if(name != null) {
 			table = table.innerJoin(p).on(b.PUBLISHER_ID.eq(p.ID));
 		}
 		
 		return table;
 	}
 	
-	private Condition conditionOr(String  keyword) {
+	private Condition conditionPublisher(String  name) {
+		
+	    Condition condition = DSL.trueCondition();
+		
+	    if (name != null) {
+	    	condition = condition.and(p.NAME.likeIgnoreCase("%" + name + "%"));				
+	    }
+		
+	    return condition;
+	}
+	
+	// findByTitleOrAuthor(..)
+	public Page<Biblio> findByTitleOrAuthor(String  keyword, Pageable pageable){
+
+		Table<?> table = b;
+	
+		org.jooq.Query jooqQuery = dsl.select()
+									.from(table)
+									.where(conditionTitleOrAuthor(keyword))
+									.orderBy(getSortFields(pageable.getSort()))
+									.limit(pageable.getPageSize())
+									.offset((int)pageable.getOffset());
+		
+		Query q = em.createNativeQuery(jooqQuery.getSQL(), Biblio.class);
+		setBindParameterValues(q, jooqQuery);
+		
+		List<Biblio> biblios = q.getResultList();
+		
+		long total = findCountByTitleOrAuthorLikeExpression(keyword);
+		
+		return new PageImpl<>(biblios, pageable, total);
+	}
+	
+	private long findCountByTitleOrAuthorLikeExpression(String keyword) {
+
+		Table<?> table = b;
+		
+        long total = dsl.fetchCount(
+        						dsl.select(b.ID)
+        						.from(table)
+        						.where(conditionTitleOrAuthor(keyword))
+        );
+
+        return total;
+    }
+	
+	private Condition conditionTitleOrAuthor(String  keyword) {
 		
 	    Condition condition = DSL.trueCondition();
 		
 	    if (keyword != null) {
 	    	condition = condition.and(b.TITLE.likeIgnoreCase("%" + keyword + "%"))
-	    					.or(b.AUTHOR.likeIgnoreCase("%" + keyword + "%"))
-	    					.or(p.NAME.likeIgnoreCase("%" + keyword + "%"));				
+	    					.or(b.AUTHOR.likeIgnoreCase("%" + keyword + "%"));				
 	    }
 		
 	    return condition;

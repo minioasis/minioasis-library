@@ -556,8 +556,11 @@ public class LibraryServiceImpl implements LibraryService {
 	public Page<Biblio> findByCriteria(BiblioCriteria criteria, Pageable pageable){
 		return this.biblioRepository.findByCriteria(criteria, pageable);
 	}
-	public Page<Biblio> findByOrCriteria(String  keyword, Pageable pageable){
-		return this.biblioRepository.findByOrCriteria(keyword, pageable);
+	public Page<Biblio> findByTitleOrAuthor(String  keyword, Pageable pageable){
+		return this.biblioRepository.findByTitleOrAuthor(keyword, pageable);
+	}
+	public Page<Biblio> findByPublisher(String  name, Pageable pageable){
+		return this.biblioRepository.findByPublisher(name, pageable);
 	}
 	/****************************************  Checkout  ******************************************/
 	
