@@ -259,6 +259,7 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 			String call_data = update.getCallbackQuery().getData();
 
+			// *************** search *******************
 			if (call_data.startsWith("/p^g^^g?")) {
 				pagingCallBack(call_data, chat_id, message_id);
 			}
@@ -269,6 +270,11 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 			if (call_data.startsWith("/r^s^rv^?")) {
 				reserveCallBack(call_data, chat_id, message_id);
+			}
+			
+			// *************** publisher *******************
+			if (call_data.startsWith("/paging?")) {
+				publisherPagingCallBack(call_data, chat_id, message_id);
 			}
 
 		}
@@ -781,6 +787,119 @@ public class MinioasisBot extends TelegramLongPollingBot {
 
 	}
 
+	// [/publisher]
+	private void searchByPublisher(String command, Update update) {
+
+		// there must be a SPACE between the /search command and search keyword !
+
+		String message = update.getMessage().getText();
+
+		boolean searchCommand = message.startsWith(command);
+
+		if (searchCommand && (message.length() > 10)) {
+
+			String name = message.substring(11);
+
+			if (!name.equals("")) {
+
+				int page = 0;
+
+				Pageable pageable = PageRequest.of(page, pageSize);
+
+				Page<Biblio> biblioPage = libraryService.findByPublisher(name, pageable);
+
+				Long chat_id = update.getMessage().getChatId();
+				SendMessage new_message = new SendMessage().setChatId(chat_id);
+
+				new_message.setText(searchView(biblioPage)).setParseMode(ParseMode.MARKDOWN);
+
+				new_message.setReplyMarkup(createPublisherInlinePagingButtons(biblioPage, name));
+
+				try {
+
+					execute(new_message);
+					logger.info("TELEGRAM LOG : " + chat_id + " - [ /publisher ] ");
+				} catch (TelegramApiException e) {
+					e.printStackTrace();
+				}
+			}
+		}
+	}
+	
+	// [/publisher] create publisher inline buttons
+	// **********************************************************
+	private InlineKeyboardMarkup createPublisherInlinePagingButtons(Page<Biblio> biblioPage, String name) {
+
+		List<Biblio> biblios = biblioPage.getContent();
+		int page = biblioPage.getPageable().getPageNumber();
+		long total = biblioPage.getTotalElements();
+		int pageSize = biblioPage.getSize();
+
+		InlineKeyboardMarkup markupInline = new InlineKeyboardMarkup();
+
+		List<List<InlineKeyboardButton>> rowsInline = new ArrayList<>();
+		List<InlineKeyboardButton> rowInline = new ArrayList<>();
+
+		rowsInline.add(rowInline);
+
+		// parameters format (with order) : arrow--page--total--keyword , e.g.
+		// >--2--45--feymman
+		if (page != 0) {
+			rowInline.add(new InlineKeyboardButton().setText("<")
+					.setCallbackData("/paging?" + "<" + "--" + (page - 1) + "--" + name));
+		}
+
+		for (int i = 0; i < biblios.size(); i++) {
+			if (page * pageSize + (i - 1) <= total) {
+				String num = String.valueOf(page * pageSize + (i + 1));
+				rowInline.add(new InlineKeyboardButton().setText(num)
+						.setCallbackData("/biblioinfo." + biblios.get(i).getId()));
+			}
+		}
+
+		if ((page + 1) * pageSize < total) {
+			rowInline.add(new InlineKeyboardButton().setText(">")
+					.setCallbackData("/paging?" + ">" + "--" + (page + 1) + "--" + name));
+		}
+
+		// Add it to the message
+		markupInline.setKeyboard(rowsInline);
+
+		return markupInline;
+	}
+
+	// [/publisher] create callback buttons -> <previous,next>
+	private void publisherPagingCallBack(String call_data, long chat_id, long message_id) {
+
+		String extractedPagingParameters = StringUtils.substringAfter(call_data, "/paging?");
+		String parameters[] = extractedPagingParameters.split("--");
+
+		String arrow = parameters[0];
+
+		if (arrow.equals("<") || arrow.equals(">")) {
+
+			int page = Integer.parseInt(parameters[1]);
+			String keyword = parameters[2];
+
+			Pageable pageable = PageRequest.of(page, pageSize);
+
+			Page<Biblio> biblioPage = libraryService.findByPublisher(keyword, pageable);
+
+			EditMessageText new_message = new EditMessageText().setChatId(chat_id).setMessageId(toIntExact(message_id));
+
+			new_message.setText(searchView(biblioPage)).setParseMode(ParseMode.MARKDOWN);
+
+			new_message.setReplyMarkup(createPublisherInlinePagingButtons(biblioPage, keyword));
+
+			try {
+				execute(new_message);
+			} catch (TelegramApiException e) {
+				e.printStackTrace();
+			}
+
+		}
+	}
+	
 	// [/search] create inline buttons
 	// **********************************************************
 	private InlineKeyboardMarkup createInlinePagingButtons(Page<Biblio> biblioPage, String keyword) {
@@ -1041,45 +1160,6 @@ public class MinioasisBot extends TelegramLongPollingBot {
 		}
 
 		return s.toString();
-	}
-
-	// [/publisher]
-	private void searchByPublisher(String command, Update update) {
-
-		// there must be a SPACE between the /search command and search keyword !
-
-		String message = update.getMessage().getText();
-
-		boolean searchCommand = message.startsWith(command);
-
-		if (searchCommand && (message.length() > 10)) {
-
-			String name = message.substring(11);
-
-			if (!name.equals("")) {
-
-				int page = 0;
-
-				Pageable pageable = PageRequest.of(page, pageSize);
-
-				Page<Biblio> biblioPage = libraryService.findByPublisher(name, pageable);
-
-				Long chat_id = update.getMessage().getChatId();
-				SendMessage new_message = new SendMessage().setChatId(chat_id);
-
-				new_message.setText(searchView(biblioPage)).setParseMode(ParseMode.MARKDOWN);
-
-				new_message.setReplyMarkup(createInlinePagingButtons(biblioPage, name));
-
-				try {
-
-					execute(new_message);
-					logger.info("TELEGRAM LOG : " + chat_id + " - [ /publisher ] ");
-				} catch (TelegramApiException e) {
-					e.printStackTrace();
-				}
-			}
-		}
 	}
 
 	// [/renew one by one]
