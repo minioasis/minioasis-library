@@ -3,6 +3,7 @@ package org.minioasis.library.controller;
 import java.math.BigDecimal;
 import java.text.DecimalFormat;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Locale;
 
@@ -70,6 +71,7 @@ public class ItemController {
 		}else{
 			item.setBiblio(biblio);
 			item.setFirstCheckin(LocalDate.now());
+			item.setLastCheckin(LocalDateTime.now());
 		}
 			
 		model.addAttribute("item", item);
@@ -99,17 +101,9 @@ public class ItemController {
 			}
 			
 			LocalDate firstCheckin = item.getFirstCheckin();
-			LocalDate now = LocalDate.now();
-
-			if(now.isEqual(firstCheckin)) {
-				item.setFirstCheckin(now);
-				item.setLastCheckin(now.atTime(00, 00, 00));				
-			}else{
-				item.setLastCheckin(item.getFirstCheckin().atTime(00, 00, 00));
-			}
+			item.setLastCheckin(firstCheckin.atTime(00, 00, 00));				
 
 			item.setState(ItemState.IN_LIBRARY);
-			item.setChecked(YesNo.N);
 
 			try{
 			
@@ -160,16 +154,10 @@ public class ItemController {
 			}
 			
 			try{
-
+				
 				LocalDate firstCheckin = item.getFirstCheckin();
-				LocalDate now = LocalDate.now();
-
-				if(now.isEqual(firstCheckin)) {
-					item.setFirstCheckin(now);
-					item.setLastCheckin(now.atTime(00, 00, 00));				
-				}
+				item.setLastCheckin(firstCheckin.atTime(00, 00, 00));	
 					
-				item.setLastCheckin(item.getFirstCheckin().atTime(00, 00, 00));
 				this.service.edit(item);
 				
 			}catch (DataIntegrityViolationException eive){
