@@ -72,7 +72,7 @@
 						<td th:text="${#temporals.format(e.lastCheckin,'yyyy-MM-dd')}">2015-08-31</td>
 						<td th:text="${#temporals.format(e.created,'yyyy-MM-dd')}">2015-08-31</td>
 						<td>
-							<a href="#" th:href="@{/admin/attachment/save/{iid}(iid=${e.id})}" class="btn btn-info btn-sm">
+							<a href="#" th:href="@{/admin/attachment/save?iid={iid}(iid=${e.id})}" class="btn btn-info btn-sm">
 								<i class="fas fa-paperclip"></i>
 							</a>
 						</td>
