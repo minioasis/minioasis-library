@@ -66,7 +66,7 @@ order by `GROUP`, `c`.`DUE_DATE` desc
 
 -----------------------------------
 5）没有isbn的图书，如何处理的呢？
-   答：可以不填，然后用一下的SQL找出
+   答：可以不填，然后用以下的SQL找出
 -----------------------------------
 
 select b.title, b.isbn from biblio b where b.isbn is NULL
