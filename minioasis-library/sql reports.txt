@@ -1,8 +1,72 @@
-report for each months checkout
--------------------------------------
+Reports:
 
-select p.CARD_KEY, name2, p.name, b.title, c.checkout_date, c.done, c.STATE,from checkout c 
-inner join patron p on c.patron_id = p.id 
-inner join item i on c.ITEM_ID = i.id
-inner join biblio b on i.BIBLIO_ID = b.id
-where '2019-10-01' <= c.checkout_date and c.checkout_date <= '2019-10-31' ORDER BY p.CARD_KEY asc
+-----------------------------------
+1）7月份借最多书的读者
+-----------------------------------
+
+select 
+`view`.`ACTIVE`,`view`.`CARD_KEY`, `view`.`NAME`, 
+`view`.`NAME2`, `view`.`patronType`,`view`.`group`, 
+`view`.`total` 
+from 
+(select `p`.`CARD_KEY`, `p`.`ACTIVE`, `p`.`NAME`, `p`.`NAME2`, `pt`.`NAME` as `patronType`, 
+`g`.`CODE` as `group`, count(*) as `total` 
+from `CHECKOUT` as `c` 
+join `PATRON` as `p` on `c`.`PATRON_ID` = `p`.`ID` 
+join `PATRON_TYPE` as `pt` on `p`.`PATRONTYPE_ID` = `pt`.`ID` 
+join `GROUPS` as `g` on `p`.`GROUP_ID` = `g`.`ID` 
+where (`c`.checkout_date >= '2019-07-01' AND `c`.checkout_date <= '2019-07-31')
+group by `p`.`ID`) as `view` 
+order by `view`.`total` desc
+
+-----------------------------------
+2）7月份最受欢迎的书
+-----------------------------------
+
+select 
+`view`.`TITLE`, `view`.`ISBN`,`view`.`total` 
+from 
+(select `b`.`TITLE`, `b`.`ISBN`, count(*) as `total` from `CHECKOUT` as `c` 
+join `ITEM` as `i` on `c`.`ITEM_ID` = `i`.`ID` 
+join `BIBLIO` as `b` on `i`.`BIBLIO_ID` = `b`.`ID` 
+where (`c`.checkout_date >= '2019-07-01' AND `c`.checkout_date <= '2019-07-31') 
+group by `b`.`ID`) as `view` 
+order by `view`.`total` desc
+
+-----------------------------------
+3）在特定日期内(CHECKOUT_DATE)，所借出的书,根据 CHECKOUT_DATE 排列
+（从小排到大 - asc，从大排到小desc ，limit 1000 笔 <-- 有需要可以自行改动）
+-----------------------------------
+
+select `p`.`NAME2`,`p`.`NAME`, `pt`.`NAME`,  `g`.`NAME`, `b`.`TITLE`,`i`.`barcode`, `c`.`CHECKOUT_DATE`
+from `CHECKOUT` as `c` 
+join `PATRON` as `p` on `c`.`PATRON_ID` = `p`.`ID` 
+join `PATRON_TYPE` as `pt` on `pt`.`ID` = `p`.`PATRONTYPE_ID` 
+join `GROUPS` as `g` on `g`.`ID` = `p`.`GROUP_ID` 
+join `ITEM` as `i` on `c`.`ITEM_ID` = `i`.`ID` 
+join `BIBLIO` as `b` on `i`.`BIBLIO_ID` = `b`.`ID` 
+where (1 = 1 and `c`.`CHECKOUT_DATE` >= '2019-01-01' and `c`.`CHECKOUT_DATE` <= '2020-01-01') 
+order by `c`.`CHECKOUT_DATE` asc limit 1000
+
+-----------------------------------
+4）逾期清单
+跟Group，DUE_DATE 从大到小排列，你需要自己改`DUE_DATE`的日期
+-----------------------------------
+
+select `p`.`CARD_KEY`,`g`.`NAME` as `GROUP`, `p`.`NAME2` `NAME`, `p`.`NAME` as `NAME2`, `i`.`BARCODE`, `b`.`TITLE`,`c`.`CHECKOUT_DATE`, `c`.`DUE_DATE`
+from `CHECKOUT` as `c` 
+join `PATRON` as `p` on `c`.`PATRON_ID` = `p`.`ID` 
+join `PATRON_TYPE` as `pt` on `pt`.`ID` = `p`.`PATRONTYPE_ID` 
+join `GROUPS` as `g` on `g`.`ID` = `p`.`GROUP_ID` join `ITEM` as `i` on `c`.`ITEM_ID` = `i`.`ID` 
+join `BIBLIO` as `b` on `i`.`BIBLIO_ID` = `b`.`ID` 
+where (1 = 1 and `c`.`DUE_DATE` >= '2000-01-01' 
+and `c`.`DUE_DATE` <= '2020-10-02' 
+and `c`.`STATE` in ('CHECKOUT', 'RENEW')) 
+order by `GROUP`, `c`.`DUE_DATE` desc
+
+-----------------------------------
+5）没有isbn的图书，如何处理的呢？
+   答：可以不填，然后用一下的SQL找出
+-----------------------------------
+
+select b.title, b.isbn from biblio b where b.isbn is NULL
