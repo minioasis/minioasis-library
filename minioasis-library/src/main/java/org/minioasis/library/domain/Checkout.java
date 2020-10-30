@@ -367,7 +367,9 @@ public class Checkout implements Serializable {
 		
 		for(Holiday h : holidays) {
 			if(!h.getStartDate().isBefore(due) && !h.getEndDate().isAfter(given)) {	
-				days = days + h.getHolidays();
+				if(h.getFine() == true) {
+					days = days + h.getHolidays();
+				}			
 			}
 		}
 
