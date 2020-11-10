@@ -336,7 +336,7 @@ public class Checkout implements Serializable {
 				state.equals(CheckoutState.REPORTLOST_WITH_FINE)){
 			
 			due = (int)ChronoUnit.DAYS.between(dueDate, done);
-			noOfHolidays = getNoOfHolidaysBetween(dueDate, done);
+			noOfHolidays = getNoOfNoFineDaysBetween(dueDate, done);
 			
 			dueDays = due - noOfHolidays;
 			
@@ -350,7 +350,7 @@ public class Checkout implements Serializable {
 			
 			// due
 			if(due < 0) {
-				noOfHolidays = getNoOfHolidaysBetween(dueDate, given);
+				noOfHolidays = getNoOfNoFineDaysBetween(dueDate, given);
 				dueDays = - due - noOfHolidays;
 				
 				return dueDays;
@@ -361,13 +361,13 @@ public class Checkout implements Serializable {
 		return dueDays;
 	}
 	
-	private int getNoOfHolidaysBetween(LocalDate due, LocalDate given) {
+	private int getNoOfNoFineDaysBetween(LocalDate due, LocalDate given) {
 		
 		int days = 0;
 		
 		for(Holiday h : holidays) {
 			if(!h.getStartDate().isBefore(due) && !h.getEndDate().isAfter(given)) {	
-				if(h.getFine() == true) {
+				if(h.getFine() == false) {
 					days = days + h.getHolidays();
 				}			
 			}
