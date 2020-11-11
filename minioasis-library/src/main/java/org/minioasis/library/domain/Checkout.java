@@ -381,12 +381,9 @@ public class Checkout implements Serializable {
 		BigDecimal totalFine = new BigDecimal(0);
 		
 		double fineRate = this.patron.getPatronType().getFineRate().doubleValue();
-		System.out.println("*****1*****" + fineRate);
-		System.out.println("*****2*****" + daysOfOverDue);
 		double fineAmount = daysOfOverDue * fineRate;
 	
 		totalFine =  new BigDecimal(round(fineAmount,1)).setScale(1,BigDecimal.ROUND_HALF_UP);
-		System.out.println("*****totalFine*****" + totalFine);	
 		return totalFine;
 	}
 	
