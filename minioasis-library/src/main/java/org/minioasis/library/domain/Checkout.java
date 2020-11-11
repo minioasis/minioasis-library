@@ -329,16 +329,16 @@ public class Checkout implements Serializable {
 	
 		int dueDays = 0;
 		int due = 0;
-		int noOfHolidays = 0;
+		int noFineDays = 0;
 		
 		if(state.equals(CheckoutState.RETURN_WITH_FINE) ||
 				state.equals(CheckoutState.RETURN_WITH_DAMAGE_AND_FINE) ||
 				state.equals(CheckoutState.REPORTLOST_WITH_FINE)){
 			
 			due = (int)ChronoUnit.DAYS.between(dueDate, done);
-			noOfHolidays = getNoOfNoFineDaysBetween(dueDate, done);
+			noFineDays = getNoOfNoFineDaysBetween(dueDate, done);
 			
-			dueDays = due - noOfHolidays;
+			dueDays = due - noFineDays;
 			
 			if(dueDays < 0)	return 0;
 		}
@@ -350,8 +350,8 @@ public class Checkout implements Serializable {
 			
 			// due
 			if(due < 0) {
-				noOfHolidays = getNoOfNoFineDaysBetween(dueDate, given);
-				dueDays = - due - noOfHolidays;
+				noFineDays = getNoOfNoFineDaysBetween(dueDate, given);
+				dueDays = - due - noFineDays;
 				
 				return dueDays;
 			}
@@ -381,10 +381,12 @@ public class Checkout implements Serializable {
 		BigDecimal totalFine = new BigDecimal(0);
 		
 		double fineRate = this.patron.getPatronType().getFineRate().doubleValue();
+		System.out.println("*****1*****" + fineRate);
+		System.out.println("*****2*****" + daysOfOverDue);
 		double fineAmount = daysOfOverDue * fineRate;
-			
+	
 		totalFine =  new BigDecimal(round(fineAmount,1)).setScale(1,BigDecimal.ROUND_HALF_UP);
-
+		System.out.println("*****totalFine*****" + totalFine);	
 		return totalFine;
 	}
 	

@@ -8,11 +8,13 @@ import org.jooq.Record4;
 import org.jooq.Result;
 import org.minioasis.library.domain.Checkout;
 import org.minioasis.library.domain.CheckoutState;
+import org.minioasis.library.domain.Holiday;
 import org.minioasis.library.domain.search.CheckoutPatronCriteria;
 import org.minioasis.library.domain.search.TopCheckoutPatronsSummary;
 import org.minioasis.library.domain.search.TopPopularBooksCriteria;
 import org.minioasis.library.domain.search.TopPopularBooksSummary;
 import org.minioasis.library.repository.CheckoutRepository;
+import org.minioasis.library.repository.HolidayRepository;
 import org.minioasis.library.repository.PatronRepository;
 import org.minioasis.report.chart.ChartData;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,6 +31,8 @@ public class ReportServiceImpl implements ReportService {
 	private PatronRepository patronRepository;
 	@Autowired
 	private CheckoutRepository checkoutRepository;
+	@Autowired
+	private HolidayRepository holidayRepository;
 	
 	public Result<Record4<Integer,Integer, String, Integer>> CountPatronsByTypes(){
 		return this.patronRepository.CountPatronsByTypes();
@@ -61,9 +65,12 @@ public class ReportServiceImpl implements ReportService {
 	public 	Page<Checkout> findAllOverDueOrderByDueDateCardKey(List<CheckoutState> cStates, LocalDate given, Pageable pageable){
 		
 		Page<Checkout> page = checkoutRepository.findAllOverDueOrderByDueDateCardKey(cStates, given, pageable);
-		
 		List<Checkout> checkouts = page.getContent();
+		
+		List<Holiday> holidays = holidayRepository.findByStartDateAfterAndFine(findEarliestDueDate(checkouts), Boolean.FALSE);
+			
 		for(Checkout c : checkouts) {
+			c.setHolidays(holidays);
 			c.preparingCheckoutOn(given);
 		}
 		
@@ -73,12 +80,27 @@ public class ReportServiceImpl implements ReportService {
 	public Page<Checkout> findAllOverDueOrderByGroupPatronTypeDueDateCardKey(List<CheckoutState> cStates, LocalDate given, Pageable pageable){
 		
 		Page<Checkout> page = checkoutRepository.findAllOverDueOrderByGroupPatronTypeDueDateCardKey(cStates, given, pageable);
-		
 		List<Checkout> checkouts = page.getContent();
+		
+		List<Holiday> holidays = holidayRepository.findByStartDateAfterAndFine(findEarliestDueDate(checkouts), Boolean.FALSE);
+		
 		for(Checkout c : checkouts) {
+			c.setHolidays(holidays);
 			c.preparingCheckoutOn(given);
 		}
 		
 		return page;
+	}
+	
+	private LocalDate findEarliestDueDate(List<Checkout> checkouts) {
+		
+		LocalDate dueDate = LocalDate.MAX;
+		
+		for(Checkout c : checkouts) {
+			if(c.getDueDate().isBefore(dueDate)) {
+				dueDate = c.getDueDate();
+			}	
+		}
+		return dueDate;
 	}
 }
