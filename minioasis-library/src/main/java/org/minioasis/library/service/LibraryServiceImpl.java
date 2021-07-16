@@ -214,7 +214,9 @@ public class LibraryServiceImpl implements LibraryService {
 			result.setReservation(r);
 		}
 
+		item.setState(ItemState.IN_LIBRARY);
 		this.itemRepository.save(item);
+		
 		this.patronRepository.save(patron);
 
 		return result;
@@ -260,6 +262,7 @@ public class LibraryServiceImpl implements LibraryService {
 			result.setReservation(r);
 		}
 		
+		item.setState(ItemState.IN_LIBRARY);
 		this.itemRepository.save(item);
 		
 		return result;
@@ -745,7 +748,6 @@ public class LibraryServiceImpl implements LibraryService {
 	
 	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_LIBRARIAN')")
 	public void save(Item entity){
-		entity.setState(ItemState.IN_LIBRARY);
 		this.itemRepository.save(entity);
 	}
 	

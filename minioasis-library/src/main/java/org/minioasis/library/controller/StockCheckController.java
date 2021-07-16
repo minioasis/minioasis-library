@@ -40,10 +40,12 @@ public class StockCheckController {
 
 				result.reject("info.item.checked");
 
-			}else {			
+			}else {	
+
 				item.setChecked(YesNo.Y);
 				this.service.save(item);			
 				cmd.setItem(item);
+
 			}
 		}
 
