@@ -1,3 +1,11 @@
+> [!CAUTION]
+> This codebase is deprecated and kept for historical reference only.  
+> It is no longer maintained, contains known security and stability issues,  
+> and must not be used for new deployments or production systems.  
+>
+> Active development has moved to: https://github.com/GoldBeluga/minioasis
+>
+> *Modified 7 December 2025*
 # minioasis-library
 
 小绿洲图书馆管理系统
@@ -37,3 +45,11 @@ B) 系统采用的技术：
 * bootstrap 4
 
 这套系统的设计重点就是简单易用，普通人容易上手，解决微型图书馆的痛苦。
+<div style="
+  padding: 16px;
+  border: 1px solid #d2a679;
+  border-radius: 8px;
+  background-color: #3b1c0a;
+  color: #ffffff;
+  font-size: 16px;
+">
