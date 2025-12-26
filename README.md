@@ -2,10 +2,8 @@
 > This codebase is deprecated and kept for historical reference only.  
 > It is no longer maintained, contains known security and stability issues,  
 > and must not be used for new deployments or production systems.  
->
-> Active development has moved to: https://github.com/GoldBeluga/minioasis
->
-> *Modified 7 December 2025*
+>>
+> *Modified 26 December 2025*
 # minioasis-library
 
 小绿洲图书馆管理系统
